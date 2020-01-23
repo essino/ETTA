@@ -11,16 +11,17 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.29797979797979796" layoutX="131.0" layoutY="140.0" prefHeight="600.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button layoutX="60.0" layoutY="210.0" mnemonicParsing="false" text="Income" />
-                  <Button layoutX="57.0" layoutY="119.0" mnemonicParsing="false" text="Balance" />
-                  <Button layoutX="62.0" layoutY="435.0" mnemonicParsing="false" text="Menu" />
-                  <Button layoutX="55.0" layoutY="389.0" mnemonicParsing="false" text="Outcome" />
+                  <Button layoutX="60.0" layoutY="210.0" mnemonicParsing="false" text="Income" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="250.0" />
+                  <Button layoutX="57.0" layoutY="119.0" mnemonicParsing="false" text="Balance" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0" />
+                  <Button layoutX="62.0" layoutY="435.0" mnemonicParsing="false" text="Menu" AnchorPane.bottomAnchor="625.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button layoutX="55.0" layoutY="389.0" mnemonicParsing="false" text="Outcome" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="375.0" />
+                  <Button layoutX="62.0" layoutY="287.0" mnemonicParsing="false" text="Savings" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
