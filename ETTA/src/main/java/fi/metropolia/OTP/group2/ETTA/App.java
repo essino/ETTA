@@ -1,7 +1,7 @@
 package fi.metropolia.OTP.group2.ETTA;
 
 /**
- * Hello world!!
+ * Hello world!!!
  *
  */
 public class App 
