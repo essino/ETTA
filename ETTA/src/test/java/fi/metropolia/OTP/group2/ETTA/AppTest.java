@@ -3,11 +3,11 @@ package fi.metropolia.OTP.group2.ETTA;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
+//
 /**
  * Unit test for simple App.
  */
-public class App1Test 
+public class AppTest 
     extends TestCase
 {
     /**
@@ -15,7 +15,7 @@ public class App1Test
      *
      * @param testName name of the test case
      */
-    public App1Test( String testName )
+    public AppTest( String testName )
     {
         super( testName );
     }
@@ -25,7 +25,7 @@ public class App1Test
      */
     public static Test suite()
     {
-        return new TestSuite( App1Test.class );
+        return new TestSuite( AppTest.class );
     }
 
     /**
