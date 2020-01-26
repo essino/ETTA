@@ -8,14 +8,12 @@
 <?import javafx.scene.layout.BorderPane?>
 
 
-    <AnchorPane prefHeight="750.0" prefWidth="200.0">
- 
-    <ToolBar prefHeight="504.0" prefWidth="421.0" BorderPane.alignment="CENTER">
-      <items>
-        <Button  mnemonicParsing="false"  text="ButtonA" />
-        <Button  mnemonicParsing="false" text="ButtonB" />
-        <Button  mnemonicParsing="false" text="ButtonC" />
-      </items>
-    </ToolBar>
-
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+	<children>
+		<Button mnemonicParsing="false" text="Wishlists" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="250.0" />
+		<Button mnemonicParsing="false" text="Economy" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="375.0" />
+		<Button mnemonicParsing="false" text="Home" AnchorPane.bottomAnchor="625.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+		<Button mnemonicParsing="false" text="Borrowed stuff" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0" />
+		<Button mnemonicParsing="false" text="Contacts" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0" />
+	</children>
 </AnchorPane>

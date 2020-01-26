@@ -18,10 +18,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-/**
- * Hello world!!!!!!!!!!!!
- *
- */
 public class App extends Application
 {
 	@Override
@@ -30,7 +26,8 @@ public class App extends Application
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root);
 		AnchorPane menuLayout = new AnchorPane();
-		FXMLLoader fxmlLoaderMenu = new FXMLLoader(getClass().getResource("MainViewWithMenu.fxml"));
+		//FXMLLoader fxmlLoaderMenu = new FXMLLoader(getClass().getResource("MainViewWithMenu.fxml"));
+		FXMLLoader fxmlLoaderMenu = new FXMLLoader(getClass().getResource("EconomyMenu.fxml"));
 		try {
 			menuLayout = fxmlLoaderMenu.load();
 		} catch (IOException e) {
@@ -40,6 +37,18 @@ public class App extends Application
 		SubScene menu = new SubScene(menuLayout, 200, 750);
 		root.setLeft(menu);
 
+		AnchorPane savingsLayout = new AnchorPane();
+		//FXMLLoader fxmlLoaderMenu = new FXMLLoader(getClass().getResource("MainViewWithMenu.fxml"));
+		FXMLLoader fxmlLoaderSavings = new FXMLLoader(getClass().getResource("SavingsContent.fxml"));
+		try {
+			savingsLayout = fxmlLoaderSavings.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		SubScene savings = new SubScene(savingsLayout, 800, 750);
+		root.setCenter(savings);
+		/*
 		CalendarView calendarView = new CalendarView(); 
 
         Calendar birthdays = new Calendar("Birthdays"); 
@@ -81,6 +90,7 @@ public class App extends Application
 
         SubScene calendarScene = new SubScene(calendarView, 800, 750);
         root.setCenter(calendarScene);
+       */
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
