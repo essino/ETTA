@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+    <AnchorPane prefHeight="750.0" prefWidth="200.0">
+ 
+    <ToolBar prefHeight="504.0" prefWidth="421.0" BorderPane.alignment="CENTER">
+      <items>
+        <Button  mnemonicParsing="false"  text="ButtonA" />
+        <Button  mnemonicParsing="false" text="ButtonB" />
+        <Button  mnemonicParsing="false" text="ButtonC" />
+      </items>
+    </ToolBar>
+
+</AnchorPane>
