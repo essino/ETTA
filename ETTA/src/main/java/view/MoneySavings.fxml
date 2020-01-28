@@ -21,6 +21,7 @@
           <Button mnemonicParsing="false" text="Add" />
             <Button mnemonicParsing="false" text="Edit" />
             <Button mnemonicParsing="false" text="Remove" />
+            <Button mnemonicParsing="false" text="Economize" />
         </buttons>
       </ButtonBar>
    </children>
