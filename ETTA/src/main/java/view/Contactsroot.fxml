@@ -10,15 +10,15 @@
    <children>
       <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
         <columns>
-          <TableColumn minWidth="-Infinity" prefWidth="150.0" text="Item" />
-          <TableColumn minWidth="-Infinity" prefWidth="150.0" text="Loan date" />
-            <TableColumn prefWidth="150.0" text="Return date" />
-            <TableColumn prefWidth="150.0" text="Borrowed by" />
+          <TableColumn minWidth="-Infinity" prefWidth="150.0" text="Person" />
+          <TableColumn minWidth="-Infinity" prefWidth="150.0" text="Email" />
+            <TableColumn prefWidth="150.0" text="Birthday" />
+            <TableColumn prefWidth="150.0" text="Address" />
         </columns>
       </TableView>
       <ButtonBar prefHeight="40.0" prefWidth="600.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="683.0">
         <buttons>
-            <Button mnemonicParsing="false" text="Add new item" />
+            <Button mnemonicParsing="false" text="Add new contact" />
             <Button mnemonicParsing="false" text="Edit" />
             <Button mnemonicParsing="false" text="Send email" />
           <Button mnemonicParsing="false" text="Delete" />
