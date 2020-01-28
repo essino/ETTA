@@ -27,6 +27,8 @@ public class CalendarGUI extends Application{
 		Parent root = FXMLLoader.load(getClass().getResource("/view/CalendarRoot.fxml"));
         Scene scene = new Scene(root, 1000, 750);
 		primaryStage.setScene(scene); 
+		WeekPage calendarView = new WeekPage();
+		((BorderPane) root).setCenter(calendarView);
 		primaryStage.show();
 	}
 
@@ -36,7 +38,6 @@ public class CalendarGUI extends Application{
 
 	@FXML
 	public void showDayView() {
-		System.out.println("showdayview");
 		DayPage calendarView = new DayPage();
 		/*
 		AnchorPane menuLayout = new AnchorPane(); 
