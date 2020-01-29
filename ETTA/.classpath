@@ -28,5 +28,8 @@
 	<classpathentry kind="lib" path="C:/Users/Lena/git/CalendarFX5/CalendarFXAssembly/target/calendarfx-8.6.1-bin/ext/fontawesomefx-fontawesome-4.7.0-1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Lena/git/CalendarFX5/CalendarFXAssembly/target/calendarfx-8.6.1-bin/lib/calendarfx-recurrence-8.6.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Lena/git/CalendarFX5/CalendarFXAssembly/target/calendarfx-8.6.1-bin/lib/calendarfx-view-8.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lena/hibernate-release-5.4.6.Final/lib/required/dom4j-2.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lena/hibernate-release-5.4.6.Final/lib/required/hibernate-core-5.4.6.Final.jar" sourcepath="/Olso Teh12"/>
+	<classpathentry kind="lib" path="C:/Users/Lena/hibernate-release-5.4.6.Final/lib/required/javax.persistence-api-2.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
