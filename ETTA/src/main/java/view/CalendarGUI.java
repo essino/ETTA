@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarEvent;
@@ -13,6 +15,11 @@ import com.calendarfx.view.DetailedDayView;
 import com.calendarfx.view.page.DayPage;
 import com.calendarfx.view.page.MonthPage;
 import com.calendarfx.view.page.WeekPage;
+import com.calendarfx.view.popover.EntryDetailsView;
+import com.calendarfx.view.popover.EntryHeaderView;
+import com.calendarfx.view.popover.EntryPopOverPane;
+import com.calendarfx.view.popover.EntryPropertiesView;
+import com.calendarfx.view.popover.PopOverContentPane;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -23,6 +30,7 @@ import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class CalendarGUI extends Application{
@@ -68,7 +76,7 @@ public class CalendarGUI extends Application{
 	@FXML
 	public void showDayView() {
 		System.out.println("showdayview");
-		DayPage calendarView = new DayPage();
+		//DayPage calendarView = new DayPage();
 		//DetailedDayView calendarView = new DetailedDayView();   
         //SubScene calendarScene = new SubScene(calendarView, 800, 750);
         //mainPane.setCenter(calendarView);
@@ -111,14 +119,27 @@ public class CalendarGUI extends Application{
 		System.out.println(evt.getEntry().isFullDay());
 		System.out.println(evt.getEntry().getLocation());
 		System.out.println(evt.getEntry().getStartTime());
+		System.out.println(evt.getOldText());
 	}
 
 	@FXML
 	public void showMonthView() {
-		MonthPage calendarView = new MonthPage();
+		//MonthPage calendarView = new MonthPage();
+		Calendar days = new Calendar("days");
+		Entry<Object> newEntry = new Entry<>("new entry");
+		newEntry.changeStartDate(LocalDate.now());
+		days.addEntry(newEntry);
+		List<Calendar> calendars = new ArrayList();
+		calendars.add(days);
+		EntryHeaderView header = new EntryHeaderView(newEntry, calendars);
+		EntryDetailsView newentry = new EntryDetailsView(newEntry);
+		Pane viewPane = new Pane();
+		viewPane.getChildren().addAll(header, newentry);
 		//MonthView calendarView = new MonthView();   
         //SubScene calendarScene = new SubScene(calendarView, 800, 750);
-        mainPane.setCenter(calendarView);
+        //mainPane.setCenter(calendarView);
+		//mainPane.setTop(header);
+		mainPane.setCenter(viewPane);
 	}
 	
 
