@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.CalendarGUI">
+   <left>
+      <VBox prefHeight="750.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+			<Button mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0" text="Home" AnchorPane.bottomAnchor="625.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+			<Button mnemonicParsing="false" onAction="#showDayView" prefHeight="150.0" prefWidth="200.0" text="Dayview" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0" />
+            <Button mnemonicParsing="false" onAction="#showWeekView" prefHeight="150.0" prefWidth="200.0" text="Weekview" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="250.0" />
+			<Button mnemonicParsing="false" onAction="#showMonthView" prefHeight="150.0" prefWidth="200.0" text="Monthview" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="375.0" />
+      		<Button mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0" text="Add event" />
+         </children>
+      </VBox>
+   </left>
+</BorderPane>
