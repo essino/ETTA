@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="CalendarMenu" prefHeight="750.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainViewController">
+   <children>
+      <VBox prefHeight="750.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="backToMain" mnemonicParsing="false"  prefHeight="150.0" prefWidth="200.0" text="MainMenu" />
+            <Button fx:id="CalendarDay" mnemonicParsing="false" onAction="#showDayView" prefHeight="150.0" prefWidth="200.0" text="DayView" />
+            <Button fx:id="CalendarWeek" mnemonicParsing="false" onAction="#showWeekView" prefHeight="150.0" prefWidth="200.0" text="WeekView" />
+            <Button fx:id="CalendarMonth" mnemonicParsing="false" onAction="#showMonthView" prefHeight="150.0" prefWidth="200.0" text="MonthView" />
+            <Button fx:id="CalendarAdd" mnemonicParsing="false" onAction="#showMonthView" prefHeight="150.0" prefWidth="200.0" text="Add event" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
