@@ -13,7 +13,7 @@
             <Button fx:id="CalendarDay" mnemonicParsing="false" onAction="#showDayView" prefHeight="150.0" prefWidth="200.0" text="DayView" />
             <Button fx:id="CalendarWeek" mnemonicParsing="false" onAction="#showWeekView" prefHeight="150.0" prefWidth="200.0" text="WeekView" />
             <Button fx:id="CalendarMonth" mnemonicParsing="false" onAction="#showMonthView" prefHeight="150.0" prefWidth="200.0" text="MonthView" />
-            <Button fx:id="CalendarAdd" mnemonicParsing="false" onAction="#showMonthView" prefHeight="150.0" prefWidth="200.0" text="Add event" />
+            <Button fx:id="CalendarAdd" mnemonicParsing="false" onAction="#showAddView" prefHeight="150.0" prefWidth="200.0" text="Add event" />
          </children>
       </VBox>
    </children>
