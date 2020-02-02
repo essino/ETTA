@@ -67,7 +67,6 @@ public class App extends Application
 		borderPaneCalendar.setCenter(calendarView);
 		
 		tab3.setContent(borderPaneCalendar);
-		
         tabPane.getTabs().add(tab1);
         tabPane.getTabs().add(tab2);
         tabPane.getTabs().add(tab3);
