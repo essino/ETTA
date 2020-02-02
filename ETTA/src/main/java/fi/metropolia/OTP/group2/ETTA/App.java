@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.calendarfx.view.page.WeekPage;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -13,15 +14,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-/**
- * Hello world!!!!
- *
- */
-public class App 
+
+
+
+public class App extends Application
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!");
+    	launch(args);
     }
     
     public void start(Stage primaryStage) {
@@ -78,7 +78,7 @@ public class App
         Scene scene = new Scene(vBox);
 
         primaryStage.setScene(scene);
-        primaryStage.setTitle("JavaFX App");
+        primaryStage.setTitle("ETTA");
 
         primaryStage.show();
     }
