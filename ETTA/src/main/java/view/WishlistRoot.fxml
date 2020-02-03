@@ -10,11 +10,7 @@
    <left>
       <VBox prefHeight="750.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="200.0" text="Home">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
+            
             <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="200.0" text="All Items">
                <font>
                   <Font size="18.0" />

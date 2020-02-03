@@ -8,7 +8,6 @@
    <left>
       <VBox prefHeight="750.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="200.0" text="Home" />
             <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="200.0" text="Borrowed items" />
             <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="200.0" text="Search" />
          </children>
