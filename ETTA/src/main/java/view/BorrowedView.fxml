@@ -6,17 +6,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="borrowedviewanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="borrowedviewanchorpane" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
-        <columns>
-          <TableColumn minWidth="-Infinity" prefWidth="150.0" text="Item" />
-          <TableColumn minWidth="-Infinity" prefWidth="150.0" text="Loan date" />
-            <TableColumn prefWidth="150.0" text="Return date" />
-            <TableColumn prefWidth="150.0" text="Borrowed by" />
-        </columns>
-      </TableView>
-      <ButtonBar prefHeight="40.0" prefWidth="600.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="683.0">
+      <ButtonBar layoutY="643.0" prefHeight="40.0" prefWidth="600.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="643.0">
         <buttons>
             <Button mnemonicParsing="false" text="Add new item" />
             <Button mnemonicParsing="false" text="Edit" />
@@ -24,5 +16,13 @@
           <Button mnemonicParsing="false" text="Delete" />
         </buttons>
       </ButtonBar>
+      <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
+        <columns>
+          <TableColumn minWidth="-Infinity" prefWidth="150.0" text="Item" />
+          <TableColumn minWidth="-Infinity" prefWidth="150.0" text="Loan date" />
+            <TableColumn prefWidth="150.0" text="Return date" />
+            <TableColumn prefWidth="150.0" text="Borrowed by" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
