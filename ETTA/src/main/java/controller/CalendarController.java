@@ -11,6 +11,7 @@ import com.calendarfx.view.page.MonthPage;
 import com.calendarfx.view.page.WeekPage;
 import com.calendarfx.view.popover.EntryDetailsView;
 import com.calendarfx.view.popover.EntryHeaderView;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;

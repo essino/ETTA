@@ -37,8 +37,13 @@ public class Event {
 	@Column(name="rrule")
 	private String rrule;
 
+	/*
 	@Column(name="calendar")
 	private Calendar calendar;
+	*/
+	
+	@Column(name="calendar")
+	private String calendar;
 
 	public boolean isRecurring() {
 		return recurring;
@@ -56,6 +61,7 @@ public class Event {
 		this.rrule = rrule;
 	}
 
+	/*
 	public Calendar getCalendar() {
 		return calendar;
 	}
@@ -63,9 +69,17 @@ public class Event {
 	public void setCalendar(Calendar calendar) {
 		this.calendar = calendar;
 	}
-
+*/
 	public boolean isFullday() {
 		return fullday;
+	}
+
+	public String getCalendar() {
+		return calendar;
+	}
+
+	public void setCalendar(String calendar) {
+		this.calendar = calendar;
 	}
 
 	public void setFullday(boolean fullday) {

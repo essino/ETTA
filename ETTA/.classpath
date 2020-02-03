@@ -18,11 +18,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Lena/git/CalendarFX5/CalendarFXAssembly/target/calendarfx-8.6.1-bin/ext/controlsfx-8.40.13.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Lena/git/CalendarFX5/CalendarFXAssembly/target/calendarfx-8.6.1-bin/ext/fontawesomefx-commons-8.13.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Lena/git/CalendarFX5/CalendarFXAssembly/target/calendarfx-8.6.1-bin/ext/fontawesomefx-fontawesome-4.7.0-1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Lena/git/CalendarFX5/CalendarFXAssembly/target/calendarfx-8.6.1-bin/lib/calendarfx-recurrence-8.6.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Lena/git/CalendarFX5/CalendarFXAssembly/target/calendarfx-8.6.1-bin/lib/calendarfx-view-8.6.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Lena/hibernate-release-5.4.6.Final/lib/required/javax.persistence-api-2.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
