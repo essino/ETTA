@@ -1,18 +1,11 @@
 package fi.metropolia.OTP.group2.ETTA;
 
-import java.io.IOException;
-
-import com.calendarfx.view.page.WeekPage;
-
 import controller.MainViewController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -41,7 +34,6 @@ public class App extends Application
       
 		
 		//economy main view
-		//tab2.setContent(mainController.EconomyView());
 		tab2.setOnSelectionChanged(event -> {
 	        if (tab2.isSelected()) {
 	        	tab2.setContent(mainController.EconomyView());
@@ -49,7 +41,6 @@ public class App extends Application
 	        });
 		
 		//calendar page view
-		//tab3.setContent(mainController.CalendarView());
 		tab3.setOnSelectionChanged(event -> {
 	        if (tab3.isSelected()) {
 	        	tab3.setContent(mainController.CalendarView());
@@ -57,7 +48,6 @@ public class App extends Application
 	        });
 		
 		//wishlist main view
-		//tab4.setContent(mainController.WishlistView());
 		tab4.setOnSelectionChanged(event -> {
 	        if (tab4.isSelected()) {
 	        	tab4.setContent(mainController.WishlistView());
@@ -65,7 +55,6 @@ public class App extends Application
 	        });
 		
 		//borrowed main view
-		//tab5.setContent(mainController.BorrowedView());
 		tab5.setOnSelectionChanged(event -> {
 	        if (tab5.isSelected()) {
 	        	tab5.setContent(mainController.BorrowedView());
@@ -73,7 +62,6 @@ public class App extends Application
 	        });
 		
 		//contacts main view
-		//tab6.setContent(mainController.ContactsView());
 		tab6.setOnSelectionChanged(event -> {
 	        if (tab6.isSelected()) {
 	        	tab6.setContent(mainController.ContactsView());
