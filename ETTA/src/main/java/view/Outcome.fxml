@@ -12,7 +12,8 @@
         <columns>
           <TableColumn prefWidth="247.0" text="Reason" />
           <TableColumn prefWidth="261.0" text="Place" />
-            <TableColumn prefWidth="235.0" text="Expenses" />
+            <TableColumn minWidth="0.0" prefWidth="114.0" text="Expenses" />
+            <TableColumn prefWidth="121.0" text="Date" />
         </columns>
       </TableView>
       <ButtonBar layoutX="426.0" layoutY="685.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="28.0">

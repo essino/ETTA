@@ -6,12 +6,12 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane fx:id="wishmainpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="wishmainpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WishlistController">
    <left>
       <VBox prefHeight="750.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="200.0" text="All Items">
+            <Button onAction="#showAll"  layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="125.0" prefWidth="200.0" text="All Items">
                <font>
                   <Font size="18.0" />
                </font>
