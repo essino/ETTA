@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -145,6 +146,7 @@ public class App extends Application
         tabPane.getTabs().add(tab5);
         tabPane.getTabs().add(tab6);
         
+        tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         VBox vBox = new VBox(tabPane);
         Scene scene = new Scene(vBox);
 
