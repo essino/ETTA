@@ -13,6 +13,54 @@ import javax.persistence.Table;
 
 public class All_savings{
 	
+	public int getSaving_id() {
+		return saving_id;
+	}
+
+	public void setSaving_id(int saving_id) {
+		this.saving_id = saving_id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public float getAmount() {
+		return amount;
+	}
+
+	public void setAmount(float amount) {
+		this.amount = amount;
+	}
+
+	public float getGoal_amount() {
+		return goal_amount;
+	}
+
+	public void setGoal_amount(float goal_amount) {
+		this.goal_amount = goal_amount;
+	}
+
+	public Date getGoal_date() {
+		return goal_date;
+	}
+
+	public void setGoal_date(Date goal_date) {
+		this.goal_date = goal_date;
+	}
+
+	public float getReached_goal() {
+		return reached_goal;
+	}
+
+	public void setReached_goal(float reached_goal) {
+		this.reached_goal = reached_goal;
+	}
+
 	@Id
 	@Column(name="saving_id")
 	private int saving_id;
