@@ -15,7 +15,7 @@ public class EconomyController {
 	@FXML
 	public void showBalance(ActionEvent event) {
 		AnchorPane showBalanceView = null; //Luon anchorpanin showBalanceView
-		FXMLLoader loaderBalanceView  = new FXMLLoader(getClass().getResource("/view/BalanceOverview.fxml")); //haen tiedot anchorpaniin
+		FXMLLoader loaderBalanceView  = new FXMLLoader(getClass().getResource("/view/EconomyBalanceOverview.fxml")); //haen tiedot anchorpaniin
 		try {
 			showBalanceView = loaderBalanceView.load();
 			} catch (IOException e) {
@@ -28,7 +28,7 @@ public class EconomyController {
 	@FXML
 	public void showIncome(ActionEvent event) {
 		AnchorPane showIncomeView = null; 
-		FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/Income.fxml")); 
+		FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/EconomyIncome.fxml")); 
 		try {
 			showIncomeView = loaderIncomeView.load();
 			} catch (IOException e) {
@@ -42,7 +42,7 @@ public class EconomyController {
 	@FXML
 	public void showExpencies(ActionEvent event) {
 		AnchorPane showExpenciesView = null; 
-		FXMLLoader loaderExpenciesView  = new FXMLLoader(getClass().getResource("/view/Outcome.fxml")); 
+		FXMLLoader loaderExpenciesView  = new FXMLLoader(getClass().getResource("/view/EconomyOutcome.fxml")); 
 		try {
 			showExpenciesView = loaderExpenciesView.load();
 			} catch (IOException e) {
@@ -55,7 +55,7 @@ public class EconomyController {
 	@FXML
 	public void showSavings(ActionEvent event) {
 		AnchorPane showSavingsView = null; 
-		FXMLLoader loaderSavingsView  = new FXMLLoader(getClass().getResource("/view/Savings.fxml")); 
+		FXMLLoader loaderSavingsView  = new FXMLLoader(getClass().getResource("/view/EconomySavings.fxml")); 
 		try {
 			showSavingsView = loaderSavingsView.load();
 			} catch (IOException e) {

@@ -32,7 +32,7 @@ public class MainViewController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		FXMLLoader loaderBalance  = new FXMLLoader(getClass().getResource("/view/BalanceOverview.fxml"));
+		FXMLLoader loaderBalance  = new FXMLLoader(getClass().getResource("/view/EconomyBalanceOverview.fxml"));
 		AnchorPane balanceOverview = null;
 		try {
 			balanceOverview = loaderBalance.load();
