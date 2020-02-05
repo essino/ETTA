@@ -1,5 +1,6 @@
 package model;
 
+
 import java.sql.Date;
 
 import javax.persistence.*;
@@ -20,6 +21,12 @@ public class Person {
 	
 	public Person() {
 		
+	}
+	
+	public Person(String name, Date birthday, String email) {
+		this.name = name;
+		this.birthday = birthday;
+		this.email = email;
 	}
 
 	public int getPerson_id() {
