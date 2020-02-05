@@ -44,6 +44,24 @@ public class Event {
 	
 	@Column(name="calendar")
 	private String calendar;
+	
+	public Event(int event_id, String title, boolean fullday, Date startDate, Date endDate, Time startTime,
+			Time endTime, boolean recurring, String rrule, String calendar) {
+		this.event_id = event_id;
+		this.title = title;
+		this.fullday = fullday;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.recurring = recurring;
+		this.rrule = rrule;
+		this.calendar = calendar;
+	}
+
+	public Event() {
+	
+	}
 
 	public boolean isRecurring() {
 		return recurring;
@@ -133,9 +151,7 @@ public class Event {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
 
-	public Event() {
-
-	}
 
 }
