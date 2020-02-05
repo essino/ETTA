@@ -32,10 +32,7 @@ public class CalendarController {
 	
 	@FXML
 	AnchorPane CalendarAddPane;
-	
-	@FXML
-	Button backToMain;
-	
+
 	@FXML
 	Button CalendarDay;
 	
