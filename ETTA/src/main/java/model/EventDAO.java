@@ -53,7 +53,7 @@ public class EventDAO {
 			transaction = session.beginTransaction();
 			event = (Event)session.get(Event.class, event_id);		
 			transaction.commit();
-			System.out.println(event);
+			System.out.println("reeding one:" + event.getTitle() + " startTime " + event.getStartTime());
 		}
 		catch(Exception e){
 			if (transaction!=null) transaction.rollback();
@@ -65,14 +65,15 @@ public class EventDAO {
 		return event;
 	}
 	
-	public boolean createEvent(Event Event) {
+	public boolean createEvent(Event event) {
+		System.out.println("Event creating " + event.getTitle());
 		boolean created = false;
 		Transaction transaction = null;
 
 		try{
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(Event);
+			session.saveOrUpdate(event);
 			transaction.commit();
 			created = true;
 		}
@@ -105,7 +106,7 @@ public class EventDAO {
 		return updated;
 	}
 	
-	public boolean deleteValuutta(int event_id) {
+	public boolean deleteEvent(int event_id) {
 		boolean deleted = false;
 		// Tiedon haku Session.get-metodilla + poisto jos löytyi
 		try {

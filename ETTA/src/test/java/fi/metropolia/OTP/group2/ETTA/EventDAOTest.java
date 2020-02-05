@@ -7,11 +7,15 @@ import java.sql.Date;
 import java.sql.Time;
 
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import model.Event;
 import model.EventDAO;
 
+@TestMethodOrder(OrderAnnotation.class)
 public class EventDAOTest {
 	private EventDAO eventDAO = new EventDAO();
 	private String str = "1974-03-05";
@@ -23,29 +27,37 @@ public class EventDAOTest {
 	private Event event = new Event(1, "teatteri", false, date, date, startTime, endTime, false, "", "default");
 
 	@Test
+	@Order(1)
 	public void testCreate() {
 		assertEquals(true, eventDAO.createEvent(event), "Creation of person failed");
 	}
 	
 	@Test
+	@Order(2)
 	public void testReadEvents() {
-		assertEquals(true, eventDAO.readEvents(), "Reading failed");
+		assertEquals(1, eventDAO.readEvents().length, "Reading failed");
 	}
 	
 	@Test
+	@Order(3)
 	public void testReadEvent() {
-		assertEquals(true, eventDAO.readEvent(event_id), "Reading failed");
+		assertEquals(date, eventDAO.readEvent(event_id).getEndDate(), "Reading failed");
 	}
 	
 	@Test
-	@Disabled
+	@Order(4)
+
 	public void testUpdate() {
-		fail("Not yet implemented");
+		date = Date.valueOf("2020-03-05");
+		Event updatedEvent = new Event(1, "teatteri", false, date, date, startTime, endTime, false, "", "default");
+		assertEquals(true, eventDAO.updateEvent(updatedEvent), "updating failed");
+		assertEquals(date, eventDAO.readEvent(1).getEndDate(), "date updating failed");
+		
 	}
 	
 	@Test
-	@Disabled
+	@Order(5)
 	public void testDelete() {
-		fail("Not yet implemented");
+		assertEquals(true, eventDAO.deleteEvent(event_id), "deleting failed");
 	}
 }
