@@ -15,7 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller class relating to the Borrowed items section
+ * GUI class relating to the Borrowed items section
  */
 public class BorrowedGUI {
 
@@ -23,8 +23,11 @@ public class BorrowedGUI {
 	 * The menu view to which the alternative views in the Borrowed items section are added
 	 */
 	@FXML
-	BorderPane borrowedrootborderpane;
+	BorderPane borrowedRootBorderPane;
 	
+	/**
+	 * The list view from where adding, editing and deleting can be started
+	 */
 	@FXML 
 	AnchorPane borrowedviewanchorpane;
 	
@@ -42,7 +45,7 @@ public class BorrowedGUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
-		borrowedrootborderpane.setCenter(borrowedSearch);
+		borrowedRootBorderPane.setCenter(borrowedSearch);
 	}
 	
 	/**
@@ -59,9 +62,13 @@ public class BorrowedGUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
-		borrowedrootborderpane.setCenter(borrowedView);
+		borrowedRootBorderPane.setCenter(borrowedView);
 	}
 	
+	/**
+	 * Method showing the view of the list of borrowed items in the Borrowed items section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showBorrowedAdd(ActionEvent event) {
 		AnchorPane borrowedAdd = null;
@@ -72,9 +79,7 @@ public class BorrowedGUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
+		//shows the loaded fxml file
 		borrowedviewanchorpane.getChildren().setAll(borrowedAdd);
-		}
-		
-	
-	
+	}
 }
