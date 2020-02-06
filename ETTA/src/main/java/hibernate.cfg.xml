@@ -12,10 +12,10 @@
 		<!-- create , create-drop, update tai validate -->
 		<!-- Älä käytä tuotantoversioissa, ts, älä anna Hibernaten enää muuttaa taulurakennetta  -->
 		<!-- Ekalla kerralla create, kun kanta olemassa validate -->
-		<property name="hbm2ddl.auto">create</property>
+		<property name="hbm2ddl.auto">validate</property>
 
 		<!-- kun true, kaiuta kaikki SQL-lauseet stdout:iin -->
-		<property name="show_sql">false</property>
+		<property name="show_sql">true</property>
 
 		<!-- Mallitason DTO-oliot, pakkausnimet mukaan -->
 		<mapping class="model.Saving" />

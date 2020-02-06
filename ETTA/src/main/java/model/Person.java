@@ -12,7 +12,7 @@ public class Person {
 	@GeneratedValue
 	@Column
 	private int person_id;
-	@Column(length=0)
+	@Column(length=50)
 	private String name;
 	@Column(nullable=true)
 	private Date birthday;
