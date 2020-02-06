@@ -31,5 +31,15 @@ public class Balance {
 	public void setBalance(float balance) {
 		this.balance = balance;
 	}
+
+	public Balance(float balance) {
+
+		this.balance = balance;
+	}
+	
+	public Balance(int id, float balance) {
+		this.id = id;
+		this.balance = balance;
+	}
 	
 }
