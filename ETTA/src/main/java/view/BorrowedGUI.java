@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -23,6 +24,9 @@ public class BorrowedGUI {
 	 */
 	@FXML
 	BorderPane borrowedrootborderpane;
+	
+	@FXML 
+	AnchorPane borrowedviewanchorpane;
 	
 	/**
 	 * Method showing the search view in the Borrowed items section
@@ -57,7 +61,7 @@ public class BorrowedGUI {
 			}
 		borrowedrootborderpane.setCenter(borrowedView);
 	}
-	/*
+	
 	@FXML
 	public void showBorrowedAdd(ActionEvent event) {
 		AnchorPane borrowedAdd = null;
@@ -68,7 +72,9 @@ public class BorrowedGUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
-		borrowedrootborderpane.setCenter(borrowedAdd);
-	}
-	*/
+		borrowedviewanchorpane.getChildren().setAll(borrowedAdd);
+		}
+		
+	
+	
 }
