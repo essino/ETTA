@@ -8,6 +8,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import view.MainViewGUI;
 
 
 public class App extends Application
@@ -19,7 +20,8 @@ public class App extends Application
     }
     
     public void start(Stage primaryStage) {
-    	MainViewController mainController = new MainViewController();
+    	MainViewGUI mainViewGUI = new MainViewGUI();
+    	MainViewController controller = new MainViewController();
         TabPane tabPane = new TabPane();
 
         Tab tab1 = new Tab("Main Page");
@@ -30,41 +32,42 @@ public class App extends Application
         Tab tab6 = new Tab("Contacts");
 
         //main page view
-        tab1.setContent(mainController.mainPageView());
+        tab1.setContent(mainViewGUI.mainPageView());
+        //controller.getBalance();
       
 		
 		//economy main view
 		tab2.setOnSelectionChanged(event -> {
 	        if (tab2.isSelected()) {
-	        	tab2.setContent(mainController.EconomyView());
+	        	tab2.setContent(mainViewGUI.EconomyView());
 	            }
 	        });
 		
 		//calendar page view
 		tab3.setOnSelectionChanged(event -> {
 	        if (tab3.isSelected()) {
-	        	tab3.setContent(mainController.CalendarView());
+	        	tab3.setContent(mainViewGUI.CalendarView());
 	            }
 	        });
 		
 		//wishlist main view
 		tab4.setOnSelectionChanged(event -> {
 	        if (tab4.isSelected()) {
-	        	tab4.setContent(mainController.WishlistView());
+	        	tab4.setContent(mainViewGUI.WishlistView());
 	            }
 	        });
 		
 		//borrowed main view
 		tab5.setOnSelectionChanged(event -> {
 	        if (tab5.isSelected()) {
-	        	tab5.setContent(mainController.BorrowedView());
+	        	tab5.setContent(mainViewGUI.BorrowedView());
 	            }
 	        });
 		
 		//contacts main view
 		tab6.setOnSelectionChanged(event -> {
 	        if (tab6.isSelected()) {
-	        	tab6.setContent(mainController.ContactsView());
+	        	tab6.setContent(mainViewGUI.ContactsView());
 	            }
 	        });
 		
