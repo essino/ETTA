@@ -12,6 +12,8 @@ public class EconomyGUI {
 
 	@FXML
 	BorderPane economyrootborderpane;
+	@FXML
+	AnchorPane economyincomeanchorpane;
 	
 	@FXML
 	public void showBalance(ActionEvent event) {
@@ -76,6 +78,6 @@ public class EconomyGUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
-		economyrootborderpane.setCenter(showAddIncomeView);
+		economyincomeanchorpane.getChildren().setAll(showAddIncomeView);
 	}
 }
