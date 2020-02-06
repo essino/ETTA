@@ -65,6 +65,18 @@ public class EconomyController {
 		economyrootborderpane.setCenter(showSavingsView);
 	}
 	
+	@FXML
+	public void showAddIncome(ActionEvent event) {
+		AnchorPane showAddIncomeView = null; 
+		FXMLLoader loaderAddIncomeView  = new FXMLLoader(getClass().getResource("/view/EconomyAddIncome.fxml")); 
+		try {
+			showAddIncomeView = loaderAddIncomeView.load();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		economyrootborderpane.setCenter(showAddIncomeView);
+	}
 	
 
 }
