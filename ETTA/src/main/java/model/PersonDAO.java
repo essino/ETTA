@@ -31,19 +31,34 @@ public class PersonDAO {
 	
 	public boolean createPerson(Person person) {
 		boolean success = false;
-		try {
-			Session session = factory.openSession();
+		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(person);
 			transaction.commit();
 			success = true;
-			System.out.println(person.getPerson_id());
-			System.out.println(person.getName());
+			System.out.println("creating: " + person.getPerson_id());
+			System.out.println("creating: " + person.getName());
 		} catch (Exception e) {
 			if (transaction != null) transaction.rollback();
 			throw e;
 		}
 		return success;
+	}
+	
+	public Person readPerson(int person_id) {
+		Person person = new Person();
+		try {
+			Session session = factory.openSession();
+			transaction = session.beginTransaction();
+			person = (Person)session.get(Person.class, person_id);		
+			transaction.commit();
+			System.out.println("reading one:" + person.getName());
+		}
+		catch(Exception e){
+			if (transaction!= null) transaction.rollback();
+			throw e;
+		}
+		return person;
 	}
 	
 	public Person[] readPeople() {
@@ -54,7 +69,7 @@ public class PersonDAO {
 			List<Person> result = session.createQuery("from Person").getResultList();
 			for(Person person : result) {
 				list.add(person);
-				System.out.println(person.getName());
+				System.out.println("reading all: " + person.getName());
 			}
 			transaction.commit();
 		} catch (Exception e) {
@@ -79,11 +94,12 @@ public class PersonDAO {
 		return success;
 	}
 
-	public boolean deletePerson(String name) {
+	public boolean deletePerson(int person_id) {
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try {
+			Session session = factory.openSession();
 			transaction = session.beginTransaction();
-			Person person = (Person)session.get(Person.class, name);
+			Person person = (Person)session.get(Person.class, person_id);
 			session.delete(person);
 			transaction.commit();
 			success = true;
