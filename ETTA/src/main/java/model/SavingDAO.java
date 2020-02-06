@@ -47,11 +47,11 @@ public class SavingDAO {
 	}
 	
 	public Saving[] readSaving() {
-		ArrayList<Savings> list = new ArrayList<>();
+		ArrayList<Saving> list = new ArrayList<>();
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
-			List<Savings> result = session.createQuery("from Savings").getResultList();
+			List<Saving> result = session.createQuery("from Savings").getResultList();
 			for(Saving saving : result) {
 				list.add(saving);
 				System.out.println(saving.getSaving());
@@ -62,14 +62,14 @@ public class SavingDAO {
 			throw e;
 		}
 		Saving[] saving = new Saving[list.size()];
-		return (Saving[])list.toArray(savings);
+		return (Saving[])list.toArray(saving);
 	}
 
-	public boolean updatePerson(Person person) {
+	public boolean updateSaving(Saving saving) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
-			session.update(person);
+			session.update(saving);
 			transaction.commit();
 			success = true;
 		} catch (Exception e) {
@@ -79,12 +79,12 @@ public class SavingDAO {
 		return success;
 	}
 
-	public boolean deletePerson(String name) {
+	public boolean deleteSaving(String name) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
-			Person person = (Person)session.get(Person.class, name);
-			session.delete(person);
+			Saving saving = (Saving)session.get(Saving.class, name);
+			session.delete(saving);
 			transaction.commit();
 			success = true;
 		} catch (Exception e) {
