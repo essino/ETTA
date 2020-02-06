@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="Balance")
-public class Saldo {
+public class Balance {
 	@Id
 	@GeneratedValue
 	@Column
@@ -12,7 +12,7 @@ public class Saldo {
 	@Column
 	private float balance = 0;
 	
-	public Saldo() {
+	public Balance() {
 		
 	}
 

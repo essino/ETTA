@@ -8,6 +8,10 @@ import javax.persistence.Table;
 @Table(name="Calendar")
 public class Calendar {
 
+	public Calendar(String name) {
+		this.name = name;
+	}
+
 	@Column(name="name")
 	private String name;
 

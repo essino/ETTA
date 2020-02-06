@@ -1,5 +1,6 @@
 package model;
 
+
 import java.sql.Date;
 
 import javax.persistence.*;
@@ -11,15 +12,21 @@ public class Person {
 	@GeneratedValue
 	@Column
 	private int person_id;
-	@Column
+	@Column(length=0)
 	private String name;
-	@Column
+	@Column(nullable=true)
 	private Date birthday;
-	@Column
+	@Column(length=50, nullable=true)
 	private String email;
 	
 	public Person() {
 		
+	}
+	
+	public Person(String name, Date birthday, String email) {
+		this.name = name;
+		this.birthday = birthday;
+		this.email = email;
 	}
 
 	public int getPerson_id() {
