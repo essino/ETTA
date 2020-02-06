@@ -5,28 +5,42 @@ import java.sql.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Wishes")
-public class Wishlist {
+@Table(name="Item")
+public class Item {
 	@Id
 	@GeneratedValue
 	@Column
 	private int item_id;
-	@Column
+	
+	@Column(length=50)
 	private String description;
+	
 	@ManyToOne
-	@JoinColumn
-	private int person_id;
-	@Column
+	@JoinColumn(nullable=true)
+	private Person person;
+	
+	@Column(nullable = true)
 	private double price;
+	
 	@Column
-	private boolean bought;
-	@Column
+	private boolean bought = false;
+	
+	@Column(nullable=true)
 	private Date dateNeeded;
-	@Column
+	
+	@Column(length=100, nullable=true)
 	private String additionalInfo;
 	
-	public Wishlist() {
+	public Item() {
 		
+	}
+	
+	public Item(String desc, Person person, double price, Date date, String info) {
+		this.description = desc;
+		this.person = person;
+		this.price = price;
+		this.dateNeeded = date;
+		this.additionalInfo = info;
 	}
 
 	public int getItem_id() {
@@ -45,12 +59,12 @@ public class Wishlist {
 		this.description = description;
 	}
 
-	public int getPerson_id() {
-		return person_id;
+	public Person getPerson() {
+		return person;
 	}
 
-	public void setPerson_id(int person_id) {
-		this.person_id = person_id;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 	public double getPrice() {
@@ -84,6 +98,5 @@ public class Wishlist {
 	public void setAdditionalInfo(String additionalInfo) {
 		this.additionalInfo = additionalInfo;
 	}
-	
 	
 }

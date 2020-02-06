@@ -24,6 +24,7 @@ class PersonDAOTest {
 	}
 	
 	@Test
+	@Disabled
 	public void testRead() {
 		assertEquals(true, personDAO.readPeople(), "Reading failed");
 	}
