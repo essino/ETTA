@@ -12,11 +12,11 @@ public class Person {
 	@GeneratedValue
 	@Column
 	private int person_id;
-	@Column
+	@Column(length=0)
 	private String name;
-	@Column
+	@Column(nullable=true)
 	private Date birthday;
-	@Column
+	@Column(length=50, nullable=true)
 	private String email;
 	
 	public Person() {

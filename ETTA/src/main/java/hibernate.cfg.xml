@@ -18,7 +18,7 @@
 		<property name="show_sql">false</property>
 
 		<!-- Mallitason DTO-oliot, pakkausnimet mukaan -->
-		<mapping class="model.All_savings" />
+		<mapping class="model.Saving" />
 		<mapping class="model.Transfer" />
 		<mapping class="model.BorrowedThing" />
 		<mapping class="model.Calendar" />
@@ -26,6 +26,6 @@
 		<mapping class="model.Category" />
 		<mapping class="model.Person" />
 		<mapping class="model.Balance" />
-		<mapping class="model.Wishlist" />
+		<mapping class="model.Item" />
 	</session-factory>
 </hibernate-configuration>

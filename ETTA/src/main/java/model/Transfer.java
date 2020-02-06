@@ -4,41 +4,48 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name="All_transfers")
-
-public class All_transfers{
+@Table(name="Transfer")
+public class Transfer{
 	@Id
+	@GeneratedValue
 	@Column(name="transfer_id")
 	private int transfer_id;
 	
-	@Column(name="description")
+	@Column(name="description", length=50)
 	private String description;
 	
 	@ManyToOne
-	@JoinColumn(name="group_id")
-	private int  group_id;
+	@JoinColumn(name="category", nullable=true)
+	private Category category;
 	
 	@Column(name="income")
 	private boolean income;
 	
-	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column (name="date")
-	private Date createDate;
+	private Date date;
 	
 	@Column(name="amount")
 	private float amount;
+	
+	public Transfer() {
+		
+	}
 
+	public Transfer(String description, Category category, boolean income, Date date, float amount) {
+		this.description = description;
+		this.category = category;
+		this.income = income;
+		this.date = date;
+		this.amount = amount;
+	}
+	
 	public int getTransfer_id() {
 		return transfer_id;
 	}
@@ -55,12 +62,12 @@ public class All_transfers{
 		this.description = description;
 	}
 
-	public int getGroup_id() {
-		return group_id;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setGroup_id(int group_id) {
-		this.group_id = group_id;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public boolean isIncome() {
@@ -71,12 +78,12 @@ public class All_transfers{
 		this.income = income;
 	}
 
-	public Date getCreateDate() {
-		return createDate;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public float getAmount() {
@@ -86,9 +93,5 @@ public class All_transfers{
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
-	
-	
-	
-	
 	
 }
