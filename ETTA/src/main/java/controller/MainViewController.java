@@ -1,27 +1,19 @@
 package controller;
 
-import java.io.IOException;
-
-import com.calendarfx.view.page.WeekPage;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import model.Balance;
 import model.BalanceDAO;
-import view.MainViewGUI;
+import view.MainPageGUI;
 
 public class MainViewController {
 	BalanceDAO balanceDao = new BalanceDAO();
-	MainViewGUI mainViewGUI;
+	MainPageGUI mainPageGUI;
 	
-	//ei toimi
-	public void getBalance() {
-		Balance balance = new Balance(100);
-
-	  balanceDao.createBalance(balance);
-		mainViewGUI.setBalance(balanceDao.readBalance(0));
-		
-		
+	public MainViewController(MainPageGUI mainPageGUI) {
+		this.mainPageGUI = mainPageGUI;
 	}
+
+	public void getBalance() {
+		mainPageGUI.setBalance(balanceDao.readBalance(0));
+	}
+
+	
 }
