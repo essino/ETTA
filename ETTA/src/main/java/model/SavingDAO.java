@@ -38,6 +38,8 @@ public class SavingDAO {
 			session.saveOrUpdate(saving);
 			transaction.commit();
 			success = true;
+			System.out.println(saving.getSaving_id());
+			System.out.println(saving.getDescription());
 			
 		} catch (Exception e) {
 			if (transaction != null) transaction.rollback();
@@ -54,7 +56,8 @@ public class SavingDAO {
 			List<Saving> result = session.createQuery("from Savings").getResultList();
 			for(Saving saving : result) {
 				list.add(saving);
-				System.out.println(saving.getSaving());
+				System.out.println(saving.getDescription());
+				
 			}
 			transaction.commit();
 		} catch (Exception e) {
