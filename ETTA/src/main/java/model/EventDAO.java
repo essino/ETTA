@@ -9,6 +9,9 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+/**
+ * Data access object class for Events. Used in the communication with the database table for Events through Hibernate.
+ */
 public class EventDAO {
 	SessionFactory sessionFactory= null;
 	Session session;

@@ -7,6 +7,8 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+
+
 public class BalanceDAO {
 	SessionFactory factory = null;
 	Transaction transaction = null;
@@ -25,7 +27,7 @@ public class BalanceDAO {
 	protected void finalize() {
 		factory.close();
 	}
-	
+	/*
 	public boolean createBalance(Balance balance) {
 		boolean success = false;
 		try {
@@ -41,6 +43,7 @@ public class BalanceDAO {
 		}
 		return success;
 	}
+	*/
 	
 	public boolean updateBalance(Balance balance) {
 		boolean success = false;
@@ -57,7 +60,7 @@ public class BalanceDAO {
 		return success;
 	}
 	
-	public float readBalance(int balance_id) {
+	public Balance readBalance(int balance_id) {
 		Balance balance = new Balance();
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
@@ -69,6 +72,6 @@ public class BalanceDAO {
 			if (transaction!=null) transaction.rollback();
 			throw e;
 		}
-		return balance.getBalance();
+		return balance;
 	}
 }
