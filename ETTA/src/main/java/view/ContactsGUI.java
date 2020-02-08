@@ -15,6 +15,7 @@ public class ContactsGUI {
 	@FXML
 	public void showSearchView(ActionEvent event) {
 		AnchorPane contactsSearchView = null;
+		// Create the FXMLLoader and give it the path to the FXML File
 		FXMLLoader loaderContactsSearchView  = new FXMLLoader(getClass().getResource("/view/ContactsSearch.fxml"));
 		try {
 			contactsSearchView = loaderContactsSearchView.load();
@@ -28,6 +29,7 @@ public class ContactsGUI {
 	@FXML
 	public void showContactsView(ActionEvent event) {
 		AnchorPane contactsView = null;
+		// Create the FXMLLoader and give it the path to the FXML File
 		FXMLLoader loaderContactsView  = new FXMLLoader(getClass().getResource("/view/ContactsView.fxml"));
 		try {
 			contactsView = loaderContactsView.load();

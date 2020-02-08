@@ -16,6 +16,7 @@ public class MainViewGUI {
 	
 	public BorderPane mainPageView() {
 		BorderPane borderPane = new BorderPane();
+		// Create the FXMLLoader and give it the path to the FXML File
 		FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/MainMainView.fxml"));
 		AnchorPane content = null;
 		try {
@@ -30,6 +31,7 @@ public class MainViewGUI {
 	
 	public BorderPane EconomyView() {
 		BorderPane borderPaneEconomy = new BorderPane();
+		// Create the FXMLLoader and give it the path to the FXML File
 		FXMLLoader loaderEconomy  = new FXMLLoader(getClass().getResource("/view/EconomyRoot.fxml"));
 		try {
 			borderPaneEconomy = loaderEconomy.load();
@@ -37,6 +39,7 @@ public class MainViewGUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		// Create the FXMLLoader and give it the path to the FXML File
 		FXMLLoader loaderBalance  = new FXMLLoader(getClass().getResource("/view/EconomyBalanceOverview.fxml"));
 		AnchorPane balanceOverview = null;
 		try {
@@ -51,6 +54,7 @@ public class MainViewGUI {
 
 	public BorderPane WishlistView() {
 		BorderPane borderPaneWishlist = new BorderPane();
+		// Create the FXMLLoader and give it the path to the FXML File
 		FXMLLoader loaderWishlist  = new FXMLLoader(getClass().getResource("/view/WishlistRoot.fxml"));
 		try {
 			borderPaneWishlist = loaderWishlist.load();
@@ -59,6 +63,7 @@ public class MainViewGUI {
 			e.printStackTrace();
 			}
 		AnchorPane wishlistView = null;
+		// Create the FXMLLoader and give it the path to the FXML File
 		FXMLLoader loaderWishlistView  = new FXMLLoader(getClass().getResource("/view/WishlistView.fxml"));
 		try {
 			wishlistView = loaderWishlistView.load();
@@ -72,6 +77,7 @@ public class MainViewGUI {
 
 	public BorderPane BorrowedView() {
 		BorderPane borderPaneBorrowed = new BorderPane();
+		// Create the FXMLLoader and give it the path to the FXML File
 		FXMLLoader loaderBorrowed  = new FXMLLoader(getClass().getResource("/view/BorrowedRoot.fxml"));
 		try {
 			borderPaneBorrowed = loaderBorrowed.load();
@@ -80,6 +86,7 @@ public class MainViewGUI {
 			e.printStackTrace();
 			}
 		AnchorPane borrowedView = null;
+		// Create the FXMLLoader and give it the path to the FXML File
 		FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/BorrowedView.fxml"));
 		try {
 			borrowedView = loaderBorrowedView.load();
@@ -93,6 +100,7 @@ public class MainViewGUI {
 	
 	public BorderPane ContactsView() {
 		BorderPane borderPaneContacts = new BorderPane();
+		// Create the FXMLLoader and give it the path to the FXML File
 		FXMLLoader loaderContacts  = new FXMLLoader(getClass().getResource("/view/ContactsRoot.fxml"));
 		try {
 			borderPaneContacts = loaderContacts.load();
@@ -101,6 +109,7 @@ public class MainViewGUI {
 			e.printStackTrace();
 			}
 		AnchorPane contactsView = null;
+		// Create the FXMLLoader and give it the path to the FXML File
 		FXMLLoader loaderContactsView  = new FXMLLoader(getClass().getResource("/view/ContactsView.fxml"));
 		try {
 			contactsView = loaderContactsView.load();
@@ -114,6 +123,7 @@ public class MainViewGUI {
 	
 	public BorderPane CalendarView() {
 		BorderPane borderPaneCalendar = new BorderPane();
+		// Create the FXMLLoader and give it the path to the FXML File
 		FXMLLoader loader  = new FXMLLoader(getClass().getResource("/view/CalendarRoot.fxml"));
 		try {
 			borderPaneCalendar = loader.load();
