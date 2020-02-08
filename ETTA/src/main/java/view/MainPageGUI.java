@@ -13,9 +13,11 @@ public class MainPageGUI  {
 	MainViewController controller;
 	
 	@FXML
+	// The reference of label will be injected by the FXML loader
 	private Label amountBalance;
 	
 	@FXML
+	// The reference of label will be injected by the FXML loader
 	private Label todaysDate;
 	
 	BorderPane borderPane;
@@ -34,6 +36,7 @@ public class MainPageGUI  {
 	@FXML
 	public void initialize() {
 		controller.getBalance();
+		
 		LocalDate date = LocalDate.now();
 		String text = date.toString();
 		todaysDate.setText(text);

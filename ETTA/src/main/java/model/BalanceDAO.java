@@ -27,7 +27,7 @@ public class BalanceDAO {
 	protected void finalize() {
 		factory.close();
 	}
-	/*
+	
 	public boolean createBalance(Balance balance) {
 		boolean success = false;
 		try {
@@ -43,7 +43,7 @@ public class BalanceDAO {
 		}
 		return success;
 	}
-	*/
+	
 	
 	public boolean updateBalance(Balance balance) {
 		boolean success = false;
