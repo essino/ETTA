@@ -41,7 +41,21 @@ public class BorrowedThing {
 	
 	/**
 	 * Constructor to create borrowed items.
-	 *@param thing_id the id number of the borrowed item in the database
+	 *@param description String describing what the borrowed item is. That is, its name
+	 *@param dateBorrowed Date on which the item is borrowed
+	 *@param returnDate Date on which the item is returned
+	 *@param person the person to whom the item is loaned. It refers to the right person in the Person table in the database.
+	 */
+	public BorrowedThing(String description, Date dateBorrowed, Date returnDate, Person person) {
+		this.description = description;
+		this.dateBorrowed = dateBorrowed;
+		this.returnDate = returnDate;
+		this.person = person;
+	}
+	
+	/**
+	 * Constructor to create borrowed items. Includes thing_id as parameter.
+	 *@param thing_id identification number given to the borrowed item
 	 *@param description String describing what the borrowed item is. That is, its name
 	 *@param dateBorrowed Date on which the item is borrowed
 	 *@param returnDate Date on which the item is returned
