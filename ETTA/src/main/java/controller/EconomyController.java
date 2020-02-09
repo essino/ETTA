@@ -1,15 +1,35 @@
 package controller;
 
-import java.io.IOException;
+import model.BalanceDAO;
+import view.BalanceOverviewGUI;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-
+/**
+ * @author Lena
+ *
+ */
 public class EconomyController {
+
+	/**
+	 * 
+	 */
+	BalanceDAO balanceDao = new BalanceDAO();
+	BalanceOverviewGUI balanceOverviewGUI;
 	
+	/**
+	 * Constructor
+	 * @param balanceOverviewGUI
+	 */
+
+	public EconomyController(BalanceOverviewGUI balanceOverviewGUI) {
+		this.balanceOverviewGUI= balanceOverviewGUI;
+	}
+	
+	/**
+	 * Method that gets balance amount from BalanceDAO and gives it forward to BalanceOverviewGUI to display it on the page
+	 */
+	public void getBalance() {
+		balanceOverviewGUI.setBalance(balanceDao.readBalance(1).getBalance());
+	}
 	
 
 }
