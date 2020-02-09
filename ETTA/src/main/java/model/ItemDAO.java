@@ -67,7 +67,7 @@ public class ItemDAO {
 			Session session = factory.openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
-			List<Item> result = session.createQuery("from item").getResultList();
+			List<Item> result = session.createQuery("from Item").getResultList();
 			for(Item item : result) {
 				list.add(item);
 				System.out.println("reading all: " + item.getDescription());
