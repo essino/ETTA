@@ -12,7 +12,7 @@ public class MainViewController {
 	}
 
 	public void getBalance() {
-		mainPageGUI.setBalance(balanceDao.readBalance(0).getBalance());
+		mainPageGUI.setBalance(balanceDao.readBalance(1).getBalance());
 	}
 
 	
