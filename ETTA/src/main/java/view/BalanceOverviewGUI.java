@@ -3,6 +3,7 @@ package view;
 
 
 import controller.EconomyController;
+import controller.InputCheck;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -20,6 +21,8 @@ public class BalanceOverviewGUI {
 	@FXML 
 	// The reference of label will be injected by the FXML loader 
 	private Label amountBalance; 
+	
+	InputCheck inputCheck = new InputCheck();
 	
 	public BalanceOverviewGUI() { 
 		controller = new EconomyController(this);
@@ -50,6 +53,11 @@ public class BalanceOverviewGUI {
 	
 	@FXML
 	public void saveBalance() {
-		controller.updateBalance(Float.parseFloat(newBalance.getText()));
+		if(inputCheck.isInputFloat(newBalance.getText())) {
+			controller.updateBalance(Float.parseFloat(newBalance.getText()));
+		}
+		else {
+			inputCheck.alertInputNotFloat();
+		}
 	}
 }
