@@ -4,16 +4,18 @@ import java.io.IOException;
 
 import com.calendarfx.view.page.WeekPage;
 
-import controller.MainViewController;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-
+/**
+ * GUI class relating to the main views of the pages
+ */
 public class MainViewGUI {
 	
+	/**
+	 * Method loading the main page view 
+	 * @return BorderPane main page view
+	 */
 	public BorderPane mainPageView() {
 		BorderPane borderPane = new BorderPane();
 		FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/MainMainView.fxml"));
@@ -27,7 +29,10 @@ public class MainViewGUI {
 		borderPane.setCenter(content);
 		return borderPane;
 	}
-	
+	/**
+	 * Method loading the economy main page view - root with the button menu and the content
+	 * @return BorderPane economy main page view
+	 */
 	public BorderPane EconomyView() {
 		BorderPane borderPaneEconomy = new BorderPane();
 		FXMLLoader loaderEconomy  = new FXMLLoader(getClass().getResource("/view/EconomyRoot.fxml"));
@@ -48,7 +53,10 @@ public class MainViewGUI {
 		borderPaneEconomy.setCenter(balanceOverview);
 		return borderPaneEconomy;
 	}
-
+	/**
+	 * Method loading the wishlist main page view - root with the button menu and the content
+	 * @return BorderPane wishlist main page view
+	 */
 	public BorderPane WishlistView() {
 		BorderPane borderPaneWishlist = new BorderPane();
 		FXMLLoader loaderWishlist  = new FXMLLoader(getClass().getResource("/view/WishlistRoot.fxml"));
@@ -70,6 +78,10 @@ public class MainViewGUI {
 		return borderPaneWishlist;
 	}
 
+	/**
+	 * Method loading the borrowed things main page view - root with the button menu and the content
+	 * @return BorderPane borrowed things main page view
+	 */
 	public BorderPane BorrowedView() {
 		BorderPane borderPaneBorrowed = new BorderPane();
 		FXMLLoader loaderBorrowed  = new FXMLLoader(getClass().getResource("/view/BorrowedRoot.fxml"));
@@ -90,7 +102,10 @@ public class MainViewGUI {
 		borderPaneBorrowed.setCenter(borrowedView);
 		return borderPaneBorrowed;
 	}
-	
+	/**
+	 * Method loading the contacts main page view - root with the button menu and the content
+	 * @return BorderPane contacts main page view
+	 */
 	public BorderPane ContactsView() {
 		BorderPane borderPaneContacts = new BorderPane();
 		FXMLLoader loaderContacts  = new FXMLLoader(getClass().getResource("/view/ContactsRoot.fxml"));
@@ -111,7 +126,10 @@ public class MainViewGUI {
 		borderPaneContacts.setCenter(contactsView);
 		return borderPaneContacts;
 	}
-	
+	/**
+	 * Method loading the calendar main page view - root with the button menu and the content
+	 * @return BorderPane calendar main page view
+	 */
 	public BorderPane CalendarView() {
 		BorderPane borderPaneCalendar = new BorderPane();
 		FXMLLoader loader  = new FXMLLoader(getClass().getResource("/view/CalendarRoot.fxml"));
