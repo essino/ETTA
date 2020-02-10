@@ -38,7 +38,7 @@ public class BorrowedGUI {
 	@FXML
 	public void showBorrowedSearch(ActionEvent event) {
 		AnchorPane borrowedSearch = null;
-		FXMLLoader loaderBorrowedSearch  = new FXMLLoader(getClass().getResource("/view/EconomyAddIncome.fxml"));
+		FXMLLoader loaderBorrowedSearch  = new FXMLLoader(getClass().getResource("/view/BorrowedSearch.fxml"));
 		try {
 			borrowedSearch = loaderBorrowedSearch.load();
 			} catch (IOException e) {
