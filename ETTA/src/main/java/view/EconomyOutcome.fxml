@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="economyoutcomeaddanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="economyoutcomeaddanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EconomyGUI">
    <children>
       <TableView layoutX="166.0" layoutY="149.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
         <columns>
@@ -18,7 +18,7 @@
       </TableView>
       <ButtonBar layoutX="426.0" layoutY="685.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="28.0">
         <buttons>
-          	<Button mnemonicParsing="false" onAction="#showAddOutcome" text="Add" /> //Nappulan nimessä on jotain vikaa
+          	<Button mnemonicParsing="false" onAction="#showAddOutcome" text="Add" /> 
             <Button mnemonicParsing="false" text="Edit" />
             <Button mnemonicParsing="false" text="Remove" />
         </buttons>
