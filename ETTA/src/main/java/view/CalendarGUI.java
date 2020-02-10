@@ -20,7 +20,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * GUI class relating to the Calendar section
+ */
+
 public class CalendarGUI {
+	
+	/**
+	 * The menu view to which the alternative views in the Calendar section are added
+	 */
 	@FXML 
 	BorderPane mainPane;
 	
@@ -48,24 +56,40 @@ public class CalendarGUI {
 	@FXML
 	VBox calendarNewEvent;
 	
+	/**
+	 * Method showing the day view in the Calendar section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showDayView(ActionEvent event) throws IOException {
 		DayPage calendarView = new DayPage();
 		mainPane.setCenter(calendarView);
 	}
 
+	/**
+	 * Method showing the week view in the Calendar section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showWeekView(ActionEvent event) {
 		WeekPage calendarView = new WeekPage();
         mainPane.setCenter(calendarView);
 	}
 
+	/**
+	 * Method showing the month view in the Calendar section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showMonthView(ActionEvent event) {
 		MonthPage calendarView = new MonthPage();
         mainPane.setCenter(calendarView);
 	}
 	
+	/**
+	 * Method showing the add event view in the Calendar section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showAddView(ActionEvent event) {
 		/*
