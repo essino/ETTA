@@ -18,6 +18,8 @@ public class MainPageGUI  {
 	@FXML
 	private Label todaysDate;
 	
+
+	
 	BorderPane borderPane;
 	AnchorPane content = null;
 
