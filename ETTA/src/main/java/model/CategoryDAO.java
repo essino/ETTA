@@ -32,12 +32,14 @@ public class CategoryDAO {
 			e.printStackTrace();
 			System.exit(-1);}
 	}
+	
 	/**
 	 * method for closing the database session
 	 */
 	protected void finalize() {
 		factory.close();
 	}
+	
 	/**
 	 * method for making a new Category in the database
 	 * @param category Object that represents a category of income/expense
