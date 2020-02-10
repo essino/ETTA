@@ -12,7 +12,13 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
  */
 
 public class BalanceDAO {
+	/**
+	 * SessionFactory object needed to open session with the database
+	 */
 	SessionFactory factory = null;
+	/**
+	 * Transaction object to carry out database transaction
+	 */
 	Transaction transaction = null;
 	
 	public BalanceDAO() {
@@ -25,7 +31,9 @@ public class BalanceDAO {
 			e.printStackTrace();
 			System.exit(-1);}
 	}
-	
+	/**
+	 * method for closing the database session
+	 */
 	protected void finalize() {
 		factory.close();
 	}
