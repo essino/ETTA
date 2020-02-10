@@ -14,6 +14,8 @@ public class EconomyGUI {
 	BorderPane economyrootborderpane;
 	@FXML
 	AnchorPane economyincomeanchorpane;
+	@FXML	
+	AnchorPane economyoutcomeaddanchorpane;
 	
 	@FXML
 	public void showBalance(ActionEvent event) {
@@ -80,4 +82,21 @@ public class EconomyGUI {
 			}
 		economyincomeanchorpane.getChildren().setAll(showAddIncomeView);
 	}
+	
+	
+	@FXML
+	public void showAddOutcome(ActionEvent event) {
+		AnchorPane showAddOutcomeeView = null;
+		FXMLLoader loaderAddOutcomeView = new FXMLLoader(getClass().getResource("/view/EconomyAddOutcome.fxml"));
+		try {
+			showAddOutcomeeView = loaderAddOutcomeView.load();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		//shows the loaded fxml file
+		economyoutcomeaddanchorpane.getChildren().setAll(showAddOutcomeeView);
+	
+	}
+	
 }

@@ -1,32 +1,34 @@
 package view;
 
-import org.joda.time.LocalDate;
-
 import controller.EconomyController;
-import controller.MainViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+/**
+ * GUI class relating to the Balance main page section
+ */
 public class BalanceOverviewGUI {
+	EconomyController controller; 
 
-	EconomyController controller;
+	@FXML 
+	// The reference of label will be injected by the FXML loader 
+	private Label amountBalance; 
 	
-	@FXML
-	// The reference of label will be injected by the FXML loader
-	private Label amountBalance;
-	
-	public BalanceOverviewGUI() {
+	public BalanceOverviewGUI() { 
 		controller = new EconomyController(this);
-	}
-	
+	} 
+	/** 
+	 * Method that gets balance amount and displays it on the page 
+	 * @param amount double the balance amount
+	 */ 
+	public void setBalance(double amount) { 
+		String balanceString = String.format("%.2f", amount); 
+		amountBalance.setText(balanceString); 
+	} 
 
-	public void setBalance(double amount) {
-		String balanceString = String.format("%.2f", amount);
-		amountBalance.setText(balanceString);
-	}
 	
-	@FXML
-	public void initialize() {
-		controller.getBalance();
+	@FXML 
+	public void initialize() { 
+		controller.getBalance(); 
 	}
 }

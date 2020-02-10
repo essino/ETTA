@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Transfer")
-public class Transfer{
+public class Transfer {
 	@Id
 	@GeneratedValue
 	@Column(name="transfer_id")

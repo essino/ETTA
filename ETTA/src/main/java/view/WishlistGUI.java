@@ -15,7 +15,6 @@ public class WishlistGUI {
 	@FXML
 	public void showAll(ActionEvent event) {
 		AnchorPane allView = null;
-		// Create the FXMLLoader and give it the path to the FXML File
 		FXMLLoader loaderWishlistAll  = new FXMLLoader(getClass().getResource("/view/WishlistView.fxml"));
 		try {
 			allView = loaderWishlistAll.load();

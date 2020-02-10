@@ -38,7 +38,7 @@ public class BorrowedGUI {
 	@FXML
 	public void showBorrowedSearch(ActionEvent event) {
 		AnchorPane borrowedSearch = null;
-		FXMLLoader loaderBorrowedSearch  = new FXMLLoader(getClass().getResource("/view/BorrowedSearch.fxml"));
+		FXMLLoader loaderBorrowedSearch  = new FXMLLoader(getClass().getResource("/view/EconomyAddIncome.fxml"));
 		try {
 			borrowedSearch = loaderBorrowedSearch.load();
 			} catch (IOException e) {
@@ -74,12 +74,14 @@ public class BorrowedGUI {
 		AnchorPane borrowedAdd = null;
 		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
 		try {
-			borrowedAdd = loaderBorrowedAdd.load();
+				borrowedAdd = loaderBorrowedAdd.load();
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		//shows the loaded fxml file
 		borrowedviewanchorpane.getChildren().setAll(borrowedAdd);
+		//borrowedviewanchorpane.getChildren().set(1, borrowedAdd);
+		//borrowedRootBorderPane.setCenter(borrowedAdd);
 	}
 }

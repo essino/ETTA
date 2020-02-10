@@ -33,6 +33,13 @@ public class Saving {
 	@Column(name="progress")
 	private float progress = 0;
 	
+	public Saving(String desc, float amountGoal, float reachedGoal, Date date) {
+		this.description = desc;
+		this.goalAmount = amountGoal;
+		this.progress = reachedGoal;
+		this.goalDate = date;
+	}
+
 	public int getSaving_id() {
 		return saving_id;
 	}

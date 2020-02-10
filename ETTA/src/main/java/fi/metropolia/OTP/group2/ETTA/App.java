@@ -88,13 +88,11 @@ public class App extends Application
         
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         VBox vBox = new VBox(tabPane);
-        // Create the Scene
         Scene scene = new Scene(vBox);
-        // Set the Scene to the Stage
+
         primaryStage.setScene(scene);
-        // Set the Title to the Stage
         primaryStage.setTitle("ETTA");
-        // Display the Stage
+
         primaryStage.show();
     }
 }

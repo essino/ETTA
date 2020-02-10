@@ -17,6 +17,7 @@ import model.PersonDAO;
 @TestMethodOrder(OrderAnnotation.class)
 class PersonDAOTest {
 	private PersonDAO personDAO = new PersonDAO();
+	private int id = 33;
 	private String str = "1980-08-10";
 	private Date date = Date.valueOf(str);
 	private String name = "Lena";
@@ -32,14 +33,14 @@ class PersonDAOTest {
 	@Test
 	@Order(2)
 	public void testReadPeople() {
-		assertEquals(1, personDAO.readPeople().length, "Reading all failed");
+		assertEquals(3, personDAO.readPeople().length, "Reading all failed");
 	}
 	
 	@Test
 	@Order(3)
 	public void testReadPerson() {
-		assertEquals(date, personDAO.readPerson(10).getBirthday(), "Reading one failed (bday)");
-		assertEquals(email, personDAO.readPerson(10).getEmail(), "Reading one failed (email)");
+		assertEquals(date, personDAO.readPerson(id).getBirthday(), "Reading one failed (bday)");
+		assertEquals(email, personDAO.readPerson(id).getEmail(), "Reading one failed (email)");
 	}
 	
 	@Test
@@ -48,13 +49,13 @@ class PersonDAOTest {
 		date = Date.valueOf("1990-03-16");
 		Person updatedPerson = new Person(name, date, email);
 		assertEquals(true, personDAO.updatePerson(updatedPerson), "Updating failed");
-		assertEquals(date, personDAO.readPerson(10).getBirthday(), "Bday updating failed");
+		assertEquals(date, personDAO.readPerson(id).getBirthday(), "Bday updating failed");
 	}
 	
 	@Test
 	@Order(5)
 	public void testDelete() {
-		assertEquals(true, personDAO.deletePerson(10), "Deleting failed");
+		assertEquals(true, personDAO.deletePerson(id), "Deleting failed");
 	}
 
 }

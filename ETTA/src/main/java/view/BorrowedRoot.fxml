@@ -8,7 +8,7 @@
    <left>
       <VBox prefHeight="750.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#showBorrowedView" prefHeight="125.0" prefWidth="200.0" text="Borrowed items" />
+            <Button mnemonicParsing="false" f"#showBorrowedView" prefHeight="125.0" prefWidth="200.0" text="Borrowed items" />
             <Button mnemonicParsing="false" onAction="#showBorrowedSearch" prefHeight="125.0" prefWidth="200.0" text="Search" />
            
          </children>

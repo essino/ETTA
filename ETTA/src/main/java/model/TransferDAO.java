@@ -10,11 +10,11 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public class ItemDAO {
+public class TransferDAO {
 	SessionFactory factory = null;
 	Transaction transaction = null;
 	
-	public ItemDAO() {
+	public TransferDAO() {
 		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
 		try {
 			factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
@@ -29,15 +29,15 @@ public class ItemDAO {
 		factory.close();
 	}
 	
-	public boolean createItem(Item item) {
+	public boolean createTransfer(Transfer transfer) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(item);
+			session.saveOrUpdate(transfer);
 			transaction.commit();
 			success = true;
-			System.out.println("creating: " + item.getItem_id());
-			System.out.println("creating: " + item.getDescription());
+			System.out.println("creating: " + transfer.getTransfer_id());
+			System.out.println("creating: " + transfer.getDescription());
 		} catch (Exception e) {
 			if (transaction != null) transaction.rollback();
 			throw e;
@@ -45,47 +45,48 @@ public class ItemDAO {
 		return success;
 	}
 	
-	public Item readItem(int item_id) {
-		Item item = new Item();
+	public Transfer readTransfer(int transfer_id) {
+		Transfer transfer = new Transfer();
 		try {
 			Session session = factory.openSession();
 			transaction = session.beginTransaction();
-			item = (Item)session.get(Item.class, item_id);		
+			transfer = (Transfer)session.get(Transfer.class, transfer_id);		
 			transaction.commit();
-			System.out.println("reading one:" + item.getDescription());
+			System.out.println("reading one:" + transfer.getDescription());
 		}
 		catch(Exception e){
 			if (transaction!= null) transaction.rollback();
 			throw e;
 		}
-		return item;
+		return transfer;
 	}
 	
-	public Item[] readItems() {
-		ArrayList<Item> list = new ArrayList<>();
+	public Transfer[] readTransfers() {
+		ArrayList<Transfer> list = new ArrayList<>();
 		try {
 			Session session = factory.openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
-			List<Item> result = session.createQuery("from Item").getResultList();
-			for(Item item : result) {
-				list.add(item);
-				System.out.println("reading all: " + item.getDescription());
+			List<Transfer> result = session.createQuery("from Transfer").getResultList();
+			for(Transfer transfer : result) {
+				list.add(transfer);
+				System.out.println("reading all: " + transfer.getDescription());
 			}
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) transaction.rollback();
 			throw e;
 		}
-		Item[] items = new Item[list.size()];
-		return (Item[])list.toArray(items);
+		Transfer[] transfers = new Transfer[list.size()];
+		return (Transfer[])list.toArray(transfers);
 	}
 
-	public boolean updateItem(Item item) {
+	public boolean updateTransfer(Transfer transfer) {
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try {
+			Session session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.update(item);
+			session.update(transfer);
 			transaction.commit();
 			success = true;
 		} catch (Exception e) {
@@ -95,13 +96,13 @@ public class ItemDAO {
 		return success;
 	}
 
-	public boolean deleteItem(int item_id) {
+	public boolean deleteTransfer(int transfer_id) {
 		boolean success = false;
 		try {
 			Session session = factory.openSession();
 			transaction = session.beginTransaction();
-			Item item = (Item)session.get(Item.class, item_id);
-			session.delete(item);
+			Transfer transfer = (Transfer)session.get(Transfer.class, transfer_id);
+			session.delete(transfer);
 			transaction.commit();
 			success = true;
 		} catch (Exception e) {
