@@ -16,19 +16,22 @@ import model.SavingDAO;
 public class SavingDAOTest {
 
 	private SavingDAO savingDAO = new SavingDAO();
+	private String desc = "Kossin matka";
+	private float amountGoal = 2000f;
+	private float reachedGoal = 5f;
 	private String str = "2020-10-15";
 	private Date date = Date.valueOf(str);
-	private Saving saving = new Saving("Kosin matka", date, "risto@gmail.com");
+	private Saving kossinMatka = new Saving(desc, amountGoal, reachedGoal, date);
 
 	@Test
 	public void testCreate() {
-		assertEquals(true, SavingDAO.createSaving(saving), "Creation of person failed");
+		assertEquals(true, savingDAO.createSaving(kossinMatka), "Creation of person failed");
 	}
 	
 	@Test
 	@Disabled
 	public void testRead() {
-		assertEquals(true, SavingDAO.readSaving(), "Reading failed");
+		assertEquals(true, savingDAO.readSaving(), "Reading failed");
 	}
 	
 	@Test

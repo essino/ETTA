@@ -9,13 +9,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainViewGUI">
+<AnchorPane fx:id="mainRootPane" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainPageGUI">
    <children>
       <SplitPane dividerPositions="0.26737967914438504" orientation="VERTICAL" prefHeight="750.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane  minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label fx:id="balanceAmount" layoutX="183.0" layoutY="122.0" text="Sad" />
+                  <Label fx:id="amountBalance" layoutX="183.0" layoutY="122.0" text="Sad" />
                   <Label layoutX="114.0" layoutY="122.0" text="Balance:" />
                   <Label layoutX="114.0" layoutY="46.0" text="Home" />
                   <Label layoutX="311.0" layoutY="122.0" text="Date:" />

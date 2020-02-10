@@ -8,6 +8,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import view.MainPageGUI;
 import view.MainViewGUI;
 
 
@@ -21,7 +22,9 @@ public class App extends Application
     
     public void start(Stage primaryStage) {
     	MainViewGUI mainViewGUI = new MainViewGUI();
-    	MainViewController controller = new MainViewController();
+    	MainPageGUI mainPageGUI = new MainPageGUI();
+    	MainViewController controller = new MainViewController(mainPageGUI);
+    	
         TabPane tabPane = new TabPane();
 
         Tab tab1 = new Tab("Main Page");
@@ -33,8 +36,13 @@ public class App extends Application
 
         //main page view
         tab1.setContent(mainViewGUI.mainPageView());
-        //controller.getBalance();
       
+      // main page view
+      		tab1.setOnSelectionChanged(event -> {
+      	        if (tab1.isSelected()) {
+      	        	tab1.setContent(mainViewGUI.mainPageView());
+      	            }
+      	        });
 		
 		//economy main view
 		tab2.setOnSelectionChanged(event -> {

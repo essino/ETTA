@@ -7,16 +7,12 @@ import com.calendarfx.view.page.WeekPage;
 import controller.MainViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.Text;
 
 public class MainViewGUI {
-	private MainViewController controller;
-	
-	@FXML
-	Label balanceAmount;
 	
 	public BorderPane mainPageView() {
 		BorderPane borderPane = new BorderPane();
@@ -24,10 +20,10 @@ public class MainViewGUI {
 		AnchorPane content = null;
 		try {
 			content = loader2.load();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		borderPane.setCenter(content);
 		return borderPane;
 	}
@@ -129,9 +125,5 @@ public class MainViewGUI {
 		borderPaneCalendar.setCenter(calendarView);
 		return borderPaneCalendar;
 	}
-	
-	public void setBalance(double amount) {
-		String balanceString = String.format("%.2f", amount);
-		balanceAmount.setText(balanceString);
-	}
+		
 }

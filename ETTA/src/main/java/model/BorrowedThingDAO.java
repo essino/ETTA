@@ -10,11 +10,14 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public class PersonDAO {
+/**
+ * Data access object class for Borrowed things. Used in the creation of the database table for Borrowed items through Hibernate.
+ */
+public class BorrowedThingDAO {
 	SessionFactory factory = null;
 	Transaction transaction = null;
 	
-	public PersonDAO() {
+	public BorrowedThingDAO() {
 		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
 		try {
 			factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
@@ -29,15 +32,16 @@ public class PersonDAO {
 		factory.close();
 	}
 	
-	public boolean createPerson(Person person) {
+	public boolean createBorrowedThing(BorrowedThing borrowedThing) {
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try {
+			Session session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(person);
+			session.saveOrUpdate(borrowedThing);
 			transaction.commit();
 			success = true;
-			System.out.println("creating: " + person.getPerson_id());
-			System.out.println("creating: " + person.getName());
+			System.out.println(borrowedThing.getThing_id());
+			System.out.println(borrowedThing.getDescription());
 		} catch (Exception e) {
 			if (transaction != null) transaction.rollback();
 			throw e;
@@ -45,46 +49,30 @@ public class PersonDAO {
 		return success;
 	}
 	
-	public Person readPerson(int person_id) {
-		Person person = new Person();
-		try {
-			Session session = factory.openSession();
-			transaction = session.beginTransaction();
-			person = (Person)session.get(Person.class, person_id);		
-			transaction.commit();
-			System.out.println("reading one:" + person.getName());
-		}
-		catch(Exception e){
-			if (transaction!= null) transaction.rollback();
-			throw e;
-		}
-		return person;
-	}
-	
-	public Person[] readPeople() {
-		ArrayList<Person> list = new ArrayList<>();
+	public BorrowedThing[] readBorrowedThings() {
+		ArrayList<BorrowedThing> list = new ArrayList<>();
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
-			List<Person> result = session.createQuery("from Person").getResultList();
-			for(Person person : result) {
-				list.add(person);
-				System.out.println("reading all: " + person.getName());
+			List<BorrowedThing> result = session.createQuery("from BorrowedThing").getResultList();
+			for(BorrowedThing borrowedThing : result) {
+				list.add(borrowedThing);
+				System.out.println(borrowedThing.getDescription());
 			}
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) transaction.rollback();
 			throw e;
 		}
-		Person[] people = new Person[list.size()];
-		return (Person[])list.toArray(people);
+		BorrowedThing[] borrowedThings = new BorrowedThing[list.size()];
+		return (BorrowedThing[])list.toArray(borrowedThings);
 	}
 
-	public boolean updatePerson(Person person) {
+	public boolean updateBorrowedThing(BorrowedThing borrowedThing) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
-			session.update(person);
+			session.update(borrowedThing);
 			transaction.commit();
 			success = true;
 		} catch (Exception e) {
@@ -94,13 +82,12 @@ public class PersonDAO {
 		return success;
 	}
 
-	public boolean deletePerson(int person_id) {
+	public boolean deleteBorrowedThing(String description) {
 		boolean success = false;
-		try {
-			Session session = factory.openSession();
+		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
-			Person person = (Person)session.get(Person.class, person_id);
-			session.delete(person);
+			BorrowedThing borrowedThing = (BorrowedThing)session.get(BorrowedThing.class, description);
+			session.delete(borrowedThing);
 			transaction.commit();
 			success = true;
 		} catch (Exception e) {
@@ -110,6 +97,3 @@ public class PersonDAO {
 		return success;
 	}
 }
-
-
-

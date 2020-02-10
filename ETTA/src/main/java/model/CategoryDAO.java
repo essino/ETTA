@@ -10,11 +10,11 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public class PersonDAO {
+public class CategoryDAO {
 	SessionFactory factory = null;
 	Transaction transaction = null;
 	
-	public PersonDAO() {
+	public CategoryDAO() {
 		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
 		try {
 			factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
@@ -29,15 +29,14 @@ public class PersonDAO {
 		factory.close();
 	}
 	
-	public boolean createPerson(Person person) {
+	public boolean createCategory(Category category) {
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try {
+			Session session = factory.openSession();
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(person);
+			session.saveOrUpdate(category);
 			transaction.commit();
 			success = true;
-			System.out.println("creating: " + person.getPerson_id());
-			System.out.println("creating: " + person.getName());
 		} catch (Exception e) {
 			if (transaction != null) transaction.rollback();
 			throw e;
@@ -45,46 +44,46 @@ public class PersonDAO {
 		return success;
 	}
 	
-	public Person readPerson(int person_id) {
-		Person person = new Person();
+	public Category readCategory(int id) {
+		Category category = new Category();
 		try {
 			Session session = factory.openSession();
 			transaction = session.beginTransaction();
-			person = (Person)session.get(Person.class, person_id);		
+			category = (Category)session.get(Category.class, id);		
 			transaction.commit();
-			System.out.println("reading one:" + person.getName());
+			System.out.println("reading one:" + category.getDescription());
 		}
 		catch(Exception e){
 			if (transaction!= null) transaction.rollback();
 			throw e;
 		}
-		return person;
+		return category;
 	}
 	
-	public Person[] readPeople() {
-		ArrayList<Person> list = new ArrayList<>();
+	public Category[] readCategories() {
+		ArrayList<Category> list = new ArrayList<>();
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
-			@SuppressWarnings("unchecked")
-			List<Person> result = session.createQuery("from Person").getResultList();
-			for(Person person : result) {
-				list.add(person);
-				System.out.println("reading all: " + person.getName());
+			
+			List<Category> result = session.createQuery("from Category").getResultList();
+			for(Category category : result) {
+				list.add(category);
+				System.out.println(category.getDescription());
 			}
 			transaction.commit();
 		} catch (Exception e) {
 			if (transaction != null) transaction.rollback();
 			throw e;
 		}
-		Person[] people = new Person[list.size()];
-		return (Person[])list.toArray(people);
+		Category[] categories = new Category[list.size()];
+		return (Category[])list.toArray(categories);
 	}
 
-	public boolean updatePerson(Person person) {
+	public boolean updateCategory(Category category) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
-			session.update(person);
+			session.update(category);
 			transaction.commit();
 			success = true;
 		} catch (Exception e) {
@@ -94,13 +93,12 @@ public class PersonDAO {
 		return success;
 	}
 
-	public boolean deletePerson(int person_id) {
+	public boolean deleteCategory(String description) {
 		boolean success = false;
-		try {
-			Session session = factory.openSession();
+		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
-			Person person = (Person)session.get(Person.class, person_id);
-			session.delete(person);
+			Category category = (Category)session.get(Category.class, description);
+			session.delete(category);
 			transaction.commit();
 			success = true;
 		} catch (Exception e) {
@@ -110,6 +108,3 @@ public class PersonDAO {
 		return success;
 	}
 }
-
-
-

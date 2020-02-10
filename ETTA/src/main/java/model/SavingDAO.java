@@ -56,8 +56,7 @@ public class SavingDAO {
 			List<Saving> result = session.createQuery("from Savings").getResultList();
 			for(Saving saving : result) {
 				list.add(saving);
-				System.out.println(saving.getDescription());
-				
+
 			}
 			transaction.commit();
 		} catch (Exception e) {
