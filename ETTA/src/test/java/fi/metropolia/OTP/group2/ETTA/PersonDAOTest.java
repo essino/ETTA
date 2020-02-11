@@ -17,7 +17,7 @@ import model.PersonDAO;
 @TestMethodOrder(OrderAnnotation.class)
 class PersonDAOTest {
 	private PersonDAO personDAO = new PersonDAO();
-	private int id = 33;
+	private int id = 137;
 	private String str = "1980-08-10";
 	private Date date = Date.valueOf(str);
 	private String name = "Lena";
@@ -33,7 +33,7 @@ class PersonDAOTest {
 	@Test
 	@Order(2)
 	public void testReadPeople() {
-		assertEquals(3, personDAO.readPeople().length, "Reading all failed");
+		assertEquals(35, personDAO.readPeople().length, "Reading all failed");
 	}
 	
 	@Test
@@ -46,10 +46,11 @@ class PersonDAOTest {
 	@Test
 	@Order(4)
 	public void testUpdate() {
-		date = Date.valueOf("1990-03-16");
-		Person updatedPerson = new Person(name, date, email);
+		Date newDate = Date.valueOf("1990-03-16");
+		Person updatedPerson = personDAO.readPerson(id);
+		updatedPerson.setBirthday(newDate);
 		assertEquals(true, personDAO.updatePerson(updatedPerson), "Updating failed");
-		assertEquals(date, personDAO.readPerson(id).getBirthday(), "Bday updating failed");
+		assertEquals(newDate, personDAO.readPerson(id).getBirthday(), "Bday updating failed");
 	}
 	
 	@Test

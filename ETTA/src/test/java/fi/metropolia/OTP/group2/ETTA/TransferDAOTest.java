@@ -18,9 +18,9 @@ import model.TransferDAO;
 @TestMethodOrder(OrderAnnotation.class)
 class TransferDAOTest {
 	private TransferDAO transferDAO = new TransferDAO();
-	private int id = 30;
+	private int id = 140;
 	private String desc = "shopping";
-	private static Category cat = new Category("food");
+	private static Category cat = null;
 	private static CategoryDAO catDAO = new CategoryDAO();
 	private boolean income = false;
 	private String str = "2020-02-09";
@@ -30,7 +30,7 @@ class TransferDAOTest {
 	
 	@BeforeAll
 	public static void createCategory() {
-		catDAO.createCategory(cat);
+		cat = catDAO.readCategory(3);
 	}
 
 	@Test
@@ -42,7 +42,7 @@ class TransferDAOTest {
 	@Test
 	@Order(2)
 	public void testReadTransfers() {
-		assertEquals(6, transferDAO.readTransfers().length, "Reading all failed");
+		assertEquals(23, transferDAO.readTransfers().length, "Reading all failed");
 	}
 	
 	@Test
@@ -55,10 +55,10 @@ class TransferDAOTest {
 	@Test
 	@Order(4)
 	public void testUpdateTransfer() {
-		date = Date.valueOf("1990-03-16");
-		Transfer updatedTransfer = new Transfer(desc, cat, income, date, amount);
+		Transfer updatedTransfer = transferDAO.readTransfer(id);
+		updatedTransfer.setDate(Date.valueOf("2020-02-11"));
 		assertEquals(true, transferDAO.updateTransfer(updatedTransfer), "Updating failed");
-		assertEquals(date, transferDAO.readTransfer(id).getDate(), "Date updating failed");
+		assertEquals(Date.valueOf("2020-02-11"), transferDAO.readTransfer(id).getDate(), "Date updating failed");
 	}
 	
 	@Test
