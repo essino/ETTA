@@ -1,5 +1,6 @@
 package controller;
 
+import model.Balance;
 import model.BalanceDAO;
 import view.BalanceOverviewGUI;
 
@@ -25,6 +26,18 @@ public class EconomyController {
 	 */ 
 	public void getBalance() { 
 		balanceOverviewGUI.setBalance(balanceDao.readBalance(1).getBalance()); 
+		if(balanceDao.readBalance(1).getBalance() == 0.00) {
+			balanceOverviewGUI.showSetBalance();
+		}
+		else if (balanceDao.readBalance(1).getBalance() != 0.00) {
+			balanceOverviewGUI.hideSetBalance();
+		}
+	}
+	
+	public void updateBalance(float amount) {
+		Balance balance = new Balance(1, amount);
+		balanceDao.updateBalance(balance);
+		getBalance();
 	}
 
 }

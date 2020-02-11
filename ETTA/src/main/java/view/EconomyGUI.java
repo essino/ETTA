@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 public class EconomyGUI {
 
@@ -18,6 +19,7 @@ public class EconomyGUI {
 	AnchorPane economyoutcomeaddanchorpane;
 	@FXML
 	AnchorPane economysavingsanchorpane;
+	
 	
 	@FXML
 	public void showBalance(ActionEvent event) {
@@ -100,6 +102,7 @@ public class EconomyGUI {
 		economyoutcomeaddanchorpane.getChildren().setAll(showAddOutcomeView);
 	
 	}
+
 	
 	@FXML
 	public void showAddSavings(ActionEvent event) {
@@ -116,4 +119,5 @@ public class EconomyGUI {
 		
 	}
 	
+
 }
