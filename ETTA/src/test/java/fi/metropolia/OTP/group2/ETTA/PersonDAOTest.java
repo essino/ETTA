@@ -17,23 +17,23 @@ import model.PersonDAO;
 @TestMethodOrder(OrderAnnotation.class)
 class PersonDAOTest {
 	private PersonDAO personDAO = new PersonDAO();
-	private int id = 137;
-	private String str = "1980-08-10";
+	private int id = 143;
+	private String str = "1997-06-17";
 	private Date date = Date.valueOf(str);
-	private String name = "Lena";
-	private String email = "elena.myllari@metropolia.fi";
-	private Person lena = new Person(name, date, email);
+	private String name = "Tiina";
+	private String email = "tiina.vanhanen@metropolia.fi";
+	private Person tiina = new Person(name, date, email);
 
 	@Test
 	@Order(1)
 	public void testCreate() {
-		assertEquals(true, personDAO.createPerson(lena), "Creation of person failed");
+		assertEquals(true, personDAO.createPerson(tiina), "Creation of person failed");
 	}
 	
 	@Test
 	@Order(2)
 	public void testReadPeople() {
-		assertEquals(35, personDAO.readPeople().length, "Reading all failed");
+		assertEquals(36, personDAO.readPeople().length, "Reading all failed");
 	}
 	
 	@Test

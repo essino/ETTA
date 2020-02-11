@@ -18,7 +18,7 @@ import model.PersonDAO;
 @TestMethodOrder(OrderAnnotation.class)
 class ItemDAOTest {
 		private ItemDAO itemDAO = new ItemDAO();
-		private int id = 135;
+		private int id = 147;
 		private String desc = "Ystävänpäiväkortti";
 		private double price = 3.5;
 		private String str = "2020-02-14";
@@ -51,7 +51,7 @@ class ItemDAOTest {
 			assertEquals(desc, itemDAO.readItem(id).getDescription(), "Reading one failed (description)");
 			assertEquals(price, itemDAO.readItem(id).getPrice(), "Reading one failed (price)");
 			assertEquals(dateNeeded, itemDAO.readItem(id).getDateNeeded(), "Reading one failed (date)");
-			assertEquals(anni, itemDAO.readItem(id).getPerson(), "Reading one failed (person)");
+			assertEquals(anni.getName(), itemDAO.readItem(id).getPerson().getName(), "Reading one failed (person)");
 		}
 		
 		@Test
