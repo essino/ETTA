@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="wishlistanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.WishlistGUI">
    <children>
       <TableView layoutX="212.0" layoutY="61.0" prefHeight="478.0" prefWidth="508.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
         <columns>
@@ -19,7 +19,7 @@
       </TableView>
       <ButtonBar layoutX="127.0" layoutY="597.0" prefHeight="40.0" prefWidth="652.0" AnchorPane.bottomAnchor="113.0" AnchorPane.leftAnchor="127.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="597.0">
         <buttons>
-            <Button mnemonicParsing="false" text="Add Item">
+            <Button mnemonicParsing="false" onAction="#showAddWish" text="Add Item">
                <font>
                   <Font size="18.0" />
                </font>

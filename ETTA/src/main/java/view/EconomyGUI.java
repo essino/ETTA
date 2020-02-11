@@ -10,17 +10,36 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class EconomyGUI {
-
+	
+	/**
+	 * The menu view to which the alternative views in the Economy section are added
+	 */
 	@FXML
 	BorderPane economyrootborderpane;
+	
+	/**
+	 * The list view from where adding, editing and deleting can be started in incomes
+	 */
 	@FXML
 	AnchorPane economyincomeanchorpane;
+	
+	
+	/**
+	 * The list view from where adding, editing and deleting can be started in expencies
+	 */
 	@FXML	
 	AnchorPane economyoutcomeaddanchorpane;
+	
+	/**
+	 * The list view from where adding, editing and deleting can be started in savings
+	 */
 	@FXML
 	AnchorPane economysavingsanchorpane;
 	
-	
+	/**
+	 * Method showing the balance view in the Economy items section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showBalance(ActionEvent event) {
 		AnchorPane showBalanceView = null; //Luon anchorpanin showBalanceView
@@ -33,7 +52,10 @@ public class EconomyGUI {
 			}
 		economyrootborderpane.setCenter(showBalanceView);
 	}
-	
+	/**
+	 * Method showing the Income view in the Economy items section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showIncome(ActionEvent event) {
 		AnchorPane showIncomeView = null; 
@@ -47,7 +69,10 @@ public class EconomyGUI {
 		economyrootborderpane.setCenter(showIncomeView);
 	}
 	
-	
+	/**
+	 * Method showing the Expencies view in the Economy items section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showExpencies(ActionEvent event) {
 		AnchorPane showExpenciesView = null; 
@@ -61,6 +86,10 @@ public class EconomyGUI {
 		economyrootborderpane.setCenter(showExpenciesView);
 	}
 	
+	/**
+	 * Method showing the Savings view in the Economy items section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showSavings(ActionEvent event) {
 		AnchorPane showSavingsView = null; 
@@ -74,6 +103,10 @@ public class EconomyGUI {
 		economyrootborderpane.setCenter(showSavingsView);
 	}
 	
+	/**
+	 * Method showing the view of the Add Income in the Income items section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showAddIncome(ActionEvent event) {
 		AnchorPane showAddIncomeView = null; 
@@ -87,7 +120,10 @@ public class EconomyGUI {
 		economyincomeanchorpane.getChildren().setAll(showAddIncomeView);
 	}
 	
-	
+	/**
+	 * Method showing the view of the Add Expence in the Expences items section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showAddOutcome(ActionEvent event) {
 		AnchorPane showAddOutcomeView = null;
@@ -103,7 +139,10 @@ public class EconomyGUI {
 	
 	}
 
-	
+	/**
+	 * Method showing the view of the Add Savings in the Savings items section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showAddSavings(ActionEvent event) {
 		AnchorPane showAddSavingsView = null;
