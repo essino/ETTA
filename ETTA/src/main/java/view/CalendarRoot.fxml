@@ -11,11 +11,10 @@
    <left>
       <VBox prefHeight="750.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-			<Button mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0" text="Home" AnchorPane.bottomAnchor="625.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 			<Button mnemonicParsing="false" onAction="#showDayView" prefHeight="150.0" prefWidth="200.0" text="Dayview" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0" />
             <Button mnemonicParsing="false" onAction="#showWeekView" prefHeight="150.0" prefWidth="200.0" text="Weekview" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="250.0" />
 			<Button mnemonicParsing="false" onAction="#showMonthView" prefHeight="150.0" prefWidth="200.0" text="Monthview" AnchorPane.bottomAnchor="250.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="375.0" />
-      		<Button mnemonicParsing="false" prefHeight="150.0" prefWidth="200.0" text="Add event" />
+      		<Button mnemonicParsing="false" onAction="#showAddView" prefHeight="150.0" prefWidth="200.0" text="Add event" />
          </children>
       </VBox>
    </left>
