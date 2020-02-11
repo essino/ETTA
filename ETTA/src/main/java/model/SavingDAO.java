@@ -48,12 +48,14 @@ public class SavingDAO {
 		return success;
 	}
 	
-	public Saving[] readSaving() {
+	public Saving[] readSavings() {
 		ArrayList<Saving> list = new ArrayList<>();
-		try (Session session = factory.openSession()) {
+		
+		try  {
+			Session session = factory.openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
-			List<Saving> result = session.createQuery("from Savings").getResultList();
+			List<Saving> result = session.createQuery("from Saving").getResultList();
 			for(Saving saving : result) {
 				list.add(saving);
 
@@ -63,8 +65,24 @@ public class SavingDAO {
 			if (transaction != null) transaction.rollback();
 			throw e;
 		}
-		Saving[] saving = new Saving[list.size()];
-		return (Saving[])list.toArray(saving);
+		Saving[] savings = new Saving[list.size()];
+		return (Saving[])list.toArray(savings);
+	}
+	
+	public Saving readSaving(int saving_id) {
+		Saving saving = new Saving();
+		try {
+			Session session = factory.openSession();
+			transaction = session.beginTransaction();
+			saving = (Saving)session.get(Saving.class, saving_id);		
+			transaction.commit();
+			System.out.println("reading one:" + saving.getDescription());
+		}
+		catch(Exception e){
+			if (transaction!= null) transaction.rollback();
+			throw e;
+		}
+		return saving;
 	}
 
 	public boolean updateSaving(Saving saving) {
@@ -81,11 +99,11 @@ public class SavingDAO {
 		return success;
 	}
 
-	public boolean deleteSaving(String name) {
+	public boolean deleteSaving(int saving_id) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
-			Saving saving = (Saving)session.get(Saving.class, name);
+			Saving saving = (Saving)session.get(Saving.class, saving_id);
 			session.delete(saving);
 			transaction.commit();
 			success = true;
