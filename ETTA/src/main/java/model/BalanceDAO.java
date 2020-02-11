@@ -7,10 +7,18 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-
+/**
+ *  Data access object class for Balance. Used in the creation of the database table for Balance through Hibernate.
+ */
 
 public class BalanceDAO {
+	/**
+	 * SessionFactory object needed to open session with the database
+	 */
 	SessionFactory factory = null;
+	/**
+	 * Transaction object to carry out database transaction
+	 */
 	Transaction transaction = null;
 	
 	public BalanceDAO() {
@@ -23,11 +31,18 @@ public class BalanceDAO {
 			e.printStackTrace();
 			System.exit(-1);}
 	}
-	
+	/**
+	 * method for closing the database session
+	 */
 	protected void finalize() {
 		factory.close();
 	}
-	/*
+	
+	/** 
+	 * Method that creates a balance row in the Balance table. Is is used only once, there should be only one row on the Balance table. 
+	 * @param balance Balance object 
+	 * @return true if balance row was created successfully  
+	 */
 	public boolean createBalance(Balance balance) {
 		boolean success = false;
 		try {
@@ -43,8 +58,13 @@ public class BalanceDAO {
 		}
 		return success;
 	}
-	*/
 	
+	/** 
+	 * Method that updates a balance row in the Balance table. 
+	 * @param balance object 
+
+	 * @return true if balance row was updated successfully  
+	 */
 	public boolean updateBalance(Balance balance) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {
@@ -59,7 +79,11 @@ public class BalanceDAO {
 		}
 		return success;
 	}
-	
+	/** 
+	 * Method that reads a balance row in the Balance table. 
+	 * @param balance_id 
+	 * @return balance object 
+	 */
 	public Balance readBalance(int balance_id) {
 		Balance balance = new Balance();
 		try (Session session = factory.openSession()) {

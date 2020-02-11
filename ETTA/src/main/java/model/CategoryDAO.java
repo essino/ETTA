@@ -9,9 +9,17 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
+/**
+ * Data access object class for Category. Used in the creation of the database table for Category through Hibernate.
+ */
 public class CategoryDAO {
+	/**
+	 * SessionFactory object needed to open session with the database
+	 */
 	SessionFactory factory = null;
+	/**
+	 * Transaction object to carry out database transaction
+	 */
 	Transaction transaction = null;
 	
 	public CategoryDAO() {
@@ -25,10 +33,18 @@ public class CategoryDAO {
 			System.exit(-1);}
 	}
 	
+	/**
+	 * method for closing the database session
+	 */
 	protected void finalize() {
 		factory.close();
 	}
 	
+	/**
+	 * method for making a new Category in the database
+	 * @param category Object that represents a category of income/expense
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
 	public boolean createCategory(Category category) {
 		boolean success = false;
 		try {
@@ -44,6 +60,11 @@ public class CategoryDAO {
 		return success;
 	}
 	
+	/**
+	 * method for reading one specific category from the database
+	 * @param id the id of the category
+	 * @return category object read from the database
+	 */
 	public Category readCategory(int id) {
 		Category category = new Category();
 		try {
@@ -60,6 +81,10 @@ public class CategoryDAO {
 		return category;
 	}
 	
+	/**
+	 * method for reading all categories from the database
+	 * @return Category[]  list of  category objects read from the database
+	 */
 	public Category[] readCategories() {
 		ArrayList<Category> list = new ArrayList<>();
 		try (Session session = factory.openSession()) {
@@ -78,7 +103,12 @@ public class CategoryDAO {
 		Category[] categories = new Category[list.size()];
 		return (Category[])list.toArray(categories);
 	}
-
+	
+	/**
+	 * method for updating one Category in the database
+	 * @param category Object that represents a category of income/expense
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
 	public boolean updateCategory(Category category) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {
@@ -92,7 +122,12 @@ public class CategoryDAO {
 		}
 		return success;
 	}
-
+	
+	/**
+	 * method for deleting one Category from the database
+	 * @param description  
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
 	public boolean deleteCategory(String description) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {

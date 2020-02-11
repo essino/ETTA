@@ -13,8 +13,14 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
  * Data access object class for Events. Used in the communication with the database table for Events through Hibernate.
  */
 public class EventDAO {
+	/**
+	 * SessionFactory object needed to open session with the database
+	 */
 	SessionFactory sessionFactory= null;
 	Session session;
+	/**
+	 * Transaction object to carry out database transaction
+	 */
 	Transaction transaction = null;
 	
 	public EventDAO(){
@@ -24,6 +30,10 @@ public class EventDAO {
 		sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 	}
 	
+	/**
+	 * method for reading all events from the database
+	 * @return Event[]  list of  event objects read from the database
+	 */
 	public Event[] readEvents() {
 		List<Event> result;
 		Event[] returnArray;
@@ -47,7 +57,11 @@ public class EventDAO {
 		
 		return result.toArray(returnArray);
 	}
-	
+	/**
+	 * method for reading one event from the database
+	 * @param id the id of the event
+	 * @return event object read from the database
+	 */
 	public Event readEvent(int event_id) {
 		
 		Event event = new Event();
@@ -68,6 +82,11 @@ public class EventDAO {
 		return event;
 	}
 	
+	/**
+	 * method for making a new Event in the database
+	 * @param event Object that represents an event
+	 * @return created Boolean indicating the success or failure of the database transaction
+	 */
 	public boolean createEvent(Event event) {
 		System.out.println("Event creating " + event.getTitle());
 		boolean created = false;
@@ -90,6 +109,11 @@ public class EventDAO {
 		return created;
 	}
 	
+	/**
+	 * method for updating an event in the database
+	 * @param event Object that represents an event
+	 * @return updated Boolean indicating the success or failure of the database transaction
+	 */
 	public boolean updateEvent(Event event) {
 		boolean updated =false;
 		try {
@@ -109,6 +133,11 @@ public class EventDAO {
 		return updated;
 	}
 	
+	/**
+	 * method for deleting one Category from the database
+	 * @param id the id of the event
+	 * @return deleted Boolean indicating the success or failure of the database transaction
+	 */
 	public boolean deleteEvent(int event_id) {
 		boolean deleted = false;
 		// Tiedon haku Session.get-metodilla + poisto jos löytyi
@@ -137,6 +166,9 @@ public class EventDAO {
 		return deleted;
 	}
 	
+	/**
+	 * method for closing the database session
+	 */
 	public void finalize() { // destruktori 
 		try { 
 			// oli sama yhteys koko sovelluksen ajan 
