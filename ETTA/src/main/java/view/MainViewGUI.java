@@ -12,6 +12,8 @@ import javafx.scene.layout.BorderPane;
  */
 public class MainViewGUI {
 	
+	CalendarGUI calendarGUI = new CalendarGUI();
+	
 	/**
 	 * Method loading the main page view 
 	 * @return BorderPane main page view
@@ -140,6 +142,7 @@ public class MainViewGUI {
 			e.printStackTrace();
 		}
 		WeekPage calendarView = new WeekPage();
+		calendarView.getCalendarSources().addAll(calendarGUI.getCalendarSource());
 		borderPaneCalendar.setCenter(calendarView);
 		return borderPaneCalendar;
 	}
