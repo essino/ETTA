@@ -5,7 +5,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.calendarfx.model.Calendar;
+import com.calendarfx.model.Calendar.Style;
+import com.calendarfx.model.CalendarEvent;
+import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
+import com.calendarfx.view.CalendarView;
 import com.calendarfx.view.page.DayPage;
 import com.calendarfx.view.page.MonthPage;
 import com.calendarfx.view.page.WeekPage;
@@ -13,6 +17,7 @@ import com.calendarfx.view.popover.EntryDetailsView;
 import com.calendarfx.view.popover.EntryHeaderView;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -56,6 +61,8 @@ public class CalendarGUI {
 	@FXML
 	VBox calendarNewEvent;
 	
+	CalendarSource myCalendarSource;
+	
 	/**
 	 * Method showing the day view in the Calendar section
 	 * @param event ActionEvent that is handled
@@ -64,6 +71,7 @@ public class CalendarGUI {
 	public void showDayView(ActionEvent event) throws IOException {
 		DayPage calendarView = new DayPage();
 		mainPane.setCenter(calendarView);
+		calendarView.getCalendarSources().addAll(getCalendarSource());
 	}
 
 	/**
@@ -74,6 +82,7 @@ public class CalendarGUI {
 	public void showWeekView(ActionEvent event) {
 		WeekPage calendarView = new WeekPage();
         mainPane.setCenter(calendarView);
+        calendarView.getCalendarSources().addAll(getCalendarSource());
 	}
 
 	/**
@@ -84,6 +93,10 @@ public class CalendarGUI {
 	public void showMonthView(ActionEvent event) {
 		MonthPage calendarView = new MonthPage();
         mainPane.setCenter(calendarView);
+        System.out.println("calendarSources" + calendarView.getCalendarSources());
+        //CalendarSource calendarSource = calendarView.getCalendarSources().get(0);
+        calendarView.getCalendarSources().addAll(getCalendarSource());
+        System.out.println("calendarSources" + calendarView.getCalendarSources());
 	}
 	
 	/**
@@ -119,4 +132,29 @@ public class CalendarGUI {
 		mainPane.setCenter(addNewVBox);
 		//calendarNewEvent.getChildren().addAll(header, newentry);
 	}
+	
+	public CalendarSource getCalendarSource() {
+		
+		Calendar calendar2 = new Calendar("birthdays");
+		calendar2.setStyle(Style.STYLE2);
+		//calendar2.addEventHandler(CalendarEvent.ANY, evt -> handleEvent(evt));
+		Calendar calendar3 = new Calendar("kids");
+		calendar3.setStyle(Style.STYLE3);
+		Calendar calendar4 = new Calendar("work");
+		calendar4.setStyle(Style.STYLE4);
+		Calendar calendar5 = new Calendar("health");
+		calendar5.setStyle(Style.STYLE5);
+		Calendar calendar6 = new Calendar("meetings");
+		calendar6.setStyle(Style.STYLE6);
+		Calendar calendar7 = new Calendar("culture");
+		calendar7.setStyle(Style.STYLE7);
+		myCalendarSource = new CalendarSource("My Calendars"); 
+		
+        myCalendarSource.getCalendars().addAll(calendar2, calendar3, calendar4, calendar5, calendar6, calendar7);
+        System.out.println("calendars" + myCalendarSource.getCalendars());
+        return myCalendarSource;
+	}
+	
+
+
 }
