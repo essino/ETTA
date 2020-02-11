@@ -1,7 +1,5 @@
 package view;
 
-
-
 import controller.EconomyController;
 import controller.InputCheck;
 import javafx.fxml.FXML;
@@ -13,13 +11,21 @@ import javafx.scene.layout.Pane;
  * GUI class relating to the Balance main page section
  */
 public class BalanceOverviewGUI {
-	EconomyController controller; 
+	EconomyController controller;
+	/**
+	 * The reference of pane where user can input the start balance amount
+	 */
 	@FXML
 	private Pane setBalancePane;
+	/**
+	 * The reference of textField where user inputs the start balance amount
+	 */
 	@FXML
 	private TextField newBalance;
+	/**
+	 * The reference of label will be injected by the FXML loader
+	 */
 	@FXML 
-	// The reference of label will be injected by the FXML loader 
 	private Label amountBalance; 
 	
 	InputCheck inputCheck = new InputCheck();
@@ -27,6 +33,7 @@ public class BalanceOverviewGUI {
 	public BalanceOverviewGUI() { 
 		controller = new EconomyController(this);
 	} 
+	
 	/** 
 	 * Method that gets balance amount and displays it on the page 
 	 * @param amount double the balance amount
@@ -36,11 +43,17 @@ public class BalanceOverviewGUI {
 		amountBalance.setText(balanceString); 
 	} 
 	
+	/** 
+	 * Method that displays the pane where user can set the start balance amount  
+	 */ 
 	@FXML
 	public void showSetBalance() {
 		setBalancePane.setVisible(true);
 	}
 	
+	/** 
+	 * Method that hides the pane where user can set the start balance amount  
+	 */ 
 	@FXML
 	public void hideSetBalance() {
 		setBalancePane.setVisible(false);
@@ -51,6 +64,11 @@ public class BalanceOverviewGUI {
 		controller.getBalance(); 
 	}
 	
+	/** 
+	 * Method that saves the start balance amount inputed by the user. 
+	 * First it gives the input to InputCheck class to check it.
+	 * If the input is valid, it gives it to the controller for updating the database.
+	 */ 
 	@FXML
 	public void saveBalance() {
 		if(inputCheck.isInputFloat(newBalance.getText())) {
