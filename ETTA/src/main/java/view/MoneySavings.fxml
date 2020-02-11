@@ -8,18 +8,20 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView layoutX="245.0" layoutY="214.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
+      <TableView layoutX="207.0" layoutY="147.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
         <columns>
-          <TableColumn prefWidth="287.0" text="Reason" />
-          <TableColumn prefWidth="268.0" text="Place" />
-            <TableColumn prefWidth="188.0" text="Outlay" />
+          <TableColumn prefWidth="216.0" text="Description" />
+          <TableColumn prefWidth="135.0" text="Total" />
+            <TableColumn prefWidth="209.0" text="Goal" />
+            <TableColumn prefWidth="183.0" text="Deatline" />
         </columns>
       </TableView>
-      <ButtonBar layoutX="471.0" layoutY="690.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="28.0">
+      <ButtonBar layoutX="505.0" layoutY="677.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="28.0">
         <buttons>
           <Button mnemonicParsing="false" text="Add" />
             <Button mnemonicParsing="false" text="Edit" />
             <Button mnemonicParsing="false" text="Remove" />
+            <Button mnemonicParsing="false" text="Economize" />
         </buttons>
       </ButtonBar>
    </children>

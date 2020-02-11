@@ -17,6 +17,8 @@ public class EconomyGUI {
 	AnchorPane economyincomeanchorpane;
 	@FXML	
 	AnchorPane economyoutcomeaddanchorpane;
+	@FXML
+	AnchorPane economysavingsanchorpane;
 	
 	
 	@FXML
@@ -75,7 +77,7 @@ public class EconomyGUI {
 	@FXML
 	public void showAddIncome(ActionEvent event) {
 		AnchorPane showAddIncomeView = null; 
-		FXMLLoader loaderAddIncomeView  = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml")); 
+		FXMLLoader loaderAddIncomeView  = new FXMLLoader(getClass().getResource("/view/EconomyAddIncome2.fxml")); 
 		try {
 			showAddIncomeView = loaderAddIncomeView.load();
 			} catch (IOException e) {
@@ -88,18 +90,34 @@ public class EconomyGUI {
 	
 	@FXML
 	public void showAddOutcome(ActionEvent event) {
-		AnchorPane showAddOutcomeeView = null;
+		AnchorPane showAddOutcomeView = null;
 		FXMLLoader loaderAddOutcomeView = new FXMLLoader(getClass().getResource("/view/EconomyAddOutcome.fxml"));
 		try {
-			showAddOutcomeeView = loaderAddOutcomeView.load();
+			showAddOutcomeView = loaderAddOutcomeView.load();
 			} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		//shows the loaded fxml file
-		economyoutcomeaddanchorpane.getChildren().setAll(showAddOutcomeeView);
+		economyoutcomeaddanchorpane.getChildren().setAll(showAddOutcomeView);
 	
 	}
 
+	
+	@FXML
+	public void showAddSavings(ActionEvent event) {
+		AnchorPane showAddSavingsView = null;
+		FXMLLoader loaderAddSavingsView = new FXMLLoader(getClass().getResource("/view/EconomyAddSavings.fxml"));
+		try {
+			showAddSavingsView = loaderAddSavingsView.load();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		//shows the loaded fxml file
+		economysavingsanchorpane.getChildren().setAll(showAddSavingsView);
+		
+	}
+	
 
 }

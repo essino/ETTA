@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<BorderPane fx:id="MainBorderPaneMoney" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <VBox prefHeight="750.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button maxWidth="200.0" mnemonicParsing="false" prefHeight="125.0" text="Menu" />
+            <Button maxWidth="200.0" mnemonicParsing="false" prefHeight="125.0" text="Balance" />
+            <Button maxWidth="200.0" mnemonicParsing="false" prefHeight="125.0" text="Income" />
+            <Button maxWidth="200.0" mnemonicParsing="false" prefHeight="125.0" text="Outlay" />
+            <Button maxWidth="200.0" mnemonicParsing="false" prefHeight="125.0" text="Savings" />
+         </children>
+      </VBox>
+   </left>
+</BorderPane>
