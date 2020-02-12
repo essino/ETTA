@@ -35,6 +35,7 @@ public class EventDAO {
 	 * @return Event[]  list of  event objects read from the database
 	 */
 	public Event[] readEvents() {
+		Transaction transaction = null;
 		List<Event> result;
 		Event[] returnArray;
 		try {
@@ -63,14 +64,18 @@ public class EventDAO {
 	 * @return event object read from the database
 	 */
 	public Event readEvent(int event_id) {
-		
+		Transaction transaction = null;
 		Event event = new Event();
 		try {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
-			event = (Event)session.get(Event.class, event_id);		
+			event = (Event)session.get(Event.class, event_id);	
+			
 			transaction.commit();
-			System.out.println("reeding one:" + event.getTitle() + " startTime " + event.getStartTime());
+			if(event == null) {
+				return null;
+			}
+			System.out.println("reading one:" + event.getTitle() + " startTime " + event.getStartTime());
 		}
 		catch(Exception e){
 			if (transaction!=null) transaction.rollback();
@@ -164,6 +169,34 @@ public class EventDAO {
 			session.close();
 		}
 		return deleted;
+	}
+	
+	/**
+	 * method for reading events only belonging to the calendar recieved as parameter from the database
+	 * @return Event[]  list of  event objects read from the database
+	 */
+	public Event[] readEventsFromOneCalendar(String calendar) {
+		List<Event> result;
+		Event[] returnArray;
+		try {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			result = session.createQuery( "from Event where calendar="+ calendar).list();
+			for ( Event e : (List<Event>) result ) {
+				System.out.println( "Event (" + e.getTitle() + ") : " + e.getStartDate() + ", " + e.getStartTime());
+			}
+			session.getTransaction().commit();
+			returnArray = new Event[result.size()];
+		}
+		catch(Exception e){
+			if (transaction!=null) transaction.rollback();
+				throw e;
+			}	
+		finally{
+			session.close();
+		}
+		
+		return result.toArray(returnArray);
 	}
 	
 	/**

@@ -13,7 +13,9 @@ import javax.persistence.*;
 @Table(name="Event")
 public class Event {
 
+	
 	@Id
+	@GeneratedValue
 	@Column(name="event_id")
 	private int event_id;
 
@@ -63,6 +65,29 @@ public class Event {
 	public Event(int event_id, String title, boolean fullday, Date startDate, Date endDate, Time startTime,
 			Time endTime, boolean recurring, String rrule, String calendar) {
 		this.event_id = event_id;
+		this.title = title;
+		this.fullday = fullday;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.recurring = recurring;
+		this.rrule = rrule;
+		this.calendar = calendar;
+	}
+	
+	/**
+	 * Constructor to create events.
+	 *@param title String describing what the event is. 
+	 *@param fullday boolean showing if the event lasts all day
+	 *@param startDate Date on which the event starts
+	 *@param endDate Date on which the event ends
+	 *@param recurring boolean showing if the event recurs
+	 *@param rrule String describing how often the events recurs
+	 *@param calendar the calendar to which the event belongs to
+	 */
+	public Event(String title, boolean fullday, Date startDate, Date endDate, Time startTime,
+			Time endTime, boolean recurring, String rrule, String calendar) {
 		this.title = title;
 		this.fullday = fullday;
 		this.startDate = startDate;
