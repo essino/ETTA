@@ -12,6 +12,7 @@ import com.calendarfx.model.CalendarEvent;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
 
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 
 import com.calendarfx.model.Calendar.Style;
@@ -46,14 +47,28 @@ public class CalendarController {
 		Calendar calendar7 = new Calendar("culture");
 		calendar7.setStyle(Style.STYLE7);
 		CalendarSource myCalendarSource = new CalendarSource("My Calendars"); 
+		/*
 		Event [] events = eventDAO.readEventsFromOneCalendar("'birthdays'");
 		for (Event event : events) {
 			Entry entry = fromEventToEntry(event);
 			calendar2.addEntry(entry);
 		}
+		*/
+		myCalendarSource.getCalendars().addAll(calendar2, calendar3, calendar4, calendar5, calendar6, calendar7);
+		ObservableList<Calendar> calendars = myCalendarSource.getCalendars();
 		EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
-		calendar2.addEventHandler(handler);
-        myCalendarSource.getCalendars().addAll(calendar2, calendar3, calendar4, calendar5, calendar6, calendar7);
+		for(Calendar calendar : calendars) {
+			System.out.println("calendar" + "'" + calendar.getName() + "'");
+			Event [] events = eventDAO.readEventsFromOneCalendar("'" + calendar.getName() + "'");
+			for (Event event : events) {
+				Entry entry = fromEventToEntry(event);
+				calendar.addEntry(entry);
+			}
+			calendar.addEventHandler(handler);
+		}
+		
+		//calendar2.addEventHandler(handler);
+       
         System.out.println("calendars" + myCalendarSource.getCalendars());
         return myCalendarSource;
 	}
@@ -62,7 +77,14 @@ public class CalendarController {
 		System.out.println(evt.getEntry().getId() + " " + evt.getEntry().getTitle());
 		System.out.println(checkIfEventExist(Integer.parseInt(evt.getEntry().getId())));
 		//if(evt.isEntryAdded() && 
-		if(checkIfEventExist(Integer.parseInt(evt.getEntry().getId()))==false) {
+		if(evt.isEntryRemoved()) {
+			Entry entry = evt.getEntry();
+			Event newEvent = fromEntryToEvent(entry);
+			System.out.println("entry id " + entry.getId());
+			System.out.println("event id " + newEvent.getEvent_id());
+			eventDAO.deleteEvent(newEvent.getEvent_id());
+		}
+		else if(checkIfEventExist(Integer.parseInt(evt.getEntry().getId()))==false) {
 			System.out.println("added");
 			Entry entry = evt.getEntry();
 			Event newEvent = fromEntryToEvent(entry);
@@ -99,7 +121,7 @@ public class CalendarController {
 		Time startTime = toSqlTime(entry.getStartTime());
 		Time endTime = toSqlTime(entry.getEndTime());
 		event.setTitle(entry.getTitle());
-		event.setCalendar(entry.getCalendar().getName());
+		//event.setCalendar(entry.getCalendar().getName());
 		event.setEndDate(endDate);
 		event.setStartDate(startDate);
 		event.setEndTime(endTime);
@@ -107,6 +129,7 @@ public class CalendarController {
 		event.setFullday(entry.isFullDay());
 		event.setRecurring(entry.isRecurring());
 		event.setRrule(entry.getRecurrenceRule());
+		event.setEvent_id(Integer.parseInt(entry.getId()));
 		return event;
 	  }
 }
