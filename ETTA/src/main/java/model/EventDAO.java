@@ -93,7 +93,8 @@ public class EventDAO {
 	 * @return created Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean createEvent(Event event) {
-		System.out.println("Event creating " + event.getTitle());
+		System.out.println("Event creating " + event.getTitle() + " calendar " + event.getCalendar());
+		
 		boolean created = false;
 		Transaction transaction = null;
 
@@ -126,6 +127,7 @@ public class EventDAO {
 			transaction = session.beginTransaction();	
 			session.update(event);
 			transaction.commit();
+			System.out.println("changed" + event.getEvent_id());
 			updated = true;
 		}
 		catch(Exception e){

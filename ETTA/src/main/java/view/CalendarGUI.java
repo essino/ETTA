@@ -102,8 +102,28 @@ public class CalendarGUI {
 	public void showMonthView(ActionEvent event) {
 		MonthPage calendarView = new MonthPage();
         mainPane.setCenter(calendarView);
-        System.out.println("calendarSources" + calendarView.getCalendarSources());
-        //CalendarSource calendarSource = calendarView.getCalendarSources().get(0);
+        /*
+        CalendarSource calendarSource = calendarView.getCalendarSources().get(0);
+        Calendar defaultCalendar = calendarSource.getCalendars().get(0);
+        EventHandler<CalendarEvent> handler = evt -> controller.handleCalendarEvent(evt);
+        defaultCalendar.addEventHandler(handler);
+		Event [] events = eventDAO.readEventsFromOneCalendar("'" + defaultCalendar.getName() + "'");
+		System.out.println("default kalenterissa on " + events.length);
+		for (Event event2 : events) {
+			System.out.println("ladataan deafult calenterista");
+			Entry entry = controller.fromEventToEntry(event2);
+			System.out.println(event2.getTitle());
+			System.out.println(event2.getCalendar());
+			System.out.println(entry.getCalendar().getName());
+			entry.setCalendar(defaultCalendar);
+			defaultCalendar.addEntry(entry);
+		}
+		System.out.println("default calendar" + defaultCalendar.getName());
+		//System.out.println("default calendars" + myCalendarSource.getCalendars());
+		//EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
+		//defaultCalendar.addEventHandler(handler);
+		 * */
+		 
         calendarView.getCalendarSources().addAll(controller.getCalendarSource());
         System.out.println("calendarSources" + calendarView.getCalendarSources());
 	}

@@ -31,7 +31,12 @@ public class CalendarController {
 		return true;
 	}
 	public CalendarSource getCalendarSource() {
-		
+		//CalendarSource myCalendarSource = new CalendarSource("My Calendars");
+		//Calendar defaultCalendar = myCalendarSource.getCalendars().get(0);
+		//System.out.println("default calendar" + defaultCalendar.getName());
+		//System.out.println("default calendars" + myCalendarSource.getCalendars());
+		//EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
+		//defaultCalendar.addEventHandler(handler);
 		Calendar calendar2 = new Calendar("birthdays");
 		calendar2.setStyle(Style.STYLE2);
 		//calendar2.addEntries(eventDAO.readEventsFromOneCalendar("birthdays"));
@@ -46,14 +51,8 @@ public class CalendarController {
 		calendar6.setStyle(Style.STYLE6);
 		Calendar calendar7 = new Calendar("culture");
 		calendar7.setStyle(Style.STYLE7);
+		
 		CalendarSource myCalendarSource = new CalendarSource("My Calendars"); 
-		/*
-		Event [] events = eventDAO.readEventsFromOneCalendar("'birthdays'");
-		for (Event event : events) {
-			Entry entry = fromEventToEntry(event);
-			calendar2.addEntry(entry);
-		}
-		*/
 		myCalendarSource.getCalendars().addAll(calendar2, calendar3, calendar4, calendar5, calendar6, calendar7);
 		ObservableList<Calendar> calendars = myCalendarSource.getCalendars();
 		EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
@@ -67,13 +66,11 @@ public class CalendarController {
 			calendar.addEventHandler(handler);
 		}
 		
-		//calendar2.addEventHandler(handler);
-       
         System.out.println("calendars" + myCalendarSource.getCalendars());
         return myCalendarSource;
 	}
 	
-	private void handleCalendarEvent(CalendarEvent evt) {
+	public void handleCalendarEvent(CalendarEvent evt) {
 		System.out.println(evt.getEntry().getId() + " " + evt.getEntry().getTitle());
 		System.out.println(checkIfEventExist(Integer.parseInt(evt.getEntry().getId())));
 		//if(evt.isEntryAdded() && 
@@ -84,6 +81,7 @@ public class CalendarController {
 			System.out.println("event id " + newEvent.getEvent_id());
 			eventDAO.deleteEvent(newEvent.getEvent_id());
 		}
+		//else if(evt.isEntryAdded()) {
 		else if(checkIfEventExist(Integer.parseInt(evt.getEntry().getId()))==false) {
 			System.out.println("added");
 			Entry entry = evt.getEntry();
@@ -91,9 +89,12 @@ public class CalendarController {
 			eventDAO.createEvent(newEvent);
 		}
 		else {
-			System.out.println("changed");
-		}
-	
+				System.out.println("changed");
+				Entry entry = evt.getEntry();
+				Event newEvent = fromEntryToEvent(entry);
+				eventDAO.updateEvent(newEvent);
+			}
+
 	}
 	public Date convertToDateViaSqlDate(LocalDate dateToConvert) {
 	    return java.sql.Date.valueOf(dateToConvert);
@@ -111,6 +112,7 @@ public class CalendarController {
 		entry.setInterval(event.getStartTime().toLocalTime(), event.getEndTime().toLocalTime());
 		entry.setId(String.valueOf(event.getEvent_id()));
 		entry.setRecurrenceRule(event.getRrule());
+		
 		return entry;
 	 }
 	  
@@ -121,7 +123,7 @@ public class CalendarController {
 		Time startTime = toSqlTime(entry.getStartTime());
 		Time endTime = toSqlTime(entry.getEndTime());
 		event.setTitle(entry.getTitle());
-		//event.setCalendar(entry.getCalendar().getName());
+		event.setCalendar(entry.getCalendar().getName());
 		event.setEndDate(endDate);
 		event.setStartDate(startDate);
 		event.setEndTime(endTime);
@@ -130,6 +132,9 @@ public class CalendarController {
 		event.setRecurring(entry.isRecurring());
 		event.setRrule(entry.getRecurrenceRule());
 		event.setEvent_id(Integer.parseInt(entry.getId()));
+		if(event.getCalendar()==null) {
+			event.setCalendar("Default");
+		}
 		return event;
 	  }
 }
