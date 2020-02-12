@@ -123,7 +123,6 @@ public class CalendarController {
 		Time startTime = toSqlTime(entry.getStartTime());
 		Time endTime = toSqlTime(entry.getEndTime());
 		event.setTitle(entry.getTitle());
-		event.setCalendar(entry.getCalendar().getName());
 		event.setEndDate(endDate);
 		event.setStartDate(startDate);
 		event.setEndTime(endTime);
@@ -134,6 +133,9 @@ public class CalendarController {
 		event.setEvent_id(Integer.parseInt(entry.getId()));
 		if(event.getCalendar()==null) {
 			event.setCalendar("Default");
+		}
+		else {
+			event.setCalendar(entry.getCalendar().getName());
 		}
 		return event;
 	  }
