@@ -28,6 +28,7 @@
                     <columns>
                       <TableColumn fx:id="title" prefWidth="150.0" text="Event" />
                       <TableColumn fx:id="location" prefWidth="150.0" text="Location" />
+                      <TableColumn fx:id="startDate" prefWidth="150.0" text="Start Date" />
                       <TableColumn fx:id="startTime" prefWidth="150.0" text="Start time" />
                       <TableColumn fx:id="endTime" prefWidth="150.0" text="End time" />
                     </columns>

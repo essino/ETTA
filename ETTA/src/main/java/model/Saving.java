@@ -44,6 +44,14 @@ public class Saving {
 		this.goalDate = date;
 	}
 
+	
+
+	public Saving() {
+		
+	}
+
+
+
 	public int getSaving_id() {
 		return saving_id;
 	}

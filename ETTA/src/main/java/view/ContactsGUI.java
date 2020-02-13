@@ -1,10 +1,14 @@
 package view;
 
 import java.io.IOException;
+import java.sql.Date;
 
+import controller.ContactsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -12,6 +16,8 @@ import javafx.scene.layout.BorderPane;
  * GUI class relating to the Contacts items section
  */
 public class ContactsGUI {
+	
+	ContactsController controller;
 	
 	/**
 	 * The menu view to which the alternative views in the Contacts section are added
@@ -24,6 +30,26 @@ public class ContactsGUI {
 	 */
 	@FXML
 	AnchorPane contactsviewanchorpane;
+	
+	@FXML
+	AnchorPane contactsaddanchorpane;
+	
+	@FXML
+	TextField personAddress;
+	
+	@FXML
+	TextField personEmail;
+	
+	@FXML
+	TextField personName;
+	
+	@FXML
+	DatePicker personBirthday;
+	
+	public ContactsGUI () {
+		controller = new ContactsController(this);
+	}
+	
 	
 	/**
 	 * Method showing the search view in the Contacts section
@@ -75,4 +101,43 @@ public class ContactsGUI {
 			}
 		contactsviewanchorpane.getChildren().setAll(showAddContactView);
 	}
+	
+	
+	@FXML
+	public void saveNewPerson(ActionEvent event) {
+		
+		controller.savePerson();
+		AnchorPane contactsView = null; 
+		FXMLLoader loaderContactsView  = new FXMLLoader(getClass().getResource("/view/ContactsView.fxml")); 
+		try {
+			contactsView = loaderContactsView.load();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		contactsaddanchorpane.getChildren().setAll(contactsView);
+	}
+	
+	
+	@FXML
+	public String getPersonAddress(){
+		return this.personAddress.getText();
+		}
+	
+	@FXML
+	public String getPersonEmail(){
+		return this.personEmail.getText();
+		}
+	
+	@FXML
+	public String getPersonName(){
+		return this.personName.getText();
+		}
+	
+	@FXML
+	public Date getPersonBirthday() {
+		return Date.valueOf(this.personBirthday.getValue());
+	}
+	
+	
 }
