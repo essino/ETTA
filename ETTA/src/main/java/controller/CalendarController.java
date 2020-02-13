@@ -11,6 +11,7 @@ import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarEvent;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
+import com.calendarfx.view.CalendarView;
 
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -31,16 +32,8 @@ public class CalendarController {
 		return true;
 	}
 	public CalendarSource getCalendarSource() {
-		//CalendarSource myCalendarSource = new CalendarSource("My Calendars");
-		//Calendar defaultCalendar = myCalendarSource.getCalendars().get(0);
-		//System.out.println("default calendar" + defaultCalendar.getName());
-		//System.out.println("default calendars" + myCalendarSource.getCalendars());
-		//EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
-		//defaultCalendar.addEventHandler(handler);
 		Calendar calendar2 = new Calendar("birthdays");
 		calendar2.setStyle(Style.STYLE2);
-		//calendar2.addEntries(eventDAO.readEventsFromOneCalendar("birthdays"));
-		//calendar2.addEventHandler(CalendarEvent.ANY, evt -> handleEvent(evt));
 		Calendar calendar3 = new Calendar("kids");
 		calendar3.setStyle(Style.STYLE3);
 		Calendar calendar4 = new Calendar("work");
@@ -57,7 +50,7 @@ public class CalendarController {
 		ObservableList<Calendar> calendars = myCalendarSource.getCalendars();
 		EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
 		for(Calendar calendar : calendars) {
-			System.out.println("calendar" + "'" + calendar.getName() + "'");
+			//System.out.println("calendar" + "'" + calendar.getName() + "'");
 			Event [] events = eventDAO.readEventsFromOneCalendar("'" + calendar.getName() + "'");
 			for (Event event : events) {
 				Entry entry = fromEventToEntry(event);
@@ -66,19 +59,14 @@ public class CalendarController {
 			calendar.addEventHandler(handler);
 		}
 		
-        System.out.println("calendars" + myCalendarSource.getCalendars());
+        //System.out.println("calendars" + myCalendarSource.getCalendars());
         return myCalendarSource;
 	}
 	
 	public void handleCalendarEvent(CalendarEvent evt) {
-		System.out.println(evt.getEntry().getId() + " " + evt.getEntry().getTitle());
-		System.out.println(checkIfEventExist(Integer.parseInt(evt.getEntry().getId())));
-		//if(evt.isEntryAdded() && 
 		if(evt.isEntryRemoved()) {
 			Entry entry = evt.getEntry();
 			Event newEvent = fromEntryToEvent(entry);
-			System.out.println("entry id " + entry.getId());
-			System.out.println("event id " + newEvent.getEvent_id());
 			eventDAO.deleteEvent(newEvent.getEvent_id());
 		}
 		//else if(evt.isEntryAdded()) {
@@ -139,4 +127,20 @@ public class CalendarController {
 		}
 		return event;
 	  }
+	 
+	 public CalendarSource getDeafultCalendarSource(CalendarView calendarView) {
+		 CalendarSource calendarSource = calendarView.getCalendarSources().get(0);
+	        Calendar defaultCalendar = calendarSource.getCalendars().get(0);
+	        EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
+	        defaultCalendar.addEventHandler(handler);
+			Event [] events = eventDAO.readEventsFromOneCalendar("'" + defaultCalendar.getName() + "'");
+			for (Event event2 : events) {
+				System.out.println("ladataan deafult calenterista");
+				Entry entry = fromEventToEntry(event2);
+				entry.setCalendar(defaultCalendar);
+				defaultCalendar.addEntry(entry);
+			}
+			
+		 return calendarSource;
+	 }
 }

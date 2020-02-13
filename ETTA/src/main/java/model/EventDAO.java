@@ -43,7 +43,7 @@ public class EventDAO {
 			session.beginTransaction();
 			result = session.createQuery( "from Event" ).list();
 			for ( Event e : (List<Event>) result ) {
-				System.out.println( "Event (" + e.getTitle() + ") : " + e.getStartDate() + ", " + e.getStartTime());
+				//System.out.println( "Event (" + e.getTitle() + ") : " + e.getStartDate() + ", " + e.getStartTime());
 			}
 			session.getTransaction().commit();
 			returnArray = new Event[result.size()];
@@ -75,7 +75,7 @@ public class EventDAO {
 			if(event == null) {
 				return null;
 			}
-			System.out.println("reading one:" + event.getTitle() + " startTime " + event.getStartTime());
+			//System.out.println("reading one:" + event.getTitle() + " startTime " + event.getStartTime());
 		}
 		catch(Exception e){
 			if (transaction!=null) transaction.rollback();
@@ -93,7 +93,7 @@ public class EventDAO {
 	 * @return created Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean createEvent(Event event) {
-		System.out.println("Event creating " + event.getTitle() + " calendar " + event.getCalendar());
+		//System.out.println("Event creating " + event.getTitle() + " calendar " + event.getCalendar());
 		
 		boolean created = false;
 		Transaction transaction = null;
@@ -127,7 +127,7 @@ public class EventDAO {
 			transaction = session.beginTransaction();	
 			session.update(event);
 			transaction.commit();
-			System.out.println("changed" + event.getEvent_id());
+			//System.out.println("changed" + event.getEvent_id());
 			updated = true;
 		}
 		catch(Exception e){
@@ -155,7 +155,7 @@ public class EventDAO {
 			Event e = (Event)session.get(Event.class, event_id);
 			if (e!= null) {
 				session.delete(e);
-				System.out.println(event_id + " deleted.");
+				//System.out.println(event_id + " deleted.");
 				deleted = true;
 			}
 			else {
@@ -185,7 +185,7 @@ public class EventDAO {
 			session.beginTransaction();
 			result = session.createQuery( "from Event where calendar="+ calendar).list();
 			for ( Event e : (List<Event>) result ) {
-				System.out.println( "Event (" + e.getTitle() + ") : " + e.getStartDate() + ", " + e.getStartTime());
+				//System.out.println( "Event (" + e.getTitle() + ") : " + e.getStartDate() + ", " + e.getStartTime());
 			}
 			session.getTransaction().commit();
 			returnArray = new Event[result.size()];
