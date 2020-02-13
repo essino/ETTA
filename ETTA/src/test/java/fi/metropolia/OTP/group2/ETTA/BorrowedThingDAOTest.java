@@ -12,6 +12,7 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 import model.BorrowedThing;
 import model.BorrowedThingDAO;
+import model.Item;
 import model.Person;
 import model.PersonDAO;
 
@@ -19,19 +20,20 @@ import model.PersonDAO;
 public class BorrowedThingDAOTest {
 
 	private BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO();
-	private int thing_id = 1;
+	private int thing_id = 252;
 	private String description = "The red hammer";
 	private String strLoan = "2020-02-10";
 	private Date loanDate = Date.valueOf(strLoan);
 	private String strReturn = "2020-03-10";
 	private Date returnDate = Date.valueOf(strReturn);
+	private static Person person = null;
 	private static PersonDAO personDAO = new PersonDAO();
-	private static Person risto = new Person("Risto", Date.valueOf("1960-11-11"), "risto.reipas@gmail.com");
-	private BorrowedThing borrowedThing = new BorrowedThing(description, loanDate, returnDate, risto);
+	
+	private BorrowedThing borrowedThing = new BorrowedThing(description, loanDate, returnDate, person);
 	
 	@BeforeAll
 	public static void createPerson() {
-		personDAO.createPerson(risto);
+		person = personDAO.readPerson(126);
 	}
 	
 	@Test
@@ -43,7 +45,7 @@ public class BorrowedThingDAOTest {
 	@Test
 	@Order(2)
 	public void testReadBorrowedThings() {
-		assertEquals(1, borrowedThingDAO.readBorrowedThings().length, "Reading all failed");
+		assertEquals(19, borrowedThingDAO.readBorrowedThings().length, "Reading all failed");
 	}
 	
 	@Test
@@ -52,15 +54,16 @@ public class BorrowedThingDAOTest {
 		assertEquals(description, borrowedThingDAO.readBorrowedThing(thing_id).getDescription(), "Reading one failed (description)");
 		assertEquals(loanDate, borrowedThingDAO.readBorrowedThing(thing_id).getDateBorrowed(), "Reading one failed (loan date)");
 		assertEquals(returnDate, borrowedThingDAO.readBorrowedThing(thing_id).getReturnDate(), "Reading one failed (return date)");
-		assertEquals(risto, borrowedThingDAO.readBorrowedThing(thing_id).getPerson(), "Reading one failed (person)");
+		assertEquals(person.getName(), borrowedThingDAO.readBorrowedThing(thing_id).getPerson().getName(), "Reading one failed (person)");
 	}
 	
 	@Test
 	@Order(4)
 	public void testUpdate() {
-		BorrowedThing updatedBorrowedThing = new BorrowedThing(description, loanDate, Date.valueOf("2021-12-12"), risto);
+		BorrowedThing updatedBorrowedThing = borrowedThingDAO.readBorrowedThing(thing_id);
+		updatedBorrowedThing.setDescription("The black cat");
 		assertEquals(true, borrowedThingDAO.updateBorrowedThing(updatedBorrowedThing), "Updating failed");
-		assertEquals(returnDate, borrowedThingDAO.readBorrowedThing(thing_id).getReturnDate(), "Return Date updating failed");
+		assertEquals("The black cat", borrowedThingDAO.readBorrowedThing(thing_id).getDescription(), "Return Date updating failed");
 	}
 	
 	@Test
