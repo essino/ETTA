@@ -9,12 +9,14 @@
 
 <AnchorPane fx:id="wishlistanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.WishlistGUI">
    <children>
-      <TableView layoutX="212.0" layoutY="61.0" prefHeight="478.0" prefWidth="508.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
+      <TableView fx:id="wishlisttable" layoutX="212.0" layoutY="61.0" prefHeight="478.0" prefWidth="508.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Item" />
-          <TableColumn prefWidth="75.0" text="Person" />
-            <TableColumn prefWidth="75.0" text="Price" />
-            <TableColumn prefWidth="75.0" text="Date" />
+          <TableColumn fx:id="item" prefWidth="75.0" text="Item" />
+          <TableColumn fx:id="person" prefWidth="75.0" text="Person" />
+            <TableColumn fx:id="price" prefWidth="75.0" text="Price" />
+            <TableColumn fx:id="date" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="addinfo" prefWidth="160.800048828125" text="Additional Information" />
+            <TableColumn fx:id="bought" minWidth="0.0" prefWidth="65.5999755859375" text="Bought" />
         </columns>
       </TableView>
       <ButtonBar layoutX="127.0" layoutY="597.0" prefHeight="40.0" prefWidth="652.0" AnchorPane.bottomAnchor="113.0" AnchorPane.leftAnchor="127.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="597.0">
