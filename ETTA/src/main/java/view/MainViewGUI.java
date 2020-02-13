@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.calendarfx.view.page.WeekPage;
 
+import controller.CalendarController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -12,7 +13,7 @@ import javafx.scene.layout.BorderPane;
  */
 public class MainViewGUI {
 	
-	CalendarGUI calendarGUI = new CalendarGUI();
+	CalendarController calendarController = new CalendarController();
 	
 	/**
 	 * Method loading the main page view 
@@ -142,7 +143,7 @@ public class MainViewGUI {
 			e.printStackTrace();
 		}
 		WeekPage calendarView = new WeekPage();
-		calendarView.getCalendarSources().addAll(calendarGUI.getCalendarSource());
+		calendarView.getCalendarSources().addAll(calendarController.getCalendarSource());
 		borderPaneCalendar.setCenter(calendarView);
 		return borderPaneCalendar;
 	}
