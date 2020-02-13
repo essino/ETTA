@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.joda.time.LocalDate;
 
 /**
  * Data access object class for Events. Used in the communication with the database table for Events through Hibernate.
@@ -198,6 +199,31 @@ public class EventDAO {
 			session.close();
 		}
 		
+		return result.toArray(returnArray);
+	}
+	
+	/**
+	 * method for reading today's events from the database
+	 * @return Event[]  list of  event objects read from the database
+	 */
+	public Event[] readTodaysEvents() {
+		Transaction transaction = null;
+		List<Event> result;
+		Event[] returnArray;
+		try {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			result = session.createQuery( "from Event where startDate=current_date()").list();
+			session.getTransaction().commit();
+			returnArray = new Event[result.size()];
+		}
+		catch(Exception e){
+			if (transaction!=null) transaction.rollback();
+				throw e;
+			}	
+		finally{
+			session.close();
+		}	
 		return result.toArray(returnArray);
 	}
 	

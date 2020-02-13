@@ -15,7 +15,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import model.CalendarDAO;
 import model.Event;
 import model.EventDAO;
 
@@ -35,6 +34,8 @@ public class MainPageGUI  {
 	
     @FXML
     private TableColumn<Event, String> title;
+    @FXML
+    private TableColumn<Event, Date> startDate;
     /*
     @FXML
     private TableColumn<Event, String> eventLocation;
@@ -67,12 +68,14 @@ public class MainPageGUI  {
 		todaysDate.setText(text);
 		title.setCellValueFactory(
                 new PropertyValueFactory<Event, String>("title"));
+		startDate.setCellValueFactory(
+                new PropertyValueFactory<Event, Date>("startDate"));
 		startTime.setCellValueFactory(
                 new PropertyValueFactory<Event, Time>("startTime"));
 		endTime.setCellValueFactory(
                 new PropertyValueFactory<Event, Time>("endTime"));
 		
-		ObservableList<Event> events =  FXCollections.observableArrayList(eventDAO.readEvents());
+		ObservableList<Event> events =  FXCollections.observableArrayList(eventDAO.readTodaysEvents());
 		eventTable.setItems(events);
 	}
 
