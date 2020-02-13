@@ -10,10 +10,23 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+/**
+ * Data access object class for Persons. Used in accessing the table in the database.
+ */
 public class PersonDAO {
+	
+	/**
+	 * SessionFactory object needed to open session with the database
+	 */
 	SessionFactory factory = null;
+	/**
+	 * Transaction object to carry out database transactions
+	 */
 	Transaction transaction = null;
 	
+	/**
+	 * Constructor for PersonDAO
+	 */
 	public PersonDAO() {
 		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
 		try {
@@ -25,10 +38,18 @@ public class PersonDAO {
 			System.exit(-1);}
 	}
 	
+	/**
+	 * Method for closing the database connection
+	 */
 	protected void finalize() {
 		factory.close();
 	}
 	
+	/**
+	 * Method for creating a new Person in the database
+	 * @param person Person the person object to be added to the database
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
 	public boolean createPerson(Person person) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {
@@ -45,6 +66,11 @@ public class PersonDAO {
 		return success;
 	}
 	
+	/**
+	 * Method for reading one specific Person in the database
+	 * @param person_id int the id of the Person to be read
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
 	public Person readPerson(int person_id) {
 		Person person = new Person();
 		try {
@@ -61,6 +87,10 @@ public class PersonDAO {
 		return person;
 	}
 	
+	/**
+	 * Method for reading all Persons in the database
+	 * @return Person[] array with all the people in the database
+	 */
 	public Person[] readPeople() {
 		ArrayList<Person> list = new ArrayList<>();
 		try (Session session = factory.openSession()) {
@@ -80,6 +110,11 @@ public class PersonDAO {
 		return (Person[])list.toArray(people);
 	}
 
+	/**
+	 * Method for updating a Person in the database
+	 * @param person Person the updated person object
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
 	public boolean updatePerson(Person person) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {
@@ -94,6 +129,11 @@ public class PersonDAO {
 		return success;
 	}
 
+	/**
+	 * Method for deleting a Person from the database
+	 * @param person_id int the id of the Person to be deleted
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
 	public boolean deletePerson(int person_id) {
 		boolean success = false;
 		try {
@@ -110,6 +150,3 @@ public class PersonDAO {
 		return success;
 	}
 }
-
-
-
