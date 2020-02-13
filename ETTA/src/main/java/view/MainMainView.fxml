@@ -24,10 +24,13 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TableView prefHeight="545.0" prefWidth="998.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="eventTable" prefHeight="545.0" prefWidth="998.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="150.0" text="Today" />
-                      <TableColumn prefWidth="150.0" text="Details" />
+                      <TableColumn fx:id="title" prefWidth="150.0" text="Event" />
+                      <TableColumn fx:id="location" prefWidth="150.0" text="Location" />
+                      <TableColumn fx:id="startDate" prefWidth="150.0" text="Start Date" />
+                      <TableColumn fx:id="startTime" prefWidth="150.0" text="Start time" />
+                      <TableColumn fx:id="endTime" prefWidth="150.0" text="End time" />
                     </columns>
                   </TableView>
                </children>
