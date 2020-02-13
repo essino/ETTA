@@ -1,0 +1,143 @@
+package model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
+public class CalendarDAO {
+	/**
+	 * SessionFactory object needed to open session with the database
+	 */
+	SessionFactory factory = null;
+	/**
+	 * Transaction object to carry out database transaction
+	 */
+	Transaction transaction = null;
+	
+	public CalendarDAO() {
+		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+		try {
+			factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+		} catch (Exception e) {
+			System.out.println("Creation of session factory failed");
+			StandardServiceRegistryBuilder.destroy(registry);
+			e.printStackTrace();
+			System.exit(-1);}
+	}
+	
+	/**
+	 * method for closing the database session
+	 */
+	protected void finalize() {
+		factory.close();
+	}
+	
+	/**
+	 * method for making a new Calendar in the database
+	 * @param calendar Object that represents a calendar
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
+	public boolean createCalendar(Calendar calendar) {
+		boolean success = false;
+		try {
+			Session session = factory.openSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(calendar);
+			transaction.commit();
+			success = true;
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		return success;
+	}
+	
+	/**
+	 * method for reading one specific calendar from the database
+	 * @param id the id of the calendar
+	 * @return calendar object read from the database
+	 */
+	public Calendar readCalendar(int id) {
+		Calendar calendar = new Calendar();
+		try {
+			Session session = factory.openSession();
+			transaction = session.beginTransaction();
+			calendar = (Calendar)session.get(Calendar.class, id);		
+			transaction.commit();
+			System.out.println("reading one:" + calendar.getName());
+		}
+		catch(Exception e){
+			if (transaction!= null) transaction.rollback();
+			throw e;
+		}
+		return calendar;
+	}
+	
+	/**
+	 * method for reading all calendars from the database
+	 * @return Calendar[]  list of  calendar objects read from the database
+	 */
+	public Calendar[] readCalendars() {
+		ArrayList<Calendar> list = new ArrayList<>();
+		try (Session session = factory.openSession()) {
+			transaction = session.beginTransaction();
+			
+			List<Calendar> result = session.createQuery("from Calandar").getResultList();
+			for(Calendar calendar : result) {
+				list.add(calendar);
+				System.out.println(calendar.getName());
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		Calendar[] calendars = new Calendar[list.size()];
+		return (Calendar[])list.toArray(calendars);
+	}
+	
+	/**
+	 * method for updating one Calendar in the database
+	 * @param calendar Object that represents a calendar
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
+	public boolean updateCategory(Calendar calendar) {
+		boolean success = false;
+		try (Session session = factory.openSession()) {
+			transaction = session.beginTransaction();
+			session.update(calendar);
+			transaction.commit();
+			success = true;
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		return success;
+	}
+	
+	/**
+	 * method for deleting one Calendar from the database
+	 * @param name 
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
+	public boolean deleteCategory(String name) {
+		boolean success = false;
+		try (Session session = factory.openSession()) {
+			transaction = session.beginTransaction();
+			Calendar calendar = (Calendar)session.get(Calendar.class, name);
+			session.delete(calendar);
+			transaction.commit();
+			success = true;
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		return success;
+	}
+}
