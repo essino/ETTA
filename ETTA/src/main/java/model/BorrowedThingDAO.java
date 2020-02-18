@@ -11,7 +11,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 /**
- * Data access object class for Borrowed things. Used in the creation of the database table for Borrowed items through Hibernate.
+ * Data access object class for Borrowed things. Used for accessing data concerning Borrowed items.
  */
 public class BorrowedThingDAO {
 	
@@ -40,14 +40,14 @@ public class BorrowedThingDAO {
 	}
 	
 	/**
-	 * method for closing the database session
+	 * Method for closing the database session
 	 */
 	protected void finalize() {
 		factory.close();
 	}
 	
 	/**
-	 * method for making a new BorrowedThing item in the database
+	 * Method for creating a new BorrowedThing item in the database
 	 * @param borrowedThing Object that represents an item borrowed to someone
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
@@ -68,8 +68,9 @@ public class BorrowedThingDAO {
 	}
 	
 	/**
-	 * method for seeing one specific Borrowed Thing in the database
-	 * @return success Boolean indicating the success or failure of the database transaction
+	 * Method for reading one specific Borrowed Thing in the database
+	 * @param thing_id int referring to the Borrowed item which is to be read
+	 * @return borrowedThing Object that represents an item borrowed to someone
 	 */
 	public BorrowedThing readBorrowedThing(int thing_id) {
 		BorrowedThing borrowedThing = new BorrowedThing();
@@ -88,8 +89,8 @@ public class BorrowedThingDAO {
 	}
 	
 	/**
-	 * method for seeing all Borrowed Things in the database
-	 * @return success Boolean indicating the success or failure of the database transaction
+	 * method for reading all Borrowed Things in the database
+	 * @return borrowedThings Array containing all Borrowed items in the database
 	 */
 	public BorrowedThing[] readBorrowedThings() {
 		ArrayList<BorrowedThing> list = new ArrayList<>();
@@ -131,7 +132,7 @@ public class BorrowedThingDAO {
 
 	/**
 	 * method for deleting Borrowed items in the database
-	 * @param description String that names the borrowed item
+	 * @param thing_id int referring to the Borrowed item that is to be deleted
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean deleteBorrowedThing(int thing_id) {
