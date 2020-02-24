@@ -8,12 +8,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 
 public class BorrowedAddGUI {
 	
 	@FXML
-	ChoiceBox<String> bbc;
+	ComboBox<String> bbc;
 	
 	@FXML
 	Button buttonAdd;

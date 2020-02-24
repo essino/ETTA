@@ -3,6 +3,7 @@ package controller;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+
 public class InputCheck {
 	
 	/** 
@@ -17,7 +18,7 @@ public class InputCheck {
 	            Float f = Float.parseFloat(input);  
 	            b=true;
 	        } 
-	        catch (NumberFormatException e) { 
+	        catch (NumberFormatException e) {  
 	        }
 	    }
 	    return b;
@@ -33,4 +34,6 @@ public class InputCheck {
 		alert.setContentText("Give the amount in numbers");
 		alert.showAndWait();
 	}
+	
+	//TODO: add checking for Min and MAx values for integers and Floats
 }
