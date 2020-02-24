@@ -11,16 +11,17 @@ import model.PersonDAO;
 public class BorrowedController {
 	PersonDAO personDAO = new PersonDAO();
 	
-
+	/** 
+	 * Method that gets Persons from PersonDAO and makes a list containing names only 
+	 * @return ObservableList<String> names - list of persons' names
+	 */ 
 	public ObservableList<String> personsList() {
-		System.out.println("borrowed controller");
 		Person[] people = personDAO.readPeople();
 		ArrayList peopleNames = new ArrayList();
 		for (Person person : people){
 			peopleNames.add(person.getName());
 		}
 		ObservableList<String> names =  FXCollections.observableArrayList(peopleNames);
-		System.out.println(names);
 		return names;
 	}
 	
