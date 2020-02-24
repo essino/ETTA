@@ -1,14 +1,7 @@
 package controller;
 
-import java.io.IOException;
 import java.sql.Date;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import model.Event;
 import model.EventDAO;
 import model.Person;
@@ -21,13 +14,19 @@ public class ContactsController {
 	private PersonDAO perDAO = new PersonDAO();
 	private EventDAO eventDAO = new EventDAO();
 	
+	/** 
+	 * Method that gets person details from ContactsGUI, 
+	 * creates a new Person, and gives it forward to PersonDAO to add it to the database.
+	 * If there's a birthday added to person details, creates an yearly event and gives it forward to EventDAO to add to the database
+	 */ 
 	public void savePerson() {
 		String personName = conGUI.getPersonName();
 		String personAddress = conGUI.getPersonAddress();
 		String personEmail = conGUI.getPersonEmail();
 		Date personBirthday = conGUI.getPersonBirthday();
 		Person person = new Person (personName, personBirthday, personEmail);
-		Boolean Person = perDAO.createPerson(person);
+		Boolean personCreate = perDAO.createPerson(person);
+		//if there's a birthday added to person details, create an yearly event 
 		if(personBirthday != null) {
 			Event birthday = new Event();
 			birthday.setTitle(personName);
@@ -41,6 +40,10 @@ public class ContactsController {
 		}
 	}
 	
+	/** 
+	 * Constructor 
+	 * @param ContactsGUI 
+	 */
 	public ContactsController(ContactsGUI conGUI) {
 		this.conGUI = conGUI;
 	}
