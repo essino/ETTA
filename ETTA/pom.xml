@@ -2,6 +2,8 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+
+
   <groupId>fi.metropolia.OTP.group2</groupId>
   <artifactId>ETTA</artifactId>
   <version>0.0.1-SNAPSHOT</version>
@@ -22,27 +24,7 @@
 		<version>2.22.2</version>
 		</plugin>  
 		
-		<!--JaCoCo plugin for Jenkins: starts-->
-		<plugin>
-			<groupId>org.jacoco</groupId>
-			<artifactId>jacoco-maven-plugin</artifactId>
-			<version>${jacoco.version}</version>
-			<executions>
-				<execution>
-					<goals>
-						<goal>prepare-agent</goal>
-					</goals>
-				</execution>
-				<execution>
-					<id>report</id>
-					<phase>prepare-package</phase>
-					<goals>
-						<goal>report</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
-		<!--JaCoCo plugin for Jenkins: ends-->
+
 		
 	</plugins>
 </build>
