@@ -35,6 +35,7 @@ public class BorrowedController {
 		return names;
 	}
 	
+	//essi: all changes in comments, also in borrowedtablegui class
 	//essi trying out: starts
 	/*
 	
