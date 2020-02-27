@@ -4,6 +4,9 @@ import model.Balance;
 import view.EconomyGUI;
 import model.BalanceDAO;
 import view.BalanceOverviewGUI;
+import model.TransferDAO;
+import model.Transfer;
+
 
 
 public class EconomyController {
@@ -11,7 +14,15 @@ public class EconomyController {
 	BalanceDAO balanceDao = new BalanceDAO(); 
 
 	BalanceOverviewGUI balanceOverviewGUI; 
+	
+	private EconomyGUI ecoGUI;
+	private TransferDAO transDAO = new TransferDAO();
 
+	
+	public void saveTransfer() {
+		String description = ecoGUI.getReason();
+	}
+	
 	/** 
 	 * Constructor 
 	 * @param balanceOverviewGUI 

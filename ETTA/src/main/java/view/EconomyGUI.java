@@ -1,6 +1,7 @@
 package view;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,8 +9,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import controller.EconomyController;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 
 public class EconomyGUI {
+	
+	EconomyController controller;
 	
 	/**
 	 * The menu view to which the alternative views in the Economy section are added
@@ -45,6 +52,22 @@ public class EconomyGUI {
 	 * Method showing the balance view in the Economy items section
 	 * @param event ActionEvent that is handled
 	 */
+	
+	@FXML
+	TextField reason;
+	
+	@FXML
+	TextField income;
+	
+	@FXML
+	ComboBox category;
+	
+	@FXML
+	DatePicker date;
+	
+	public EconomyGUI() {
+		controller = new EconomyController(this);
+	}
 	
 	
 	
@@ -169,7 +192,7 @@ public class EconomyGUI {
 	
 	@FXML
 	public void AddNewIncome(ActionEvent event) {
-	
+		controller.saveTransfer();
 		AnchorPane showAddNewIncomeView = null;
 		FXMLLoader loaderAddNewIncomeView = new FXMLLoader(getClass().getResource("/view/EconomyIncome.fxml"));
 		try {
@@ -202,4 +225,7 @@ public class EconomyGUI {
 		
 	}
 */
+	
+	@FXML
+	public String get
 }

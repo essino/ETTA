@@ -30,10 +30,10 @@
             <Label text="Category" />
             <Label text="Income" GridPane.rowIndex="2" />
             <Label text="Date" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="reason" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="income" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="category" prefWidth="150.0" GridPane.columnIndex="1" />
+            <DatePicker fx:id="date" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <ButtonBar layoutX="467.0" layoutY="696.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="54.0">
