@@ -21,7 +21,7 @@ public class BalanceDAOTest {
 	
 	@Test
 	@Order(1)
-	@Disabled
+	
 	public void testCreate() {
 		assertEquals(true, balanceDAO.createBalance(balance), "Creation of balance failed");
 	}

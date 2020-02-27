@@ -18,7 +18,7 @@ import model.PersonDAO;
 
 @TestMethodOrder(OrderAnnotation.class)
 public class BorrowedThingDAOTest {
-/*
+
 	private BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO();
 	private int thing_id = 1;
 	private String description = "The red hammer";
@@ -70,5 +70,5 @@ public class BorrowedThingDAOTest {
 	public void testDelete() {
 		assertEquals(true, borrowedThingDAO.deleteBorrowedThing(thing_id), "Deleting failed");
 	}
-	*/
+
 }

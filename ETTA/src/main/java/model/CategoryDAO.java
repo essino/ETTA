@@ -51,6 +51,7 @@ public class CategoryDAO {
 			Session session = factory.openSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(category);
+			System.out.println("id " + category.getCategory_id());
 			transaction.commit();
 			success = true;
 		} catch (Exception e) {
