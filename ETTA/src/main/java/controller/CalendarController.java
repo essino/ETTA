@@ -97,7 +97,9 @@ public class CalendarController {
 		entry.setTitle(event.getTitle());
 		entry.setInterval(event.getStartDate().toLocalDate(), event.getEndDate().toLocalDate());
 		entry.setFullDay(event.isFullday());
-		entry.setInterval(event.getStartTime().toLocalTime(), event.getEndTime().toLocalTime());
+		if(!event.isFullday()) {
+			entry.setInterval(event.getStartTime().toLocalTime(), event.getEndTime().toLocalTime());
+		}
 		entry.setId(String.valueOf(event.getEvent_id()));
 		entry.setRecurrenceRule(event.getRrule());
 		

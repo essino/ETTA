@@ -1,18 +1,15 @@
 package view;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
+import controller.BorrowedController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+
 
 /**
  * GUI class relating to the Borrowed items section
@@ -81,7 +78,7 @@ public class BorrowedGUI {
 			}
 		//shows the loaded fxml file
 		borrowedviewanchorpane.getChildren().setAll(borrowedAdd);
-		//borrowedviewanchorpane.getChildren().set(1, borrowedAdd);
-		//borrowedRootBorderPane.setCenter(borrowedAdd);
 	}
+	
 }
+

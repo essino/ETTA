@@ -2,52 +2,37 @@ package controller;
 
 import model.BorrowedThing;
 import model.BorrowedThingDAO;
-import view.BorrowedGUI;
+import view.BorrowedGUI;
+import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import model.Person;
+import model.PersonDAO;
+
+import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import model.Person;
+import model.PersonDAO;
+
 
 public class BorrowedController {
-	
-	BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO();
-	
-	BorrowedGUI borrowedGUI;
+	PersonDAO personDAO = new PersonDAO();
 	
 	/** 
-	 * Constructor for BorrowedController
-	 * @param borrowedGUI
+	 * Method that gets Persons from PersonDAO and makes a list containing names only 
+	 * @return ObservableList<String> names - list of persons' names
 	 */ 
-	public BorrowedController(BorrowedGUI borrowedGUI) {
-		this.borrowedGUI = borrowedGUI;
-	}
-	/*
-	public void addBorrowedItem() {
-		
-	}
-}
-
-
-
-public class EconomyController {
-	
-	/** 
-	 * Method that gets balance amount from BalanceDAO and gives it forward to BalanceOverviewGUI to display it on the page 
-	 */ 
-	/*public void getBalance() { 
-		balanceOverviewGUI.setBalance(balanceDao.readBalance(1).getBalance()); 
-		if(balanceDao.readBalance(1).getBalance() == 0.00) {
-			balanceOverviewGUI.showSetBalance();
+	public ObservableList<String> personsList() {
+		Person[] people = personDAO.readPeople();
+		ArrayList peopleNames = new ArrayList();
+		for (Person person : people){
+			peopleNames.add(person.getName());
 		}
-		else if (balanceDao.readBalance(1).getBalance() != 0.00) {
-			balanceOverviewGUI.hideSetBalance();
-		}
+		ObservableList<String> names =  FXCollections.observableArrayList(peopleNames);
+		return names;
 	}
 	
-	/** 
-	 * Method that gets balance amount from BalanceOverviewGUI  and gives it forward to BalanceDAO  to update in the database. 
-	 * @param amount float amount of the new balance
-	 */
-	/*public void updateBalance(float amount) {
-		Balance balance = new Balance(1, amount);
-		balanceDao.updateBalance(balance);
-		getBalance();
-	}*/
-
 }

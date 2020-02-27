@@ -27,14 +27,14 @@ public class BalanceDAOTest {
 	}
 	
 	@Test
-	@Order(1)
+	@Order(2)
 	
 	public void testReadBalance() {
 		assertEquals(105, balanceDAO.readBalance(0).getBalance(), "Reading failed");
 	}
 	
 	@Test
-	@Order(3)
+	@Order(1)
 	
 	public void testUpdate() {
 		Balance balance = balanceDAO.readBalance(0);

@@ -1,102 +1,582 @@
 package view;
 
-import controller.BorrowedController;
-import controller.InputCheck;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.layout.Pane;
+import java.io.IOException;
 
+import controller.BorrowedController;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 public class BorrowedAddGUI {
 	
-	BorrowedController borrowedController;
+	@FXML
+	ComboBox<String> bbc;
 	
 	@FXML
-	private TextField itemName;
+	Button buttonAdd;
+	
+	BorrowedController controller = new BorrowedController();
+	
+	/*
+	public BorrowedAddGUI(BorrowedController controller) {
+		this.controller = controller;
+	}
+	*/
+	@FXML
+	public void addBorrowed(ActionEvent event) {
+		System.out.println("found"); 
+	}
 	
 	@FXML
-	private ChoiceBox contact;
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	
-	@FXML DatePicker loanDate;
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}em.out.println("found"); 
+	}
 	
-	@FXML DatePicker returnDate;
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	
-	public BorrowedAddGUI() { 
-		borrowedController = new BorrowedController(this);
-	} 
-	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
 }
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
 
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
 
+}em.out.println("found"); em.out.println("found"); 
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
 
-public class BalanceOverviewGUI {
-	EconomyController controller;
-	/**
-	 * The reference of pane where user can input the start balance amount
-	 */
 	@FXML
-	private Pane setBalancePane;
-	/**
-	 * The reference of textField where user inputs the start balance amount
-	 */
-	@FXML
-	private TextField newBalance;
-	/**
-	 * The reference of label will be injected by the FXML loader
-	 */
-	@FXML 
-	private Label amountBalance; 
-	
-	InputCheck inputCheck = new InputCheck();
-	
-	public BalanceOverviewGUI() { 
-		controller = new EconomyController(this);
-	} 
-	
-	/** 
-	 * Method that gets balance amount and displays it on the page 
-	 * @param amount double the balance amount
-	 */ 
-	public void setBalance(double amount) { 
-		String balanceString = String.format("%.2f", amount); 
-		amountBalance.setText(balanceString); 
-	} 
-	
-	/** 
-	 * Method that displays the pane where user can set the start balance amount  
-	 */ 
-	@FXML
-	public void showSetBalance() {
-		setBalancePane.setVisible(true);
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}
 	}
 	
-	/** 
-	 * Method that hides the pane where user can set the start balance amount  
-	 */ 
 	@FXML
-	public void hideSetBalance() {
-		setBalancePane.setVisible(false);
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}em.out.println("found"); 
 	}
 	
-	@FXML 
-	public void initialize() { 
-		controller.getBalance(); 
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}
 	}
 	
-	/** 
-	 * Method that saves the start balance amount inputed by the user. 
-	 * First it gives the input to InputCheck class to check it.
-	 * If the input is valid, it gives it to the controller for updating the database.
-	 */ 
 	@FXML
-	public void saveBalance() {
-		if(inputCheck.isInputFloat(newBalance.getText())) {
-			controller.updateBalance(Float.parseFloat(newBalance.getText()));
-		}
-		else {
-			inputCheck.alertInputNotFloat();
-		}
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
 	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}em.out.println("found"); 
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}em.out.println("found"); 
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}em.out.println("found"); 
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}em.out.println("found"); 
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}em.out.println("found"); 
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}em.out.println("found"); 
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
+}
+		System.out.println("found"); 
+	}
+	
+	@FXML
+	public AnchorPane borrowedAdd() {
+		AnchorPane borrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+				borrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+       return borrowedAdd;
+       
+	}
+
+	@FXML
+	public void initialize() {
+			bbc.getItems().addAll(controller.personsList());
+	}
+
 }
