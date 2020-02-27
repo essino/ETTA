@@ -18,6 +18,14 @@
 		<property name="show_sql">true</property>
 
 		<!-- Mallitason DTO-oliot, pakkausnimet mukaan -->
-		<mapping class="" />
+		<mapping class="model.Saving" />
+		<mapping class="model.Transfer" />
+		<mapping class="model.BorrowedThing" />
+		<mapping class="model.Calendar" />
+		<mapping class="model.Event" />
+		<mapping class="model.Category" />
+		<mapping class="model.Person" />
+		<mapping class="model.Balance" />
+		<mapping class="model.Item" />
 	</session-factory>
 </hibernate-configuration>
