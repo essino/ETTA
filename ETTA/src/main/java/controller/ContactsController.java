@@ -14,11 +14,18 @@ public class ContactsController {
 	private PersonDAO perDAO = new PersonDAO();
 	private EventDAO eventDAO = new EventDAO();
 	
+
+	/**
+	 * Method make person witch have information of name, address, e-mail and birthday
+	 * 
+	 */
+
 	/** 
 	 * Method that gets person details from ContactsGUI, 
 	 * creates a new Person, and gives it forward to PersonDAO to add it to the database.
 	 * If there's a birthday added to person details, creates an yearly event and gives it forward to EventDAO to add to the database
 	 */ 
+
 	public void savePerson() {
 		String personName = conGUI.getPersonName();
 		String personAddress = conGUI.getPersonAddress();
@@ -40,10 +47,12 @@ public class ContactsController {
 		}
 	}
 	
+
 	/** 
 	 * Constructor 
 	 * @param ContactsGUI 
 	 */
+
 	public ContactsController(ContactsGUI conGUI) {
 		this.conGUI = conGUI;
 	}

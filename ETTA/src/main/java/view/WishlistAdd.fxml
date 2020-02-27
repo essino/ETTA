@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.WishlistAddGUI">
    <children>
       <GridPane layoutX="333.0" layoutY="189.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="28.0">
         <columnConstraints>
@@ -67,7 +67,7 @@
             </TextField>
             <TextField prefHeight="65.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <DatePicker prefHeight="65.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ChoiceBox prefHeight="66.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="toWhom" prefHeight="66.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label prefHeight="35.0" prefWidth="293.0" text="Additional Information" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />

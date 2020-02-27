@@ -45,7 +45,7 @@ public class PersonDAO {
 		factory.close();
 	}
 	
-	/**
+	 /**
 	 * Method for creating a new Person in the database
 	 * @param person Person the person object to be added to the database
 	 * @return success Boolean indicating the success or failure of the database transaction

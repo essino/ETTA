@@ -19,7 +19,7 @@
 		<plugin>
 		<groupId>org.apache.maven.plugins</groupId>
 		<artifactId>maven-surefire-plugin</artifactId>
-		<version>2.22.2</version>
+		<version>3.0.0-M4</version>
 		</plugin>  
 		<plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -30,6 +30,27 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+      	<plugin>
+		<groupId>org.jacoco</groupId>
+		<artifactId>jacoco-maven-plugin</artifactId>
+		<version>0.8.2</version>
+		<executions>
+			<execution>
+				<goals>
+					<goal>prepare-agent</goal>
+				</goals>
+			</execution>
+			<!-- attached to Maven test phase -->
+			<execution>
+				<id>report</id>
+				<phase>test</phase>
+				<goals>
+					<goal>report</goal>
+				</goals>
+			</execution>
+		</executions>
+	</plugin>
+      
 	</plugins>
 </build>
 
@@ -63,12 +84,6 @@
   		<groupId>com.calendarfx</groupId>
   		<artifactId>view</artifactId>
   		<version>8.5.0</version>
-	</dependency>
-	
-	<dependency>
-    	<groupId>org.jacoco</groupId>
-    	<artifactId>jacoco-maven-plugin</artifactId>
-    	<version>0.8.5</version>
 	</dependency>
 </dependencies>
 </project>

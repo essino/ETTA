@@ -48,13 +48,18 @@ public class MainPageGUI  {
 	BorderPane borderPane;
 	AnchorPane content = null;
 
-
+	/** 
+	 * Constructor  
+	 */ 
 	public MainPageGUI() {
 		controller = new MainViewController(this);
 		
 	}
 	
-
+	/** 
+	 * Method that displays balance amount on the page 
+	 * @param amount the balance amount
+	 */
 	public void setBalance(double amount) {
 		String balanceString = String.format("%.2f", amount);
 		amountBalance.setText(balanceString);

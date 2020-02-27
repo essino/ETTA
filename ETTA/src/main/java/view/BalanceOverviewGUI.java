@@ -59,6 +59,9 @@ public class BalanceOverviewGUI {
 		setBalancePane.setVisible(false);
 	}
 	
+	/** 
+	 * Method that initializes the view and gets the balance amount  from the controller
+	 */
 	@FXML 
 	public void initialize() { 
 		controller.getBalance(); 

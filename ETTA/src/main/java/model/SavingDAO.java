@@ -10,11 +10,23 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+/**
+ * Data access object class for Savings. Used in accessing the table in the database.
+ */
 public class SavingDAO {
 	
+	/**
+	 * SessionFactory object needed to open session with the database
+	 */
 	SessionFactory factory = null;
+	/**
+	 * Transaction object to carry out database transactions
+	 */
 	Transaction transaction = null;
 	
+	/**
+	 * Constructor for SavingDAO
+	 */
 	public SavingDAO() {
 		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
 		try {
@@ -26,10 +38,18 @@ public class SavingDAO {
 			System.exit(-1);}
 	}
 	
+	/**
+	 * Method for closing the database connection
+	 */
 	protected void finalize() {
 		factory.close();
 	}
 	
+	 /**
+		 * Method for creating a new Saving in the database
+		 * @param saving Saving the saving object to be added to the database
+		 * @return success Boolean indicating the success or failure of the database transaction
+		 */
 	public boolean createSaving(Saving saving) {
 		boolean success = false;
 		try {
@@ -48,6 +68,10 @@ public class SavingDAO {
 		return success;
 	}
 	
+	/**
+	 * Method for reading all Savings in the database
+	 * @return Saving[] array with all the people in the database
+	 */
 	public Saving[] readSavings() {
 		ArrayList<Saving> list = new ArrayList<>();
 		
@@ -69,6 +93,11 @@ public class SavingDAO {
 		return (Saving[])list.toArray(savings);
 	}
 	
+	/**
+	 * Method for reading one specific Saving in the database
+	 * @param saving_id int the id of the Saving to be read
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
 	public Saving readSaving(int saving_id) {
 		Saving saving = new Saving();
 		try {
@@ -85,6 +114,11 @@ public class SavingDAO {
 		return saving;
 	}
 
+	/**
+	 * Method for updating a Saving in the database
+	 * @param saving Saving the updated person object
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
 	public boolean updateSaving(Saving saving) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {
@@ -99,6 +133,11 @@ public class SavingDAO {
 		return success;
 	}
 
+	/**
+	 * Method for deleting a Saving from the database
+	 * @param saving_id int the id of the Saving to be deleted
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
 	public boolean deleteSaving(int saving_id) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {
