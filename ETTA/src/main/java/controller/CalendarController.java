@@ -159,6 +159,10 @@ public class CalendarController {
 		return event;
 	  }
 	 
+		/** 
+		 * Method that returns default CalendarsSource with the default calendar
+		 * @return CalendarSource 
+		 */
 	 public CalendarSource getDefaultCalendarSource(CalendarView calendarView) {
 		 CalendarSource calendarSource = calendarView.getCalendarSources().get(0);
 	        Calendar defaultCalendar = calendarSource.getCalendars().get(0);
