@@ -22,7 +22,9 @@ public class MainViewController {
 	 * Method that gets balance amount from BalanceDAO and gives it forward to BalanceOverviewGUI to display it on the page. 
 	 */
 	public void getBalance() {
+		if(checkIfBalanceExist()) {
 		mainPageGUI.setBalance(balanceDao.readBalance(1).getBalance());
+		}
 	}
 
 	/** 
@@ -32,7 +34,7 @@ public class MainViewController {
 	public boolean checkIfBalanceExist() { 
 		if(balanceDao.readBalance(1) == null) { 
 			createBalance(); 
-			return true;
+			//return true;
 		} 
 		return true;
 	} 
@@ -41,6 +43,7 @@ public class MainViewController {
 	 * Method that tells BalanceDAO to create the balance to the database.  
 	 */
 	public void createBalance() { 
+		System.out.println("creating balance");
 			Balance balance = new Balance(0); 
 			balanceDao.createBalance(balance);
 	}
