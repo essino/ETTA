@@ -1,11 +1,9 @@
 package controller;
 
-import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarEvent;
@@ -25,12 +23,19 @@ public class CalendarController {
 	
 	EventDAO eventDAO = new EventDAO();
 	
+	/** 
+	 * Method that checks if the event already exists in the database.
+	 * @param id - entry/event id
+	 * @return false if the event already exists in the database
+	 * @return true if the event is in database already
+	 */
 	public boolean checkIfEventExist(int id) {
 		if(eventDAO.readEvent(id)==null) {
 			return false;
 		}
 		return true;
 	}
+	
 	public CalendarSource getCalendarSource() {
 		Calendar calendar2 = new Calendar("birthdays");
 		calendar2.setStyle(Style.STYLE2);
@@ -50,7 +55,6 @@ public class CalendarController {
 		ObservableList<Calendar> calendars = myCalendarSource.getCalendars();
 		EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
 		for(Calendar calendar : calendars) {
-			//System.out.println("calendar" + "'" + calendar.getName() + "'");
 			Event [] events = eventDAO.readEventsFromOneCalendar("'" + calendar.getName() + "'");
 			for (Event event : events) {
 				Entry entry = fromEventToEntry(event);
@@ -58,8 +62,6 @@ public class CalendarController {
 			}
 			calendar.addEventHandler(handler);
 		}
-		
-        //System.out.println("calendars" + myCalendarSource.getCalendars());
         return myCalendarSource;
 	}
 	
@@ -84,6 +86,7 @@ public class CalendarController {
 			}
 
 	}
+	
 	public Date convertToDateViaSqlDate(LocalDate dateToConvert) {
 	    return java.sql.Date.valueOf(dateToConvert);
 	}
@@ -92,6 +95,11 @@ public class CalendarController {
 		return java.sql.Time.valueOf(localTime);
 		}
 	
+	/** 
+	 * Method that creates an Entry from Event
+	 * @param Event - event to be converted intoEntry
+	 * @return Entry - entry converted  from  Event
+	 */ 
 	public Entry fromEventToEntry(Event event) {
 		Entry entry = new Entry();
 		entry.setTitle(event.getTitle());
@@ -106,6 +114,11 @@ public class CalendarController {
 		return entry;
 	 }
 	  
+	/** 
+	 * Method that creates an Event from Entry
+	 * @param Entry - entry to be converted into Event
+	 * @return Event - event converted  from Entry
+	 */ 
 	 public Event fromEntryToEvent(Entry entry) {
 		Event event = new Event();
 		Date startDate = convertToDateViaSqlDate(entry.getStartDate());
