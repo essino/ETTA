@@ -1,8 +1,10 @@
 package controller;
 
 import model.Balance;
+import view.EconomyGUI;
 import model.BalanceDAO;
 import view.BalanceOverviewGUI;
+
 
 public class EconomyController {
 	
