@@ -51,6 +51,9 @@ public class ContactsGUI {
 	@FXML
 	DatePicker personBirthday;
 	
+	/** 
+	 * Constructor  
+	 */ 
 	public ContactsGUI () {
 		controller = new ContactsController(this);
 	}

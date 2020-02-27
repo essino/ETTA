@@ -36,6 +36,10 @@ public class CalendarController {
 		return true;
 	}
 	
+	/** 
+	 * Method creates CalendarsSource with calendars
+	 * @return CalendarSource 
+	 */
 	public CalendarSource getCalendarSource() {
 		Calendar calendar2 = new Calendar("birthdays");
 		calendar2.setStyle(Style.STYLE2);
@@ -65,6 +69,10 @@ public class CalendarController {
         return myCalendarSource;
 	}
 	
+	/** 
+	 * Method that handles CalendarEvents
+	 * @param event - Event that was created, edited or deleted
+	 */
 	public void handleCalendarEvent(CalendarEvent evt) {
 		if(evt.isEntryRemoved()) {
 			Entry entry = evt.getEntry();
@@ -73,13 +81,11 @@ public class CalendarController {
 		}
 		//else if(evt.isEntryAdded()) {
 		else if(checkIfEventExist(Integer.parseInt(evt.getEntry().getId()))==false) {
-			System.out.println("added");
 			Entry entry = evt.getEntry();
 			Event newEvent = fromEntryToEvent(entry);
 			eventDAO.createEvent(newEvent);
 		}
 		else {
-				System.out.println("changed");
 				Entry entry = evt.getEntry();
 				Event newEvent = fromEntryToEvent(entry);
 				eventDAO.updateEvent(newEvent);
@@ -87,10 +93,20 @@ public class CalendarController {
 
 	}
 	
+	/** 
+	 * Method that converts LocalDate to sql Date
+	 * @param LocalDate that will be converted
+	 * @return Date converted from LocalDate
+	 */
 	public Date convertToDateViaSqlDate(LocalDate dateToConvert) {
 	    return java.sql.Date.valueOf(dateToConvert);
 	}
 	
+	/** 
+	 * Method that converts LocalTime to sql Time
+	 * @param LocalTime that will be converted
+	 * @return Time converted from LocalTime
+	 */
 	public static java.sql.Time toSqlTime(LocalTime localTime) {
 		return java.sql.Time.valueOf(localTime);
 		}
@@ -143,14 +159,13 @@ public class CalendarController {
 		return event;
 	  }
 	 
-	 public CalendarSource getDeafultCalendarSource(CalendarView calendarView) {
+	 public CalendarSource getDefaultCalendarSource(CalendarView calendarView) {
 		 CalendarSource calendarSource = calendarView.getCalendarSources().get(0);
 	        Calendar defaultCalendar = calendarSource.getCalendars().get(0);
 	        EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
 	        defaultCalendar.addEventHandler(handler);
 			Event [] events = eventDAO.readEventsFromOneCalendar("'" + defaultCalendar.getName() + "'");
 			for (Event event2 : events) {
-				System.out.println("ladataan deafult calenterista");
 				Entry entry = fromEventToEntry(event2);
 				entry.setCalendar(defaultCalendar);
 				defaultCalendar.addEntry(entry);
