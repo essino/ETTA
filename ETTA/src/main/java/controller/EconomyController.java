@@ -20,7 +20,7 @@ public class EconomyController {
 
 	
 	public void saveTransfer() {
-		String description = ecoGUI.getReason();
+		//String description = ecoGUI.getReason();
 	}
 	
 	/** 

@@ -67,7 +67,7 @@ public class EconomyGUI {
 	DatePicker date;
 	
 	public EconomyGUI() {
-		controller = new EconomyController(this);
+		//controller = new EconomyController(this);
 	}
 	
 	
@@ -227,6 +227,6 @@ public class EconomyGUI {
 	}
 */
 	
-	@FXML
-	public String get
+	//@FXML
+	//public String get
 }

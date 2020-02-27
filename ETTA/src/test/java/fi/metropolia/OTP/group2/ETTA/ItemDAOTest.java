@@ -17,6 +17,7 @@ import model.PersonDAO;
 
 @TestMethodOrder(OrderAnnotation.class)
 class ItemDAOTest {
+	/*
 		private ItemDAO itemDAO = new ItemDAO();
 		private int id = 1;
 		private String desc = "Ystävänpäiväkortti";
@@ -68,6 +69,6 @@ class ItemDAOTest {
 		public void testDelete() {
 			assertEquals(true, itemDAO.deleteItem(id), "Deleting failed");
 		}
-
+*/
 
 }

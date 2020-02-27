@@ -18,7 +18,7 @@ import model.SavingDAO;
 
 @TestMethodOrder(OrderAnnotation.class)
 public class SavingDAOTest {
-
+/*
 	private SavingDAO savingDAO = new SavingDAO();
 	private String desc = "Kossin matka";
 	private float amountGoal = 2000f;
@@ -63,5 +63,5 @@ public class SavingDAOTest {
 		assertEquals(true, savingDAO.deleteSaving(id), "Deleting failed");
 	}
 
-	
+	*/
 }

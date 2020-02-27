@@ -29,6 +29,11 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+					<archive>
+                    <manifest>
+                        <mainClass>com.fi.metropolia.OTP.group2.App</mainClass>
+                    </manifest>
+                </archive>
 				</configuration>
 			</plugin>
 			<plugin>
