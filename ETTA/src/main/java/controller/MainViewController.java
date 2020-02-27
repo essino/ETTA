@@ -11,6 +11,10 @@ public class MainViewController {
 	BalanceDAO balanceDao = new BalanceDAO();
 	MainPageGUI mainPageGUI;
 	
+	/** 
+	 * Constructor 
+	 * @param mainPageGUI 
+	 */
 	public MainViewController(MainPageGUI mainPageGUI) {
 		this.mainPageGUI = mainPageGUI;
 	}
