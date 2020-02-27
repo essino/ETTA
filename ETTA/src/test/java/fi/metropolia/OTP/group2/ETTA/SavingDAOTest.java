@@ -26,7 +26,7 @@ public class SavingDAOTest {
 	private String str = "2020-10-15";
 	private Date date = Date.valueOf(str);
 	private Saving kossinMatka = new Saving(desc, amountGoal, reachedGoal, date);
-	private int id = 153;
+	private int id = 1;
 
 	@Test
 	@Order(1)
@@ -37,7 +37,7 @@ public class SavingDAOTest {
 	@Test
 	@Order(2)
 	public void testReadSavings() {
-		assertEquals(4, savingDAO.readSavings().length, "Reading all failed");
+		assertEquals(1, savingDAO.readSavings().length, "Reading all failed");
 	}
 	
 	@Test
@@ -50,23 +50,17 @@ public class SavingDAOTest {
 	@Test
 	@Order(4)
 	public void testUpdate() {
-		
 		Date newDate = Date.valueOf("2200-10-15");
 		Saving updatedSaving = savingDAO.readSaving(id);
 		updatedSaving.setGoalDate(newDate);
 		assertEquals(true, savingDAO.updateSaving(updatedSaving), "Updating failed");
 		assertEquals(newDate, savingDAO.readSaving(id).getGoalDate(), "Goalday updating failed");
-		
-		
 	}
 	
 	@Test
 	@Order(5)
 	public void testDelete() {
-		
 		assertEquals(true, savingDAO.deleteSaving(id), "Deleting failed");
-		
-		
 	}
 
 	

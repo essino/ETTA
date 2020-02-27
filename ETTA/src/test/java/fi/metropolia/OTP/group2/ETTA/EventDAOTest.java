@@ -46,13 +46,11 @@ public class EventDAOTest {
 	
 	@Test
 	@Order(4)
-
 	public void testUpdate() {
 		date = Date.valueOf("2020-03-05");
 		Event updatedEvent = new Event(1, "teatteri", false, date, date, startTime, endTime, false, "", "default");
 		assertEquals(true, eventDAO.updateEvent(updatedEvent), "updating failed");
 		assertEquals(date, eventDAO.readEvent(1).getEndDate(), "date updating failed");
-		
 	}
 	
 	@Test

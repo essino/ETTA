@@ -18,9 +18,9 @@ import model.TransferDAO;
 @TestMethodOrder(OrderAnnotation.class)
 class TransferDAOTest {
 	private TransferDAO transferDAO = new TransferDAO();
-	private int id = 140;
+	private int id = 1;
 	private String desc = "shopping";
-	private static Category cat = null;
+	private static Category cat = new Category("food");
 	private static CategoryDAO catDAO = new CategoryDAO();
 	private boolean income = false;
 	private String str = "2020-02-09";
@@ -30,7 +30,7 @@ class TransferDAOTest {
 	
 	@BeforeAll
 	public static void createCategory() {
-		cat = catDAO.readCategory(3);
+		catDAO.createCategory(cat);
 	}
 
 	@Test

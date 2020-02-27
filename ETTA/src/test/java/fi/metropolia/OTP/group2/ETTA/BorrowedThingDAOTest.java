@@ -20,20 +20,19 @@ import model.PersonDAO;
 public class BorrowedThingDAOTest {
 
 	private BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO();
-	private int thing_id = 252;
+	private int thing_id = 1;
 	private String description = "The red hammer";
 	private String strLoan = "2020-02-10";
 	private Date loanDate = Date.valueOf(strLoan);
 	private String strReturn = "2020-03-10";
 	private Date returnDate = Date.valueOf(strReturn);
-	private static Person person = null;
+	private static Person person = new Person("Tiina", Date.valueOf("1997-06-17"), "tiina.vanhanen@metropolia.fi");
 	private static PersonDAO personDAO = new PersonDAO();
-	
 	private BorrowedThing borrowedThing = new BorrowedThing(description, loanDate, returnDate, person);
 	
 	@BeforeAll
-	public static void createPerson() {
-		person = personDAO.readPerson(126);
+	public static void createCategory() {
+		personDAO.createPerson(person);
 	}
 	
 	@Test
@@ -45,7 +44,7 @@ public class BorrowedThingDAOTest {
 	@Test
 	@Order(2)
 	public void testReadBorrowedThings() {
-		assertEquals(19, borrowedThingDAO.readBorrowedThings().length, "Reading all failed");
+		assertEquals(1, borrowedThingDAO.readBorrowedThings().length, "Reading all failed");
 	}
 	
 	@Test

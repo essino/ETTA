@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Date;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,13 +19,20 @@ import model.PersonDAO;
 @TestMethodOrder(OrderAnnotation.class)
 class PersonDAOTest {
 	private PersonDAO personDAO = new PersonDAO();
-	private int id = 143;
+	private int id = 1;
 	private String str = "1997-06-17";
 	private Date date = Date.valueOf(str);
 	private String name = "Tiina";
 	private String email = "tiina.vanhanen@metropolia.fi";
 	private Person tiina = new Person(name, date, email);
 
+	@BeforeEach
+	public void createCategory() {
+		Person person = new Person(name, date, email);
+		PersonDAO pDAO = new PersonDAO();
+		pDAO.createPerson(person);
+	}
+	
 	@Test
 	@Order(1)
 	public void testCreate() {
@@ -33,7 +42,7 @@ class PersonDAOTest {
 	@Test
 	@Order(2)
 	public void testReadPeople() {
-		assertEquals(36, personDAO.readPeople().length, "Reading all failed");
+		assertEquals(1, personDAO.readPeople().length, "Reading all failed");
 	}
 	
 	@Test

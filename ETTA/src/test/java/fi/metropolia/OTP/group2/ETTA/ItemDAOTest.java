@@ -18,19 +18,19 @@ import model.PersonDAO;
 @TestMethodOrder(OrderAnnotation.class)
 class ItemDAOTest {
 		private ItemDAO itemDAO = new ItemDAO();
-		private int id = 147;
+		private int id = 1;
 		private String desc = "Ystävänpäiväkortti";
 		private double price = 3.5;
 		private String str = "2020-02-14";
 		private Date dateNeeded = Date.valueOf(str);
 		private String additionalInfo = null;
-		private static Person anni = null;
+		private static Person tiina = new Person("Tiina", Date.valueOf("1997-06-17"), "tiina.vanhanen@metropolia.fi");
 		private static PersonDAO personDAO = new PersonDAO();
-		private Item item = new Item(desc, anni, price, dateNeeded, additionalInfo);
+		private Item item = new Item(desc, tiina, price, dateNeeded, additionalInfo);
 		
 		@BeforeAll
 		public static void createPerson() {
-			anni = personDAO.readPerson(126);
+			personDAO.createPerson(tiina);
 		}
 
 		@Test
@@ -42,7 +42,7 @@ class ItemDAOTest {
 		@Test
 		@Order(2)
 		public void testReadItems() {
-			assertEquals(18, itemDAO.readItems().length, "Reading all failed");
+			assertEquals(1, itemDAO.readItems().length, "Reading all failed");
 		}
 		
 		@Test
@@ -51,7 +51,7 @@ class ItemDAOTest {
 			assertEquals(desc, itemDAO.readItem(id).getDescription(), "Reading one failed (description)");
 			assertEquals(price, itemDAO.readItem(id).getPrice(), "Reading one failed (price)");
 			assertEquals(dateNeeded, itemDAO.readItem(id).getDateNeeded(), "Reading one failed (date)");
-			assertEquals(anni.getName(), itemDAO.readItem(id).getPerson().getName(), "Reading one failed (person)");
+			assertEquals(tiina.getName(), itemDAO.readItem(id).getPerson().getName(), "Reading one failed (person)");
 		}
 		
 		@Test

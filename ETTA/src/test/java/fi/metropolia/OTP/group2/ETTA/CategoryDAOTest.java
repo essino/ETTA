@@ -17,6 +17,7 @@ public class CategoryDAOTest {
 	private CategoryDAO categoryDAO = new CategoryDAO();
 	private String desc = "food";
 	private Category category = new Category(desc);
+	private int id = 1;
 
 	@Test
 	@Order(1)
@@ -33,7 +34,7 @@ public class CategoryDAOTest {
 	@Test
 	@Order(3)
 	public void testReadCategory() {
-		assertEquals(desc, categoryDAO.readCategory(0).getDescription(), "Reading one failed (description)");
+		assertEquals(desc, categoryDAO.readCategory(id).getDescription(), "Reading one failed (description)");
 	}
 	
 	@Test
@@ -42,7 +43,7 @@ public class CategoryDAOTest {
 		String newDesc = "salary";
 		Category updatedCategory = new Category(newDesc);
 		assertEquals(true, categoryDAO.updateCategory(updatedCategory), "Updating failed");
-		assertEquals(newDesc, categoryDAO.readCategory(0).getDescription(), "Price updating failed");
+		assertEquals(newDesc, categoryDAO.readCategory(id).getDescription(), "Price updating failed");
 	}
 	
 	@Test

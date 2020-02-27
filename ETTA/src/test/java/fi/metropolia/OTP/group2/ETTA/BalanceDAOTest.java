@@ -16,32 +16,28 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 public class BalanceDAOTest {
 
 	private BalanceDAO balanceDAO = new BalanceDAO();
-	
-	//private Balance balance = new Balance(100);
+	private Balance balance = new Balance(100);
+	private int id = 1;
 	
 	@Test
 	@Order(1)
-	@Disabled
 	public void testCreate() {
-		//assertEquals(true, balanceDAO.createBalance(balance), "Creation of balance failed");
+		assertEquals(true, balanceDAO.createBalance(balance), "Creation of balance failed");
 	}
 	
 	@Test
 	@Order(2)
-	
 	public void testReadBalance() {
-		assertEquals(105, balanceDAO.readBalance(0).getBalance(), "Reading failed");
+		assertEquals(100, balanceDAO.readBalance(id).getBalance(), "Reading failed");
 	}
 	
 	@Test
 	@Order(1)
-	
 	public void testUpdate() {
-		Balance balance = balanceDAO.readBalance(0);
+		Balance balance = balanceDAO.readBalance(id);
 		balance.setBalance(0);
-		
 		balanceDAO.updateBalance(balance);
-		assertEquals(0, balanceDAO.readBalance(balance.getId()).getBalance(), "balance amount updating failed");
+		assertEquals(0, balanceDAO.readBalance(id).getBalance(), "balance amount updating failed");
 		
 	}
 
