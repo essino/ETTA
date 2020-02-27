@@ -3,7 +3,10 @@ package view;
 import java.io.IOException;
 import java.sql.Date;
 
+import com.sun.xml.bind.v2.schemagen.episode.Bindings;
+
 import controller.WishlistController;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -11,9 +14,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
@@ -97,8 +102,21 @@ public class WishlistTableGUI {
 		price.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
 		date.setCellValueFactory(new PropertyValueFactory<Item, Date>("dateNeeded"));
 		addinfo.setCellValueFactory(new PropertyValueFactory<Item, String>("additionalInfo"));
-		bought.setCellValueFactory(new PropertyValueFactory<Item, Boolean>("bought"));
 		
+		//bought.setCellValueFactory(new PropertyValueFactory<Item, Boolean>("bought"));
+		bought.setCellValueFactory (new Callback<CellDataFeatures<Item, Boolean>, ObservableValue<Boolean>>() {
+			@Override public 
+			ObservableValue<Boolean> call(CellDataFeatures<Item, Boolean> item) {
+				//BooleanBinding bgth = Bindings.createBooleanBinding(() -> item.getValue().isBought(), bought);
+				return new ReadOnlyObjectWrapper(item.getValue().isBought()); 
+			}
+		});
+		bought.setCellFactory (new Callback<TableColumn<Item, Boolean>,TableCell<Item, Boolean>>(){
+			@Override public
+			TableCell<Item, Boolean> call(TableColumn<Item, Boolean> p) {
+				return new CheckBoxTableCell<>(); 
+			}
+		});	
 		final ObservableList<Item> data = FXCollections.observableArrayList(controller.getItems());
 		wishlisttable.setItems(data);
 	}
