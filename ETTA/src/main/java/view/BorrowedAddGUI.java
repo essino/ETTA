@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 
@@ -21,15 +20,11 @@ public class BorrowedAddGUI {
 	
 	BorrowedController controller = new BorrowedController();
 	
-	/*
-	public BorrowedAddGUI(BorrowedController controller) {
-		this.controller = controller;
-	}
-	*/
 	@FXML
 	public void addBorrowed(ActionEvent event) {
 		System.out.println("found"); 
 	}
+	
 	
 	@FXML
 	public AnchorPane borrowedAdd() {
@@ -41,7 +36,6 @@ public class BorrowedAddGUI {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	
        return borrowedAdd;
        
 	}
