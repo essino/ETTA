@@ -2,8 +2,6 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-
-
   <groupId>fi.metropolia.OTP.group2</groupId>
   <artifactId>ETTA</artifactId>
   <version>0.0.1-SNAPSHOT</version>
@@ -23,11 +21,6 @@
 		<artifactId>maven-surefire-plugin</artifactId>
 		<version>2.22.2</version>
 		</plugin>  
-<<<<<<< HEAD
-		
-
-		
-=======
 		<plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -37,7 +30,6 @@
           <target>1.8</target>
         </configuration>
       </plugin>
->>>>>>> branch 'master' of https://github.com/essino/ETTA.git
 	</plugins>
 </build>
 

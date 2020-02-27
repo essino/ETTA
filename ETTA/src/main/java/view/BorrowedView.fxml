@@ -16,12 +16,12 @@
           <Button mnemonicParsing="false" text="Delete" />
         </buttons>
       </ButtonBar>
-      <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
+      <TableView fx:id="borrowedTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
         <columns>
-          <TableColumn minWidth="-Infinity" prefWidth="150.0" text="Item" />
-          <TableColumn minWidth="-Infinity" prefWidth="150.0" text="Loan date" />
-            <TableColumn prefWidth="150.0" text="Return date" />
-            <TableColumn prefWidth="150.0" text="Borrowed by" />
+          <TableColumn fx:id="borrowedThing" minWidth="-Infinity" prefWidth="150.0" text="Item" />
+          <TableColumn fx:id="loanDate" minWidth="-Infinity" prefWidth="150.0" text="Loan date" />
+            <TableColumn fx:id="returnDate" prefWidth="150.0" text="Return date" />
+            <TableColumn fx:id="borrowedBy" prefWidth="150.0" text="Borrowed by" />
         </columns>
       </TableView>
    </children>
