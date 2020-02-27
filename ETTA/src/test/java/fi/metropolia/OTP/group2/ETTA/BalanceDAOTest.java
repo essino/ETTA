@@ -36,9 +36,9 @@ public class BalanceDAOTest {
 	@Order(2)
 	public void testUpdate() {
 		Balance balance = balanceDAO.readBalance(id);
-		balance.setBalance(10);
+		balance.setBalance(0);
 		balanceDAO.updateBalance(balance);
-		assertEquals(10, balanceDAO.readBalance(id).getBalance(), "balance amount updating failed");
+		assertEquals(0, balanceDAO.readBalance(id).getBalance(), "balance amount updating failed");
 		
 	}
 	
