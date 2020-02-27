@@ -37,9 +37,15 @@ public class EconomyGUI {
 	AnchorPane economysavingsanchorpane;
 	
 	/**
+	 * The list view from where adding, editing and deleting incomes
+	 */
+	AnchorPane economyincomeaddanchorpane;
+	
+	/**
 	 * Method showing the balance view in the Economy items section
 	 * @param event ActionEvent that is handled
 	 */
+	
 	@FXML
 	public void showBalance(ActionEvent event) {
 		AnchorPane showBalanceView = null; //Luon anchorpanin showBalanceView
@@ -158,5 +164,21 @@ public class EconomyGUI {
 		
 	}
 	
+	
+	@FXML
+	public void AddIncomeCancel(ActionEvent event) {
+		AnchorPane AddIncomeCancelView = null;
+		FXMLLoader loaderAddIncomeCancelView = new FXMLLoader(getClass().getResource("/view/EconomyIncome.fxml"));
+		
+		try {
+			AddIncomeCancelView = loaderAddIncomeCancelView.load();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		//shows the loaded fxml file
+		economyincomeaddanchorpane.getChildren().setAll(AddIncomeCancelView);
+		
+	}
 
 }

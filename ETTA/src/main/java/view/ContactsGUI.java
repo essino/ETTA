@@ -31,8 +31,13 @@ public class ContactsGUI {
 	@FXML
 	AnchorPane contactsviewanchorpane;
 	
+	/**
+	 * The add view from where adding, editing and deleting can be started
+	 */
 	@FXML
 	AnchorPane contactsaddanchorpane;
+	
+	
 	
 	@FXML
 	TextField personAddress;
@@ -102,7 +107,10 @@ public class ContactsGUI {
 		contactsviewanchorpane.getChildren().setAll(showAddContactView);
 	}
 	
-	
+	/**
+	 * Method showing the Contacts view in the Contacts section and add Person to database
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void saveNewPerson(ActionEvent event) {
 		

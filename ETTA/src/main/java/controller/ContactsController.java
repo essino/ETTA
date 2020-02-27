@@ -18,7 +18,10 @@ public class ContactsController {
 	private ContactsGUI conGUI;
 	private PersonDAO perDAO = new PersonDAO();
 	
-	
+	/**
+	 * Method make person witch have information of name, address, e-mail and birthday
+	 * 
+	 */
 	public void savePerson() {
 		String PersonName = conGUI.getPersonName();
 		String PersonAddress = conGUI.getPersonAddress();
@@ -29,6 +32,7 @@ public class ContactsController {
 		
 		Boolean Person = perDAO.createPerson(person);
 	}
+	
 	
 	public ContactsController(ContactsGUI conGUI) {
 		this.conGUI = conGUI;
