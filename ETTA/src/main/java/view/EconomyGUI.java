@@ -39,6 +39,7 @@ public class EconomyGUI {
 	/**
 	 * The list view from where adding, editing and deleting incomes
 	 */
+	@FXML
 	AnchorPane economyincomeaddanchorpane;
 	
 	/**

@@ -30,6 +30,9 @@ public class BalanceOverviewGUI {
 	
 	InputCheck inputCheck = new InputCheck();
 	
+	/** 
+	 * Constructor 
+	 */
 	public BalanceOverviewGUI() { 
 		controller = new EconomyController(this);
 	} 

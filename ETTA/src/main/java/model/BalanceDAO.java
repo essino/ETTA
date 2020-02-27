@@ -92,6 +92,9 @@ public class BalanceDAO {
 			transaction.commit();
 			System.out.println("reading balance:" + balance.getBalance() + " id " + balance.getId());
 		}
+		catch(NullPointerException eNull) {
+			return null;
+		}
 		catch(Exception e){
 			if (transaction!=null) transaction.rollback();
 			throw e;
