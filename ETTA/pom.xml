@@ -49,10 +49,17 @@
     <artifactId>mariadb-java-client</artifactId>
     <version>2.5.4</version>
 	</dependency>
+	
 	<dependency>
   		<groupId>com.calendarfx</groupId>
   		<artifactId>view</artifactId>
   		<version>8.5.0</version>
+	</dependency>
+	
+	<dependency>
+    	<groupId>org.jacoco</groupId>
+    	<artifactId>jacoco-maven-plugin</artifactId>
+    	<version>0.8.5</version>
 	</dependency>
 </dependencies>
 </project>
