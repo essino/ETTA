@@ -46,6 +46,8 @@ public class EconomyGUI {
 	 * @param event ActionEvent that is handled
 	 */
 	
+	
+	
 	@FXML
 	public void showBalance(ActionEvent event) {
 		AnchorPane showBalanceView = null; //Luon anchorpanin showBalanceView
@@ -65,6 +67,7 @@ public class EconomyGUI {
 	@FXML
 	public void showIncome(ActionEvent event) {
 		AnchorPane showIncomeView = null; 
+	
 		FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/EconomyIncome.fxml")); 
 		try {
 			showIncomeView = loaderIncomeView.load();
@@ -164,7 +167,25 @@ public class EconomyGUI {
 		
 	}
 	
+	@FXML
+	public void AddNewIncome(ActionEvent event) {
 	
+		AnchorPane showAddNewIncomeView = null;
+		FXMLLoader loaderAddNewIncomeView = new FXMLLoader(getClass().getResource("/view/EconomyIncome.fxml"));
+		try {
+			showAddNewIncomeView = loaderAddNewIncomeView.load();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		//shows the loaded fxml file
+		economyincomeaddanchorpane.getChildren().setAll(showAddNewIncomeView);
+		
+		
+	}
+	
+	
+	/**
 	@FXML
 	public void AddIncomeCancel(ActionEvent event) {
 		AnchorPane AddIncomeCancelView = null;
@@ -180,5 +201,5 @@ public class EconomyGUI {
 		economyincomeaddanchorpane.getChildren().setAll(AddIncomeCancelView);
 		
 	}
-
+*/
 }

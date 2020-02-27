@@ -144,7 +144,13 @@ public class ContactsGUI {
 	
 	@FXML
 	public Date getPersonBirthday() {
+		try {
 		return Date.valueOf(this.personBirthday.getValue());
+		}
+		catch(NullPointerException e) {
+			return null;
+		}
+		
 	}
 	
 	

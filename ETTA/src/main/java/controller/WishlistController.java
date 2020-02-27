@@ -2,28 +2,37 @@ package controller;
 
 import model.Item;
 import model.ItemDAO;
-import view.WishlistGUI;
+import view.WishlistTableGUI;
 
+/**
+ * Controller class for the wishlist page
+ */
 public class WishlistController {
 
+	/**
+	 * ItemDAO used for accessing the database
+	 */
 	private ItemDAO itemDAO = new ItemDAO();
-	private WishlistGUI gui;
-	private Item[] items = itemDAO.readItems();
 	
-	public WishlistController(WishlistGUI wishlistGUI) {
-		this.gui = wishlistGUI;
+	/**
+	 * Reference to the WishlistTableGUI
+	 */
+	private WishlistTableGUI gui;
+	
+	/**
+	 * Constructor
+	 * @param gui WishlistTableGUI
+	 */
+	public WishlistController(WishlistTableGUI gui) {
+		this.gui = gui;
 	}
 	
-	public String[] getPeopleNames() {
-		String[] names = new String[items.length];
-		for(int i=0;i<items.length;i++) {
-			names[i] = items[i].getPerson().getName();
-		}
-		return names;
-	}
-	
+	/**
+	 * Method for fetching the wishlist items from the database
+	 * @return Item[] array containing all the wishlist items from the database
+	 */
 	public Item[] getItems() {
-		return items;
+		return itemDAO.readItems();
 	}
 
 }

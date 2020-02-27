@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
-<AnchorPane  fx:id="economyincomeaddanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<AnchorPane  fx:id="economyincomeaddanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="view.EconomyGUI">
    <children>
       <GridPane layoutX="235.0" layoutY="173.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="28.0">
         <columnConstraints>
@@ -38,9 +38,9 @@
       </GridPane>
       <ButtonBar layoutX="467.0" layoutY="696.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="54.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Add" />
+          <Button mnemonicParsing="false" onAction="#AddNewIncome" text="Add" />
             <Button mnemonicParsing="false" text="Remove" />
-            <Button mnemonicParsing="false" onAction="#AddIncomeCancel" text="Cancel" />
+            <Button mnemonicParsing="false"  text="Cancel" />
         </buttons>
       </ButtonBar>
    </children>

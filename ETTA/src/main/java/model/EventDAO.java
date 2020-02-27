@@ -235,7 +235,6 @@ public class EventDAO {
 			// oli sama yhteys koko sovelluksen ajan 
 			if (sessionFactory != null) {// vapauttaa muutkin resurssit 
 				sessionFactory.close(); 
-				System.out.println("Tietokanta suljettu");
 			}
 		}catch (Exception e) { 
 				e.printStackTrace();  

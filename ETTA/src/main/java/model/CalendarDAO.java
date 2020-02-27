@@ -126,7 +126,7 @@ public class CalendarDAO {
 	 * @param name 
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
-	public boolean deleteCategory(String name) {
+	public boolean deleteCalendar(String name) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
