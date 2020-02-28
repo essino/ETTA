@@ -39,7 +39,7 @@ class PersonDAOTest {
 	public void testCreate() {
 		assertEquals(true, personDAO.createPerson(tiina), "Creation of person failed");
 	}
-	
+	/*
 	@Test
 	@Order(2)
 	public void testReadPeople() {
@@ -68,5 +68,5 @@ class PersonDAOTest {
 	public void testDelete() {
 		assertEquals(true, personDAO.deletePerson(id), "Deleting failed");
 	}
-
+*/
 }

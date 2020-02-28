@@ -72,17 +72,19 @@ public class ItemDAO {
 	 * @param item_id int the id of the Item to be read
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
+	
 	public Item readItem(int item_id) {
 		Item item = new Item();
 		try {
 			Session session = factory.openSession();
 			transaction = session.beginTransaction();
+			
 			item = (Item)session.get(Item.class, item_id);		
 			transaction.commit();
 			System.out.println("reading one:" + item.getDescription());
 		}
 		catch(Exception e){
-			if (transaction!= null) transaction.rollback();
+			//if (transaction!= null) transaction.rollback();
 			throw e;
 		}
 		return item;

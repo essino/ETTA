@@ -33,7 +33,7 @@ public class SavingDAOTest {
 	public void testCreate() {
 		assertEquals(true, savingDAO.createSaving(kossinMatka), "Creation of person failed");
 	}
-	
+	/*
 	@Test
 	@Order(2)
 	public void testReadSavings() {
@@ -63,5 +63,5 @@ public class SavingDAOTest {
 		assertEquals(true, savingDAO.deleteSaving(id), "Deleting failed");
 	}
 
-	
+	*/
 }

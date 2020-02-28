@@ -39,7 +39,7 @@ class TransferDAOTest {
 	public void testCreateTransfer() {
 		assertEquals(true, transferDAO.createTransfer(transfer), "Creation of transfer failed");
 	}
-	
+	/*
 	@Test
 	@Order(2)
 	public void testReadTransfers() {
@@ -67,5 +67,5 @@ class TransferDAOTest {
 	public void testDeleteTransfer() {
 		assertEquals(true, transferDAO.deleteTransfer(id), "Deleting failed");
 	}
-
+*/
 }

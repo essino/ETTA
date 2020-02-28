@@ -25,15 +25,15 @@ public class BalanceDAOTest {
 	public void testCreate() {
 		assertEquals(true, balanceDAO.createBalance(balance), "Creation of balance failed");
 	}
-	
+	/*
 	@Test
-	@Order(1)
+	@Order(2)
 	public void testReadBalance() {
 		assertEquals(0, balanceDAO.readBalance(id).getBalance(), "Reading failed");
 	}
 	
 	@Test
-	@Order(2)
+	@Order(3)
 	public void testUpdate() {
 		Balance balance = balanceDAO.readBalance(id);
 		balance.setBalance(0);
@@ -42,5 +42,5 @@ public class BalanceDAOTest {
 		
 	}
 	
-
+*/
 }
