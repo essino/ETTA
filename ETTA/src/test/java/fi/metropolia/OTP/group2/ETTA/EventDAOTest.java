@@ -32,7 +32,7 @@ public class EventDAOTest {
 	public void testCreate() {
 		assertEquals(true, eventDAO.createEvent(event), "Creation of person failed");
 	}
-	
+	/*
 	@Test
 	@Order(2)
 	public void testReadEvents() {
@@ -59,5 +59,5 @@ public class EventDAOTest {
 	public void testDelete() {
 		assertEquals(true, eventDAO.deleteEvent(event_id), "deleting failed");
 	}
-	
+	*/
 }
