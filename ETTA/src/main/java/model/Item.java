@@ -4,35 +4,28 @@ import java.sql.Date;
 
 import javax.persistence.*;
 
+import javafx.beans.property.BooleanProperty;
+
 /**
  * Model class for Items. Used in the creation of the database table for Items through Hibernate.
  */
 @Entity
 @Table(name="Item")
+@Access(AccessType.PROPERTY)
 public class Item {
 	
-	@Id
-	@GeneratedValue
-	@Column
 	private int item_id;
 	
-	@Column(length=50)
 	private String description;
 	
-	@ManyToOne
-	@JoinColumn(nullable=true)
 	private Person person;
 	
-	@Column(nullable = true)
 	private double price;
 	
-	@Column
-	private boolean bought = false;
+	private BooleanProperty bought;
 	
-	@Column(nullable=true)
 	private Date dateNeeded;
 	
-	@Column(length=100, nullable=true)
 	private String additionalInfo;
 	
 	/**
@@ -56,12 +49,16 @@ public class Item {
 		this.price = price;
 		this.dateNeeded = date;
 		this.additionalInfo = info;
+		this.bought.set(false);
 	}
 
 	/**
 	 * Function to fetch the id number of the item from the database.
 	 * @return item_id the id number of the item in the database
 	 */
+	@Id
+	@GeneratedValue
+	@Column
 	public int getItem_id() {
 		return item_id;
 	}
@@ -78,6 +75,7 @@ public class Item {
 	 * Function to fetch the description of the item from the database.
 	 * @return description the description of the item in the database
 	 */
+	@Column(length=50)
 	public String getDescription() {
 		return description;
 	}
@@ -94,6 +92,8 @@ public class Item {
 	 * Function to fetch the person who the item is for from the database.
 	 * @return person the person who the item is for in the database
 	 */
+	@ManyToOne
+	@JoinColumn(nullable=true)
 	public Person getPerson() {
 		return person;
 	}
@@ -110,6 +110,7 @@ public class Item {
 	 * Function to fetch the price of the item from the database.
 	 * @return price the price of the item in the database
 	 */
+	@Column(nullable = true)
 	public double getPrice() {
 		return price;
 	}
@@ -126,8 +127,9 @@ public class Item {
 	 * Function to check if the item has already been bought or not.
 	 * @return bought if the item has been bought
 	 */
-	public boolean isBought() {
-		return bought;
+	@Column(name="bought")
+	public boolean getBought() {
+		return bought.get();
 	}
 
 	/**
@@ -135,13 +137,14 @@ public class Item {
 	 * @param bought boolean whether the item has been bought
 	 */
 	public void setBought(boolean bought) {
-		this.bought = bought;
+		this.bought.set(bought);
 	}
 
 	/**
 	 * Function to fetch the date of the item from the database.
 	 * @return dateNeeded the date when the item is needed
 	 */
+	@Column(nullable=true)
 	public Date getDateNeeded() {
 		return dateNeeded;
 	}
@@ -158,6 +161,7 @@ public class Item {
 	 * Function to fetch the additional information about the item from the database.
 	 * @return additionalInfo additional information about the item in the database
 	 */
+	@Column(length=100, nullable=true)
 	public String getAdditionalInfo() {
 		return additionalInfo;
 	}
