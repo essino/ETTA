@@ -19,7 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import model.BorrowedThing;
 
-/*
+
 public class BorrowedTableGUI {
 	
 	BorrowedController controller;
@@ -65,7 +65,7 @@ public class BorrowedTableGUI {
 	
 
 
-} */
+} 
 
 	
 	

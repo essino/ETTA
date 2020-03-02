@@ -8,13 +8,13 @@ import model.Person;
 import model.PersonDAO;
 
 //essi trying out: starts
-/*
+
 import model.BorrowedThing;
 import model.BorrowedThingDAO;
 import model.Item;
 import model.ItemDAO;
 import view.BorrowedTableGUI;
-*/
+
 //essi trying out: ends
 import view.WishlistTableGUI;
 
@@ -40,7 +40,6 @@ public class BorrowedController {
 	
 	//essi: all changes in comments, also in borrowedtablegui class
 	//essi trying out: starts
-	/*
 	
 	private BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO();
 	
@@ -57,7 +56,7 @@ public class BorrowedController {
 	public BorrowedThing[] getBorrowedThings() {
 		return borrowedThingDAO.readBorrowedThings();
 	}
-	*/
+
 	//essi trying out: ends
 	
 }
