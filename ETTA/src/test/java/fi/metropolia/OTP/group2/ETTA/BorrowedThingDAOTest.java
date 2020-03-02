@@ -40,7 +40,7 @@ public class BorrowedThingDAOTest {
 	public void testCreate() {
 		assertEquals(true, borrowedThingDAO.createBorrowedThing(borrowedThing), "Creation of item failed");
 	}
-	
+	/*
 	@Test
 	@Order(2)
 	public void testReadBorrowedThings() {
@@ -70,4 +70,5 @@ public class BorrowedThingDAOTest {
 	public void testDelete() {
 		assertEquals(true, borrowedThingDAO.deleteBorrowedThing(thing_id), "Deleting failed");
 	}
+*/
 }

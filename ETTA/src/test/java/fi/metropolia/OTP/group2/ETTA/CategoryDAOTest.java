@@ -14,6 +14,7 @@ import model.CategoryDAO;
 
 @TestMethodOrder(OrderAnnotation.class)
 public class CategoryDAOTest {
+	
 	private CategoryDAO categoryDAO = new CategoryDAO();
 	private String desc = "food";
 	private Category category = new Category(desc);
@@ -24,7 +25,7 @@ public class CategoryDAOTest {
 	public void testCreate() {
 		assertEquals(true, categoryDAO.createCategory(category), "Creation of category failed");
 	}
-	
+	/*
 	@Test
 	@Order(2)
 	public void testReadCategories() {
@@ -51,5 +52,5 @@ public class CategoryDAOTest {
 	public void testDelete() {
 		assertEquals(true, categoryDAO.deleteCategory(category.getDescription()), "Deleting failed");
 	}
-
+*/
 }

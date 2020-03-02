@@ -22,6 +22,7 @@ public class EconomyController {
 
 	
 	public void saveTransfer() {
+<<<<<<< HEAD
 		String Description = ecoGUI.getReason();
 		float IncomeAmount = ecoGUI.getIncomeAmount();
 		Date IncomeDate = ecoGUI.getIncomeDate();
@@ -34,6 +35,9 @@ public class EconomyController {
 	//Pitääkö tätä olla
 	public EconomyController(EconomyGUI ecoGUI) {
 		this.ecoGUI = ecoGUI;
+=======
+		//String description = ecoGUI.getReason();
+>>>>>>> branch 'master' of https://github.com/essino/ETTA.git
 	}
 	
 	/** 

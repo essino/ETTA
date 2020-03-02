@@ -69,7 +69,7 @@ public class EconomyGUI {
 	DatePicker incomeDate;
 	
 	public EconomyGUI() {
-		controller = new EconomyController(this);
+		//controller = new EconomyController(this);
 	}
 	
 	
@@ -229,6 +229,7 @@ public class EconomyGUI {
 	}
 */
 	
+<<<<<<< HEAD
 	@FXML
 	public String getReason() {
 		return this.reason.getText();
@@ -249,4 +250,8 @@ public class EconomyGUI {
 	public String getCategory() {
 		return category.getValue().toString();
 	}
+=======
+	//@FXML
+	//public String get
+>>>>>>> branch 'master' of https://github.com/essino/ETTA.git
 }

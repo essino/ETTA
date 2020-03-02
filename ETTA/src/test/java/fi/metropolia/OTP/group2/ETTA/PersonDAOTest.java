@@ -18,6 +18,7 @@ import model.PersonDAO;
 
 @TestMethodOrder(OrderAnnotation.class)
 class PersonDAOTest {
+
 	private PersonDAO personDAO = new PersonDAO();
 	private int id = 1;
 	private String str = "1997-06-17";
@@ -38,7 +39,7 @@ class PersonDAOTest {
 	public void testCreate() {
 		assertEquals(true, personDAO.createPerson(tiina), "Creation of person failed");
 	}
-	
+	/*
 	@Test
 	@Order(2)
 	public void testReadPeople() {
@@ -67,5 +68,5 @@ class PersonDAOTest {
 	public void testDelete() {
 		assertEquals(true, personDAO.deletePerson(id), "Deleting failed");
 	}
-
+*/
 }
