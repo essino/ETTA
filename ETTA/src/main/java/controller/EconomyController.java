@@ -34,8 +34,6 @@ public class EconomyController {
 	 */
 	private EconomyAddOutcomeGUI addExpenceGUI;
 	
-	
-	
 	/**
 	 * Reference to the EconomyOutcomeGUI
 	 */
@@ -52,6 +50,10 @@ public class EconomyController {
 	 * CategoryDAO used for accessing the database
 	 */
 	private CategoryDAO categoryDAO = new CategoryDAO();
+	/**
+	 * Reference to the EconomyAddIncomeGUI
+	 */
+	private EconomyAddIncomeGUI economyAddIncomeGUI;
 	
 	public void saveTransfer() {
 
@@ -111,6 +113,10 @@ public class EconomyController {
 	 */ 
 	public EconomyController(EconomyOutcomeGUI economyOutcomeGUI) {
 		this.expenceGUI = economyOutcomeGUI;
+	}
+
+	public EconomyController(EconomyAddIncomeGUI economyAddIncomeGUI) {
+		this.economyAddIncomeGUI = economyAddIncomeGUI;
 	}
 
 	/** 

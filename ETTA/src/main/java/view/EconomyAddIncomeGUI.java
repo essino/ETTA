@@ -62,7 +62,7 @@ public class EconomyAddIncomeGUI {
 	 */
 	@FXML
 	public void initialize() {
-		outcomeCategoryList.getItems().addAll(controller.categoriesList());
+		incomeCategoryList.getItems().addAll(controller.categoriesList());
 	}
 	
 	/** 
@@ -71,7 +71,7 @@ public class EconomyAddIncomeGUI {
 	 */
 	@FXML
 	public String getDescription(){
-		return this.outcomeDescription.getText();
+		return this.incomeDescription.getText();
 		}
 	
 	/** 
@@ -80,7 +80,7 @@ public class EconomyAddIncomeGUI {
 	 */
 	@FXML
 	public String getCategoryName(){
-		return this.outcomeCategoryList.getValue();
+		return this.incomeCategoryList.getValue();
 		}
 	
 	/** 
@@ -91,7 +91,7 @@ public class EconomyAddIncomeGUI {
 	@FXML
 	public Date getExpenseDay() {
 		try {
-		return java.sql.Date.valueOf(outcomeDate.getValue());
+		return java.sql.Date.valueOf(incomeDate.getValue());
 		}
 		catch(NullPointerException e) {
 			return null;
@@ -104,7 +104,7 @@ public class EconomyAddIncomeGUI {
 	 */
 	@FXML
 	public float getExpenseAmount() {
-		return Float.parseFloat(outcomeAmount.getText());
+		return Float.parseFloat(incomeAmount.getText());
 	}
 	
 	/**
@@ -112,8 +112,8 @@ public class EconomyAddIncomeGUI {
 	 * and displays the view of the list of expenses in the Economy section after adding new expense 
 	 */
 	@FXML
-	public void saveExpense() {
-		if(inputCheck.isInputFloat(outcomeAmount.getText())) {
+	public void addNewIncome() {
+		if(inputCheck.isInputFloat(incomeAmount.getText())) {
 			controller.saveExpense();
 			AnchorPane outcomeView = null; 
 			FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/EconomyOutcome.fxml")); 
@@ -123,7 +123,7 @@ public class EconomyAddIncomeGUI {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				}
-			addOutcomePane.getChildren().setAll(outcomeView);
+			economyincomeaddanchorpane.getChildren().setAll(outcomeView);
 		}
 		else {
 			inputCheck.alertInputNotFloat();
@@ -135,15 +135,15 @@ public class EconomyAddIncomeGUI {
 	 */
 	@FXML
 	public void cancelAdding() {
-		AnchorPane outcomeView = null; 
-		FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/EconomyOutcome.fxml")); 
+		AnchorPane incomeView = null; 
+		FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/EconomyOutcome.fxml")); 
 		try {
-			outcomeView = loaderOutcomeView.load();
+			incomeView = loaderIncomeView.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			addOutcomePane.getChildren().setAll(outcomeView);
+		economyincomeaddanchorpane.getChildren().setAll(incomeView);
 		}
 
 }
