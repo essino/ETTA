@@ -103,12 +103,13 @@ public class WishlistTableGUI {
 		date.setCellValueFactory(new PropertyValueFactory<Item, Date>("dateNeeded"));
 		addinfo.setCellValueFactory(new PropertyValueFactory<Item, String>("additionalInfo"));
 		
-		//bought.setCellValueFactory(new PropertyValueFactory<Item, Boolean>("bought"));
-		bought.setCellValueFactory (new Callback<CellDataFeatures<Item, Boolean>, ObservableValue<Boolean>>() {
+		bought.setCellValueFactory(new PropertyValueFactory<Item, Boolean>("bought"));
+		/*bought.setCellValueFactory (new Callback<CellDataFeatures<Item, Boolean>, ObservableValue<Boolean>>() {
 			@Override public 
 			ObservableValue<Boolean> call(CellDataFeatures<Item, Boolean> item) {
 				//BooleanBinding bgth = Bindings.createBooleanBinding(() -> item.getValue().isBought(), bought);
-				return new ReadOnlyObjectWrapper(item.getValue().isBought()); 
+				//return new ReadOnlyObjectWrapper(item.getValue().getBought()); 
+				return item.getValue().getBought();
 			}
 		});
 		bought.setCellFactory (new Callback<TableColumn<Item, Boolean>,TableCell<Item, Boolean>>(){
@@ -117,6 +118,7 @@ public class WishlistTableGUI {
 				return new CheckBoxTableCell<>(); 
 			}
 		});	
+		*/
 		final ObservableList<Item> data = FXCollections.observableArrayList(controller.getItems());
 		wishlisttable.setItems(data);
 	}
