@@ -47,6 +47,7 @@ public class ContactsController {
 		if(personBirthday != null) {
 			Event birthday = new Event();
 			birthday.setTitle(personName);
+			birthday.setLocation(null);
 			birthday.setStartDate(personBirthday);
 			birthday.setEndDate(personBirthday);
 			birthday.setFullday(true);

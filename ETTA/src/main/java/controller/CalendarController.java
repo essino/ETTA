@@ -121,6 +121,7 @@ public class CalendarController {
 	public Entry fromEventToEntry(Event event) {
 		Entry entry = new Entry();
 		entry.setTitle(event.getTitle());
+		entry.setLocation(event.getLocation());
 		entry.setInterval(event.getStartDate().toLocalDate(), event.getEndDate().toLocalDate());
 		entry.setFullDay(event.isFullday());
 		if(!event.isFullday()) {
@@ -144,6 +145,7 @@ public class CalendarController {
 		Time startTime = toSqlTime(entry.getStartTime());
 		Time endTime = toSqlTime(entry.getEndTime());
 		event.setTitle(entry.getTitle());
+		event.setLocation(entry.getLocation());
 		event.setEndDate(endDate);
 		event.setStartDate(startDate);
 		event.setEndTime(endTime);

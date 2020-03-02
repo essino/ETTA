@@ -30,9 +30,9 @@
             <Label text="Category" />
             <Label text="Income" GridPane.rowIndex="2" />
             <Label text="Date" GridPane.rowIndex="3" />
-            <TextField fx:id="reason" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="incomeDescription" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="incomeAmount" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox fx:id="category" prefWidth="150.0" GridPane.columnIndex="1" />
+            <ComboBox fx:id="incomeCategoryList" prefWidth="150.0" GridPane.columnIndex="1" />
             <DatePicker fx:id="incomeDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>

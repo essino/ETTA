@@ -20,6 +20,9 @@ public class Event {
 
 	@Column(name="title")
 	private String title;
+	
+	@Column(name="location")
+	private String location;
 
 	@Column(name="fullday")
 	private boolean fullday;
@@ -85,9 +88,10 @@ public class Event {
 	 *@param rrule String describing how often the events recurs
 	 *@param calendar the calendar to which the event belongs to
 	 */
-	public Event(String title, boolean fullday, Date startDate, Date endDate, Time startTime,
+	public Event(String title, String location, boolean fullday, Date startDate, Date endDate, Time startTime,
 			Time endTime, boolean recurring, String rrule, String calendar) {
 		this.title = title;
+		this.location = location;
 		this.fullday = fullday;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -266,6 +270,22 @@ public class Event {
 	 */
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	/**
+	 * Function to fetch the location of the event from the database.
+	 * @return location the location of the event from the database
+	 */
+	public String getLocation() {
+		return location;
+	}
+
+	/**
+	 * Function to register the location of the event in the database.
+	 * @param location String the location of the event in the database
+	 */
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	
 }
