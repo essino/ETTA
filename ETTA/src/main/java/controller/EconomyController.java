@@ -1,5 +1,7 @@
 package controller;
 
+import java.sql.Date;
+
 import model.Balance;
 import view.EconomyGUI;
 import model.BalanceDAO;
@@ -20,7 +22,18 @@ public class EconomyController {
 
 	
 	public void saveTransfer() {
-		String description = ecoGUI.getReason();
+		String Description = ecoGUI.getReason();
+		float IncomeAmount = ecoGUI.getIncomeAmount();
+		Date IncomeDate = ecoGUI.getIncomeDate();
+		String Category =ecoGUI.getCategory();
+		
+		Transfer transfer = new Transfer(Description, IncomeAmount, IncomeDate, Category);
+		Boolean Transfer = transDAO.createTransfer(transfer);
+	}
+	
+	//Pitääkö tätä olla
+	public EconomyController(EconomyGUI ecoGUI) {
+		this.ecoGUI = ecoGUI;
 	}
 	
 	/** 
