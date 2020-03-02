@@ -19,6 +19,25 @@ public class Category {
 	private int Category_id;
 	@Column(name="description", length=50)
 	private String description;
+	@Column(name="income")
+	private boolean income;
+	
+	/**
+	 * Function to fetch the type of the category (income/expense) from the database.
+	 * @return true if it's income category
+	 * @return false if it's expense category
+	 */
+	public boolean isCategory_type() {
+		return income;
+	}
+	
+	/**
+	 * Function to register the type of the category (income/expense) into the database
+	 * @param income the type of the category in the database
+	 */
+	public void setCategory_type(boolean income) {
+		this.income = income;
+	}
 	/**
 	 * Function to fetch the id number of the category from the database.
 	 * @return id the id number of the category in the database
