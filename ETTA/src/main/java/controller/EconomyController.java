@@ -1,16 +1,19 @@
 package controller;
 
+
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.sql.Date;
+
 import model.Balance;
 import view.EconomyGUI;
 import view.EconomyOutcomeGUI;
 import model.BalanceDAO;
 import model.Category;
 import model.CategoryDAO;
-import model.Person;
 import view.BalanceOverviewGUI;
 import view.EconomyAddOutcomeGUI;
 import model.TransferDAO;
@@ -47,7 +50,23 @@ public class EconomyController {
 	private CategoryDAO categoryDAO = new CategoryDAO();
 	
 	public void saveTransfer() {
+
+		String description = ecoGUI.getReason();
+		float incomeAmount = ecoGUI.getIncomeAmount();
+		Date incomeDate = ecoGUI.getIncomeDate();
+		Category category = null;
+		//Category category =ecoGUI.getCategory();
+		Boolean income = true;
+		Transfer transfer = new Transfer(description, category, income, incomeDate, incomeAmount);
+		Boolean Transfer = transDAO.createTransfer(transfer);
+	}
+	
+	//Pitääkö tätä olla
+	public EconomyController(EconomyGUI ecoGUI) {
+		this.ecoGUI = ecoGUI;
+
 		//String description = ecoGUI.getReason();
+
 	}
 	
 	/** 

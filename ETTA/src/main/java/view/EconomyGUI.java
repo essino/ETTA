@@ -1,6 +1,9 @@
 package view;
 
 import java.io.IOException;
+import java.sql.Date;
+
+import org.hibernate.mapping.Value;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,13 +52,13 @@ public class EconomyGUI {
 	TextField reason;
 	
 	@FXML
-	TextField income;
+	TextField incomeAmount;
 	
 	@FXML
 	ComboBox category;
 	
 	@FXML
-	DatePicker date;
+	DatePicker incomeDate;
 	
 	public EconomyGUI() {
 		//controller = new EconomyController(this);
@@ -203,7 +206,26 @@ public class EconomyGUI {
 		
 	}
 */
+
+	@FXML
+	public String getReason() {
+		return this.reason.getText();
+	}
 	
-	//@FXML
-	//public String get
+	@FXML
+	public float getIncomeAmount() {
+		float incomeAmount = Float.parseFloat(this.incomeAmount.getText());
+		return incomeAmount;
+	}
+	
+	@FXML
+	public Date getIncomeDate() {
+		return Date.valueOf(this.incomeDate.getValue());
+	}
+	
+	@FXML
+	public String getCategory() {
+		return category.getValue().toString();
+	}
+
 }
