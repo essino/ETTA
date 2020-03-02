@@ -171,6 +171,7 @@ public class EconomyGUI {
 		
 	}
 	
+	/**
 	@FXML
 	public void AddNewIncome(ActionEvent event) {
 		controller.saveTransfer();
@@ -188,7 +189,7 @@ public class EconomyGUI {
 		
 	}
 	
-	
+	*/
 	/**
 	@FXML
 	public void AddIncomeCancel(ActionEvent event) {

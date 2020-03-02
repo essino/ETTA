@@ -18,6 +18,7 @@ import view.BalanceOverviewGUI;
 import view.EconomyAddOutcomeGUI;
 import model.TransferDAO;
 import model.Transfer;
+import view.EconomyAddIncomeGUI;
 
 public class EconomyController {
 	/**
@@ -32,6 +33,9 @@ public class EconomyController {
 	 * Reference to the EconomyAddOutcomeGUI
 	 */
 	private EconomyAddOutcomeGUI addExpenceGUI;
+	
+	
+	
 	/**
 	 * Reference to the EconomyOutcomeGUI
 	 */
