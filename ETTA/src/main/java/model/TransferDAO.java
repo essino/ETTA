@@ -112,6 +112,30 @@ public class TransferDAO {
 	}
 
 	/**
+	 * Method for reading all expenses in the database
+	 * @return Transfer[] array with all the expense  transfers in the database
+	 */
+	public Transfer[] readExpenses() {
+		ArrayList<Transfer> list = new ArrayList<>();
+		try {
+			Session session = factory.openSession();
+			transaction = session.beginTransaction();
+			@SuppressWarnings("unchecked")
+			List<Transfer> result = session.createQuery("from Transfer where income=false order by date desc").getResultList();
+			for(Transfer transfer : result) {
+				list.add(transfer);
+				System.out.println("reading all: " + transfer.getDescription());
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		Transfer[] transfers = new Transfer[list.size()];
+		return (Transfer[])list.toArray(transfers);
+	}
+	
+	/**
 	 * Method for updating a Transfer in the database
 	 * @param transfer Transfer the updated Transfer object
 	 * @return success Boolean indicating the success or failure of the database transaction

@@ -65,6 +65,10 @@ public class MainPageGUI  {
 		amountBalance.setText(balanceString);
 	}
 	
+	/** 
+	 * Method that initializes the view, gets the balance, displays balance and today's date, 
+	 * gets the events for today  from the eventDAO to display them on the page
+	 */
 	@FXML
 	public void initialize() {
 		controller.getBalance();

@@ -12,7 +12,7 @@
                      <children>
                         <Button mnemonicParsing="false" onAction="#showBalance" prefHeight="150.0" prefWidth="200.0" text="Balance" />
                         <Button mnemonicParsing="false" onAction="#showIncome" prefHeight="150.0" prefWidth="200.0" text="Income" />
-                        <Button mnemonicParsing="false" onAction ="#showExpencies" prefHeight="150.0" prefWidth="200.0" text="Expencies" />
+                        <Button mnemonicParsing="false" onAction ="#showExpenses" prefHeight="150.0" prefWidth="200.0" text="Expencies" />
                         <Button mnemonicParsing="false" onAction = "#showSavings" prefHeight="150.0" prefWidth="200.0" text="Savings" />
                      </children>
                   </VBox>

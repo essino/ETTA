@@ -1,14 +1,12 @@
 package view;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import controller.EconomyController;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -31,11 +29,7 @@ public class EconomyGUI {
 	AnchorPane economyincomeanchorpane;
 	
 	
-	/**
-	 * The list view from where adding, editing and deleting can be started in expencies
-	 */
-	@FXML	
-	AnchorPane economyoutcomeaddanchorpane;
+
 	
 	/**
 	 * The list view from where adding, editing and deleting can be started in savings
@@ -49,10 +43,7 @@ public class EconomyGUI {
 	@FXML
 	AnchorPane economyincomeaddanchorpane;
 	
-	/**
-	 * Method showing the balance view in the Economy items section
-	 * @param event ActionEvent that is handled
-	 */
+
 	
 	@FXML
 	TextField reason;
@@ -71,7 +62,10 @@ public class EconomyGUI {
 	}
 	
 	
-	
+	/**
+	 * Method showing the balance view in the Economy items section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showBalance(ActionEvent event) {
 		AnchorPane showBalanceView = null; //Luon anchorpanin showBalanceView
@@ -103,20 +97,20 @@ public class EconomyGUI {
 	}
 	
 	/**
-	 * Method showing the Expencies view in the Economy items section
+	 * Method showing the Expenses view in the Economy items section
 	 * @param event ActionEvent that is handled
 	 */
 	@FXML
-	public void showExpencies(ActionEvent event) {
-		AnchorPane showExpenciesView = null; 
-		FXMLLoader loaderExpenciesView  = new FXMLLoader(getClass().getResource("/view/EconomyOutcome.fxml")); 
+	public void showExpenses(ActionEvent event) {
+		AnchorPane showExpensesView = null; 
+		FXMLLoader loaderExpensesView  = new FXMLLoader(getClass().getResource("/view/EconomyOutcome.fxml")); 
 		try {
-			showExpenciesView = loaderExpenciesView.load();
+			showExpensesView = loaderExpensesView.load();
 			} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
-		economyrootborderpane.setCenter(showExpenciesView);
+		economyrootborderpane.setCenter(showExpensesView);
 	}
 	
 	/**
@@ -153,24 +147,7 @@ public class EconomyGUI {
 		economyincomeanchorpane.getChildren().setAll(showAddIncomeView);
 	}
 	
-	/**
-	 * Method showing the view of the Add Expence in the Expences items section
-	 * @param event ActionEvent that is handled
-	 */
-	@FXML
-	public void showAddOutcome(ActionEvent event) {
-		AnchorPane showAddOutcomeView = null;
-		FXMLLoader loaderAddOutcomeView = new FXMLLoader(getClass().getResource("/view/EconomyAddOutcome.fxml"));
-		try {
-			showAddOutcomeView = loaderAddOutcomeView.load();
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			}
-		//shows the loaded fxml file
-		economyoutcomeaddanchorpane.getChildren().setAll(showAddOutcomeView);
-	
-	}
+
 
 	/**
 	 * Method showing the view of the Add Savings in the Savings items section

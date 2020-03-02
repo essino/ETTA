@@ -82,6 +82,7 @@ public class CategoryDAO {
 		return category;
 	}
 	
+	
 	/**
 	 * method for reading all categories from the database
 	 * @return Category[]  list of  category objects read from the database

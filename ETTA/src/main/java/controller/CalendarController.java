@@ -20,7 +20,9 @@ import model.Event;
 import model.EventDAO;
 
 public class CalendarController {
-	
+	/**
+	 * EventDAO used for accessing the database
+	 */
 	EventDAO eventDAO = new EventDAO();
 	
 	/** 
@@ -37,7 +39,7 @@ public class CalendarController {
 	}
 	
 	/** 
-	 * Method creates CalendarsSource with calendars
+	 * Method that creates CalendarsSource with calendars
 	 * @return CalendarSource 
 	 */
 	public CalendarSource getCalendarSource() {

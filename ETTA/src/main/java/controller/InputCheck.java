@@ -35,5 +35,7 @@ public class InputCheck {
 		alert.showAndWait();
 	}
 	
+	
 	//TODO: add checking for Min and MAx values for integers and Floats
+	//TODO: add checking for empty strings
 }
