@@ -9,7 +9,7 @@
 		<property name="hibernate.connection.username">etta</property>
 		<property name="hibernate.connection.password">etta</property>
 
- 		<property name="hibernate.jdbc.time_zone" value="UTC"/>
+ 		<property name="hibernate.jdbc.time_zone" value="Europe/Helsinki"/>
 
 		<!-- create , create-drop, update tai validate -->
 		<!-- Älä käytä tuotantoversioissa, ts, älä anna Hibernaten enää muuttaa taulurakennetta  -->
