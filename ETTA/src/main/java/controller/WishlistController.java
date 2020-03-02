@@ -25,6 +25,9 @@ public class WishlistController {
 	 */
 	private WishlistTableGUI gui;
 	
+	/**
+	 * PersonDAO used for accessing the database
+	 */
 	PersonDAO personDAO = new PersonDAO();
 	
 	/**
@@ -35,6 +38,9 @@ public class WishlistController {
 		this.gui = gui;
 	}
 	
+	/**
+	 * Constructor
+	 */
 	public WishlistController() {
 		// TODO Auto-generated constructor stub
 	}

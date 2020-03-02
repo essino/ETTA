@@ -10,8 +10,17 @@ import view.ContactsGUI;
 
 public class ContactsController {
 	
+	/**
+	 * Reference to the ContactsGUI
+	 */
 	private ContactsGUI conGUI;
+	/**
+	 * PersonDAO used for accessing the database
+	 */
 	private PersonDAO perDAO = new PersonDAO();
+	/**
+	 * EventDAO used for accessing the database
+	 */
 	private EventDAO eventDAO = new EventDAO();
 	
 
@@ -23,7 +32,8 @@ public class ContactsController {
 	/** 
 	 * Method that gets person details from ContactsGUI, 
 	 * creates a new Person, and gives it forward to PersonDAO to add it to the database.
-	 * If there's a birthday added to person details, creates an yearly event and gives it forward to EventDAO to add to the database
+	 * If there's a birthday added to person details, creates an yearly event 
+	 * and gives it forward to EventDAO to add to the database
 	 */ 
 
 	public void savePerson() {

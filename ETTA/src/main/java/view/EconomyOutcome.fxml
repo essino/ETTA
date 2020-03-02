@@ -6,14 +6,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="economyoutcomeaddanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EconomyGUI">
+<AnchorPane fx:id="economyoutcomeaddanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EconomyOutcomeGUI">
    <children>
-      <TableView layoutX="166.0" layoutY="149.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
+      <TableView fx:id="expenseTable" layoutX="166.0" layoutY="149.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
         <columns>
-          <TableColumn prefWidth="247.0" text="Reason" />
-          <TableColumn prefWidth="261.0" text="Place" />
-            <TableColumn minWidth="0.0" prefWidth="114.0" text="Expenses" />
-            <TableColumn prefWidth="121.0" text="Date" />
+          <TableColumn fx:id="expenseCategory" prefWidth="247.0" text="Category" />
+          <TableColumn fx:id="expenseDescription" prefWidth="261.0" text="Description" />
+            <TableColumn fx:id="expenseAmount" minWidth="0.0" prefWidth="114.0" text="Amount" />
+            <TableColumn fx:id="expenseDate" prefWidth="121.0" text="Date" />
         </columns>
       </TableView>
       <ButtonBar layoutX="426.0" layoutY="685.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="28.0">

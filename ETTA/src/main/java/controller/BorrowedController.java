@@ -19,6 +19,9 @@ import view.BorrowedTableGUI;
 import view.WishlistTableGUI;
 
 public class BorrowedController {
+	/**
+	 * PersonDAO used for accessing the database
+	 */
 	PersonDAO personDAO = new PersonDAO();
 	
 	/** 

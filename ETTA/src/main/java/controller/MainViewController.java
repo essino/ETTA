@@ -8,7 +8,13 @@ import view.MainPageGUI;
  * 
  */
 public class MainViewController {
+	/**
+	 * BalanceDAO used for accessing the database
+	 */
 	BalanceDAO balanceDao = new BalanceDAO();
+	/**
+	 * Reference to MainPageGUI
+	 */
 	MainPageGUI mainPageGUI;
 	
 	/** 
