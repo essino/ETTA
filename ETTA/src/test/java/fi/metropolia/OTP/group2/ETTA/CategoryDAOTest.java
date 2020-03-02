@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.Date;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -15,42 +16,61 @@ import model.CategoryDAO;
 @TestMethodOrder(OrderAnnotation.class)
 public class CategoryDAOTest {
 	
-	private CategoryDAO categoryDAO = new CategoryDAO();
-	private String desc = "food";
-	private Category category = new Category(desc);
+	private static CategoryDAO categoryDAO = new CategoryDAO();
+	private String desc = "abracadabra";
+	private boolean income = false;
+	private Category category = new Category(desc, income);
 	private int id = 1;
+	private static int length = 0;
+	private static int index = 0;
 
+	@AfterAll
+	public static void clear() {
+		length = categoryDAO.readCategories().length;
+		index = categoryDAO.readCategories()[length-1].getCategory_id();
+		assertEquals(true, categoryDAO.deleteCategory(index), "deleting failed");
+	}
 	@Test
 	@Order(1)
 	public void testCreate() {
 		assertEquals(true, categoryDAO.createCategory(category), "Creation of category failed");
 	}
-	/*
+	
 	@Test
 	@Order(2)
 	public void testReadCategories() {
-		assertEquals(1, categoryDAO.readCategories().length, "Reading all failed");
+		length = categoryDAO.readCategories().length;
+		Category category2 = new Category("veikkaus", true);
+		assertEquals(true, categoryDAO.createCategory(category2), "Creation of category failed");
+		length++;
+		assertEquals(length, categoryDAO.readCategories().length, "Reading all failed");
 	}
 	
 	@Test
 	@Order(3)
 	public void testReadCategory() {
-		assertEquals(desc, categoryDAO.readCategory(id).getDescription(), "Reading one failed (description)");
+		length = categoryDAO.readCategories().length;
+		index = categoryDAO.readCategories()[length-1].getCategory_id();
+		assertEquals("veikkaus", categoryDAO.readCategory(index).getDescription(), "Reading one failed (description)");
 	}
-	
+	/*
 	@Test
 	@Order(4)
 	public void testUpdate() {
 		String newDesc = "salary";
-		Category updatedCategory = new Category(newDesc);
-		assertEquals(true, categoryDAO.updateCategory(updatedCategory), "Updating failed");
-		assertEquals(newDesc, categoryDAO.readCategory(id).getDescription(), "Price updating failed");
+		category.setDescription(newDesc);
+		length = categoryDAO.readCategories().length;
+		index = categoryDAO.readCategories()[length-1].getCategory_id();
+		assertEquals(true, categoryDAO.updateCategory(category), "Updating failed");
+		assertEquals(newDesc, categoryDAO.readCategory(index-1).getDescription(), "Description updating failed");
 	}
-	
+	*/
 	@Test
 	@Order(5)
 	public void testDelete() {
-		assertEquals(true, categoryDAO.deleteCategory(category.getDescription()), "Deleting failed");
+		length = categoryDAO.readCategories().length;
+		index = categoryDAO.readCategories()[length-1].getCategory_id();
+		assertEquals(true, categoryDAO.deleteCategory(index-1), "Deleting failed");
 	}
-*/
+
 }

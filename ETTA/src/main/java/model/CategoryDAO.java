@@ -67,6 +67,7 @@ public class CategoryDAO {
 	 * @return category object read from the database
 	 */
 	public Category readCategory(int id) {
+		System.out.println("id in reading one " + id);
 		Category category = new Category();
 		try {
 			Session session = factory.openSession();
@@ -125,16 +126,38 @@ public class CategoryDAO {
 		return success;
 	}
 	
+	
 	/**
 	 * method for deleting one Category from the database
 	 * @param description  
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
+	/*
 	public boolean deleteCategory(String description) {
 		boolean success = false;
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
 			Category category = (Category)session.get(Category.class, description);
+			session.delete(category);
+			transaction.commit();
+			success = true;
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		return success;
+	}
+	*/
+	/**
+	 * method for deleting one Category from the database
+	 * @param id 
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
+	public boolean deleteCategory(int id) {
+		boolean success = false;
+		try (Session session = factory.openSession()) {
+			transaction = session.beginTransaction();
+			Category category = (Category)session.get(Category.class, id);
 			session.delete(category);
 			transaction.commit();
 			success = true;
