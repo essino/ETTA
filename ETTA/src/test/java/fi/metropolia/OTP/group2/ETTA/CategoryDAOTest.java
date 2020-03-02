@@ -26,9 +26,9 @@ public class CategoryDAOTest {
 
 	@AfterAll
 	public static void clear() {
-		length = categoryDAO.readCategories().length;
-		index = categoryDAO.readCategories()[length-1].getCategory_id();
-		assertEquals(true, categoryDAO.deleteCategory(index), "deleting failed");
+		//length = categoryDAO.readCategories().length;
+		//index = categoryDAO.readCategories()[length-1].getCategory_id();
+		//assertEquals(true, categoryDAO.deleteCategory(index), "deleting failed");
 	}
 	@Test
 	@Order(1)
@@ -69,7 +69,11 @@ public class CategoryDAOTest {
 	@Order(5)
 	public void testDelete() {
 		length = categoryDAO.readCategories().length;
+		System.out.println("length in deleting " + length);
+		
 		index = categoryDAO.readCategories()[length-1].getCategory_id();
+		System.out.println("id in deleting " + index);
+		assertEquals(true, categoryDAO.deleteCategory(index), "deleting failed");
 		assertEquals(true, categoryDAO.deleteCategory(index-1), "Deleting failed");
 	}
 

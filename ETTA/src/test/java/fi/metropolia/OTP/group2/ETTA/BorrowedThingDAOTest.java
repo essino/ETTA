@@ -7,6 +7,7 @@ import java.sql.Date;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
@@ -19,8 +20,8 @@ import model.PersonDAO;
 @TestMethodOrder(OrderAnnotation.class)
 public class BorrowedThingDAOTest {
 
-	private BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO();
-	private int thing_id = 1;
+	private static BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO();
+	private static int thing_id = 1;
 	private String description = "The red hammer";
 	private String strLoan = "2020-02-10";
 	private Date loanDate = Date.valueOf(strLoan);
@@ -29,10 +30,21 @@ public class BorrowedThingDAOTest {
 	private static Person person = new Person("Tiina", Date.valueOf("1997-06-17"), "tiina.vanhanen@metropolia.fi");
 	private static PersonDAO personDAO = new PersonDAO();
 	private BorrowedThing borrowedThing = new BorrowedThing(description, loanDate, returnDate, person);
+	private static int length = 0;
 	
 	@BeforeAll
 	public static void createCategory() {
 		personDAO.createPerson(person);
+	}
+	
+	@AfterAll
+	public static void deletePerson() {
+		length = borrowedThingDAO.readBorrowedThings().length;
+		thing_id = borrowedThingDAO.readBorrowedThings()[length-1].getThing_id();
+		assertEquals(true, borrowedThingDAO.deleteBorrowedThing(thing_id), "Deleting failed");
+		int length = personDAO.readPeople().length;
+		int id = personDAO.readPeople()[length-1].getPerson_id();
+		assertEquals(true, personDAO.deletePerson(id), "Deleting person failed");
 	}
 	
 	@Test
@@ -40,16 +52,21 @@ public class BorrowedThingDAOTest {
 	public void testCreate() {
 		assertEquals(true, borrowedThingDAO.createBorrowedThing(borrowedThing), "Creation of item failed");
 	}
-	/*
-	@Test
-	@Order(2)
-	public void testReadBorrowedThings() {
-		assertEquals(1, borrowedThingDAO.readBorrowedThings().length, "Reading all failed");
-	}
 	
 	@Test
 	@Order(3)
+	public void testReadBorrowedThings() {
+		length = borrowedThingDAO.readBorrowedThings().length;
+		BorrowedThing borrowedThing2 = new BorrowedThing("kissa", loanDate, returnDate, person);
+		assertEquals(true, borrowedThingDAO.createBorrowedThing(borrowedThing2), "Creation of item failed");
+		assertEquals(length+1, borrowedThingDAO.readBorrowedThings().length, "Reading all failed");
+	}
+	
+	@Test
+	@Order(2)
 	public void testReadBorrowedThing() {
+		length = borrowedThingDAO.readBorrowedThings().length;
+		thing_id = borrowedThingDAO.readBorrowedThings()[length-1].getThing_id();
 		assertEquals(description, borrowedThingDAO.readBorrowedThing(thing_id).getDescription(), "Reading one failed (description)");
 		assertEquals(loanDate, borrowedThingDAO.readBorrowedThing(thing_id).getDateBorrowed(), "Reading one failed (loan date)");
 		assertEquals(returnDate, borrowedThingDAO.readBorrowedThing(thing_id).getReturnDate(), "Reading one failed (return date)");
@@ -59,6 +76,8 @@ public class BorrowedThingDAOTest {
 	@Test
 	@Order(4)
 	public void testUpdate() {
+		length = borrowedThingDAO.readBorrowedThings().length;
+		thing_id = borrowedThingDAO.readBorrowedThings()[length-2].getThing_id();
 		BorrowedThing updatedBorrowedThing = borrowedThingDAO.readBorrowedThing(thing_id);
 		updatedBorrowedThing.setDescription("The black cat");
 		assertEquals(true, borrowedThingDAO.updateBorrowedThing(updatedBorrowedThing), "Updating failed");
@@ -68,7 +87,9 @@ public class BorrowedThingDAOTest {
 	@Test
 	@Order(5)
 	public void testDelete() {
+		length = borrowedThingDAO.readBorrowedThings().length;
+		thing_id = borrowedThingDAO.readBorrowedThings()[length-2].getThing_id();
 		assertEquals(true, borrowedThingDAO.deleteBorrowedThing(thing_id), "Deleting failed");
 	}
-*/
+
 }

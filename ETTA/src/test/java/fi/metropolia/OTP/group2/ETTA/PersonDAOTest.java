@@ -75,11 +75,12 @@ class PersonDAOTest {
 		assertEquals(newDate, personDAO.readPerson(index).getBirthday(), "Bday updating failed");
 	}
 	
+	
 	@Test
 	@Order(5)
 	public void testDelete() {
 		length = personDAO.readPeople().length;
-		index = personDAO.readPeople()[length-2].getPerson_id();
+		index = personDAO.readPeople()[length-1].getPerson_id();
 		assertEquals(true, personDAO.deletePerson(index-1), "Deleting tiina failed");
 		assertEquals(true, personDAO.deletePerson(index), "Deleting lena failed");
 		
