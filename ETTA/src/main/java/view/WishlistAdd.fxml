@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -67,7 +67,6 @@
             </TextField>
             <TextField prefHeight="65.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <DatePicker prefHeight="65.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ChoiceBox fx:id="toWhom" prefHeight="66.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label prefHeight="35.0" prefWidth="293.0" text="Additional Information" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
@@ -77,6 +76,7 @@
                </font>
             </Label>
             <TextField prefHeight="66.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox prefHeight="65.0" prefWidth="578.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <ButtonBar layoutX="697.0" layoutY="672.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="54.0">
