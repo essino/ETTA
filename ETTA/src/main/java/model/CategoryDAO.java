@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 /**
  * Data access object class for Category. Used in the creation of the database table for Category through Hibernate.
  */
@@ -83,6 +84,29 @@ public class CategoryDAO {
 		return category;
 	}
 	
+	/**
+	 * method for reading one specific category from the database
+	 * @param description of the category
+	 * @return category object read from the database
+	 */
+	public Category readCategory(String description) {
+		//System.out.println("id in reading one " + id);
+		Category category = new Category();
+		try {
+			Session session = factory.openSession();
+			transaction = session.beginTransaction();
+			Query result = session.createQuery( "from Category where description = " + description );
+			//category = (Category)session.get(Category.class, description);		
+			transaction.commit();
+			System.out.println("result " + result.list());
+			System.out.println("reading one:" + category.getDescription());
+		}
+		catch(Exception e){
+			if (transaction!= null) transaction.rollback();
+			throw e;
+		}
+		return category;
+	}
 	
 	/**
 	 * method for reading all categories from the database

@@ -93,12 +93,14 @@ public class WishlistTableGUI {
 	@FXML
 	public void initialize() {
 		item.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
+		
 		person.setCellValueFactory(new Callback<CellDataFeatures<Item, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Item, String> item) {
 		         // item.getValue() returns the Data instance for a particular TableView row
 		         return new ReadOnlyObjectWrapper(item.getValue().getPerson().getName());
 			}
 		});
+		
 		price.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
 		date.setCellValueFactory(new PropertyValueFactory<Item, Date>("dateNeeded"));
 		addinfo.setCellValueFactory(new PropertyValueFactory<Item, String>("additionalInfo"));
@@ -112,13 +114,15 @@ public class WishlistTableGUI {
 				return item.getValue().getBought();
 			}
 		});
-		bought.setCellFactory (new Callback<TableColumn<Item, Boolean>,TableCell<Item, Boolean>>(){
+		*/
+		/*bought.setCellFactory (new Callback<TableColumn<Item, Boolean>,TableCell<Item, Boolean>>(){
 			@Override public
-			TableCell<Item, Boolean> call(TableColumn<Item, Boolean> p) {
+			TableCell<Item, Boolean> call(TableColumn<Item, Boolean> bought) {
 				return new CheckBoxTableCell<>(); 
 			}
 		});	
 		*/
+		
 		final ObservableList<Item> data = FXCollections.observableArrayList(controller.getItems());
 		wishlisttable.setItems(data);
 	}

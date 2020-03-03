@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import model.Category;
 import model.Transfer;
 
 public class EconomyOutcomeGUI {
@@ -47,6 +48,13 @@ public class EconomyOutcomeGUI {
 	 */
     @FXML
     private TableColumn<Transfer, Float> expenseAmount;
+    
+    /**
+  	 * The reference of TableColumn (expense's amount) will be injected by the FXML loader
+  	 */
+      @FXML
+      private TableColumn<Transfer, Category> expenseCategory;
+      
 	
 	/**
 	 * Method showing the view of the Add Expense in the Expenses items section
@@ -78,6 +86,8 @@ public class EconomyOutcomeGUI {
                 new PropertyValueFactory<Transfer, Date>("date"));
 		expenseAmount.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Float>("amount"));
+		expenseCategory.setCellValueFactory(
+                new PropertyValueFactory<Transfer, Category>("category"));
 		ObservableList<Transfer> expencies =  FXCollections.observableArrayList(controller.getExpenses());
 		expenseTable.setItems(expencies);
 	
