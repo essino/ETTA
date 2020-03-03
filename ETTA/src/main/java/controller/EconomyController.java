@@ -18,6 +18,7 @@ import view.BalanceOverviewGUI;
 import view.EconomyAddOutcomeGUI;
 import model.TransferDAO;
 import model.Transfer;
+import view.EconomyAddIncomeGUI;
 
 public class EconomyController {
 	/**
@@ -32,6 +33,7 @@ public class EconomyController {
 	 * Reference to the EconomyAddOutcomeGUI
 	 */
 	private EconomyAddOutcomeGUI addExpenceGUI;
+	
 	/**
 	 * Reference to the EconomyOutcomeGUI
 	 */
@@ -48,6 +50,10 @@ public class EconomyController {
 	 * CategoryDAO used for accessing the database
 	 */
 	private CategoryDAO categoryDAO = new CategoryDAO();
+	/**
+	 * Reference to the EconomyAddIncomeGUI
+	 */
+	private EconomyAddIncomeGUI economyAddIncomeGUI;
 	
 	public void saveTransfer() {
 
@@ -107,6 +113,10 @@ public class EconomyController {
 	 */ 
 	public EconomyController(EconomyOutcomeGUI economyOutcomeGUI) {
 		this.expenceGUI = economyOutcomeGUI;
+	}
+
+	public EconomyController(EconomyAddIncomeGUI economyAddIncomeGUI) {
+		this.economyAddIncomeGUI = economyAddIncomeGUI;
 	}
 
 	/** 

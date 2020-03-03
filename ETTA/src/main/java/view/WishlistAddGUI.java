@@ -3,12 +3,12 @@ package view;
 
 import controller.WishlistController;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 
 
 public class WishlistAddGUI {
 	@FXML
-	ChoiceBox<String> toWhom;
+	ComboBox<String> toWhom;
 	
 	WishlistController controller = new WishlistController();
 	
