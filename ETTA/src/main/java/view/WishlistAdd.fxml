@@ -76,7 +76,7 @@
                </font>
             </Label>
             <TextField fx:id="additional" prefHeight="66.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox prefHeight="65.0" prefWidth="578.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="toWhom" prefHeight="65.0" prefWidth="578.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <ButtonBar layoutX="697.0" layoutY="672.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="54.0">
