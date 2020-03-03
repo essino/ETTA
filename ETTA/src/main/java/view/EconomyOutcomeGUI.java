@@ -53,7 +53,7 @@ public class EconomyOutcomeGUI {
   	 * The reference of TableColumn (expense's amount) will be injected by the FXML loader
   	 */
       @FXML
-      private TableColumn<Transfer, Category> expenseCategory;
+      private TableColumn<Category, String> expenseCategory;
       
 	
 	/**
@@ -87,7 +87,7 @@ public class EconomyOutcomeGUI {
 		expenseAmount.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Float>("amount"));
 		expenseCategory.setCellValueFactory(
-                new PropertyValueFactory<Transfer, Category>("category"));
+                new PropertyValueFactory<Category, String>("category"));
 		ObservableList<Transfer> expencies =  FXCollections.observableArrayList(controller.getExpenses());
 		expenseTable.setItems(expencies);
 	

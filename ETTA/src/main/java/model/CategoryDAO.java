@@ -95,10 +95,10 @@ public class CategoryDAO {
 		try {
 			Session session = factory.openSession();
 			transaction = session.beginTransaction();
-			Query result = session.createQuery( "from Category where description = " + description );
-			//category = (Category)session.get(Category.class, description);		
+			List<Category>  result = session.createQuery( "from Category where description='" + description + "'" ).list();
+			category = result.get(0);		
 			transaction.commit();
-			System.out.println("result " + result.list());
+			System.out.println("result " + result);
 			System.out.println("reading one:" + category.getDescription());
 		}
 		catch(Exception e){
