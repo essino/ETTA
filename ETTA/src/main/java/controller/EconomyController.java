@@ -10,6 +10,7 @@ import java.sql.Date;
 
 import model.Balance;
 import view.EconomyGUI;
+import view.EconomyIncomeGUI;
 import view.EconomyOutcomeGUI;
 import model.BalanceDAO;
 import model.Category;
@@ -34,6 +35,10 @@ public class EconomyController {
 	 */
 	private EconomyAddOutcomeGUI addExpenceGUI;
 	
+	/**
+	 * Reference to the EconomyAddcomeGUI
+	 */
+	private EconomyAddIncomeGUI addIncomeGUI;
 	
 	
 	/**
@@ -68,6 +73,8 @@ public class EconomyController {
 	}
 	
 	//Pitääkö tätä olla
+	
+	/**
 	public EconomyController(EconomyGUI ecoGUI) {
 		this.ecoGUI = ecoGUI;
 
@@ -78,6 +85,7 @@ public class EconomyController {
 
 
 	}
+	*/
 	
 	/** 
 	 * Constructor 
@@ -104,6 +112,16 @@ public class EconomyController {
 	public EconomyController(EconomyAddOutcomeGUI economyAddOutcomeGUI) {
 		this.addExpenceGUI = economyAddOutcomeGUI;
 	}
+	
+	
+	public EconomyController(EconomyAddIncomeGUI economyAddIncomeGUI) {
+		this.addIncomeGUI = economyAddIncomeGUI;
+	}
+	
+	public EconomyController(EconomyIncomeGUI economyIncomeGUI) {
+		this.incomeGUI = economyIncomeGUI;
+	}
+	
 
 	/** 
 	 * Constructor 
@@ -170,11 +188,34 @@ public class EconomyController {
 	}
 	
 	/** 
+	 * Method that gets new income's detail from addExpenceGUI and gives the income to TransferDAO
+	 */ 
+	public void saveIncome() {
+		Transfer income = new Transfer();
+		income.setAmount(0-addIncomeGUI.getIncomeAmount());
+		//Category category = categoryDAO.readCategory(addExpenceGUI.getCategoryName());
+		income.setCategory(null);
+		income.setDescription(addIncomeGUI.getDescription());
+		income.setIncome(true);
+		income.setDate(addIncomeGUI.getIncomeDay());
+		transDAO.createTransfer(income);
+		Balance balance = balanceDao.readBalance(1);
+		float newAmount = balance.getBalance() + income.getAmount();
+		balance.setBalance(newAmount);
+		balanceDao.updateBalance(balance);
+	}
+	
+	
+	/** 
 	 * Method that gets Expenses from TransferDAO and makes a list containing expenses' details 
 	 * @return ObservableList<String> names - list of expenses
 	 */ 
 	public Transfer[] getExpenses() {
 		return transDAO.readExpenses();
+	}
+	
+	public Transfer[] getIncome() {
+		return transDAO.readIncome();
 	}
 
 }

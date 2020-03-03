@@ -7,7 +7,7 @@ import controller.EconomyController;
 import controller.InputCheck;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -47,7 +47,7 @@ public class EconomyAddIncomeGUI {
 	 * The reference of ChoiceBox (incomes's categories list) will be injected by the FXML loader
 	 */
 	@FXML
-	private ChoiceBox<String> incomeCategoryList;
+	private ComboBox<String> incomeCategoryList;
 	
 	/**
 	 * The reference of DatePicker (incomes) will be injected by the FXML loader
@@ -62,7 +62,7 @@ public class EconomyAddIncomeGUI {
 	 */
 	@FXML
 	public void initialize() {
-		outcomeCategoryList.getItems().addAll(controller.categoriesList());
+		incomeCategoryList.getItems().addAll(controller.categoriesList());
 	}
 	
 	/** 
@@ -71,7 +71,7 @@ public class EconomyAddIncomeGUI {
 	 */
 	@FXML
 	public String getDescription(){
-		return this.outcomeDescription.getText();
+		return this.incomeDescription.getText();
 		}
 	
 	/** 
@@ -80,7 +80,7 @@ public class EconomyAddIncomeGUI {
 	 */
 	@FXML
 	public String getCategoryName(){
-		return this.outcomeCategoryList.getValue();
+		return this.incomeCategoryList.getValue();
 		}
 	
 	/** 
@@ -89,9 +89,9 @@ public class EconomyAddIncomeGUI {
 	 * @return null if date is not selected ---??? onko edes mahdollista?
 	 */
 	@FXML
-	public Date getExpenseDay() {
+	public Date getIncomeDay() {
 		try {
-		return java.sql.Date.valueOf(outcomeDate.getValue());
+		return java.sql.Date.valueOf(incomeDate.getValue());
 		}
 		catch(NullPointerException e) {
 			return null;
@@ -103,27 +103,27 @@ public class EconomyAddIncomeGUI {
 	 * @return Float amount of the expense
 	 */
 	@FXML
-	public float getExpenseAmount() {
-		return Float.parseFloat(outcomeAmount.getText());
+	public float getIncomeAmount() {
+		return Float.parseFloat(incomeAmount.getText());
 	}
 	
 	/**
-	 * Method that tells controller to save the added expense if the input can be transfered into float
-	 * and displays the view of the list of expenses in the Economy section after adding new expense 
+	 * Method that tells controller to save the added income if the input can be transfered into float
+	 * and displays the view of the list of incomes in the Economy section after adding new income 
 	 */
 	@FXML
-	public void saveExpense() {
-		if(inputCheck.isInputFloat(outcomeAmount.getText())) {
-			controller.saveExpense();
-			AnchorPane outcomeView = null; 
-			FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/EconomyOutcome.fxml")); 
+	public void saveIncome() {
+		if(inputCheck.isInputFloat(incomeAmount.getText())) {
+			controller.saveIncome();
+			AnchorPane incomeView = null; 
+			FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/EconomyIncome2.fxml")); 
 			try {
-				outcomeView = loaderOutcomeView.load();
+				incomeView = loaderOutcomeView.load();
 				} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				}
-			addOutcomePane.getChildren().setAll(outcomeView);
+			economyincomeaddanchorpane.getChildren().setAll(incomeView);
 		}
 		else {
 			inputCheck.alertInputNotFloat();
@@ -131,19 +131,19 @@ public class EconomyAddIncomeGUI {
 	}
 	
 	/**
-	 * Method that displays the view of the list of expenses in the Economy section if adding new expense is canceled
+	 * Method that displays the view of the list of incomes in the Economy section if adding new income is canceled
 	 */
 	@FXML
 	public void cancelAdding() {
-		AnchorPane outcomeView = null; 
-		FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/EconomyOutcome.fxml")); 
+		AnchorPane incomeView = null; 
+		FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/EconomyIncome2.fxml")); 
 		try {
-			outcomeView = loaderOutcomeView.load();
+			incomeView = loaderOutcomeView.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			addOutcomePane.getChildren().setAll(outcomeView);
+		economyincomeaddanchorpane.getChildren().setAll(incomeView);
 		}
 
 }
