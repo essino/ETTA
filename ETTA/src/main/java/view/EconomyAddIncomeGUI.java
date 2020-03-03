@@ -49,9 +49,15 @@ public class EconomyAddIncomeGUI {
 	@FXML
 	private ComboBox<String> incomeCategoryList;
 	
+	
+	public EconomyAddIncomeGUI() {
+		
+	}
+	
 	/**
 	 * The reference of DatePicker (incomes) will be injected by the FXML loader
 	 */
+
 	@FXML
 	private DatePicker incomeDate;
 	
@@ -104,21 +110,24 @@ public class EconomyAddIncomeGUI {
 	 */
 	@FXML
 	public float getIncomeAmount() {
+
+	
+
 		return Float.parseFloat(incomeAmount.getText());
 	}
-	
+
 	/**
 	 * Method that tells controller to save the added income if the input can be transfered into float
 	 * and displays the view of the list of incomes in the Economy section after adding new income 
 	 */
 	@FXML
-	public void saveIncome() {
+	public void AddNewIncome() {
 		if(inputCheck.isInputFloat(incomeAmount.getText())) {
 			controller.saveIncome();
 			AnchorPane incomeView = null; 
-			FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/EconomyIncome2.fxml")); 
+			FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/EconomyIncome.fxml")); 
 			try {
-				incomeView = loaderOutcomeView.load();
+				incomeView = loaderIncomeView.load();
 				} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -136,9 +145,12 @@ public class EconomyAddIncomeGUI {
 	@FXML
 	public void cancelAdding() {
 		AnchorPane incomeView = null; 
-		FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/EconomyIncome2.fxml")); 
+
+		FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/EconomyIncome.fxml")); 
+
 		try {
-			incomeView = loaderOutcomeView.load();
+			incomeView = loaderIncomeView.load();
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -76,8 +76,9 @@ public class Category {
 	 * Constructor to create borrowed items.
 	 *@param description String describing the category of income/expence
 	 */
-	public Category(String description) {
+	public Category(String description, boolean income) {
 		this.description = description;
+		this.income = income;
 	}	
 
 }

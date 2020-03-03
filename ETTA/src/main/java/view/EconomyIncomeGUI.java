@@ -27,6 +27,10 @@ public class EconomyIncomeGUI {
 	/**
 	 * The reference of TableView (expenses) will be injected by the FXML loader
 	 */
+	
+	@FXML
+	AnchorPane economyincomeanchorpane;
+	
 	@FXML
     private TableView<Transfer> incomeTable;
 	
@@ -52,20 +56,21 @@ public class EconomyIncomeGUI {
 	 * Method showing the view of the Add Expense in the Expenses items section
 	 * @param event ActionEvent that is handled
 	 */
+    
+    /**
 	@FXML
 	public void showAddIncome(ActionEvent event) {
-		AnchorPane showAddIncomeView = null;
-		FXMLLoader loaderAddOutcomeView = new FXMLLoader(getClass().getResource("/view/EconomyAddIncome2.fxml"));
+		AnchorPane economyincomeaddanchorpane = null; 
+		FXMLLoader loaderAddIncomeView  = new FXMLLoader(getClass().getResource("/view/EconomyAddIncome2.fxml")); 
 		try {
-			showAddIncomeView = loaderAddOutcomeView.load();
+			economyincomeaddanchorpane = loaderAddIncomeView.load();
 			} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
-		//shows the loaded fxml file
-		economyincomeaddanchorpane.getChildren().setAll(showAddIncomeView);
-	
+		economyincomeanchorpane.getChildren().setAll(economyincomeaddanchorpane);
 	}
+	*/
 	
 	/** 
 	 * Method that initializes the view and gets the incomes  from the controller to display them on the page
@@ -81,4 +86,4 @@ public class EconomyIncomeGUI {
 		ObservableList<Transfer> income =  FXCollections.observableArrayList(controller.getIncome());
 		incomeTable.setItems(income);
 }
-	
+}

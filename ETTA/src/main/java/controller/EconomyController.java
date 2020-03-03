@@ -35,12 +35,13 @@ public class EconomyController {
 	 */
 	private EconomyAddOutcomeGUI addExpenceGUI;
 	
+
 	/**
 	 * Reference to the EconomyAddcomeGUI
 	 */
-	private EconomyAddIncomeGUI addIncomeGUI;
+	//private EconomyAddIncomeGUI addIncomeGUI = new EconomyAddIncomeGUI ();
 	
-	
+
 	/**
 	 * Reference to the EconomyOutcomeGUI
 	 */
@@ -57,6 +58,11 @@ public class EconomyController {
 	 * CategoryDAO used for accessing the database
 	 */
 	private CategoryDAO categoryDAO = new CategoryDAO();
+	/**
+	 * Reference to the EconomyAddIncomeGUI
+	 */
+	private EconomyAddIncomeGUI economyAddIncomeGUI;
+	private EconomyIncomeGUI incomeGUI;
 	
 	public void saveTransfer() {
 
@@ -113,10 +119,7 @@ public class EconomyController {
 		this.addExpenceGUI = economyAddOutcomeGUI;
 	}
 	
-	
-	public EconomyController(EconomyAddIncomeGUI economyAddIncomeGUI) {
-		this.addIncomeGUI = economyAddIncomeGUI;
-	}
+
 	
 	public EconomyController(EconomyIncomeGUI economyIncomeGUI) {
 		this.incomeGUI = economyIncomeGUI;
@@ -129,6 +132,10 @@ public class EconomyController {
 	 */ 
 	public EconomyController(EconomyOutcomeGUI economyOutcomeGUI) {
 		this.expenceGUI = economyOutcomeGUI;
+	}
+
+	public EconomyController(EconomyAddIncomeGUI economyAddIncomeGUI) {
+		this.economyAddIncomeGUI = economyAddIncomeGUI;
 	}
 
 	/** 
@@ -192,12 +199,13 @@ public class EconomyController {
 	 */ 
 	public void saveIncome() {
 		Transfer income = new Transfer();
-		income.setAmount(0-addIncomeGUI.getIncomeAmount());
+		System.out.println("Amount "+economyAddIncomeGUI.getIncomeAmount());
+		income.setAmount(economyAddIncomeGUI.getIncomeAmount());
 		//Category category = categoryDAO.readCategory(addExpenceGUI.getCategoryName());
 		income.setCategory(null);
-		income.setDescription(addIncomeGUI.getDescription());
+		income.setDescription(economyAddIncomeGUI.getDescription());
 		income.setIncome(true);
-		income.setDate(addIncomeGUI.getIncomeDay());
+		income.setDate(economyAddIncomeGUI.getIncomeDay());
 		transDAO.createTransfer(income);
 		Balance balance = balanceDao.readBalance(1);
 		float newAmount = balance.getBalance() + income.getAmount();
