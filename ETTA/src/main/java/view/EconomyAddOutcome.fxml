@@ -32,7 +32,7 @@
             <TextField fx:id="outcomeAmount" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Category" />
             <DatePicker fx:id="outcomeDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" />
+            <ComboBox fx:id="outcomeCategoryList" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <ButtonBar layoutX="474.0" layoutY="682.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="52.0">

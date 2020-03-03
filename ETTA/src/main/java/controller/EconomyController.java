@@ -166,7 +166,7 @@ public class EconomyController {
 		//Category category = categoryDAO.readCategory(addExpenceGUI.getCategoryName());
 		expense.setCategory(null);
 		expense.setDescription(addExpenceGUI.getDescription());
-		expense.setIncome(false);
+		//expense.setIncome(true);
 		expense.setDate(addExpenceGUI.getExpenseDay());
 		transDAO.createTransfer(expense);
 		Balance balance = balanceDao.readBalance(1);

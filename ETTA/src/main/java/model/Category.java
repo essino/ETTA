@@ -81,5 +81,10 @@ public class Category {
 		this.income = income;
 	}	
 
+	
+	@Override
+	public String toString() {
+		return this.description;
+	}
 }
 
