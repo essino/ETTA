@@ -19,7 +19,7 @@
       <ButtonBar layoutX="426.0" layoutY="685.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="28.0">
         <buttons>
           	<Button mnemonicParsing="false" onAction="#showAddOutcome" text="Add" /> 
-            <Button mnemonicParsing="false" text="Edit" />
+            <Button mnemonicParsing="false" onAction="#editOutcome" text="Edit" />
             <Button mnemonicParsing="false" onAction="#deleteOutcome" text="Remove" />
         </buttons>
       </ButtonBar>

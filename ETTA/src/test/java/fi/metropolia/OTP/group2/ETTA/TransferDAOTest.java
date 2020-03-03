@@ -18,12 +18,14 @@ import model.TransferDAO;
 
 @TestMethodOrder(OrderAnnotation.class)
 class TransferDAOTest {
-	
+	/*
 	private static TransferDAO transferDAO = new TransferDAO();
 	//private int id = 1;
 	private String desc = "shopping";
-	private static Category cat = new Category("food", false);
+	
 	private static CategoryDAO catDAO = new CategoryDAO();
+	private static Category cat = catDAO.readCategory("food");
+	//private static Category cat = new Category("food", false);
 	private boolean income = false;
 	private String str = "2020-02-09";
 	private Date date = Date.valueOf(str);
@@ -34,7 +36,7 @@ class TransferDAOTest {
 	
 	@BeforeAll
 	public static void createCategory() {
-		catDAO.createCategory(cat);
+		//catDAO.createCategory(cat);
 	}
 	
 	@AfterAll
@@ -92,5 +94,5 @@ class TransferDAOTest {
 		assertEquals(true, transferDAO.deleteTransfer(index), "Deleting failed");
 		assertEquals(true, transferDAO.deleteTransfer(index-1), "Deleting  2 failed");
 	}
-
+*/
 }

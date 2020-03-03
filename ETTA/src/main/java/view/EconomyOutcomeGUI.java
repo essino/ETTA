@@ -88,9 +88,8 @@ public class EconomyOutcomeGUI {
                 new PropertyValueFactory<Transfer, Float>("amount"));
 		expenseCategory.setCellValueFactory(
                 new PropertyValueFactory<Category, String>("category"));
-		ObservableList<Transfer> expencies =  FXCollections.observableArrayList(controller.getExpenses());
-		expenseTable.setItems(expencies);
-	
+		ObservableList<Transfer> expenses =  FXCollections.observableArrayList(controller.getExpenses());
+		expenseTable.setItems(expenses);
 	}
 	
 	/** 
@@ -116,5 +115,14 @@ public class EconomyOutcomeGUI {
 	@FXML
 	public void removeFromTable(Transfer transfer) {
 		expenseTable.getItems().remove(transfer);
+	}
+	
+	/** 
+	 * Method that tells controller to edit an expense 
+	 */
+	@FXML
+	public void editOutcome() {
+		//expenseTable.setEditable(true);
+		//controller.editExpense();
 	}
 }

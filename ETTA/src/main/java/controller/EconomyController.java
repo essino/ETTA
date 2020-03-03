@@ -185,7 +185,7 @@ public class EconomyController {
 		Category category = categoryDAO.readCategory(addExpenceGUI.getCategoryName());
 		expense.setCategory(category);
 		expense.setDescription(addExpenceGUI.getDescription());
-		//expense.setIncome(true);
+		expense.setIncome(false);
 		expense.setDate(addExpenceGUI.getExpenseDay());
 		transDAO.createTransfer(expense);
 		Balance balance = balanceDao.readBalance(1);
@@ -195,7 +195,7 @@ public class EconomyController {
 	}
 	
 	/** 
-	 * Method that get the selected expense from expenceGUI, 
+	 * Method that gets the selected expense from expenceGUI, 
 	 * tells TransferDAO to delete the expense from the database 
 	 * and expenceGUI to delete it from the tableView.
 	 */ 
@@ -206,6 +206,15 @@ public class EconomyController {
 		balance.setBalance(newAmount);
 		balanceDao.updateBalance(balance);
 		expenceGUI.removeFromTable(expenceGUI.transferToDelete());
+	}
+	
+	/** 
+	 * Method that gets the selected expense from expenceGUI, 
+	 * tells TransferDAO to edit the expense in the database 
+	 * and expenceGUI to display it from the tableView.
+	 */ 
+	public void editExpense() {
+
 	}
 	
 	/** 
