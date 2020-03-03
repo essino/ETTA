@@ -94,18 +94,25 @@ public class EconomyOutcomeGUI {
 	}
 	
 	/** 
-	 * Method that deletes the chosen expense 
+	 * Method that tells controller to delete an expense 
 	 */
 	@FXML
 	public void deleteOutcome() {
-		//Transfer expence = expenseTable.getSelectionModel().getSelectedItem();
 		controller.removeExpense();
 	}
 	
+	/** 
+	 * Method that returns the selected expense
+	 * @return Transfer that is selected
+	 */
 	public Transfer transferToDelete() {
 		return expenseTable.getSelectionModel().getSelectedItem();
 	}
 	
+	/** 
+	 * Method that removes an expense from the tableView
+	 * @param Transfer expense to be removed
+	 */
 	@FXML
 	public void removeFromTable(Transfer transfer) {
 		expenseTable.getItems().remove(transfer);
