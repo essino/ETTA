@@ -163,8 +163,8 @@ public class EconomyController {
 	public void saveExpense() {
 		Transfer expense = new Transfer();
 		expense.setAmount(0-addExpenceGUI.getExpenseAmount());
-		//Category category = categoryDAO.readCategory(addExpenceGUI.getCategoryName());
-		expense.setCategory(null);
+		Category category = categoryDAO.readCategory(addExpenceGUI.getCategoryName());
+		expense.setCategory(category);
 		expense.setDescription(addExpenceGUI.getDescription());
 		//expense.setIncome(true);
 		expense.setDate(addExpenceGUI.getExpenseDay());
