@@ -85,6 +85,8 @@ public class EconomyGUI {
 	 * Method showing the Income view in the Economy items section
 	 * @param event ActionEvent that is handled
 	 */
+	
+	
 	@FXML
 	public void showIncome(ActionEvent event) {
 		AnchorPane showIncomeView = null; 
@@ -98,6 +100,8 @@ public class EconomyGUI {
 			}
 		economyrootborderpane.setCenter(showIncomeView);
 	}
+	
+	
 	
 	/**
 	 * Method showing the Expenses view in the Economy items section
@@ -137,6 +141,8 @@ public class EconomyGUI {
 	 * Method showing the view of the Add Income in the Income items section
 	 * @param event ActionEvent that is handled
 	 */
+	
+	
 	@FXML
 	public void showAddIncome(ActionEvent event) {
 		AnchorPane showAddIncomeView = null; 
@@ -149,7 +155,7 @@ public class EconomyGUI {
 			}
 		economyincomeanchorpane.getChildren().setAll(showAddIncomeView);
 	}
-	
+
 
 
 	/**

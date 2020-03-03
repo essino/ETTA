@@ -8,6 +8,7 @@ import model.Item;
 import model.ItemDAO;
 import model.Person;
 import model.PersonDAO;
+import view.WishlistAddGUI;
 import view.WishlistTableGUI;
 
 /**
@@ -28,6 +29,9 @@ public class WishlistController {
 	/**
 	 * PersonDAO used for accessing the database
 	 */
+	
+	private WishlistAddGUI addGui;
+
 	PersonDAO personDAO = new PersonDAO();
 	
 	/**
@@ -65,6 +69,26 @@ public class WishlistController {
 		}
 		ObservableList<String> names =  FXCollections.observableArrayList(peopleNames);
 		return names;
+	}
+	
+	public void saveItem() {
+		Item item = new Item();
+		item.setDescription(addGui.getItemDesc());
+		String name = addGui.getItemPerson();
+		Person person = null;
+		Person[] people = personDAO.readPeople();
+		for (int i=0; i<people.length;i++) {
+			String personName = people[i].getName();
+			if (personName == name) {
+				person = people[i];
+			}
+		}
+		item.setPerson(person);
+		item.setPrice(Double.parseDouble(addGui.getItemPrice()));
+		item.setDateNeeded(addGui.getItemDate());
+		item.setBought(false);
+		item.setAdditionalInfo(addGui.getItemAdditional());
+		itemDAO.createItem(item);
 	}
 
 }

@@ -7,7 +7,7 @@ import controller.EconomyController;
 import controller.InputCheck;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -47,11 +47,17 @@ public class EconomyAddIncomeGUI {
 	 * The reference of ChoiceBox (incomes's categories list) will be injected by the FXML loader
 	 */
 	@FXML
-	private ChoiceBox<String> incomeCategoryList;
+	private ComboBox<String> incomeCategoryList;
+	
+	
+	public EconomyAddIncomeGUI() {
+		
+	}
 	
 	/**
 	 * The reference of DatePicker (incomes) will be injected by the FXML loader
 	 */
+
 	@FXML
 	private DatePicker incomeDate;
 	
@@ -89,7 +95,7 @@ public class EconomyAddIncomeGUI {
 	 * @return null if date is not selected ---??? onko edes mahdollista?
 	 */
 	@FXML
-	public Date getExpenseDay() {
+	public Date getIncomeDay() {
 		try {
 		return java.sql.Date.valueOf(incomeDate.getValue());
 		}
@@ -103,27 +109,30 @@ public class EconomyAddIncomeGUI {
 	 * @return Float amount of the expense
 	 */
 	@FXML
-	public float getExpenseAmount() {
+	public float getIncomeAmount() {
+
+	
+
 		return Float.parseFloat(incomeAmount.getText());
 	}
-	
+
 	/**
-	 * Method that tells controller to save the added expense if the input can be transfered into float
-	 * and displays the view of the list of expenses in the Economy section after adding new expense 
+	 * Method that tells controller to save the added income if the input can be transfered into float
+	 * and displays the view of the list of incomes in the Economy section after adding new income 
 	 */
 	@FXML
-	public void addNewIncome() {
+	public void AddNewIncome() {
 		if(inputCheck.isInputFloat(incomeAmount.getText())) {
-			controller.saveExpense();
-			AnchorPane outcomeView = null; 
-			FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/EconomyOutcome.fxml")); 
+			controller.saveIncome();
+			AnchorPane incomeView = null; 
+			FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/EconomyIncome.fxml")); 
 			try {
-				outcomeView = loaderOutcomeView.load();
+				incomeView = loaderIncomeView.load();
 				} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				}
-			economyincomeaddanchorpane.getChildren().setAll(outcomeView);
+			economyincomeaddanchorpane.getChildren().setAll(incomeView);
 		}
 		else {
 			inputCheck.alertInputNotFloat();
@@ -131,14 +140,17 @@ public class EconomyAddIncomeGUI {
 	}
 	
 	/**
-	 * Method that displays the view of the list of expenses in the Economy section if adding new expense is canceled
+	 * Method that displays the view of the list of incomes in the Economy section if adding new income is canceled
 	 */
 	@FXML
 	public void cancelAdding() {
 		AnchorPane incomeView = null; 
-		FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/EconomyOutcome.fxml")); 
+
+		FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/EconomyIncome.fxml")); 
+
 		try {
 			incomeView = loaderIncomeView.load();
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
