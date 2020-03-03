@@ -20,7 +20,7 @@
         <buttons>
           	<Button mnemonicParsing="false" onAction="#showAddOutcome" text="Add" /> 
             <Button mnemonicParsing="false" text="Edit" />
-            <Button mnemonicParsing="false" text="Remove" />
+            <Button mnemonicParsing="false" onAction="#deleteOutcome" text="Remove" />
         </buttons>
       </ButtonBar>
    </children>

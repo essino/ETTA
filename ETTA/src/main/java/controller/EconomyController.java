@@ -195,6 +195,20 @@ public class EconomyController {
 	}
 	
 	/** 
+	 * Method that get the selected expense from expenceGUI, 
+	 * tells TransferDAO to delete the expense from the database 
+	 * and expenceGUI to delete it from the tableView.
+	 */ 
+	public void removeExpense() {
+		transDAO.deleteTransfer(expenceGUI.transferToDelete().getTransfer_id());
+		Balance balance = balanceDao.readBalance(1);
+		float newAmount = balance.getBalance() - expenceGUI.transferToDelete().getAmount();
+		balance.setBalance(newAmount);
+		balanceDao.updateBalance(balance);
+		expenceGUI.removeFromTable(expenceGUI.transferToDelete());
+	}
+	
+	/** 
 	 * Method that gets new income's detail from addExpenceGUI and gives the income to TransferDAO
 	 */ 
 	public void saveIncome() {

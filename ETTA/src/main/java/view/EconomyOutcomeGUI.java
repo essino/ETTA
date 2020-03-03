@@ -92,4 +92,22 @@ public class EconomyOutcomeGUI {
 		expenseTable.setItems(expencies);
 	
 	}
+	
+	/** 
+	 * Method that deletes the chosen expense 
+	 */
+	@FXML
+	public void deleteOutcome() {
+		//Transfer expence = expenseTable.getSelectionModel().getSelectedItem();
+		controller.removeExpense();
+	}
+	
+	public Transfer transferToDelete() {
+		return expenseTable.getSelectionModel().getSelectedItem();
+	}
+	
+	@FXML
+	public void removeFromTable(Transfer transfer) {
+		expenseTable.getItems().remove(transfer);
+	}
 }
