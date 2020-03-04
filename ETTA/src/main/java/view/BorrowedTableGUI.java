@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import model.BorrowedThing;
+import model.Person;
 
 
 public class BorrowedTableGUI {
@@ -40,7 +41,8 @@ public class BorrowedTableGUI {
 	private TableColumn<BorrowedThing, Date> returnDate;
 	
 	@FXML
-	private TableColumn<BorrowedThing, String> borrowedBy;
+	private TableColumn<Person, String> borrowedBy;
+	//private TableColumn<BorrowedThing, String> borrowedBy;
 	
 	@FXML
 	private TableColumn<BorrowedThing, Boolean> returned;
@@ -67,12 +69,15 @@ public class BorrowedTableGUI {
 	@FXML
 	public void initialize() {
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
+		/*
 		borrowedBy.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThing) {
 		         // item.getValue() returns the Data instance for a particular TableView row
 		         return new ReadOnlyObjectWrapper(borrowedThing.getValue().getPerson().getName());
 			}
 		});
+		*/
+		borrowedBy.setCellValueFactory(new PropertyValueFactory<Person, String>("borrowedBy"));
 		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
 		returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
 		returned.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Boolean>("returned"));

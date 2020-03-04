@@ -98,6 +98,7 @@ public class BorrowedThingDAO {
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<BorrowedThing> result = session.createQuery("from BorrowedThing").getResultList();
+			System.out.println("reading all, length: " + result.size());
 			for(BorrowedThing borrowedThing : result) {
 				list.add(borrowedThing);
 				System.out.println("reading all: " + borrowedThing.getDescription());
