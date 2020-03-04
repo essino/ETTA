@@ -1,14 +1,25 @@
 package view;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import controller.BorrowedController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Callback;
+import model.BorrowedThing;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 
 
 /**
@@ -27,6 +38,35 @@ public class BorrowedGUI {
 	 */
 	@FXML 
 	AnchorPane borrowedviewanchorpane;
+	
+	BorrowedController controller;
+	
+	//essi trying out starts
+	/*
+	@FXML
+	TableView<BorrowedThing> borrowedTable;
+	
+	@FXML
+	TableColumn<BorrowedThing, String> borrowedThingDescr;
+	
+	@FXML
+	TableColumn<BorrowedThing, Date> loanDate;
+	
+	@FXML
+	TableColumn<BorrowedThing, Date> returnDate;
+	
+	@FXML
+	TableColumn<BorrowedThing, String> borrowedBy;
+	
+	@FXML
+	private TableColumn<BorrowedThing, Boolean> returned;
+	*/
+	
+	public BorrowedGUI() {
+		//controller = new BorrowedController(this);
+	}
+	
+	//essi trying out ends
 	
 	/**
 	 * Method showing the search view in the Borrowed items section
@@ -80,5 +120,25 @@ public class BorrowedGUI {
 		borrowedviewanchorpane.getChildren().setAll(borrowedAdd);
 	}
 	
+	//essi trying out starts
+	/*
+	@FXML
+	public void initialize() {
+		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
+		borrowedBy.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThing) {
+		         // item.getValue() returns the Data instance for a particular TableView row
+		         return new ReadOnlyObjectWrapper(borrowedThing.getValue().getPerson().getName());
+			}
+		});
+		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
+		returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
+		returned.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Boolean>("returned"));
+		
+		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
+		borrowedTable.setItems(data);
+	}
+	*/
+	//essi trying out ends
 }
 

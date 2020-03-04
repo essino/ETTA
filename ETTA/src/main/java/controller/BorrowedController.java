@@ -14,9 +14,11 @@ import model.BorrowedThingDAO;
 import model.Item;
 import model.ItemDAO;
 import view.BorrowedTableGUI;
+import view.BorrowedAddGUI;
+import view.BorrowedGUI;
 
 //essi trying out: ends
-import view.WishlistTableGUI;
+
 
 public class BorrowedController {
 	/**
@@ -43,13 +45,26 @@ public class BorrowedController {
 	
 	private BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO();
 	
-	private BorrowedTableGUI gui;
+	private BorrowedGUI gui;
 	
-	public BorrowedController(BorrowedTableGUI gui) {
+	private BorrowedTableGUI tableGUI;
+	
+	private BorrowedAddGUI addGUI;
+	
+	
+	public BorrowedController(BorrowedGUI gui) {
 		this.gui = gui;
 	}
 	
 	public BorrowedController() {
+	}
+	
+	public BorrowedController(BorrowedTableGUI tableGUI) {
+		this.tableGUI = tableGUI;
+	}
+	
+	public BorrowedController(BorrowedAddGUI addGUI) {
+		this.addGUI = addGUI;
 	}
 	
 

@@ -19,46 +19,63 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import model.BorrowedThing;
 
+
 public class BorrowedTableGUI {
 	
-	BorrowedController controller;
+	BorrowedController controller = new BorrowedController(this);
 	
 	@FXML
 	AnchorPane borrowedviewanchorpane;
 	
 	@FXML
-	TableView<BorrowedThing> borrowedTable;
+	private TableView<BorrowedThing> borrowedTable;
 	
 	@FXML
-	TableColumn<BorrowedThing, String> borrowedThing;
+	private TableColumn<BorrowedThing, String> borrowedThingDescr;
 	
 	@FXML
-	TableColumn<BorrowedThing, Date> loanDate;
+	private TableColumn<BorrowedThing, Date> loanDate;
 	
 	@FXML
-	TableColumn<BorrowedThing, Date> returnDate;
+	private TableColumn<BorrowedThing, Date> returnDate;
 	
 	@FXML
-	TableColumn<BorrowedThing, String> borrowedBy;
+	private TableColumn<BorrowedThing, String> borrowedBy;
+	
+	@FXML
+	private TableColumn<BorrowedThing, Boolean> returned;
 	
 	public BorrowedTableGUI() {
 		controller = new BorrowedController(this);
 	}
 
-
+	@FXML
+	public void showBorrowedAdd(ActionEvent event) {
+		AnchorPane showBorrowedAdd = null;
+		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
+		try {
+			showBorrowedAdd = loaderBorrowedAdd.load();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		//shows the loaded fxml file
+		borrowedviewanchorpane.getChildren().setAll(showBorrowedAdd);
+	
+	}
 	
 	@FXML
 	public void initialize() {
-		borrowedThing.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
-		/*borrowedBy.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>() {
+		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
+		borrowedBy.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThing) {
 		         // item.getValue() returns the Data instance for a particular TableView row
 		         return new ReadOnlyObjectWrapper(borrowedThing.getValue().getPerson().getName());
 			}
-		});*/
+		});
 		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
 		returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
-		//returned.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Boolean>("returned"));
+		returned.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Boolean>("returned"));
 		
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
 		borrowedTable.setItems(data);
@@ -68,58 +85,7 @@ public class BorrowedTableGUI {
 
 } 
 
-//EconomyOutcomeGUI as an example
-/*
- * package view;
 
-
-public class EconomyOutcomeGUI {
-	
-	@FXML	
-	AnchorPane economyoutcomeaddanchorpane;
-
-	@FXML
-    private TableView<Transfer> expenseTable;
-	
-    @FXML
-    private TableColumn<Transfer, String> expenseDescription;
-
-    @FXML
-    private TableColumn<Transfer, Date> expenseDate;
-    
-    @FXML
-    private TableColumn<Transfer, Float> expenseAmount;
-	
-	@FXML
-	public void showAddOutcome(ActionEvent event) {
-		AnchorPane showAddOutcomeView = null;
-		FXMLLoader loaderAddOutcomeView = new FXMLLoader(getClass().getResource("/view/EconomyAddOutcome.fxml"));
-		try {
-			showAddOutcomeView = loaderAddOutcomeView.load();
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			}
-		//shows the loaded fxml file
-		economyoutcomeaddanchorpane.getChildren().setAll(showAddOutcomeView);
-	
-	}
-	
-	@FXML 
-	public void initialize() { 
-		expenseDescription.setCellValueFactory(
-                new PropertyValueFactory<Transfer, String>("description"));
-		expenseDate.setCellValueFactory(
-                new PropertyValueFactory<Transfer, Date>("date"));
-		expenseAmount.setCellValueFactory(
-                new PropertyValueFactory<Transfer, Float>("amount"));
-		ObservableList<Transfer> expencies =  FXCollections.observableArrayList(controller.getExpenses());
-		expenseTable.setItems(expencies);
-	
-	}
-}
-
- */
 	
 	
 	
