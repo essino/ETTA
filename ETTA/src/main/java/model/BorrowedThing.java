@@ -67,8 +67,11 @@ public class BorrowedThing {
 		this.dateBorrowed = dateBorrowed;
 		this.returnDate = returnDate;
 		this.person = person;
+		this.returned=false;
 	}
 
+	
+	
 	/**
 	 * Function to fetch the id number of the borrowed item from the database.
 	 * @return thing_id the id number of the borrowed item in the database
