@@ -44,6 +44,14 @@ public class WishlistController {
 	
 	/**
 	 * Constructor
+	 * @param gui WishlistAddGUI
+	 */
+	public WishlistController(WishlistAddGUI gui) {
+		this.addGui = gui;
+	}
+	
+	/**
+	 * Constructor
 	 */
 	public WishlistController() {
 		// TODO Auto-generated constructor stub
@@ -74,15 +82,9 @@ public class WishlistController {
 	public void saveItem() {
 		Item item = new Item();
 		item.setDescription(addGui.getItemDesc());
-		String name = addGui.getItemPerson();
-		Person person = null;
-		Person[] people = personDAO.readPeople();
-		for (int i=0; i<people.length;i++) {
-			String personName = people[i].getName();
-			if (personName == name) {
-				person = people[i];
-			}
-		}
+		Person person = personDAO.readPerson(addGui.getItemPerson());
+		System.out.println("person name " + person.getName());
+		System.out.println("person id " + person.getPerson_id());
 		item.setPerson(person);
 		item.setPrice(Double.parseDouble(addGui.getItemPrice()));
 		item.setDateNeeded(addGui.getItemDate());

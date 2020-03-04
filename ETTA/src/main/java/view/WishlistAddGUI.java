@@ -32,7 +32,7 @@ public class WishlistAddGUI {
 	@FXML
 	AnchorPane wishlistaddpane;
 	
-	WishlistController controller = new WishlistController();
+	WishlistController controller = new WishlistController(this);
 	
 	InputCheck inputCheck = new InputCheck();
 	

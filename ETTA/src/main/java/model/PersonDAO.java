@@ -87,6 +87,25 @@ public class PersonDAO {
 		return person;
 	}
 	
+	public Person readPerson(String name) {
+		//System.out.println("id in reading one " + id);
+		Person person = new Person();
+		try {
+			Session session = factory.openSession();
+			transaction = session.beginTransaction();
+			List<Person>  result = session.createQuery( "from Person where name='" + name + "'" ).list();
+			person = result.get(0);		
+			transaction.commit();
+			System.out.println("result " + result);
+			System.out.println("reading one:" + person.getName());
+		}
+		catch(Exception e){
+			if (transaction!= null) transaction.rollback();
+			throw e;
+		}
+		return person;
+	}
+	
 	/**
 	 * Method for reading all Persons in the database
 	 * @return Person[] array with all the people in the database
