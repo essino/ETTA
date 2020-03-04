@@ -77,7 +77,7 @@ public class BorrowedTableGUI {
 			}
 		});
 		*/
-		borrowedBy.setCellValueFactory(new PropertyValueFactory<Person, String>("borrowedBy"));
+		borrowedBy.setCellValueFactory(new PropertyValueFactory<Person, String>("person"));
 		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
 		returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
 		returned.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Boolean>("returned"));
