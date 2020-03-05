@@ -25,11 +25,7 @@ public class ContactsGUI {
 	@FXML 
 	BorderPane contactsrootborderpane;
 	
-	/**
-	 * The list view from where adding, editing and deleting can be started
-	 */
-	@FXML
-	AnchorPane contactsviewanchorpane;
+
 	
 	/**
 	 * The add view from where adding, editing and deleting can be started
@@ -50,6 +46,7 @@ public class ContactsGUI {
 	
 	@FXML
 	DatePicker personBirthday;
+	
 	
 	/** 
 	 * Constructor  
@@ -93,22 +90,7 @@ public class ContactsGUI {
 		contactsrootborderpane.setCenter(contactsView);
 	}
 	
-	/**
-	 * Method showing the view of the Add contacts in the Contacts section
-	 * @param event ActionEvent that is handled
-	 */
-	@FXML
-	public void showAddContact(ActionEvent event) {
-		AnchorPane showAddContactView = null; 
-		FXMLLoader loaderAddContactView  = new FXMLLoader(getClass().getResource("/view/ContactsAdd.fxml")); 
-		try {
-			showAddContactView = loaderAddContactView.load();
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			}
-		contactsviewanchorpane.getChildren().setAll(showAddContactView);
-	}
+
 	
 	/**
 	 * Method showing the Contacts view in the Contacts section and add Person to database

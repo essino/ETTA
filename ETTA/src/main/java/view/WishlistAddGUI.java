@@ -130,7 +130,7 @@ public class WishlistAddGUI {
 	 */
 	@FXML
 	public void addNewItem() {
-		if (inputCheck.isInputFloat(price.getText())) {
+		if (inputCheck.isInputFloat(price.getText()) || inputCheck.isInputEmpty(price.getText())) {
 			controller.saveItem();
 			AnchorPane wishlistView = null; 
 			FXMLLoader loaderWishlistView  = new FXMLLoader(getClass().getResource("/view/WishlistView.fxml")); 

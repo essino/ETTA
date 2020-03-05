@@ -6,14 +6,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="contactsviewanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ContactsGUI">
+<AnchorPane fx:id="contactsViewAnchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ContactsTableGUI">
    <children>
-      <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
+      <TableView fx:id="contactsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
         <columns>
-          <TableColumn minWidth="-Infinity" prefWidth="150.0" text="Person" />
-          <TableColumn minWidth="-Infinity" prefWidth="150.0" text="Email" />
-            <TableColumn prefWidth="150.0" text="Birthday" />
-            <TableColumn prefWidth="150.0" text="Address" />
+          <TableColumn fx:id="contactsName" minWidth="-Infinity" prefWidth="150.0" text="Person" />
+          <TableColumn fx:id="contactsEmail"  minWidth="-Infinity" prefWidth="150.0" text="Email" />
+            <TableColumn fx:id="contactsBirthday" prefWidth="150.0" text="Birthday" />
+            <TableColumn fx:id="contactsAddress" prefWidth="150.0" text="Address" />
         </columns>
       </TableView>
       <ButtonBar prefHeight="40.0" prefWidth="600.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="683.0">
