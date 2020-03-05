@@ -84,7 +84,24 @@ public class ItemDAO {
 			System.out.println("reading one:" + item.getDescription());
 		}
 		catch(Exception e){
-			//if (transaction!= null) transaction.rollback();
+			if (transaction!= null) transaction.rollback();
+			throw e;
+		}
+		return item;
+	}
+	
+	public Item readItem(String desc) {
+		Item item = new Item();
+		try {
+			Session session = factory.openSession();
+			transaction = session.beginTransaction();
+			List<Item>  result = session.createQuery( "from Item where description='" + desc + "'" ).list();
+			item = result.get(0);		
+			transaction.commit();
+			System.out.println("result " + result);
+			System.out.println("reading one:" + item.getDescription());
+		} catch (Exception e) {
+			if (transaction!= null) transaction.rollback();
 			throw e;
 		}
 		return item;

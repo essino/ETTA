@@ -101,7 +101,13 @@ public class WishlistTableGUI {
 		person.setCellValueFactory(new Callback<CellDataFeatures<Item, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Item, String> item) {
 		         // item.getValue() returns the Data instance for a particular TableView row
-		         return new ReadOnlyObjectWrapper(item.getValue().getPerson().getName());
+				if (item.getValue().getPerson() != null) {
+					return new ReadOnlyObjectWrapper(item.getValue().getPerson().getName());
+				} else {
+					ObservableValue<String> me = new ReadOnlyObjectWrapper<>("Me");
+					return me;
+				}
+		         
 			}
 		});
 		
@@ -172,6 +178,12 @@ public class WishlistTableGUI {
 	@FXML
 	public void removeFromTable(Item item) {
 		wishlisttable.getItems().remove(item);
+	}
+	
+	@FXML
+	public void markAsBought() {
+		controller.setBought();
+		wishlisttable.refresh();
 	}
 	
 }
