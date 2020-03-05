@@ -37,6 +37,11 @@ public class WishlistController {
 	PersonDAO personDAO = new PersonDAO();
 	
 	/**
+	 * The input check class used for validating user input
+	 */
+	InputCheck inputCheck = new InputCheck();
+	
+	/**
 	 * Constructor
 	 * @param gui WishlistTableGUI
 	 */
@@ -91,7 +96,12 @@ public class WishlistController {
 		System.out.println("person name " + person.getName());
 		System.out.println("person id " + person.getPerson_id());
 		item.setPerson(person);
-		item.setPrice(Double.parseDouble(addGui.getItemPrice()));
+		if(inputCheck.isInputEmpty(addGui.getItemPrice())) {
+			item.setPrice(null);
+		}
+		else {
+			item.setPrice(Double.parseDouble(addGui.getItemPrice()));
+		}
 		item.setDateNeeded(addGui.getItemDate());
 		item.setBought(false);
 		item.setAdditionalInfo(addGui.getItemAdditional());
