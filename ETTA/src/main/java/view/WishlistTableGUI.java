@@ -23,12 +23,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import model.Item;
+import model.Transfer;
 
 /**
  * GUI class for the wishlist page
  */
 public class WishlistTableGUI {
 	
+	/**
+	 * Reference to the used WishlistController
+	 */
 	WishlistController controller;
 	
 	/**
@@ -97,7 +101,13 @@ public class WishlistTableGUI {
 		person.setCellValueFactory(new Callback<CellDataFeatures<Item, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Item, String> item) {
 		         // item.getValue() returns the Data instance for a particular TableView row
-		         return new ReadOnlyObjectWrapper(item.getValue().getPerson().getName());
+				if (item.getValue().getPerson() != null) {
+					return new ReadOnlyObjectWrapper(item.getValue().getPerson().getName());
+				} else {
+					ObservableValue<String> me = new ReadOnlyObjectWrapper<>("Me");
+					return me;
+				}
+		         
 			}
 		});
 		
@@ -142,6 +152,38 @@ public class WishlistTableGUI {
 			e.printStackTrace();
 			}
 		wishlistanchorpane.getChildren().setAll(showAddWishView);
+	}
+	
+	/**
+	 * Method for getting the selected item from the table
+	 * @return the selected item
+	 */
+	@FXML
+	public Item getSelectedItem() {
+		return wishlisttable.getSelectionModel().getSelectedItem();
+	}
+	
+	/**
+	 * Method for deleting the selected item from the database
+	 */
+	@FXML
+	public void deleteItem() {
+		controller.removeItem();
+	}
+	
+	/** 
+	 * Method that removes an item from the table
+	 * @param item the item to be removed
+	 */
+	@FXML
+	public void removeFromTable(Item item) {
+		wishlisttable.getItems().remove(item);
+	}
+	
+	@FXML
+	public void markAsBought() {
+		controller.setBought();
+		wishlisttable.refresh();
 	}
 	
 }

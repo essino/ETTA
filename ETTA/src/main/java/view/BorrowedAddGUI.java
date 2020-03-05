@@ -2,7 +2,9 @@ package view;
 
 
 import java.io.IOException;
+import java.sql.Date;
 
+import controller.InputCheck;
 import controller.BorrowedController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,37 +15,51 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 
 public class BorrowedAddGUI {
 	
+	/**
+	 * Text field for the name of the borrowed thing to be added
+	 */
+	@FXML
+	TextField borrowedThing;
+	
+	/**
+	 * Date picker for the date when the item is loaned
+	 */
+	@FXML
+	DatePicker loanDate;
+	
+	/**
+	 * Date picker for the date when the item should be returned
+	 */
+	@FXML
+	DatePicker returnDate;
+	
+	/**
+	 * ComboBox for selecting the person who has borrowed the item
+	 */
 	@FXML
 	ComboBox<String> bbc;
 	
 	@FXML
 	Button buttonAdd;
 	
-	BorrowedController controller = new BorrowedController();
-	
 	@FXML
+	AnchorPane borrowedaddanchorpane;
+	
+	BorrowedController controller = new BorrowedController(this);
+	
+	InputCheck inputCheck = new InputCheck();
+	
+	/*@FXML
 	public void addBorrowed(ActionEvent event) {
 		System.out.println("found"); 
-	}
+	}*/
 	
 	
-	@FXML
-	public AnchorPane borrowedAdd() {
-		AnchorPane borrowedAdd = null;
-		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/BorrowedAdd.fxml"));
-		try {
-				borrowedAdd = loaderBorrowedAdd.load();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-       return borrowedAdd;
-       
-	}
-
 	@FXML
 	public void initialize() {
 			bbc.getItems().addAll(controller.personsList());
@@ -82,4 +98,66 @@ public class BorrowedAddGUI {
 	        });
 	}
 
+	/**
+	 * Method for getting the value of the borrowedThing description text field
+	 * @return the description of the borrowedThing
+	 */
+	@FXML
+	public String getBorrowedDescription() {
+		return this.borrowedThing.getText();
+	}
+	
+	/**
+	 * Method for getting the borrower from the combo box
+	 * @return the borrower
+	 */
+	@FXML
+	public String getBorrowedPerson() {
+		return this.bbc.getValue();
+	}
+	
+	/**
+	 * Method for getting the date when the item has been borrowed
+	 * @return the date when the item has been borrowed
+	 */
+	@FXML
+	public Date getBorrowedLoanDate() {
+		try {
+			return Date.valueOf(this.loanDate.getValue());
+		} catch(NullPointerException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Method for getting the date when the item will be returned
+	 * @return the date when the item will be returned
+	 */
+	@FXML
+	public Date getBorrowedReturnDate() {
+		try {
+			return Date.valueOf(this.returnDate.getValue());
+		} catch(NullPointerException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Method for adding a new borrowed thing to the database
+	 * If the user inputs are not valid, displays an error message to the user
+	 * After the new item is created, returns to the main wishlist view
+	 */
+	@FXML
+	public void addBorrowed() {
+			controller.saveBorrowedThing();
+			AnchorPane borrowedviewanchorpane = null; 
+			FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/BorrowedView.fxml")); 
+			try {
+				borrowedviewanchorpane = loaderBorrowedView.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			borrowedaddanchorpane.getChildren().setAll(borrowedviewanchorpane);
+	}
+	
 }

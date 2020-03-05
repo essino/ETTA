@@ -31,12 +31,12 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Delete">
+            <Button mnemonicParsing="false" onAction="#deleteItem" text="Delete">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Mark as Bought">
+            <Button mnemonicParsing="false" onAction="#markAsBought" text="Mark as Bought">
                <font>
                   <Font size="18.0" />
                </font>

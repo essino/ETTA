@@ -27,12 +27,19 @@ public class WishlistController {
 	private WishlistTableGUI gui;
 	
 	/**
+	 * Reference to the WishlistAddGUI
+	 */
+	private WishlistAddGUI addGui;
+	
+	/**
 	 * PersonDAO used for accessing the database
 	 */
-	
-	private WishlistAddGUI addGui;
-
 	PersonDAO personDAO = new PersonDAO();
+	
+	/**
+	 * The input check class used for validating user input
+	 */
+	InputCheck inputCheck = new InputCheck();
 	
 	/**
 	 * Constructor
@@ -79,18 +86,37 @@ public class WishlistController {
 		return names;
 	}
 	
+	/** 
+	 * Method for creating a new item and saving it to the database
+	 */ 
 	public void saveItem() {
 		Item item = new Item();
 		item.setDescription(addGui.getItemDesc());
 		Person person = personDAO.readPerson(addGui.getItemPerson());
-		System.out.println("person name " + person.getName());
-		System.out.println("person id " + person.getPerson_id());
 		item.setPerson(person);
-		item.setPrice(Double.parseDouble(addGui.getItemPrice()));
+		if (inputCheck.isInputEmpty(addGui.getItemPrice())) {
+			item.setPrice(null);
+		} else {
+			item.setPrice(Double.parseDouble(addGui.getItemPrice()));
+		}
 		item.setDateNeeded(addGui.getItemDate());
 		item.setBought(false);
 		item.setAdditionalInfo(addGui.getItemAdditional());
 		itemDAO.createItem(item);
+	}
+	
+	/** 
+	 * Method for deleting an item from the database
+	 */ 
+	public void removeItem() {
+		itemDAO.deleteItem(gui.getSelectedItem().getItem_id());
+		gui.removeFromTable(gui.getSelectedItem());
+	}
+	
+	public void setBought() {
+		Item item = itemDAO.readItem(gui.getSelectedItem().getDescription());
+		item.setBought(true);
+		itemDAO.updateItem(item);
 	}
 
 }

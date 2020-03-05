@@ -89,7 +89,7 @@ public class BorrowedThingDAO {
 	}
 	
 	/**
-	 * method for reading all Borrowed Things in the database
+	 * Method for reading all Borrowed Things in the database
 	 * @return borrowedThings Array containing all Borrowed items in the database
 	 */
 	public BorrowedThing[] readBorrowedThings() {
@@ -113,7 +113,7 @@ public class BorrowedThingDAO {
 	}
 
 	/**
-	 * method for updating Borrowed items in the database
+	 * Method for updating Borrowed items in the database
 	 * @param borrowedThing Object that represents an item borrowed to someone
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
@@ -132,7 +132,7 @@ public class BorrowedThingDAO {
 	}
 
 	/**
-	 * method for deleting Borrowed items in the database
+	 * Method for deleting Borrowed items in the database
 	 * @param thing_id int referring to the Borrowed item that is to be deleted
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */

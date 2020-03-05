@@ -35,7 +35,28 @@ public class InputCheck {
 		alert.showAndWait();
 	}
 	
-	
+	/** 
+	 * Method that checks if user input is empty
+	 * @param input string inputed by the user
+	 * @return b boolean showing if the input is empty
+	 */ 
+	public boolean isInputEmpty(String input) {
+	    Boolean b= false;
+	    if (input == null || input.length() == 0 || (input.trim()).length()==0) { 
+	        b=true;
+	    }
+	    return b;
+	}
+
+	/** 
+	 * Method that alerts that user input is empty
+	 */
+	public void alertInputEmpty() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("Input can't be empty");
+		alert.setContentText("Give the needed information");
+		alert.showAndWait();
+	}
 	//TODO: add checking for Min and MAx values for integers and Floats
-	//TODO: add checking for empty strings
 }
