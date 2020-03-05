@@ -87,6 +87,34 @@ public class EventDAO {
 		}
 		return event;
 	}
+	/**
+	 * method for reading one event by Entry_id from the Calendar from the database
+	 * @param entry_id the entry_id of the entry
+	 * @return event object read from the database
+	 */
+	public Event readEvent(String entry_id) {
+		Transaction transaction = null;
+		Event event = new Event();
+		try {
+			session = sessionFactory.openSession();
+			transaction = session.beginTransaction();
+			event = (Event)session.get(Event.class, entry_id);	
+			
+			transaction.commit();
+			if(event == null) {
+				return null;
+			}
+			//System.out.println("reading one:" + event.getTitle() + " startTime " + event.getStartTime());
+		}
+		catch(Exception e){
+			if (transaction!=null) transaction.rollback();
+			throw e;
+		}
+		finally{
+			session.close();
+		}
+		return event;
+	}
 	
 	/**
 	 * method for making a new Event in the database

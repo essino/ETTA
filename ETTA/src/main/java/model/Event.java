@@ -15,8 +15,14 @@ public class Event {
 
 	
 	@Id
+	@GeneratedValue
 	@Column(name="event_id")
 	private int event_id;
+	
+	@Column(name="entry_id")
+	private String entry_id;
+
+
 
 	@Column(name="title")
 	private String title;
@@ -108,6 +114,15 @@ public class Event {
 	public Event() {
 	
 	}
+	
+	public String getEntry_id() {
+		return entry_id;
+	}
+
+	public void setEntry_id(String entry_id) {
+		this.entry_id = entry_id;
+	}
+	
 	/**
 	 * Function to fetch the recurrence of the event from the database.
 	 * @return recurring boolean showing if the event recurs
