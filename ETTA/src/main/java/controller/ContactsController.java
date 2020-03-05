@@ -40,7 +40,10 @@ public class ContactsController {
 		Boolean personCreate = perDAO.createPerson(person);
 		//if there's a birthday added to person details, create an yearly event 
 		if(personBirthday != null) {
+			int lastEvent = eventDAO.readEvents().length; 
+			int lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();
 			Event birthday = new Event();
+			birthday.setEvent_id(lastEventId+1);
 			birthday.setTitle(personName);
 			birthday.setLocation(null);
 			birthday.setStartDate(personBirthday);

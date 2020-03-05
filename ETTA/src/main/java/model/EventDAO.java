@@ -121,6 +121,7 @@ public class EventDAO {
 	 * @return updated Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean updateEvent(Event event) {
+		System.out.println("changing calendar " + event.getCalendar());
 		boolean updated =false;
 		try {
 			session = sessionFactory.openSession();

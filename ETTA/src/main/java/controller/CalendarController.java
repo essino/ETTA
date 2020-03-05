@@ -49,11 +49,11 @@ public class CalendarController {
 		calendar3.setStyle(Style.STYLE3);
 		Calendar calendar4 = new Calendar("work");
 		calendar4.setStyle(Style.STYLE4);
-		Calendar calendar5 = new Calendar("health");
+		Calendar calendar5 = new Calendar("borrowed");
 		calendar5.setStyle(Style.STYLE5);
-		Calendar calendar6 = new Calendar("meetings");
+		Calendar calendar6 = new Calendar("wishlist");
 		calendar6.setStyle(Style.STYLE6);
-		Calendar calendar7 = new Calendar("culture");
+		Calendar calendar7 = new Calendar("free time");
 		calendar7.setStyle(Style.STYLE7);
 		
 		CalendarSource myCalendarSource = new CalendarSource("My Calendars"); 
@@ -86,6 +86,9 @@ public class CalendarController {
 			Entry entry = evt.getEntry();
 			Event newEvent = fromEntryToEvent(entry);
 			eventDAO.createEvent(newEvent);
+		}
+		else if(evt.isEntryAdded()) {
+			
 		}
 		else {
 			Entry entry = evt.getEntry();
@@ -128,6 +131,10 @@ public class CalendarController {
 		}
 		entry.setId(String.valueOf(event.getEvent_id()));
 		entry.setRecurrenceRule(event.getRrule());
+		Calendar calendar = new Calendar(event.getCalendar());
+		System.out.println(" calendar rivi 135 " + event.getCalendar());
+		entry.setCalendar(calendar);
+		System.out.println(" calendar rivi 137 " + entry.getCalendar().getName());
 		return entry;
 	 }
 	  
@@ -151,12 +158,8 @@ public class CalendarController {
 		event.setFullday(entry.isFullDay());
 		event.setRecurring(entry.isRecurring());
 		event.setRrule(entry.getRecurrenceRule());
-		if(event.getCalendar()==null) {
-			event.setCalendar("Default");
-		}
-		else {
-			event.setCalendar(entry.getCalendar().getName());
-		}
+		event.setEvent_id(Integer.parseInt(entry.getId()));
+		event.setCalendar(entry.getCalendar().getName());
 		return event;
 	  }
 	 

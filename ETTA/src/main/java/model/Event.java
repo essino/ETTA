@@ -15,7 +15,7 @@ public class Event {
 
 	
 	@Id
-	@GeneratedValue
+	//@GeneratedValue
 	@Column(name="event_id")
 	private int event_id;
 
