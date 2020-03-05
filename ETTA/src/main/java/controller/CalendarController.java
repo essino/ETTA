@@ -77,22 +77,21 @@ public class CalendarController {
 	 */
 	public void handleCalendarEvent(CalendarEvent evt) {
 		if(evt.isEntryRemoved()) {
+			System.out.println("delete event controller");
 			Entry entry = evt.getEntry();
 			Event newEvent = fromEntryToEvent(entry);
 			eventDAO.deleteEvent(newEvent.getEvent_id());
 		}
-		//else if(evt.isEntryAdded()) {
 		else if(checkIfEventExist(Integer.parseInt(evt.getEntry().getId()))==false) {
 			Entry entry = evt.getEntry();
 			Event newEvent = fromEntryToEvent(entry);
 			eventDAO.createEvent(newEvent);
 		}
 		else {
-				Entry entry = evt.getEntry();
-				Event newEvent = fromEntryToEvent(entry);
-				eventDAO.updateEvent(newEvent);
-			}
-
+			Entry entry = evt.getEntry();
+			Event newEvent = fromEntryToEvent(entry);
+			eventDAO.updateEvent(newEvent);
+		}
 	}
 	
 	/** 
@@ -127,14 +126,8 @@ public class CalendarController {
 		if(!event.isFullday()) {
 			entry.setInterval(event.getStartTime().toLocalTime(), event.getEndTime().toLocalTime());
 		}
-		try {
-		entry.setId(event.getEntry_id());
-		}
-		catch (NullPointerException e) {
-			entry.setId(String.valueOf(event.getEvent_id()));
-		}
+		entry.setId(String.valueOf(event.getEvent_id()));
 		entry.setRecurrenceRule(event.getRrule());
-		
 		return entry;
 	 }
 	  
@@ -158,7 +151,6 @@ public class CalendarController {
 		event.setFullday(entry.isFullDay());
 		event.setRecurring(entry.isRecurring());
 		event.setRrule(entry.getRecurrenceRule());
-		event.setEntry_id(entry.getId());
 		if(event.getCalendar()==null) {
 			event.setCalendar("Default");
 		}

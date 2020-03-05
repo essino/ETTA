@@ -18,11 +18,6 @@ public class Event {
 	@GeneratedValue
 	@Column(name="event_id")
 	private int event_id;
-	
-	@Column(name="entry_id")
-	private String entry_id;
-
-
 
 	@Column(name="title")
 	private String title;
@@ -50,11 +45,6 @@ public class Event {
 
 	@Column(name="rrule")
 	private String rrule;
-
-	/*
-	@Column(name="calendar")
-	private Calendar calendar;
-	*/
 	
 	@Column(name="calendar")
 	private String calendar;
@@ -115,14 +105,6 @@ public class Event {
 	
 	}
 	
-	public String getEntry_id() {
-		return entry_id;
-	}
-
-	public void setEntry_id(String entry_id) {
-		this.entry_id = entry_id;
-	}
-	
 	/**
 	 * Function to fetch the recurrence of the event from the database.
 	 * @return recurring boolean showing if the event recurs
@@ -151,16 +133,6 @@ public class Event {
 	public void setRrule(String rrule) {
 		this.rrule = rrule;
 	}
-
-	/*
-	public Calendar getCalendar() {
-		return calendar;
-	}
-
-	public void setCalendar(Calendar calendar) {
-		this.calendar = calendar;
-	}
-*/
 	
 	/**
 	 * Function to fetch if the event lasts all day from the database.
