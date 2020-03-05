@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Event;
+import model.EventDAO;
 import model.Item;
 import model.ItemDAO;
 import model.Person;
@@ -35,6 +37,11 @@ public class WishlistController {
 	 * PersonDAO used for accessing the database
 	 */
 	PersonDAO personDAO = new PersonDAO();
+	
+	/**
+	 * EventDAO used for accessing the database
+	 */
+	private EventDAO eventDAO = new EventDAO();
 	
 	/**
 	 * The input check class used for validating user input
@@ -103,6 +110,15 @@ public class WishlistController {
 		item.setBought(false);
 		item.setAdditionalInfo(addGui.getItemAdditional());
 		itemDAO.createItem(item);
+		Event wishlistEvent = new Event();
+		wishlistEvent.setTitle("Buy " + addGui.getItemDesc() + " for " + addGui.getItemPerson());
+		wishlistEvent.setLocation(null);
+		wishlistEvent.setStartDate(addGui.getItemDate());
+		wishlistEvent.setEndDate(addGui.getItemDate());
+		wishlistEvent.setFullday(true);
+		wishlistEvent.setRecurring(false);
+		wishlistEvent.setCalendar("default");
+		eventDAO.createEvent(wishlistEvent);
 	}
 	
 	/** 
@@ -110,9 +126,11 @@ public class WishlistController {
 	 */ 
 	public void removeItem() {
 		itemDAO.deleteItem(gui.getSelectedItem().getItem_id());
-		gui.removeFromTable(gui.getSelectedItem());
 	}
 	
+	/** 
+	 * Method for marking an item as bought
+	 */ 
 	public void setBought() {
 		Item item = itemDAO.readItem(gui.getSelectedItem().getDescription());
 		item.setBought(true);

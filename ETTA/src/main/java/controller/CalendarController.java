@@ -127,7 +127,12 @@ public class CalendarController {
 		if(!event.isFullday()) {
 			entry.setInterval(event.getStartTime().toLocalTime(), event.getEndTime().toLocalTime());
 		}
-		entry.setId(String.valueOf(event.getEvent_id()));
+		try {
+		entry.setId(event.getEntry_id());
+		}
+		catch (NullPointerException e) {
+			entry.setId(String.valueOf(event.getEvent_id()));
+		}
 		entry.setRecurrenceRule(event.getRrule());
 		
 		return entry;
@@ -153,7 +158,7 @@ public class CalendarController {
 		event.setFullday(entry.isFullDay());
 		event.setRecurring(entry.isRecurring());
 		event.setRrule(entry.getRecurrenceRule());
-		event.setEvent_id(Integer.parseInt(entry.getId()));
+		event.setEntry_id(entry.getId());
 		if(event.getCalendar()==null) {
 			event.setCalendar("Default");
 		}
