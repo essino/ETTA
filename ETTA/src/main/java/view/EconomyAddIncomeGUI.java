@@ -14,8 +14,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import model.Balance;
 import model.Category;
 import model.CategoryDAO;
+import model.Transfer;
 
 public class EconomyAddIncomeGUI {
 	
@@ -67,6 +69,8 @@ public class EconomyAddIncomeGUI {
 	
 	EconomyController controller = new EconomyController(this);
 	
+
+	
 	/** 
 	 * Method that initializes the view - gets the categories from the EconomyController and displays them in the drop down list
 	 */
@@ -110,8 +114,8 @@ public class EconomyAddIncomeGUI {
 	}
 	
 	/** 
-	 * Method that gets input from outcomeDescription TextField and returns it
-	 * @return String description of the expense
+	 * Method that gets input from incomeDescription TextField and returns it
+	 * @return String description of the incomes
 	 */
 	@FXML
 	public String getDescription(){
@@ -119,8 +123,8 @@ public class EconomyAddIncomeGUI {
 		}
 	
 	/** 
-	 * Method that gets the chosen option from outcomeCategoryList ChoiceBox and returns it
-	 * @return String category of the expense
+	 * Method that gets the chosen option from incomeCategoryList ChoiceBox and returns it
+	 * @return String category of the incomes
 	 */
 	@FXML
 	public String getCategoryName(){
@@ -128,9 +132,9 @@ public class EconomyAddIncomeGUI {
 		}
 	
 	/** 
-	 * Method that gets the chosen date from outcomeDate DatePicker and returns it
-	 * @return Date date of the expense
-	 * @return null if date is not selected ---??? onko edes mahdollista?
+	 * Method that gets the chosen date from incomeDate DatePicker and returns it
+	 * @return Date date of the income
+	
 	 */
 	@FXML
 	public Date getIncomeDay() {
@@ -143,14 +147,11 @@ public class EconomyAddIncomeGUI {
 	}
 	
 	/** 
-	 * Method that gets the value from outcomeAmount TextField and returns it in float format
-	 * @return Float amount of the expense
+	 * Method that gets the value from incomeAmount TextField and returns it in float format
+	 * @return Float amount of the income
 	 */
 	@FXML
 	public float getIncomeAmount() {
-
-	
-
 		return Float.parseFloat(incomeAmount.getText());
 	}
 
