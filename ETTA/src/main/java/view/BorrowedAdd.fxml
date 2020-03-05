@@ -64,7 +64,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Cancel">
+            <Button mnemonicParsing="false" onAction="#cancelAddBorrowed" text="Cancel">
                <font>
                   <Font size="18.0" />
                </font>

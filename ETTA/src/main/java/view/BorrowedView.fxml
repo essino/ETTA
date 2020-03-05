@@ -13,7 +13,7 @@
             <Button mnemonicParsing="false" onAction="#showBorrowedAdd" text="Add new item" />
             <Button mnemonicParsing="false" text="Edit" />
             <Button mnemonicParsing="false" text="Send email" />
-          <Button mnemonicParsing="false" text="Delete" />
+          <Button mnemonicParsing="false" onAction="#deleteSelectedBorrowedThing" text="Delete" />
         </buttons>
       </ButtonBar>
       <TableView fx:id="borrowedTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
