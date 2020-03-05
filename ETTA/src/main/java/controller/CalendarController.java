@@ -49,11 +49,11 @@ public class CalendarController {
 		calendar3.setStyle(Style.STYLE3);
 		Calendar calendar4 = new Calendar("work");
 		calendar4.setStyle(Style.STYLE4);
-		Calendar calendar5 = new Calendar("health");
+		Calendar calendar5 = new Calendar("wishlist");
 		calendar5.setStyle(Style.STYLE5);
-		Calendar calendar6 = new Calendar("meetings");
+		Calendar calendar6 = new Calendar("free time");
 		calendar6.setStyle(Style.STYLE6);
-		Calendar calendar7 = new Calendar("culture");
+		Calendar calendar7 = new Calendar("borrowed");
 		calendar7.setStyle(Style.STYLE7);
 		
 		CalendarSource myCalendarSource = new CalendarSource("My Calendars"); 
@@ -76,18 +76,29 @@ public class CalendarController {
 	 * @param event - Event that was created, edited or deleted
 	 */
 	public void handleCalendarEvent(CalendarEvent evt) {
+		System.out.println("entryId 79 " + evt.getEntry().getId());
+		//Entry entry = evt.getEntry();
+		//Event newEvent = fromEntryToEvent(entry);
+		//System.out.println("entryId 82 " + entry.getId());
+		//System.out.println("eventId 83 " + newEvent.getEvent_id());
 		if(evt.isEntryRemoved()) {
+			System.out.println("entryId 85 " + evt.getEntry().getId());
 			Entry entry = evt.getEntry();
 			Event newEvent = fromEntryToEvent(entry);
 			eventDAO.deleteEvent(newEvent.getEvent_id());
 		}
-		//else if(evt.isEntryAdded()) {
+		
 		else if(checkIfEventExist(Integer.parseInt(evt.getEntry().getId()))==false) {
+			System.out.println("entryId 92 " + evt.getEntry().getId());
 			Entry entry = evt.getEntry();
-			Event newEvent = fromEntryToEvent(entry);
+			Event newEvent = fromEntryToNewEvent(entry);
 			eventDAO.createEvent(newEvent);
 		}
+		else if(evt.isEntryAdded()) {
+		
+		}
 		else {
+			System.out.println("entryId 101 " + evt.getEntry().getId());
 				Entry entry = evt.getEntry();
 				Event newEvent = fromEntryToEvent(entry);
 				eventDAO.updateEvent(newEvent);
@@ -129,7 +140,8 @@ public class CalendarController {
 		}
 		entry.setId(String.valueOf(event.getEvent_id()));
 		entry.setRecurrenceRule(event.getRrule());
-		
+		System.out.println("eventId 136 " + event.getEvent_id());
+		System.out.println("entryId 137 " + entry.getId());
 		return entry;
 	 }
 	  
@@ -153,7 +165,7 @@ public class CalendarController {
 		event.setFullday(entry.isFullDay());
 		event.setRecurring(entry.isRecurring());
 		event.setRrule(entry.getRecurrenceRule());
-		//event.setEvent_id(Integer.parseInt(entry.getId()));
+		event.setEvent_id(Integer.parseInt(entry.getId()));
 		if(event.getCalendar()==null) {
 			event.setCalendar("Default");
 		}
@@ -162,6 +174,31 @@ public class CalendarController {
 		}
 		return event;
 	  }
+	 
+	 public Event fromEntryToNewEvent(Entry entry) {
+			Event event = new Event();
+			Date startDate = convertToDateViaSqlDate(entry.getStartDate());
+			Date endDate = convertToDateViaSqlDate(entry.getEndDate());
+			Time startTime = toSqlTime(entry.getStartTime());
+			Time endTime = toSqlTime(entry.getEndTime());
+			event.setTitle(entry.getTitle());
+			event.setLocation(entry.getLocation());
+			event.setEndDate(endDate);
+			event.setStartDate(startDate);
+			event.setEndTime(endTime);
+			event.setStartTime(startTime);
+			event.setFullday(entry.isFullDay());
+			event.setRecurring(entry.isRecurring());
+			event.setRrule(entry.getRecurrenceRule());
+			//event.setEvent_id(Integer.parseInt(entry.getId()));
+			if(event.getCalendar()==null) {
+				event.setCalendar("Default");
+			}
+			else {
+				event.setCalendar(entry.getCalendar().getName());
+			}
+			return event;
+		  }
 	 
 		/** 
 		 * Method that returns default CalendarsSource with the default calendar

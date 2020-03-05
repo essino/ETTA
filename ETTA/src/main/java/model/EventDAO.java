@@ -131,6 +131,7 @@ public class EventDAO {
 			session = sessionFactory.openSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(event);
+			//System.out.println("entryId " + event.getEvent_id());
 			transaction.commit();
 			created = true;
 		}
