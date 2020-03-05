@@ -156,6 +156,9 @@ public class EconomyAddOutcomeGUI {
 	@FXML
 	public void saveExpense() {
 		if(inputCheck.isInputFloat(outcomeAmount.getText())) {
+			
+		
+			if(!inputCheck.isInputEmpty(outcomeDescription.getText())) {
 			controller.saveExpense();
 			AnchorPane outcomeView = null; 
 			FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/EconomyOutcome.fxml")); 
@@ -167,6 +170,10 @@ public class EconomyAddOutcomeGUI {
 				}
 			addOutcomePane.getChildren().setAll(outcomeView);
 		}
+			else {
+				inputCheck.alertInputEmpty();
+			}
+	}
 		else {
 			inputCheck.alertInputNotFloat();
 		}	
