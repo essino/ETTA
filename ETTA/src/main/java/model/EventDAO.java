@@ -41,7 +41,7 @@ public class EventDAO {
 		try {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
-			result = session.createQuery( "from Event" ).list();
+			result = session.createQuery( "from Event order by event_id" ).list();
 			for ( Event e : (List<Event>) result ) {
 				//System.out.println( "Event (" + e.getTitle() + ") : " + e.getStartDate() + ", " + e.getStartTime());
 			}

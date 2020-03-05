@@ -77,7 +77,6 @@ public class CalendarController {
 	 */
 	public void handleCalendarEvent(CalendarEvent evt) {
 		if(evt.isEntryRemoved()) {
-			System.out.println("delete event controller");
 			Entry entry = evt.getEntry();
 			Event newEvent = fromEntryToEvent(entry);
 			eventDAO.deleteEvent(newEvent.getEvent_id());

@@ -15,10 +15,16 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import model.Person;
+import model.PersonDAO;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 public class BorrowedAddGUI {
+	/**
+	 * PersonDAO used for accessing the database
+	 */
+	PersonDAO personDAO = new PersonDAO();
 	
 	/**
 	 * Text field for the name of the borrowed thing to be added
@@ -82,7 +88,7 @@ public class BorrowedAddGUI {
 	                        setText(null);
 	                    } else {
 	                        if (item.isEmpty()) {
-	                            setText("Add item...");
+	                            setText("Add person...");
 	                        } else {
 	                            setText(item);
 	                        }
@@ -95,6 +101,7 @@ public class BorrowedAddGUI {
 	                    TextInputDialog dialog = new TextInputDialog();
 	                    dialog.setContentText("Enter name");
 	                    dialog.showAndWait().ifPresent(text -> {
+	                    	personDAO.createPerson(new Person(text));
 	                        int index = bbc.getItems().size()-1;
 	                        bbc.getItems().add(index, text);
 	                        bbc.getSelectionModel().select(index);

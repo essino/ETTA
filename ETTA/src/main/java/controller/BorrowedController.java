@@ -11,6 +11,8 @@ import model.PersonDAO;
 
 import model.BorrowedThing;
 import model.BorrowedThingDAO;
+import model.Event;
+import model.EventDAO;
 import model.Item;
 import model.ItemDAO;
 import view.BorrowedTableGUI;
@@ -26,6 +28,11 @@ public class BorrowedController {
 	 * PersonDAO used for accessing the database
 	 */
 	PersonDAO personDAO = new PersonDAO();
+	
+	/**
+	 * EventDAO used for accessing the database
+	 */
+	private EventDAO eventDAO = new EventDAO();
 	
 	/** 
 	 * Method that gets Persons from PersonDAO and makes a list containing names only 
@@ -102,6 +109,19 @@ public class BorrowedController {
 		borrowedThing.setReturnDate(addGUI.getBorrowedReturnDate());
 		borrowedThing.setReturned(false);
 		borrowedThingDAO.createBorrowedThing(borrowedThing);
+		//create a calendar event
+		int lastEvent = eventDAO.readEvents().length; 
+		int lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();
+		Event borrowed = new Event();
+		borrowed.setEvent_id(lastEventId+1);
+		borrowed.setTitle(addGUI.getBorrowedPerson() + " should return " +  addGUI.getBorrowedDescription());
+		borrowed.setLocation(null);
+		borrowed.setStartDate(addGUI.getBorrowedReturnDate());
+		borrowed.setEndDate(addGUI.getBorrowedReturnDate());
+		borrowed.setFullday(true);
+		borrowed.setRecurring(false);
+		borrowed.setCalendar("borrowed");
+		eventDAO.createEvent(borrowed);
 	}
 	
 	/** 

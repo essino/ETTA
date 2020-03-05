@@ -45,6 +45,10 @@ public class Person {
 		this.email = email;
 	}
 
+	public Person(String name) {
+		this.name = name;
+	}
+
 	/**
 	 * Function to fetch the id number of the person from the database.
 	 * @return person_id the id number of the person in the database
