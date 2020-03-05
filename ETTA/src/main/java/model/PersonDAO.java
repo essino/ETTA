@@ -94,10 +94,14 @@ public class PersonDAO {
 			Session session = factory.openSession();
 			transaction = session.beginTransaction();
 			List<Person>  result = session.createQuery( "from Person where name='" + name + "'" ).list();
-			person = result.get(0);		
-			transaction.commit();
-			System.out.println("result " + result);
-			System.out.println("reading one:" + person.getName());
+			if (result.size() != 0) {
+				person = result.get(0);		
+				transaction.commit();
+				System.out.println("result " + result);
+				System.out.println("reading one:" + person.getName());
+			} else {
+				person = null;
+			}
 		}
 		catch(Exception e){
 			if (transaction!= null) transaction.rollback();

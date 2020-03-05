@@ -131,16 +131,20 @@ public class WishlistAddGUI {
 	@FXML
 	public void addNewItem() {
 		if (inputCheck.isInputFloat(price.getText()) || inputCheck.isInputEmpty(price.getText())) {
-			controller.saveItem();
-			AnchorPane wishlistView = null; 
-			FXMLLoader loaderWishlistView  = new FXMLLoader(getClass().getResource("/view/WishlistView.fxml")); 
-			try {
-				wishlistView = loaderWishlistView.load();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			wishlistaddpane.getChildren().setAll(wishlistView);
-			
+			if (!inputCheck.isInputEmpty(item.getText())) {
+				System.out.println("Desc " + item.getText());
+				controller.saveItem();
+				AnchorPane wishlistView = null; 
+				FXMLLoader loaderWishlistView  = new FXMLLoader(getClass().getResource("/view/WishlistView.fxml")); 
+				try {
+					wishlistView = loaderWishlistView.load();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				wishlistaddpane.getChildren().setAll(wishlistView);
+			} else {
+				inputCheck.alertInputEmpty();
+			}	
 		} else {
 			inputCheck.alertInputNotFloat();
 		}

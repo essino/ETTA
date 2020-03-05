@@ -93,13 +93,10 @@ public class WishlistController {
 		Item item = new Item();
 		item.setDescription(addGui.getItemDesc());
 		Person person = personDAO.readPerson(addGui.getItemPerson());
-		System.out.println("person name " + person.getName());
-		System.out.println("person id " + person.getPerson_id());
 		item.setPerson(person);
-		if(inputCheck.isInputEmpty(addGui.getItemPrice())) {
+		if (inputCheck.isInputEmpty(addGui.getItemPrice())) {
 			item.setPrice(null);
-		}
-		else {
+		} else {
 			item.setPrice(Double.parseDouble(addGui.getItemPrice()));
 		}
 		item.setDateNeeded(addGui.getItemDate());
