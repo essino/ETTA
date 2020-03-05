@@ -14,9 +14,9 @@
           <TableColumn fx:id="item" prefWidth="75.0" text="Item" />
           <TableColumn fx:id="person" prefWidth="75.0" text="Person" />
             <TableColumn fx:id="price" prefWidth="75.0" text="Price" />
-            <TableColumn fx:id="date" prefWidth="75.0" text="Date" />
-            <TableColumn fx:id="addinfo" prefWidth="160.800048828125" text="Additional Information" />
-            <TableColumn fx:id="bought" minWidth="0.0" prefWidth="65.5999755859375" text="Bought" />
+            <TableColumn fx:id="date" prefWidth="99.99998474121094" text="Date Needed" />
+            <TableColumn fx:id="addinfo" prefWidth="146.4000244140625" text="Additional Information" />
+            <TableColumn fx:id="bought" minWidth="0.0" prefWidth="61.5999755859375" text="Bought" />
         </columns>
       </TableView>
       <ButtonBar layoutX="127.0" layoutY="597.0" prefHeight="40.0" prefWidth="652.0" AnchorPane.bottomAnchor="113.0" AnchorPane.leftAnchor="127.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="597.0">

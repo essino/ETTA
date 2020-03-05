@@ -126,9 +126,11 @@ public class WishlistController {
 	 */ 
 	public void removeItem() {
 		itemDAO.deleteItem(gui.getSelectedItem().getItem_id());
-		gui.removeFromTable(gui.getSelectedItem());
 	}
 	
+	/** 
+	 * Method for marking an item as bought
+	 */ 
 	public void setBought() {
 		Item item = itemDAO.readItem(gui.getSelectedItem().getDescription());
 		item.setBought(true);

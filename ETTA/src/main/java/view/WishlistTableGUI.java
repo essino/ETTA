@@ -81,7 +81,7 @@ public class WishlistTableGUI {
 	 * Table view column for bought boolean
 	 */
 	@FXML
-	TableColumn<Item, Boolean> bought;
+	TableColumn<Item, String> bought;
 	
 	/**
 	 * Constructor responsible for creating the wishlist controller
@@ -92,12 +92,11 @@ public class WishlistTableGUI {
 
 	/**
 	 * Initialize-method called when the class is created
-	 * Fetches the wishlist items from the database and shows them in the table view
+	 * Fetches the wishlist items from the database and displays them in the table view
 	 */
 	@FXML
 	public void initialize() {
 		item.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
-		
 		person.setCellValueFactory(new Callback<CellDataFeatures<Item, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Item, String> item) {
 		         // item.getValue() returns the Data instance for a particular TableView row
@@ -110,29 +109,20 @@ public class WishlistTableGUI {
 		         
 			}
 		});
-		
+		bought.setCellValueFactory(new Callback<CellDataFeatures<Item, String>, ObservableValue<String>>() {
+			public ObservableValue<String> call(CellDataFeatures<Item, String> item) {
+				if (item.getValue().isBought() == true) {
+					return new ReadOnlyObjectWrapper<>("Yes");
+				} else {
+					return new ReadOnlyObjectWrapper<>("No");
+				}
+					
+			}
+		});
 		price.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
 		date.setCellValueFactory(new PropertyValueFactory<Item, Date>("dateNeeded"));
 		addinfo.setCellValueFactory(new PropertyValueFactory<Item, String>("additionalInfo"));
-		
-		bought.setCellValueFactory(new PropertyValueFactory<Item, Boolean>("bought"));
-		/*bought.setCellValueFactory (new Callback<CellDataFeatures<Item, Boolean>, ObservableValue<Boolean>>() {
-			@Override public 
-			ObservableValue<Boolean> call(CellDataFeatures<Item, Boolean> item) {
-				//BooleanBinding bgth = Bindings.createBooleanBinding(() -> item.getValue().isBought(), bought);
-				//return new ReadOnlyObjectWrapper(item.getValue().getBought()); 
-				return item.getValue().getBought();
-			}
-		});
-		*/
-		/*bought.setCellFactory (new Callback<TableColumn<Item, Boolean>,TableCell<Item, Boolean>>(){
-			@Override public
-			TableCell<Item, Boolean> call(TableColumn<Item, Boolean> bought) {
-				return new CheckBoxTableCell<>(); 
-			}
-		});	
-		*/
-		
+		//bought.setCellValueFactory(new PropertyValueFactory<Item, Boolean>("bought"));
 		final ObservableList<Item> data = FXCollections.observableArrayList(controller.getItems());
 		wishlisttable.setItems(data);
 	}
@@ -169,21 +159,16 @@ public class WishlistTableGUI {
 	@FXML
 	public void deleteItem() {
 		controller.removeItem();
+		initialize();
 	}
 	
 	/** 
-	 * Method that removes an item from the table
-	 * @param item the item to be removed
+	 * Method for marking an item as bought
 	 */
-	@FXML
-	public void removeFromTable(Item item) {
-		wishlisttable.getItems().remove(item);
-	}
-	
 	@FXML
 	public void markAsBought() {
 		controller.setBought();
-		wishlisttable.refresh();
+		initialize();
 	}
 	
 }
