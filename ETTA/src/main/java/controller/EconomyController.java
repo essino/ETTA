@@ -162,11 +162,11 @@ public class EconomyController {
 	}
 	
 	/** 
-	 * Method that gets Categories from CategoryDAO and makes a list containing categories' names only 
+	 * Method that gets expense Categories from CategoryDAO and makes a list containing categories' names only 
 	 * @return ObservableList<String> names - list of categories' names
 	 */ 
-	public ObservableList<String> categoriesList() {
-		Category[] categories = categoryDAO.readCategories();
+	public ObservableList<String> expenseCategoriesList() {
+		Category[] categories = categoryDAO.readExpenseCategories();
 		ArrayList categoryNames = new ArrayList();
 		for (Category category : categories){
 			categoryNames.add(category.getDescription());
@@ -176,6 +176,20 @@ public class EconomyController {
 		
 	}
 	
+	/** 
+	 * Method that gets  income Categories from CategoryDAO and makes a list containing categories' names only 
+	 * @return ObservableList<String> names - list of categories' names
+	 */ 
+	public ObservableList<String> incomeCategoriesList() {
+		Category[] categories = categoryDAO.readIncomeCategories();
+		ArrayList categoryNames = new ArrayList();
+		for (Category category : categories){
+			categoryNames.add(category.getDescription());
+		}
+		ObservableList<String> names =  FXCollections.observableArrayList(categoryNames);
+		return names;
+		
+	}
 	/** 
 	 * Method that gets new expense's detail from addExpenceGUI and gives the expense to TransferDAO
 	 */ 
@@ -247,6 +261,20 @@ public class EconomyController {
 	
 	public Transfer[] getIncome() {
 		return transDAO.readIncome();
+	}
+	
+	/** 
+	 * Method that gets the selected income from economyIncomeGUI, 
+	 * tells TransferDAO to delete the income from the database 
+	 * and economyIncomeGUI to delete it from the tableView.
+	 */ 
+	public void removeIncome() {
+		transDAO.deleteTransfer(incomeGUI.transferToDelete().getTransfer_id());
+		Balance balance = balanceDao.readBalance(1);
+		float newAmount = balance.getBalance() - incomeGUI.transferToDelete().getAmount();
+		balance.setBalance(newAmount);
+		balanceDao.updateBalance(balance);
+		incomeGUI.removeFromTable(incomeGUI.transferToDelete());
 	}
 
 }

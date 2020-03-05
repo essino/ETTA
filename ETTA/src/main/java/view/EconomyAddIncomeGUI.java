@@ -9,8 +9,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import model.Category;
 import model.CategoryDAO;
 
 public class EconomyAddIncomeGUI {
@@ -68,7 +72,41 @@ public class EconomyAddIncomeGUI {
 	 */
 	@FXML
 	public void initialize() {
-		incomeCategoryList.getItems().addAll(controller.categoriesList());
+		incomeCategoryList.getItems().addAll(controller.incomeCategoriesList());
+		incomeCategoryList.getItems().add("");
+		incomeCategoryList.setCellFactory(lv -> {
+            ListCell<String> cell = new ListCell<String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        if (item.isEmpty()) {
+                            setText("Add category...");
+                        } else {
+                            setText(item);
+                        }
+                    }
+                }
+            };
+
+            cell.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
+                if (cell.getItem().isEmpty() && ! cell.isEmpty()) {
+                    TextInputDialog dialog = new TextInputDialog();
+                    dialog.setContentText("Enter name");
+                    dialog.showAndWait().ifPresent(text -> {
+                        int index = incomeCategoryList.getItems().size()-1;
+                        incomeCategoryList.getItems().add(index, text);
+                        categoryDAO.createCategory(new Category(text, true));
+                        incomeCategoryList.getSelectionModel().select(index);
+                    });
+                    evt.consume();
+                }
+            });
+
+            return cell ;
+        });
 	}
 	
 	/** 

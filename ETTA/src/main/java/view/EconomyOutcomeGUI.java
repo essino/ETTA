@@ -50,7 +50,7 @@ public class EconomyOutcomeGUI {
     private TableColumn<Transfer, Float> expenseAmount;
     
     /**
-  	 * The reference of TableColumn (expense's amount) will be injected by the FXML loader
+  	 * The reference of TableColumn (expense's category) will be injected by the FXML loader
   	 */
       @FXML
       private TableColumn<Category, String> expenseCategory;

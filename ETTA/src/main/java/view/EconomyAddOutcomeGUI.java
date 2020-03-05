@@ -66,11 +66,11 @@ public class EconomyAddOutcomeGUI {
 	EconomyController controller = new EconomyController(this);
 	
 	/** 
-	 * Method that initializes the view - gets the categories from the EconomyController and displays them in the drop down list
+	 * Method that initializes the view - gets the expense categories from the EconomyController and displays them in the drop down list
 	 */
 	@FXML
 	public void initialize() {
-		outcomeCategoryList.getItems().addAll(controller.categoriesList());
+		outcomeCategoryList.getItems().addAll(controller.expenseCategoriesList());
 		outcomeCategoryList.getItems().add("");
 		outcomeCategoryList.setCellFactory(lv -> {
             ListCell<String> cell = new ListCell<String>() {
