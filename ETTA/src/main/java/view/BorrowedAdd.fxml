@@ -47,19 +47,19 @@
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
             </Label>
-            <TextField prefHeight="66.0" prefWidth="555.0" GridPane.columnIndex="1">
+            <TextField fx:id="borrowedThing" prefHeight="66.0" prefWidth="555.0" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <DatePicker prefHeight="65.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
- 			<DatePicker prefHeight="65.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="loanDate" prefHeight="65.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+ 			<DatePicker fx:id="returnDate" prefHeight="65.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ComboBox fx:id="bbc" prefHeight="66.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <ButtonBar layoutX="546.0" layoutY="554.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="156.0" AnchorPane.rightAnchor="54.0">
         <buttons>
-          <Button fx:id="buttonAdd" onAction="#addBorrowed" mnemonicParsing="false" text="Add">
+          <Button fx:id="buttonAdd" mnemonicParsing="false" onAction="#addBorrowed" text="Add">
                <font>
                   <Font size="18.0" />
                </font>

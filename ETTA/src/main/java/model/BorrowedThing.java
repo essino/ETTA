@@ -36,7 +36,6 @@ public class BorrowedThing {
 	 * Constructor to create borrowed items. No parameters.
 	 */
 	public BorrowedThing() {
-		
 	}
 	
 	/**
@@ -60,6 +59,7 @@ public class BorrowedThing {
 	 *@param dateBorrowed Date on which the item is borrowed
 	 *@param returnDate Date on which the item is returned
 	 *@param person the person to whom the item is loaned. It refers to the right person in the Person table in the database.
+	 *@param returned boolean indicating whether or not the item has been returned.
 	 */
 	public BorrowedThing(int thing_id, String description, Date dateBorrowed, Date returnDate, Person person) {
 		this.thing_id = thing_id;
@@ -67,11 +67,9 @@ public class BorrowedThing {
 		this.dateBorrowed = dateBorrowed;
 		this.returnDate = returnDate;
 		this.person = person;
-		this.returned=false;
+		this.returned = false;
 	}
 
-	
-	
 	/**
 	 * Function to fetch the id number of the borrowed item from the database.
 	 * @return thing_id the id number of the borrowed item in the database
@@ -152,10 +150,18 @@ public class BorrowedThing {
 		this.person = person;
 	}
 	
+	/**
+	 * Function to find out whether or not the borrowed item is returned
+	 * @return returned the Boolean that tells whether or not something is returned
+	 */
 	public boolean isReturned() {
 		return returned;
 	}
 
+	/**
+	 * Function to register the status of the borrowed item, i.e. whether it is returned or not.
+	 * @param returned the Boolean that tells whether or not something is returned
+	 */
 	public void setReturned(boolean returned) {
 		this.returned = returned;
 	}
