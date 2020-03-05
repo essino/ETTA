@@ -96,10 +96,17 @@ public class CategoryDAO {
 			Session session = factory.openSession();
 			transaction = session.beginTransaction();
 			List<Category>  result = session.createQuery( "from Category where description='" + description + "'" ).list();
-			category = result.get(0);		
-			transaction.commit();
-			System.out.println("result " + result);
-			System.out.println("reading one:" + category.getDescription());
+			if(result.size() !=0) {
+				category = result.get(0);
+				transaction.commit();
+				System.out.println("result " + result);
+				System.out.println("reading one:" + category.getDescription());
+			}
+			else {
+				category = null;
+			}
+					
+			
 		}
 		catch(Exception e){
 			if (transaction!= null) transaction.rollback();

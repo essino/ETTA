@@ -103,5 +103,13 @@ public class BorrowedController {
 		borrowedThing.setReturned(false);
 		borrowedThingDAO.createBorrowedThing(borrowedThing);
 	}
+	
+	/** 
+	 * Method for deleting a borrowed thing from the database
+	 */ 
+	public void removeBorrowedThing() {
+		borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
+		tableGUI.removeFromBorrowedTable(tableGUI.getSelectedBorrowedThing());
+	}
 }
 

@@ -161,7 +161,9 @@ public class EconomyAddIncomeGUI {
 	 */
 	@FXML
 	public void AddNewIncome() {
-		if(inputCheck.isInputFloat(incomeAmount.getText())) {
+		if(inputCheck.isInputFloat(incomeAmount.getText())){
+			
+			if(!inputCheck.isInputEmpty(incomeDescription.getText())) {
 			controller.saveIncome();
 			AnchorPane incomeView = null; 
 			FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/EconomyIncome.fxml")); 
@@ -173,8 +175,15 @@ public class EconomyAddIncomeGUI {
 				}
 			economyincomeaddanchorpane.getChildren().setAll(incomeView);
 		}
+			else {
+				inputCheck.alertInputEmpty();
+			}
+			
+		}
+		
 		else {
 			inputCheck.alertInputNotFloat();
+			
 		}	
 	}
 	

@@ -23,6 +23,8 @@ public class InputCheck {
 	    }
 	    return b;
 	}
+	
+	
 
 	/** 
 	 * Method that alerts that user input can not be transformed into float
@@ -47,7 +49,7 @@ public class InputCheck {
 	    }
 	    return b;
 	}
-
+	
 	/** 
 	 * Method that alerts that user input is empty
 	 */
@@ -60,3 +62,5 @@ public class InputCheck {
 	}
 	//TODO: add checking for Min and MAx values for integers and Floats
 }
+
+

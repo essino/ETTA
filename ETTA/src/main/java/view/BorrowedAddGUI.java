@@ -44,12 +44,18 @@ public class BorrowedAddGUI {
 	@FXML
 	ComboBox<String> bbc;
 	
-	@FXML
-	Button buttonAdd;
+	/*@FXML
+	Button buttonAdd;*/
 	
+	/**
+	 * The anchor pane for the add view
+	 */
 	@FXML
 	AnchorPane borrowedaddanchorpane;
 	
+	/**
+	 * Reference to the used BorrowedController
+	 */
 	BorrowedController controller = new BorrowedController(this);
 	
 	InputCheck inputCheck = new InputCheck();
@@ -59,7 +65,10 @@ public class BorrowedAddGUI {
 		System.out.println("found"); 
 	}*/
 	
-	
+	/**
+	 * Initialize-method called when the class is created
+	 * Fetches the list of people in the database to whom items can be given
+	 */
 	@FXML
 	public void initialize() {
 			bbc.getItems().addAll(controller.personsList());
@@ -149,6 +158,7 @@ public class BorrowedAddGUI {
 	 */
 	@FXML
 	public void addBorrowed() {
+		if (!inputCheck.isInputEmpty(borrowedThing.getText())) {
 			controller.saveBorrowedThing();
 			AnchorPane borrowedviewanchorpane = null; 
 			FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/BorrowedView.fxml")); 
@@ -158,6 +168,24 @@ public class BorrowedAddGUI {
 				e.printStackTrace();
 			}
 			borrowedaddanchorpane.getChildren().setAll(borrowedviewanchorpane);
+		} else {
+			inputCheck.alertInputNotFloat();
+		}
 	}
 	
+	/**
+	 * Method for canceling the adding of a new borrowed thing
+	 * Exits the add view and returns to the main view
+	 */
+	@FXML
+	public void cancelAddBorrowed() {
+		AnchorPane borrowedviewanchorpane = null; 
+		FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/BorrowedView.fxml")); 
+		try {
+			borrowedviewanchorpane = loaderBorrowedView.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		borrowedaddanchorpane.getChildren().setAll(borrowedviewanchorpane);
+	}
 }

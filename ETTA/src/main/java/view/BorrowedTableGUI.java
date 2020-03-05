@@ -3,7 +3,10 @@ package view;
 import java.io.IOException;
 import java.sql.Date;
 
+import com.sun.xml.bind.v2.schemagen.episode.Bindings;
+
 import controller.BorrowedController;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -11,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -18,12 +22,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import model.BorrowedThing;
+import model.Item;
 import model.Person;
 
 
 public class BorrowedTableGUI {
 	
-	BorrowedController controller = new BorrowedController(this);
+	//NB! this is different in Tiina's WishlistTableGUI - could cause problems
+	BorrowedController controller;// = new BorrowedController(this);
 	
 	@FXML
 	AnchorPane borrowedviewanchorpane;
@@ -42,7 +48,6 @@ public class BorrowedTableGUI {
 	
 	@FXML
 	private TableColumn<Person, String> borrowedBy;
-	//private TableColumn<BorrowedThing, String> borrowedBy;
 	
 	@FXML
 	private TableColumn<BorrowedThing, Boolean> returned;
@@ -86,8 +91,32 @@ public class BorrowedTableGUI {
 		borrowedTable.setItems(data);
 	}
 	
-
-
+	/**
+	 * Method for getting the selected item from the table
+	 * @return the selected item
+	 */
+	@FXML
+	public BorrowedThing getSelectedBorrowedThing() {
+		//System.out.println("Selection: " + borrowedTable.getSelectionModel().getSelectedItem());
+		return borrowedTable.getSelectionModel().getSelectedItem();
+	}
+	
+	/**
+	 * Method for deleting the selected borrowed thing from the database
+	 */
+	@FXML
+	public void deleteSelectedBorrowedThing() {
+		controller.removeBorrowedThing();
+	}
+	
+	/** 
+	 * Method that removes an item from the table
+	 * @param item the item to be removed
+	 */
+	@FXML
+	public void removeFromBorrowedTable(BorrowedThing borrowedThing) {
+		borrowedTable.getItems().remove(borrowedThing);
+	}
 } 
 
 
