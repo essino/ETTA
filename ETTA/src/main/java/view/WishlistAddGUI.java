@@ -18,44 +18,92 @@ import javafx.scene.layout.AnchorPane;
  */
 public class WishlistAddGUI {
 	
+	/**
+	 * Text field for the name of the item to be added
+	 */
 	@FXML
 	TextField item;
+	
+	/**
+	 * ComboBox for selecting the person who the item to be added is for
+	 */
 	@FXML
 	ComboBox<String> toWhom;
+	
+	/**
+	 * Text field for the price of the item to be added
+	 */
 	@FXML
 	TextField price;
+	
+	/**
+	 * Date picker for the date the item to be added is needed
+	 */
 	@FXML
 	DatePicker date;
+	
+	/**
+	 * Text field for additional information about the item to be added
+	 */
 	@FXML
 	TextField additional;
 	
+	/**
+	 * The anchor pane for the add view
+	 */
 	@FXML
 	AnchorPane wishlistaddpane;
 	
+	/**
+	 * Reference to the used WishlistController
+	 */
 	WishlistController controller = new WishlistController(this);
 	
+	/**
+	 * The input check class used for validating user input
+	 */
 	InputCheck inputCheck = new InputCheck();
 	
+	/**
+	 * Initialize-method called when the class is created
+	 * Fetches the list of people in the database to whom items can be given
+	 */
 	@FXML
 	public void initialize() {
 			toWhom.getItems().addAll(controller.personsList());
 	}
 	
+	/**
+	 * Method for getting the value of the item text field
+	 * @return the description of the item
+	 */
 	@FXML
 	public String getItemDesc() {
 		return this.item.getText();
 	}
 	
+	/**
+	 * Method for getting the person who the item is for from the combo box
+	 * @return the person who the item is for
+	 */
 	@FXML
 	public String getItemPerson() {
 		return this.toWhom.getValue();
 	}
 	
+	/**
+	 * Method for getting the value of the price text field
+	 * @return the price of the item
+	 */
 	@FXML
 	public String getItemPrice() {
 		return this.price.getText();
 	}
 	
+	/**
+	 * Method for getting the date when the item is needed from the date picker
+	 * @return the date when the item is needed
+	 */
 	@FXML
 	public Date getItemDate() {
 		try {
@@ -65,11 +113,21 @@ public class WishlistAddGUI {
 		}
 	}
 	
+	/**
+	 * Method for getting the value of the addition info text field
+	 * @return additional information about the item
+	 */
 	@FXML
 	public String getItemAdditional() {
 		return this.additional.getText();
 	}
 	
+	/**
+	 * Method for adding a new item to the database
+	 * Checks if the user inputs are valid, then calls the controller to create the new item
+	 * If the user inputs are not valid, displays an error message to the user
+	 * After the new item is created, returns to the main wishlist view
+	 */
 	@FXML
 	public void addNewItem() {
 		if (inputCheck.isInputFloat(price.getText())) {
@@ -88,6 +146,10 @@ public class WishlistAddGUI {
 		}
 	}
 	
+	/**
+	 * Method for canceling the adding of a new item
+	 * Exits the add view and returns to the main view
+	 */
 	@FXML
 	public void cancelAdd() {
 		AnchorPane wishlistView = null; 

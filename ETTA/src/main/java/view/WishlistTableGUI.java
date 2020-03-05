@@ -23,12 +23,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import model.Item;
+import model.Transfer;
 
 /**
  * GUI class for the wishlist page
  */
 public class WishlistTableGUI {
 	
+	/**
+	 * Reference to the used WishlistController
+	 */
 	WishlistController controller;
 	
 	/**
@@ -142,6 +146,32 @@ public class WishlistTableGUI {
 			e.printStackTrace();
 			}
 		wishlistanchorpane.getChildren().setAll(showAddWishView);
+	}
+	
+	/**
+	 * Method for getting the selected item from the table
+	 * @return the selected item
+	 */
+	@FXML
+	public Item getSelectedItem() {
+		return wishlisttable.getSelectionModel().getSelectedItem();
+	}
+	
+	/**
+	 * Method for deleting the selected item from the database
+	 */
+	@FXML
+	public void deleteItem() {
+		controller.removeItem();
+	}
+	
+	/** 
+	 * Method that removes an item from the table
+	 * @param item the item to be removed
+	 */
+	@FXML
+	public void removeFromTable(Item item) {
+		wishlisttable.getItems().remove(item);
 	}
 	
 }

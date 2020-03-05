@@ -27,11 +27,13 @@ public class WishlistController {
 	private WishlistTableGUI gui;
 	
 	/**
+	 * Reference to the WishlistAddGUI
+	 */
+	private WishlistAddGUI addGui;
+	
+	/**
 	 * PersonDAO used for accessing the database
 	 */
-	
-	private WishlistAddGUI addGui;
-
 	PersonDAO personDAO = new PersonDAO();
 	
 	/**
@@ -79,6 +81,9 @@ public class WishlistController {
 		return names;
 	}
 	
+	/** 
+	 * Method for creating a new item and saving it to the database
+	 */ 
 	public void saveItem() {
 		Item item = new Item();
 		item.setDescription(addGui.getItemDesc());
@@ -91,6 +96,14 @@ public class WishlistController {
 		item.setBought(false);
 		item.setAdditionalInfo(addGui.getItemAdditional());
 		itemDAO.createItem(item);
+	}
+	
+	/** 
+	 * Method for deleting an item from the database
+	 */ 
+	public void removeItem() {
+		itemDAO.deleteItem(gui.getSelectedItem().getItem_id());
+		gui.removeFromTable(gui.getSelectedItem());
 	}
 
 }
