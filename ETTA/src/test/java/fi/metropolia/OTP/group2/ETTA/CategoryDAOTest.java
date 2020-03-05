@@ -39,18 +39,18 @@ public class CategoryDAOTest {
 	@Test
 	@Order(2)
 	public void testReadCategories() {
-		length = categoryDAO.readCategories().length;
+		length = categoryDAO.readIncomeCategories().length;
 		Category category2 = new Category("veikkaus", true);
 		assertEquals(true, categoryDAO.createCategory(category2), "Creation of category failed");
 		length++;
-		assertEquals(length, categoryDAO.readCategories().length, "Reading all failed");
+		assertEquals(length, categoryDAO.readIncomeCategories().length, "Reading all failed");
 	}
 	
 	@Test
 	@Order(3)
 	public void testReadCategory() {
-		length = categoryDAO.readCategories().length;
-		index = categoryDAO.readCategories()[length-1].getCategory_id();
+		length = categoryDAO.readIncomeCategories().length;
+		index = categoryDAO.readIncomeCategories()[length-1].getCategory_id();
 		assertEquals("veikkaus", categoryDAO.readCategory(index).getDescription(), "Reading one failed (description)");
 	}
 	/*
@@ -68,10 +68,10 @@ public class CategoryDAOTest {
 	@Test
 	@Order(5)
 	public void testDelete() {
-		length = categoryDAO.readCategories().length;
+		length = categoryDAO.readIncomeCategories().length;
 		System.out.println("length in deleting " + length);
 		
-		index = categoryDAO.readCategories()[length-1].getCategory_id();
+		index = categoryDAO.readIncomeCategories()[length-1].getCategory_id();
 		System.out.println("id in deleting " + index);
 		assertEquals(true, categoryDAO.deleteCategory(index), "deleting failed");
 		assertEquals(true, categoryDAO.deleteCategory(index-1), "Deleting failed");

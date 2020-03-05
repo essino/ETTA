@@ -109,15 +109,38 @@ public class CategoryDAO {
 	}
 	
 	/**
-	 * method for reading all categories from the database
+	 * method for reading all expense categories from the database
 	 * @return Category[]  list of  category objects read from the database
 	 */
-	public Category[] readCategories() {
+	public Category[] readExpenseCategories() {
 		ArrayList<Category> list = new ArrayList<>();
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
 			
-			List<Category> result = session.createQuery("from Category").getResultList();
+			List<Category> result = session.createQuery("from Category where income=false").getResultList();
+			for(Category category : result) {
+				list.add(category);
+				System.out.println(category.getDescription());
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		Category[] categories = new Category[list.size()];
+		return (Category[])list.toArray(categories);
+	}
+	
+	/**
+	 * method for reading all income categories from the database
+	 * @return Category[]  list of  category objects read from the database
+	 */
+	public Category[] readIncomeCategories() {
+		ArrayList<Category> list = new ArrayList<>();
+		try (Session session = factory.openSession()) {
+			transaction = session.beginTransaction();
+			
+			List<Category> result = session.createQuery("from Category where income=true").getResultList();
 			for(Category category : result) {
 				list.add(category);
 				System.out.println(category.getDescription());

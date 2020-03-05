@@ -85,5 +85,30 @@ public class EconomyIncomeGUI {
                 new PropertyValueFactory<Transfer, Float>("amount"));
 		ObservableList<Transfer> income =  FXCollections.observableArrayList(controller.getIncome());
 		incomeTable.setItems(income);
-}
+	}
+	
+	/** 
+	 * Method that tells controller to delete an income 
+	 */
+	@FXML
+	public void deleteIncome() {
+		controller.removeExpense();
+	}
+	
+	/** 
+	 * Method that returns the selected expense
+	 * @return Transfer that is selected
+	 */
+	public Transfer transferToDelete() {
+		return incomeTable.getSelectionModel().getSelectedItem();
+	}
+	
+	/** 
+	 * Method that removes an expense from the tableView
+	 * @param Transfer expense to be removed
+	 */
+	@FXML
+	public void removeFromTable(Transfer transfer) {
+		incomeTable.getItems().remove(transfer);
+	}
 }
