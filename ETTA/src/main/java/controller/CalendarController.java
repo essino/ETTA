@@ -1,88 +1,184 @@
 package controller;
 
-import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.LocalTime;
 
 import com.calendarfx.model.Calendar;
+import com.calendarfx.model.CalendarEvent;
+import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
-import com.calendarfx.view.page.DayPage;
-import com.calendarfx.view.page.MonthPage;
-import com.calendarfx.view.page.WeekPage;
-import com.calendarfx.view.popover.EntryDetailsView;
-import com.calendarfx.view.popover.EntryHeaderView;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import com.calendarfx.view.CalendarView;
+
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+
+import com.calendarfx.model.Calendar.Style;
+
+import model.Event;
+import model.EventDAO;
 
 public class CalendarController {
-	@FXML 
-	BorderPane mainPane;
+	/**
+	 * EventDAO used for accessing the database
+	 */
+	EventDAO eventDAO = new EventDAO();
 	
-	@FXML
-	Button calendarButton;
+	/** 
+	 * Method that checks if the event already exists in the database.
+	 * @param id - entry/event id
+	 * @return false if the event already exists in the database
+	 * @return true if the event is in database already
+	 */
+	public boolean checkIfEventExist(int id) {
+		if(eventDAO.readEvent(id)==null) {
+			return false;
+		}
+		return true;
+	}
 	
-	@FXML
-	AnchorPane CalendarMenu;
+	/** 
+	 * Method that creates CalendarsSource with calendars
+	 * @return CalendarSource 
+	 */
+	public CalendarSource getCalendarSource() {
+		Calendar calendar2 = new Calendar("birthdays");
+		calendar2.setStyle(Style.STYLE2);
+		Calendar calendar3 = new Calendar("kids");
+		calendar3.setStyle(Style.STYLE3);
+		Calendar calendar4 = new Calendar("work");
+		calendar4.setStyle(Style.STYLE4);
+		Calendar calendar5 = new Calendar("health");
+		calendar5.setStyle(Style.STYLE5);
+		Calendar calendar6 = new Calendar("meetings");
+		calendar6.setStyle(Style.STYLE6);
+		Calendar calendar7 = new Calendar("culture");
+		calendar7.setStyle(Style.STYLE7);
+		
+		CalendarSource myCalendarSource = new CalendarSource("My Calendars"); 
+		myCalendarSource.getCalendars().addAll(calendar2, calendar3, calendar4, calendar5, calendar6, calendar7);
+		ObservableList<Calendar> calendars = myCalendarSource.getCalendars();
+		EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
+		for(Calendar calendar : calendars) {
+			Event [] events = eventDAO.readEventsFromOneCalendar("'" + calendar.getName() + "'");
+			for (Event event : events) {
+				Entry entry = fromEventToEntry(event);
+				calendar.addEntry(entry);
+			}
+			calendar.addEventHandler(handler);
+		}
+        return myCalendarSource;
+	}
 	
-	@FXML
-	Button backToMain;
+	/** 
+	 * Method that handles CalendarEvents
+	 * @param event - Event that was created, edited or deleted
+	 */
+	public void handleCalendarEvent(CalendarEvent evt) {
+		if(evt.isEntryRemoved()) {
+			Entry entry = evt.getEntry();
+			Event newEvent = fromEntryToEvent(entry);
+			eventDAO.deleteEvent(newEvent.getEvent_id());
+		}
+		//else if(evt.isEntryAdded()) {
+		else if(checkIfEventExist(Integer.parseInt(evt.getEntry().getId()))==false) {
+			Entry entry = evt.getEntry();
+			Event newEvent = fromEntryToEvent(entry);
+			eventDAO.createEvent(newEvent);
+		}
+		else {
+				Entry entry = evt.getEntry();
+				Event newEvent = fromEntryToEvent(entry);
+				eventDAO.updateEvent(newEvent);
+			}
+
+	}
 	
-	@FXML
-	Button CalendarDay;
+	/** 
+	 * Method that converts LocalDate to sql Date
+	 * @param LocalDate that will be converted
+	 * @return Date converted from LocalDate
+	 */
+	public Date convertToDateViaSqlDate(LocalDate dateToConvert) {
+	    return java.sql.Date.valueOf(dateToConvert);
+	}
 	
-	@FXML
-	Button CalendarWeek;
+	/** 
+	 * Method that converts LocalTime to sql Time
+	 * @param LocalTime that will be converted
+	 * @return Time converted from LocalTime
+	 */
+	public static java.sql.Time toSqlTime(LocalTime localTime) {
+		return java.sql.Time.valueOf(localTime);
+		}
 	
-	@FXML
-	Button CalendarMonth;
-	
-	@FXML
-	Button CalendarAdd;
-	
-	@FXML
-	VBox calendarNewEvent;
+	/** 
+	 * Method that creates an Entry from Event
+	 * @param Event - event to be converted intoEntry
+	 * @return Entry - entry converted  from  Event
+	 */ 
+	public Entry fromEventToEntry(Event event) {
+		Entry entry = new Entry();
+		entry.setTitle(event.getTitle());
+		entry.setLocation(event.getLocation());
+		entry.setInterval(event.getStartDate().toLocalDate(), event.getEndDate().toLocalDate());
+		entry.setFullDay(event.isFullday());
+		if(!event.isFullday()) {
+			entry.setInterval(event.getStartTime().toLocalTime(), event.getEndTime().toLocalTime());
+		}
+		entry.setId(String.valueOf(event.getEvent_id()));
+		entry.setRecurrenceRule(event.getRrule());
+		
+		return entry;
+	 }
 	  
-	@FXML
-	public void showDayView(ActionEvent event) throws IOException {
-		DayPage calendarView = new DayPage();
-		mainPane.setCenter(calendarView);
-	}
-
-	@FXML
-	public void showWeekView(ActionEvent event) {
-		WeekPage calendarView = new WeekPage();
-        mainPane.setCenter(calendarView);
-	}
-
-	@FXML
-	public void showMonthView(ActionEvent event) {
-		MonthPage calendarView = new MonthPage();
-        mainPane.setCenter(calendarView);
-	}
-	
-	@FXML
-	public void showAddView(ActionEvent event) {
-		Calendar days = new Calendar("days");
-		Entry<Object> newEntry = new Entry<>("new entry");
-		newEntry.changeStartDate(LocalDate.now());
-		days.addEntry(newEntry);
-		ArrayList<Calendar> calendars = new ArrayList();
-		calendars.add(days);
-		EntryHeaderView header = new EntryHeaderView(newEntry, calendars);
-		header.setMaxWidth(400);
-		EntryDetailsView newentry = new EntryDetailsView(newEntry);
-		VBox addNewVBox = new VBox();
-		Button addNewEventButton = new Button();
-		addNewEventButton.setText("Save");
-		addNewVBox.setPrefSize(400, 400);
-		addNewVBox.getChildren().addAll(header, newentry, addNewEventButton);
-		addNewVBox.setPadding(new Insets(10, 50, 50, 50));
-		mainPane.setCenter(addNewVBox);
-	}
-	
+	/** 
+	 * Method that creates an Event from Entry
+	 * @param Entry - entry to be converted into Event
+	 * @return Event - event converted  from Entry
+	 */ 
+	 public Event fromEntryToEvent(Entry entry) {
+		Event event = new Event();
+		Date startDate = convertToDateViaSqlDate(entry.getStartDate());
+		Date endDate = convertToDateViaSqlDate(entry.getEndDate());
+		Time startTime = toSqlTime(entry.getStartTime());
+		Time endTime = toSqlTime(entry.getEndTime());
+		event.setTitle(entry.getTitle());
+		event.setLocation(entry.getLocation());
+		event.setEndDate(endDate);
+		event.setStartDate(startDate);
+		event.setEndTime(endTime);
+		event.setStartTime(startTime);
+		event.setFullday(entry.isFullDay());
+		event.setRecurring(entry.isRecurring());
+		event.setRrule(entry.getRecurrenceRule());
+		//event.setEvent_id(Integer.parseInt(entry.getId()));
+		if(event.getCalendar()==null) {
+			event.setCalendar("Default");
+		}
+		else {
+			event.setCalendar(entry.getCalendar().getName());
+		}
+		return event;
+	  }
+	 
+		/** 
+		 * Method that returns default CalendarsSource with the default calendar
+		 * @return CalendarSource 
+		 */
+	 public CalendarSource getDefaultCalendarSource(CalendarView calendarView) {
+		 CalendarSource calendarSource = calendarView.getCalendarSources().get(0);
+	        Calendar defaultCalendar = calendarSource.getCalendars().get(0);
+	        EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
+	        defaultCalendar.addEventHandler(handler);
+			Event [] events = eventDAO.readEventsFromOneCalendar("'" + defaultCalendar.getName() + "'");
+			for (Event event2 : events) {
+				Entry entry = fromEventToEntry(event2);
+				entry.setCalendar(defaultCalendar);
+				defaultCalendar.addEntry(entry);
+			}
+			
+		 return calendarSource;
+	 }
 }

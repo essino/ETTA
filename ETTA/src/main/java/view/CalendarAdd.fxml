@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CalendarController">
+<AnchorPane fx:id="calendarAddPane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CalendarController">
    <children>
       <VBox fx:id="calendarNewEvent" layoutX="116.0" layoutY="128.0" prefHeight="386.0" prefWidth="318.0" AnchorPane.bottomAnchor="236.0" AnchorPane.leftAnchor="116.0" AnchorPane.rightAnchor="366.0" AnchorPane.topAnchor="128.0">
          <children>

@@ -2,145 +2,154 @@ package view;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.calendarfx.model.Calendar;
+import com.calendarfx.model.Calendar.Style;
 import com.calendarfx.model.CalendarEvent;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
-import com.calendarfx.view.DetailedDayView;
+import com.calendarfx.view.CalendarView;
 import com.calendarfx.view.page.DayPage;
 import com.calendarfx.view.page.MonthPage;
 import com.calendarfx.view.page.WeekPage;
 import com.calendarfx.view.popover.EntryDetailsView;
 import com.calendarfx.view.popover.EntryHeaderView;
-import com.calendarfx.view.popover.EntryPopOverPane;
-import com.calendarfx.view.popover.EntryPropertiesView;
-import com.calendarfx.view.popover.PopOverContentPane;
 
-import javafx.application.Application;
+import controller.CalendarController;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.SubScene;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
+import model.Event;
+import model.EventDAO;
 
-public class CalendarGUI extends Application{
+/**
+ * GUI class relating to the Calendar section
+ */
 
-	Parent root2 = new BorderPane(); 
-
-	@FXML
-	BorderPane mainPane;
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		
-		
-		Parent root2 = FXMLLoader.load(getClass().getResource("/view/CalendarView.fxml"));    
-        Scene scene = new Scene(root2, 1000, 750);
-		primaryStage.setScene(scene); 
-		primaryStage.show();
-	}
+public class CalendarGUI {
+	/*
+	EventDAO eventDAO;
+	CalendarController controller;
+	CalendarView calendarView;
 	
-	 public static void main(String[] args) {
-	        launch(args);
-	    } 
+	/**
+	 * The menu view to which the alternative views in the Calendar section are added
 	 
-	public SubScene setMenu() {
-		System.out.println("setmenu");
-		AnchorPane menuLayout = new AnchorPane(); 
-		FXMLLoader fxmlLoaderMenu = new FXMLLoader(getClass().getResource("/view/CalendarMenu.fxml"));
-		try { 
-			menuLayout = fxmlLoaderMenu.load(); 
-		} catch (IOException e) { 
-
-		} 
-		SubScene menu = new SubScene(menuLayout, 200, 750);
-		return menu;
-	}
-
-	public SubScene setDayView() {
-		DetailedDayView calendarView = new DetailedDayView();   
-        SubScene calendarScene = new SubScene(calendarView, 800, 750);
-        return calendarScene;
-	}
+	@FXML 
+	BorderPane mainPane;
 	
 	@FXML
-	public void showDayView() {
-		System.out.println("showdayview");
-		//DayPage calendarView = new DayPage();
-		//DetailedDayView calendarView = new DetailedDayView();   
-        //SubScene calendarScene = new SubScene(calendarView, 800, 750);
-        //mainPane.setCenter(calendarView);
-		AnchorPane menuLayout = new AnchorPane(); 
-		FXMLLoader fxmlLoaderMenu = new FXMLLoader(getClass().getResource("/view/BlablaView.fxml"));
-		try { 
-			menuLayout = fxmlLoaderMenu.load(); 
-		} catch (IOException e) { 
+	Button calendarButton;
+	
+	@FXML
+	AnchorPane CalendarMenu;
+	
+	@FXML
+	AnchorPane CalendarAddPane;
 
-		} 
-		mainPane.setCenter(menuLayout);
+	@FXML
+	Button CalendarDay;
+	
+	@FXML
+	Button CalendarWeek;
+	
+	@FXML
+	Button CalendarMonth;
+	
+	@FXML
+	Button CalendarAdd;
+	
+	@FXML
+	VBox calendarNewEvent;
+	
+	CalendarSource myCalendarSource;
+	
+	public CalendarGUI() {
+		eventDAO = new EventDAO();
+		controller = new CalendarController();
+		calendarView  = new CalendarView();
+		//calendarView.setShowToolBar(false);
+		calendarView.getCalendarSources().addAll(controller.getCalendarSource());
+		//calendarView.setWeekFields(weekFields);
+		controller.getDeafultCalendarSource(calendarView);
+	}
+	
+	/**
+	 * Method showing the day view in the Calendar section
+	 * @param event ActionEvent that is handled
+	 
+	@FXML
+	//public void showDayView(ActionEvent event) throws IOException {
+	public void showDayView() {
+		calendarView.showDayPage();
+		mainPane.setCenter(calendarView);
 	}
 
+	/**
+	 * Method showing the week view in the Calendar section
+	 * @param event ActionEvent that is handled
+	 
 	@FXML
 	public void showWeekView() {
-		WeekPage calendarView = new WeekPage();
-		Calendar birthdays = new Calendar("birthdays");
-		EventHandler<CalendarEvent> handler = evt -> foo(evt);
-		birthdays.addEventHandler(handler);
-		
-		CalendarSource myCalendarSource = new CalendarSource("My calendar");
-		myCalendarSource.getCalendars().addAll(birthdays);
-		calendarView.getCalendarSources().addAll(myCalendarSource);
-		calendarView.setRequestedTime(LocalTime.now());
-		Entry<String> lenaBirthday = new Entry<>("Lena");
-		lenaBirthday.changeStartDate(LocalDate.now());
-		birthdays.addEntry(lenaBirthday);
-		//DetailedWeekView calendarView = new DetailedWeekView();   
-        //SubScene calendarScene = new SubScene(calendarView, 800, 750);
+		calendarView.showWeekPage();
+        mainPane.setCenter(calendarView);
+	}
+
+	/**
+	 * Method showing the month view in the Calendar section
+	 * @param event ActionEvent that is handled
+	 
+	@FXML
+	public void showMonthView() {
+		calendarView.showMonthPage();
         mainPane.setCenter(calendarView);
 	}
 	
-	
-	private void foo(CalendarEvent evt) {
-		System.out.println(evt);
-		System.out.println(evt.getEntry());
-		System.out.println(evt.getEntry().getCalendar());
-		System.out.println(evt.getEntry().getTitle());
-		System.out.println(evt.getEntry().getEndDate());
-		System.out.println(evt.getEntry().isFullDay());
-		System.out.println(evt.getEntry().getLocation());
-		System.out.println(evt.getEntry().getStartTime());
-		System.out.println(evt.getOldText());
-	}
-
+	/**
+	 * Method showing the add event view in the Calendar section
+	 * @param event ActionEvent that is handled
+	 
 	@FXML
-	public void showMonthView() {
-		//MonthPage calendarView = new MonthPage();
+	public void showAddView(ActionEvent event) {
+		/*
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/CalendarAdd.fxml"));
+		AnchorPane calendarAddView = null;
+		try {
+			calendarAddView = loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Calendar days = new Calendar("days");
 		Entry<Object> newEntry = new Entry<>("new entry");
 		newEntry.changeStartDate(LocalDate.now());
 		days.addEntry(newEntry);
-		List<Calendar> calendars = new ArrayList();
+		ArrayList<Calendar> calendars = new ArrayList();
 		calendars.add(days);
 		EntryHeaderView header = new EntryHeaderView(newEntry, calendars);
+		header.setMaxWidth(400);
 		EntryDetailsView newentry = new EntryDetailsView(newEntry);
-		Pane viewPane = new Pane();
-		viewPane.getChildren().addAll(header, newentry);
-		//MonthView calendarView = new MonthView();   
-        //SubScene calendarScene = new SubScene(calendarView, 800, 750);
-        //mainPane.setCenter(calendarView);
-		//mainPane.setTop(header);
-		mainPane.setCenter(viewPane);
+		VBox addNewVBox = new VBox();
+		Button addNewEventButton = new Button();
+		addNewEventButton.setText("Save");
+		addNewVBox.setPrefSize(400, 400);
+		addNewVBox.getChildren().addAll(header, newentry, addNewEventButton);
+		addNewVBox.setPadding(new Insets(10, 50, 50, 50));
+		mainPane.setCenter(addNewVBox);
 	}
-	
 
+	@FXML
+	public void init() {
+		showWeekView();
+	}
+*/
 }

@@ -1,0 +1,23 @@
+<hibernate-configuration>
+	<session-factory>
+		<!-- Käytä MySQL-tietokantaa -->
+		<property name="hibernate.dialect"> org.hibernate.dialect.MySQL5Dialect</property>
+
+		<!-- Yhteyden perustiedot: ajuri, palvelin käyttäjätunnus/salasana -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://10.114.32.15:3306/etta</property>
+		<property name="hibernate.connection.username">etta</property>
+		<property name="hibernate.connection.password">etta</property>
+
+		<!-- create , create-drop, update tai validate -->
+		<!-- Älä käytä tuotantoversioissa, ts, älä anna Hibernaten enää muuttaa taulurakennetta  -->
+		<!-- Ekalla kerralla create, kun kanta olemassa validate -->
+		<property name="hbm2ddl.auto">validate</property>
+		<property name="hibernate.jdbc.time_zone">Europe/Helsinki</property>
+		<!-- kun true, kaiuta kaikki SQL-lauseet stdout:iin -->
+		<property name="show_sql">true</property>
+
+		<!-- Mallitason DTO-oliot, pakkausnimet mukaan -->
+		<mapping class="" />
+	</session-factory>
+</hibernate-configuration>

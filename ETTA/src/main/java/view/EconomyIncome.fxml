@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="economyincomeanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EconomyIncomeGUI">
+   <children>
+      <TableView fx:id="incomeTable" layoutX="107.0" layoutY="90.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="21.0">
+        <columns>
+          <TableColumn fx:id="incomeCategory" prefWidth="247.0" text="Category" />
+          <TableColumn fx:id="incomeDescription" prefWidth="261.0" text="Description" />
+            <TableColumn fx:id="incomeAmount" prefWidth="114.0" text="Amount" />
+            <TableColumn fx:id="incomeDate" prefWidth="121.0" text="Date" />
+        </columns>
+      </TableView>
+      <ButtonBar layoutX="429.0" layoutY="696.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="28.0">
+        <buttons>
+          <Button mnemonicParsing="false" onAction="#showAddIncome" text="Add" />
+            <Button mnemonicParsing="false" text="Edit" />
+            <Button mnemonicParsing="false" onAction="#deleteIncome" text="Delete" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>
