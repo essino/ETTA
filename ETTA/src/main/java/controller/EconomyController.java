@@ -30,18 +30,14 @@ public class EconomyController {
 	 * Reference to the EconomyGUI
 	 */
 	private EconomyGUI ecoGUI;
+	
+	
 	/**
 	 * Reference to the EconomyAddOutcomeGUI
 	 */
 	private EconomyAddOutcomeGUI addExpenceGUI;
 	
-
-	/**
-	 * Reference to the EconomyAddcomeGUI
-	 */
-	//private EconomyAddIncomeGUI addIncomeGUI = new EconomyAddIncomeGUI ();
 	
-
 	/**
 	 * Reference to the EconomyOutcomeGUI
 	 */
@@ -62,36 +58,25 @@ public class EconomyController {
 	 * Reference to the EconomyAddIncomeGUI
 	 */
 	private EconomyAddIncomeGUI economyAddIncomeGUI;
+	
 	private EconomyIncomeGUI incomeGUI;
+	
+	
+	
 	
 	public void saveTransfer() {
 
 
-		String description = ecoGUI.getReason();
+		String description = ecoGUI.getDescription();
 		float incomeAmount = ecoGUI.getIncomeAmount();
 		Date incomeDate = ecoGUI.getIncomeDate();
 		Category category = null;
-		//Category category =ecoGUI.getCategory();
 		Boolean income = true;
 		Transfer transfer = new Transfer(description, category, income, incomeDate, incomeAmount);
 
 		Boolean Transfer = transDAO.createTransfer(transfer);
 	}
-	
-	//Pitääkö tätä olla
-	
-	/**
-	public EconomyController(EconomyGUI ecoGUI) {
-		this.ecoGUI = ecoGUI;
 
-
-		//String description = ecoGUI.getReason();
-
-		//String description = ecoGUI.getReason();
-
-
-	}
-	*/
 	
 	/** 
 	 * Constructor 
@@ -124,6 +109,8 @@ public class EconomyController {
 	public EconomyController(EconomyIncomeGUI economyIncomeGUI) {
 		this.incomeGUI = economyIncomeGUI;
 	}
+	
+
 	
 
 	/** 
@@ -162,6 +149,22 @@ public class EconomyController {
 	}
 	
 	/** 
+	 * Method that gets income Categories from CategoryDAO and makes a list containing categories' names only 
+	 * @return ObservableList<String> names - list of categories' names
+	 */ 
+	public ObservableList<String> incomeCategoriesList() {
+		Category[] categories = categoryDAO.readIncomeCategories();
+		ArrayList categoryNames = new ArrayList();
+		for (Category category : categories){
+			categoryNames.add(category.getDescription());
+		}
+		ObservableList<String> names =  FXCollections.observableArrayList(categoryNames);
+		return names;
+		
+	}
+	
+	
+	/** 
 	 * Method that gets expense Categories from CategoryDAO and makes a list containing categories' names only 
 	 * @return ObservableList<String> names - list of categories' names
 	 */ 
@@ -176,20 +179,26 @@ public class EconomyController {
 		
 	}
 	
+	
 	/** 
-	 * Method that gets  income Categories from CategoryDAO and makes a list containing categories' names only 
-	 * @return ObservableList<String> names - list of categories' names
+	 * Method that gets new income's detail from addIncomeGUI and gives the incomes to TransferDAO
 	 */ 
-	public ObservableList<String> incomeCategoriesList() {
-		Category[] categories = categoryDAO.readIncomeCategories();
-		ArrayList categoryNames = new ArrayList();
-		for (Category category : categories){
-			categoryNames.add(category.getDescription());
-		}
-		ObservableList<String> names =  FXCollections.observableArrayList(categoryNames);
-		return names;
-		
+	public void saveIncome() {
+		Transfer income = new Transfer();
+		income.setAmount(economyAddIncomeGUI.getIncomeAmount());
+		Category category = categoryDAO.readCategory(economyAddIncomeGUI.getCategoryName());
+		income.setCategory(category);
+		income.setDescription(economyAddIncomeGUI.getDescription());
+		income.setIncome(true);
+		income.setDate(economyAddIncomeGUI.getIncomeDay());
+		transDAO.createTransfer(income);
+		Balance balance = balanceDao.readBalance(1);
+		float newAmount = balance.getBalance() + income.getAmount();
+		balance.setBalance(newAmount);
+		balanceDao.updateBalance(balance);
 	}
+	
+	
 	/** 
 	 * Method that gets new expense's detail from addExpenceGUI and gives the expense to TransferDAO
 	 */ 
@@ -231,24 +240,7 @@ public class EconomyController {
 
 	}
 	
-	/** 
-	 * Method that gets new income's detail from addExpenceGUI and gives the income to TransferDAO
-	 */ 
-	public void saveIncome() {
-		Transfer income = new Transfer();
-		System.out.println("Amount "+economyAddIncomeGUI.getIncomeAmount());
-		income.setAmount(economyAddIncomeGUI.getIncomeAmount());
-		//Category category = categoryDAO.readCategory(addExpenceGUI.getCategoryName());
-		income.setCategory(null);
-		income.setDescription(economyAddIncomeGUI.getDescription());
-		income.setIncome(true);
-		income.setDate(economyAddIncomeGUI.getIncomeDay());
-		transDAO.createTransfer(income);
-		Balance balance = balanceDao.readBalance(1);
-		float newAmount = balance.getBalance() + income.getAmount();
-		balance.setBalance(newAmount);
-		balanceDao.updateBalance(balance);
-	}
+
 	
 	
 	/** 
@@ -259,7 +251,12 @@ public class EconomyController {
 		return transDAO.readExpenses();
 	}
 	
-	public Transfer[] getIncome() {
+	
+	/** 
+	 * Method that gets Incomes from TransferDAO and makes a list containing incomes details 
+	 * @return ObservableList<String> names - list of incomes
+	 */ 
+	public Transfer[] getIncomes() {
 		return transDAO.readIncome();
 	}
 	
@@ -276,5 +273,6 @@ public class EconomyController {
 		balanceDao.updateBalance(balance);
 		incomeGUI.removeFromTable(incomeGUI.transferToDelete());
 	}
+
 
 }

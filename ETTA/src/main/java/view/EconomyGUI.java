@@ -49,7 +49,7 @@ public class EconomyGUI {
 
 	
 	@FXML
-	TextField reason;
+	TextField description;
 	
 	@FXML
 	TextField incomeAmount;
@@ -61,7 +61,6 @@ public class EconomyGUI {
 	DatePicker incomeDate;
 	
 	public EconomyGUI() {
-		//controller = new EconomyController(this);
 	}
 	
 	
@@ -81,6 +80,7 @@ public class EconomyGUI {
 			}
 		economyrootborderpane.setCenter(showBalanceView);
 	}
+	
 	/**
 	 * Method showing the Income view in the Economy items section
 	 * @param event ActionEvent that is handled
@@ -172,51 +172,15 @@ public class EconomyGUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
-		//shows the loaded fxml file
+		
 		economysavingsanchorpane.getChildren().setAll(showAddSavingsView);
 		
 	}
 	
-	/**
-	@FXML
-	public void AddNewIncome(ActionEvent event) {
-		controller.saveTransfer();
-		AnchorPane showAddNewIncomeView = null;
-		FXMLLoader loaderAddNewIncomeView = new FXMLLoader(getClass().getResource("/view/EconomyIncome.fxml"));
-		try {
-			showAddNewIncomeView = loaderAddNewIncomeView.load();
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			}
-		//shows the loaded fxml file
-		economyincomeaddanchorpane.getChildren().setAll(showAddNewIncomeView);
-		
-		
-	}
-	
-	*/
-	/**
-	@FXML
-	public void AddIncomeCancel(ActionEvent event) {
-		AnchorPane AddIncomeCancelView = null;
-		FXMLLoader loaderAddIncomeCancelView = new FXMLLoader(getClass().getResource("/view/EconomyIncome.fxml"));
-		
-		try {
-			AddIncomeCancelView = loaderAddIncomeCancelView.load();
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			}
-		//shows the loaded fxml file
-		economyincomeaddanchorpane.getChildren().setAll(AddIncomeCancelView);
-		
-	}
-*/
 
 	@FXML
-	public String getReason() {
-		return this.reason.getText();
+	public String getDescription() {
+		return this.description.getText();
 	}
 	
 	@FXML

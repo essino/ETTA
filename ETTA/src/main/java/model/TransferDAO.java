@@ -147,7 +147,7 @@ public class TransferDAO {
 			Session session = factory.openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
-			List<Transfer> result = session.createQuery("from Transfer where income=false order by date desc").getResultList();
+			List<Transfer> result = session.createQuery("from Transfer where income=true order by date desc").getResultList();
 			for(Transfer transfer : result) {
 				list.add(transfer);
 				System.out.println("reading all: " + transfer.getDescription());
