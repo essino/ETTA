@@ -24,11 +24,6 @@ public class ContactsController {
 	private EventDAO eventDAO = new EventDAO();
 	
 
-	/**
-	 * Method make person witch have information of name, address, e-mail and birthday
-	 * 
-	 */
-
 	/** 
 	 * Method that gets person details from ContactsGUI, 
 	 * creates a new Person, and gives it forward to PersonDAO to add it to the database.
@@ -58,6 +53,13 @@ public class ContactsController {
 		}
 	}
 	
+	/** 
+	 * Method that gets Persons from PersonDAO and returns a list containing persons's details 
+	 * @return Person[] list of persons
+	 */ 
+	public Person[] getPeople() {
+		return perDAO.readPeople();
+	}
 
 	/** 
 	 * Constructor 
@@ -66,6 +68,12 @@ public class ContactsController {
 
 	public ContactsController(ContactsGUI conGUI) {
 		this.conGUI = conGUI;
+	}
+
+	/** 
+	 * Constructor 
+	 */
+	public ContactsController() {
 	}
 	
 }
