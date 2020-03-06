@@ -158,7 +158,12 @@ public class CalendarController {
 		event.setRecurring(entry.isRecurring());
 		event.setRrule(entry.getRecurrenceRule());
 		event.setEvent_id(Integer.parseInt(entry.getId()));
+		try {
 		event.setCalendar(entry.getCalendar().getName());
+		}
+		catch (NullPointerException e) {
+			event.setCalendar("Default");
+		}
 		return event;
 	  }
 	 
