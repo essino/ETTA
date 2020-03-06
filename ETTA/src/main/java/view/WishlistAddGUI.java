@@ -10,8 +10,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import model.Person;
+import model.PersonDAO;
 
 /**
  * GUI class relating to the wishlist add section
@@ -63,14 +68,53 @@ public class WishlistAddGUI {
 	 * The input check class used for validating user input
 	 */
 	InputCheck inputCheck = new InputCheck();
+	/**
+	 * PersonDAO used for accessing the database
+	 */
+	PersonDAO personDAO = new PersonDAO();
 	
 	/**
 	 * Initialize-method called when the class is created
 	 * Fetches the list of people in the database to whom items can be given
+	 * Also possible to add a new Person in the drop down list in ComboBox - PersonDAO creates a new Person with the given name
 	 */
 	@FXML
 	public void initialize() {
 			toWhom.getItems().addAll(controller.personsList());
+			toWhom.getItems().add("");
+			toWhom.setCellFactory(lv -> {
+	            ListCell<String> cell = new ListCell<String>() {
+	                @Override
+	                protected void updateItem(String item, boolean empty) {
+	                    super.updateItem(item, empty);
+	                    if (empty) {
+	                        setText(null);
+	                    } else {
+	                        if (item.isEmpty()) {
+	                            setText("Add person...");
+	                        } else {
+	                            setText(item);
+	                        }
+	                    }
+	                }
+	            };
+
+	            cell.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
+	                if (cell.getItem().isEmpty() && ! cell.isEmpty()) {
+	                    TextInputDialog dialog = new TextInputDialog();
+	                    dialog.setContentText("Enter name");
+	                    dialog.showAndWait().ifPresent(text -> {
+	                    	personDAO.createPerson(new Person(text));
+	                        int index = toWhom.getItems().size()-1;
+	                        toWhom.getItems().add(index, text);
+	                        toWhom.getSelectionModel().select(index);
+	                    });
+	                    evt.consume();
+	                }
+	            });
+
+	            return cell ;
+	        });
 	}
 	
 	/**
