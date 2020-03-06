@@ -7,6 +7,7 @@ import model.EventDAO;
 import model.Person;
 import model.PersonDAO;
 import view.ContactsGUI;
+import view.ContactsTableGUI;
 
 public class ContactsController {
 	
@@ -14,6 +15,10 @@ public class ContactsController {
 	 * Reference to the ContactsGUI
 	 */
 	private ContactsGUI conGUI;
+	/**
+	 * Reference to the ContactsTableGUI
+	 */
+	private ContactsTableGUI conTableGUI;
 	/**
 	 * PersonDAO used for accessing the database
 	 */
@@ -57,6 +62,16 @@ public class ContactsController {
 	}
 	
 	/** 
+	 * Method that gets the selected person from contactsTableGUI, 
+	 * tells PersonDAO to delete the person from the database 
+	 * and contactsTableGUI to delete it from the tableView.
+	 */ 
+	public void deletePerson() {
+		perDAO.deletePerson(conTableGUI.personToDelete().getPerson_id());
+		conTableGUI.removeFromTable(conTableGUI.personToDelete());
+	}
+	
+	/** 
 	 * Method that gets Persons from PersonDAO and returns a list containing persons's details 
 	 * @return Person[] list of persons
 	 */ 
@@ -68,7 +83,6 @@ public class ContactsController {
 	 * Constructor 
 	 * @param ContactsGUI 
 	 */
-
 	public ContactsController(ContactsGUI conGUI) {
 		this.conGUI = conGUI;
 	}
@@ -77,6 +91,14 @@ public class ContactsController {
 	 * Constructor 
 	 */
 	public ContactsController() {
+	}
+
+	/** 
+	 * Constructor 
+	 * @param ContactsTableGUI 
+	 */
+	public ContactsController(ContactsTableGUI contactsTableGUI) {
+		this.conTableGUI = contactsTableGUI;
 	}
 	
 }

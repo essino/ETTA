@@ -9,15 +9,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import model.Category;
 import model.Person;
-import model.Transfer;
 
 public class ContactsTableGUI {
 	
@@ -56,7 +52,7 @@ public class ContactsTableGUI {
       @FXML
       private TableColumn<Person, String> contactsAddress;
       
-     ContactsController controller = new ContactsController(); 
+     ContactsController controller = new ContactsController(this); 
   	
   	/** 
   	 * Method that initializes the view and gets the contacts  from the controller to display them on the page
@@ -89,5 +85,29 @@ public class ContactsTableGUI {
 		contactsViewAnchorpane.getChildren().setAll(showAddContactView);
 	}
 	
+	/**
+	 * Method that tell ContactsController to remove a person from the database
+	 */
+	@FXML
+	public void deleteContact() {
+		controller.deletePerson();
+	}
+	
+	/** 
+	 * Method that returns the selected contact
+	 * @return person that is selected
+	 */
+	public Person personToDelete() {
+		return contactsTable.getSelectionModel().getSelectedItem();
+	}
+	
+	/** 
+	 * Method that removes a person from the tableView
+	 * @param Person to be removed
+	 */
+	@FXML
+	public void removeFromTable(Person person) {
+		contactsTable.getItems().remove(person);
+	}
 	
 }

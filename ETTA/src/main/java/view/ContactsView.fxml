@@ -21,7 +21,7 @@
             <Button mnemonicParsing="false" onAction="#showAddContact" text="Add new contact" />
             <Button mnemonicParsing="false" text="Edit" />
             <Button mnemonicParsing="false" text="Send email" />
-          <Button mnemonicParsing="false" text="Delete" />
+          <Button mnemonicParsing="false" onAction="#deleteContact" text="Delete" />
         </buttons>
       </ButtonBar>
    </children>
