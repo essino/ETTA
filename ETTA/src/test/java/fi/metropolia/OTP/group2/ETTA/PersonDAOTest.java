@@ -23,9 +23,9 @@ class PersonDAOTest {
 	private int id = 1;
 	private String str = "1997-06-17";
 	private Date date = Date.valueOf(str);
-	private String name = "Tiina";
-	private String email = "tiina.vanhanen@metropolia.fi";
-	private Person tiina = new Person(name, date, email);
+	private String name = "Jesper";
+	private String email = "jesper@jesper.com";
+	private Person jesper = new Person(name, date, email);
 	private int length = 0;
 	private int index = 0;
 
@@ -41,14 +41,14 @@ class PersonDAOTest {
 	@Test
 	@Order(1)
 	public void testCreate() {
-		assertEquals(true, personDAO.createPerson(tiina), "Creation of person failed");
+		assertEquals(true, personDAO.createPerson(jesper), "Creation of person failed");
 	}
 	
 	@Test
 	@Order(2)
 	public void testReadPeople() {
 		length = personDAO.readPeople().length;
-		Person lena = new Person("lena", Date.valueOf("1980-08-10"), "lena@lena.com");
+		Person lena = new Person("lenochka", Date.valueOf("1980-08-10"), "lena@lena.com");
 		assertEquals(true, personDAO.createPerson(lena), "Creation of person failed");
 		length++;
 		assertEquals(length, personDAO.readPeople().length, "Reading all failed");
