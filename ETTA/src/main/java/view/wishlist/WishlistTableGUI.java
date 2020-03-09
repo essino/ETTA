@@ -101,6 +101,8 @@ public class WishlistTableGUI {
 			public ObservableValue<String> call(CellDataFeatures<Item, String> item) {
 		         // item.getValue() returns the Data instance for a particular TableView row
 				if (item.getValue().getPerson() != null) {
+					//TODO - jos henkilö on poistettu, getPerson != null, mutta henkilöä ei löydy listalta ->
+					//ohjelma kaatuu
 					return new ReadOnlyObjectWrapper(item.getValue().getPerson().getName());
 				} else {
 					ObservableValue<String> me = new ReadOnlyObjectWrapper<>("Me");

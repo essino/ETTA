@@ -110,15 +110,17 @@ public class WishlistController {
 		item.setBought(false);
 		item.setAdditionalInfo(addGui.getItemAdditional());
 		itemDAO.createItem(item);
-		Event wishlistEvent = new Event();
-		wishlistEvent.setTitle("Buy " + addGui.getItemDesc() + " for " + addGui.getItemPerson());
-		wishlistEvent.setLocation(null);
-		wishlistEvent.setStartDate(addGui.getItemDate());
-		wishlistEvent.setEndDate(addGui.getItemDate());
-		wishlistEvent.setFullday(true);
-		wishlistEvent.setRecurring(false);
-		wishlistEvent.setCalendar("default");
-		eventDAO.createEvent(wishlistEvent);
+		if(addGui.getItemDate() != null) {
+			Event wishlistEvent = new Event();
+			wishlistEvent.setStartDate(addGui.getItemDate());
+			wishlistEvent.setEndDate(addGui.getItemDate());
+			wishlistEvent.setFullday(true);
+			wishlistEvent.setTitle("Buy " + addGui.getItemDesc() + " for " + addGui.getItemPerson());
+			wishlistEvent.setLocation(null);
+			wishlistEvent.setRecurring(false);
+			wishlistEvent.setCalendar("default");
+			eventDAO.createEvent(wishlistEvent);
+		}
 	}
 	
 	/** 
