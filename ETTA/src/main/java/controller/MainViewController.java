@@ -2,7 +2,7 @@ package controller;
 
 import model.Balance;
 import model.BalanceDAO;
-import view.MainPageGUI;
+import view.mainPage.MainPageGUI;
 /** 
  * Controller class for the main page.  
  * 

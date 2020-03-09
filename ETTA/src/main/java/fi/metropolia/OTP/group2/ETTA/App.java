@@ -8,8 +8,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import view.MainPageGUI;
-import view.MainViewGUI;
+import view.mainPage.MainPageGUI;
+import view.mainPage.MainViewGUI;
 
 
 public class App extends Application

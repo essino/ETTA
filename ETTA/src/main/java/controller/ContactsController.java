@@ -6,8 +6,8 @@ import model.Event;
 import model.EventDAO;
 import model.Person;
 import model.PersonDAO;
-import view.ContactsGUI;
-import view.ContactsTableGUI;
+import view.contacts.ContactsGUI;
+import view.contacts.ContactsTableGUI;
 
 public class ContactsController {
 	

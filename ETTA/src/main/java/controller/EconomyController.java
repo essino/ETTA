@@ -9,17 +9,17 @@ import javafx.collections.ObservableList;
 import java.sql.Date;
 
 import model.Balance;
-import view.EconomyGUI;
-import view.EconomyIncomeGUI;
-import view.EconomyOutcomeGUI;
+import view.economy.BalanceOverviewGUI;
+import view.economy.EconomyAddIncomeGUI;
+import view.economy.EconomyAddOutcomeGUI;
+import view.economy.EconomyGUI;
+import view.economy.EconomyIncomeGUI;
+import view.economy.EconomyOutcomeGUI;
 import model.BalanceDAO;
 import model.Category;
 import model.CategoryDAO;
-import view.BalanceOverviewGUI;
-import view.EconomyAddOutcomeGUI;
 import model.TransferDAO;
 import model.Transfer;
-import view.EconomyAddIncomeGUI;
 
 public class EconomyController {
 	/**

@@ -15,9 +15,9 @@ import model.Event;
 import model.EventDAO;
 import model.Item;
 import model.ItemDAO;
-import view.BorrowedTableGUI;
-import view.BorrowedAddGUI;
-import view.BorrowedGUI;
+import view.borrowed.BorrowedAddGUI;
+import view.borrowed.BorrowedGUI;
+import view.borrowed.BorrowedTableGUI;
 
 //essi trying out: ends
 

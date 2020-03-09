@@ -10,8 +10,8 @@ import model.Item;
 import model.ItemDAO;
 import model.Person;
 import model.PersonDAO;
-import view.WishlistAddGUI;
-import view.WishlistTableGUI;
+import view.wishlist.WishlistAddGUI;
+import view.wishlist.WishlistTableGUI;
 
 /**
  * Controller class for the wishlist page
