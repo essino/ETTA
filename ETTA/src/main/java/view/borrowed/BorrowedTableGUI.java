@@ -70,11 +70,12 @@ public class BorrowedTableGUI {
 	@FXML
 	private TableColumn<Person, String> borrowedBy;
 	
+	//returned changed from boolean to String
 	/**
 	 * The TableColumn that shows if the item has been returned
 	 */
 	@FXML
-	private TableColumn<BorrowedThing, Boolean> returned;
+	private TableColumn<BorrowedThing, String> returned;
 	
 	/**
 	 * A constructor for BorrowedTableGUI in which the controller object is created
@@ -110,7 +111,18 @@ public class BorrowedTableGUI {
 		borrowedBy.setCellValueFactory(new PropertyValueFactory<Person, String>("person"));
 		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
 		returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
-		returned.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Boolean>("returned"));
+		//returned.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Boolean>("returned"));
+		
+		returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
+			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
+				if (borrowedThingDescr.getValue().isReturned() == true) {
+					return new ReadOnlyObjectWrapper<>("Yes");
+				} else {
+					return new ReadOnlyObjectWrapper<>("No");
+				}
+					
+			}
+		});
 		
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
 		borrowedTable.setItems(data);
@@ -131,6 +143,7 @@ public class BorrowedTableGUI {
 	@FXML
 	public void deleteSelectedBorrowedThing() {
 		controller.removeBorrowedThing();
+		initialize();
 	}
 	
 	/** 
@@ -139,6 +152,13 @@ public class BorrowedTableGUI {
 	 */
 	public void removeFromBorrowedTable(BorrowedThing borrowedThing) {
 		borrowedTable.getItems().remove(borrowedThing);
+		
+	}
+	
+	@FXML
+	public void markAsReturned() {
+		controller.markReturned();
+		initialize();
 	}
 } 
 

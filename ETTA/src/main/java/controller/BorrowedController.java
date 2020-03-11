@@ -137,9 +137,17 @@ public class BorrowedController {
 	/** 
 	 * Method for deleting a borrowed thing from the database
 	 */ 
+	public void markReturned() {
+		BorrowedThing borrowedThing = borrowedThingDAO.readBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
+		borrowedThing.setReturned(true);
+		borrowedThingDAO.updateBorrowedThing(borrowedThing);
+		//the following does not work permanently. When the table is initialized it shows all items from database currently
+		tableGUI.removeFromBorrowedTable(tableGUI.getSelectedBorrowedThing());
+	}
+	
 	public void removeBorrowedThing() {
 		borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
-		tableGUI.removeFromBorrowedTable(tableGUI.getSelectedBorrowedThing());
+		//tableGUI.removeFromBorrowedTable(tableGUI.getSelectedBorrowedThing());
 	}
 }
 
