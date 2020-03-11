@@ -29,33 +29,64 @@ import model.Person;
 public class BorrowedTableGUI {
 	
 	//NB! this is different in Tiina's WishlistTableGUI - could cause problems
+	/**
+	 * the controller for Borrowed things
+	 */
 	BorrowedController controller;// = new BorrowedController(this);
 	
+	/**
+	 * The anchorpane for the overall view of borrowed things
+	 */
 	@FXML
 	AnchorPane borrowedviewanchorpane;
 	
+	/**
+	 * The TableView for viewing all borrowed things
+	 */
 	@FXML
 	private TableView<BorrowedThing> borrowedTable;
 	
+	/**
+	 * The TableColumn that shows the items' names
+	 */
 	@FXML
 	private TableColumn<BorrowedThing, String> borrowedThingDescr;
 	
+	/**
+	 * The TableColumn that shows when the items have been loaned
+	 */
 	@FXML
 	private TableColumn<BorrowedThing, Date> loanDate;
 	
+	/**
+	 * The TableColumn that shows when the items are supposed to be returned
+	 */
 	@FXML
 	private TableColumn<BorrowedThing, Date> returnDate;
 	
+	/**
+	 * The TableColumn that shows who have borrowed the items
+	 */
 	@FXML
 	private TableColumn<Person, String> borrowedBy;
 	
+	/**
+	 * The TableColumn that shows if the item has been returned
+	 */
 	@FXML
 	private TableColumn<BorrowedThing, Boolean> returned;
 	
+	/**
+	 * A constructor for BorrowedTableGUI in which the controller object is created
+	 */
 	public BorrowedTableGUI() {
 		controller = new BorrowedController(this);
 	}
 
+	/** 
+	 * Method that shows all the borrowed items
+	 * @param event either Borrowed Things tab or Borrowed Items button is pushed
+	 */
 	@FXML
 	public void showBorrowedAdd(ActionEvent event) {
 		AnchorPane showBorrowedAdd = null;
@@ -68,9 +99,11 @@ public class BorrowedTableGUI {
 			}
 		//shows the loaded fxml file
 		borrowedviewanchorpane.getChildren().setAll(showBorrowedAdd);
-	
 	}
 	
+	/** 
+	 * Method that adds the information of Borrowed items into the table
+	 */
 	@FXML
 	public void initialize() {
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
@@ -102,7 +135,7 @@ public class BorrowedTableGUI {
 	
 	/** 
 	 * Method that removes an item from the table
-	 * @param item the item to be removed
+	 * @param borrowedThing the borrowed item to be removed
 	 */
 	public void removeFromBorrowedTable(BorrowedThing borrowedThing) {
 		borrowedTable.getItems().remove(borrowedThing);

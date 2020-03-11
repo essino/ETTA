@@ -39,10 +39,15 @@ public class BorrowedGUI {
 	@FXML 
 	AnchorPane borrowedviewanchorpane;
 	
+	/**
+	 * the controller for borrowed things
+	 */
 	BorrowedController controller;
 	
+	/**
+	 * an empty construtor for BorrowedGUI
+	 */
 	public BorrowedGUI() {
-
 	}
 	
 	/**

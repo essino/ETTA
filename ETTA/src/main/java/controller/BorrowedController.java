@@ -13,8 +13,6 @@ import model.BorrowedThing;
 import model.BorrowedThingDAO;
 import model.Event;
 import model.EventDAO;
-import model.Item;
-import model.ItemDAO;
 import view.borrowed.BorrowedAddGUI;
 import view.borrowed.BorrowedGUI;
 import view.borrowed.BorrowedTableGUI;
@@ -48,12 +46,24 @@ public class BorrowedController {
 		return names;
 	}
 	
+	/**
+	 * BorrowedThingDAO used for accessing the database
+	 */
 	private BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO();
 	
+	/**
+	 * GUI for the Borrowed menu 
+	 */
 	private BorrowedGUI gui;
 	
+	/**
+	 * GUI for viewing the borrowed items
+	 */
 	private BorrowedTableGUI tableGUI;
 	
+	/**
+	 * GUI for adding the borrowed items
+	 */
 	private BorrowedAddGUI addGUI;
 	
 	

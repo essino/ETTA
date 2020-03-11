@@ -21,6 +21,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 public class BorrowedAddGUI {
+	
 	/**
 	 * PersonDAO used for accessing the database
 	 */
@@ -195,4 +196,5 @@ public class BorrowedAddGUI {
 		}
 		borrowedaddanchorpane.getChildren().setAll(borrowedviewanchorpane);
 	}
+	
 }
