@@ -13,6 +13,7 @@
             <Button mnemonicParsing="false" onAction="#showBorrowedAdd" text="Add new item" />
             <Button mnemonicParsing="false" text="Edit" />
             <Button mnemonicParsing="false" text="Send email" />
+            <Button mnemonicParsing="false" onAction="#markAsReturned" text="Mark as returned" />
           <Button mnemonicParsing="false" onAction="#deleteSelectedBorrowedThing" text="Delete" />
         </buttons>
       </ButtonBar>

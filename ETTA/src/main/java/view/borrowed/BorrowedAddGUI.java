@@ -21,6 +21,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 public class BorrowedAddGUI {
+	
 	/**
 	 * PersonDAO used for accessing the database
 	 */
@@ -161,11 +162,13 @@ public class BorrowedAddGUI {
 	/**
 	 * Method for adding a new borrowed thing to the database
 	 * If the user inputs are not valid, displays an error message to the user
-	 * After the new item is created, returns to the main wishlist view
+	 * After the new item is created, returns to the main borrowed items view
 	 */
 	@FXML
 	public void addBorrowed() {
-		if (!inputCheck.isInputEmpty(borrowedThing.getText())) {
+		//checking that neither the description nor the borrower are empty
+		if (!inputCheck.isInputEmpty(borrowedThing.getText()) && ((this.bbc.getValue()) != null)) {
+		//if (!inputCheck.isInputEmpty(borrowedThing.getText())) {
 			controller.saveBorrowedThing();
 			AnchorPane borrowedviewanchorpane = null; 
 			FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml")); 
@@ -176,7 +179,7 @@ public class BorrowedAddGUI {
 			}
 			borrowedaddanchorpane.getChildren().setAll(borrowedviewanchorpane);
 		} else {
-			inputCheck.alertInputNotFloat();
+			inputCheck.alertInputEmpty();
 		}
 	}
 	
@@ -195,4 +198,5 @@ public class BorrowedAddGUI {
 		}
 		borrowedaddanchorpane.getChildren().setAll(borrowedviewanchorpane);
 	}
+	
 }
