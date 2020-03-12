@@ -9,6 +9,10 @@ import model.PersonDAO;
 import view.contacts.ContactsGUI;
 import view.contacts.ContactsTableGUI;
 
+/** 
+ * Controller class for the contacts part.  
+ * 
+ */
 public class ContactsController {
 	
 	/**

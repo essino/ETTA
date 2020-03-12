@@ -34,7 +34,7 @@ public class MainViewController {
 	}
 
 	/** 
-	 * Method that checks if the balance is already set in the database 
+	 * Method that checks if the balance is already set in the database, if not - a new balance is created 
 	 * @return true if balance is already set or after it is set 
 	 */
 	public boolean checkIfBalanceExist() { 

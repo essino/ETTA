@@ -89,7 +89,7 @@ public class BorrowedGUI {
 		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedAdd.fxml"));
 		try {
 				borrowedAdd = loaderBorrowedAdd.load();
-			} catch (IOException e) {
+			} catch (IOException e) { 
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

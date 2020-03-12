@@ -7,21 +7,19 @@ import javafx.collections.ObservableList;
 import model.Person;
 import model.PersonDAO;
 
-//essi trying out: starts
-
 import model.BorrowedThing;
 import model.BorrowedThingDAO;
 import model.Event;
 import model.EventDAO;
-import model.Item;
-import model.ItemDAO;
 import view.borrowed.BorrowedAddGUI;
 import view.borrowed.BorrowedGUI;
 import view.borrowed.BorrowedTableGUI;
 
-//essi trying out: ends
 
-
+/** 
+ * Controller class for the Borrowed things part.  
+ * 
+ */
 public class BorrowedController {
 	
 	/**

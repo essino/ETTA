@@ -13,9 +13,7 @@ import model.PersonDAO;
 import view.wishlist.WishlistAddGUI;
 import view.wishlist.WishlistTableGUI;
 
-/**
- * Controller class for the wishlist page
- */
+
 public class WishlistController {
 
 	/**
@@ -119,7 +117,7 @@ public class WishlistController {
 			wishlistEvent.setLocation(null);
 			wishlistEvent.setRecurring(false);
 			wishlistEvent.setCalendar("default");
-			eventDAO.createEvent(wishlistEvent);
+			eventDAO.createEvent(wishlistEvent); 
 		}
 	}
 	

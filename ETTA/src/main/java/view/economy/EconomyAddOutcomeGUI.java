@@ -92,7 +92,9 @@ public class EconomyAddOutcomeGUI {
             cell.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
                 if (cell.getItem().isEmpty() && ! cell.isEmpty()) {
                     TextInputDialog dialog = new TextInputDialog();
-                    dialog.setContentText("Enter name");
+                    dialog.setTitle("New category");
+                    dialog.setHeaderText("Add new category");
+                    dialog.setContentText("Enter category name");
                     dialog.showAndWait().ifPresent(text -> {
                         int index = outcomeCategoryList.getItems().size()-1;
                         outcomeCategoryList.getItems().add(index, text);

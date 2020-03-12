@@ -3,26 +3,18 @@ package view.borrowed;
 import java.io.IOException;
 import java.sql.Date;
 
-import com.sun.xml.bind.v2.schemagen.episode.Bindings;
 
 import controller.BorrowedController;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Callback;
 import model.BorrowedThing;
-import model.Item;
 import model.Person;
 
 
@@ -56,6 +48,9 @@ public class BorrowedTableGUI {
 		controller = new BorrowedController(this);
 	}
 
+	/**
+	 * Method that shows borrowed add-view
+	 */
 	@FXML
 	public void showBorrowedAdd(ActionEvent event) {
 		AnchorPane showBorrowedAdd = null;
@@ -71,6 +66,10 @@ public class BorrowedTableGUI {
 	
 	}
 	
+	/**
+	 * Initialize-method called when the class is created
+	 * Fetches the list of borrowed items in the database 
+	 */
 	@FXML
 	public void initialize() {
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 

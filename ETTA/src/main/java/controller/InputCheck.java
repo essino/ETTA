@@ -3,7 +3,10 @@ package controller;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-
+/** 
+ * Class for the checking the input of the user.  
+ * 
+ */
 public class InputCheck {
 	
 	/** 

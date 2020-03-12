@@ -25,9 +25,7 @@ import javafx.util.Callback;
 import model.Item;
 import model.Transfer;
 
-/**
- * GUI class for the wishlist page
- */
+
 public class WishlistTableGUI {
 	
 	/**

@@ -21,6 +21,10 @@ import model.CategoryDAO;
 import model.TransferDAO;
 import model.Transfer;
 
+/** 
+ * Controller class for the Economy part.  
+ * 
+ */
 public class EconomyController {
 	/**
 	 * Reference to the BalanceOverviewGUI
