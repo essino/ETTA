@@ -8,10 +8,10 @@ ETTA on kotitalouden ja juoksevien asioiden hallintaohjelma.
 - Wishlist-osio, johon käyttäjä kirjaa tuotteita, joita hän haluaa ostaa tai on jo ostanut itselleen tai muille
 
 ## Made by
-@github/essino
-@github/lenamyllari
-@github/AnniKarkkainen
-@github/tiinavanhanen
+@essino
+@lenamyllari
+@AnniKarkkainen
+@tiinavanhanen
 
 ## Made with 
 Eclipse, Maven project
