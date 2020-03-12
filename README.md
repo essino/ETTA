@@ -1,7 +1,7 @@
 # ETTA
 OTP1 - group 2 - spring 2020
 
-Made by Eclipse
+Made with Eclipse
 
 Install:
 Not needed
