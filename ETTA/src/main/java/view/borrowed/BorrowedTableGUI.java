@@ -154,11 +154,13 @@ public class BorrowedTableGUI {
 		
 	}
 	
+	/*
 	@FXML
 	public void markAsReturned() {
 		controller.markReturned();
 		initialize();
 	}
+	*/
 } 
 
 
