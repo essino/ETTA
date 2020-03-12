@@ -2,4 +2,7 @@
 OTP1 - group 2 - spring 2020
 
 Install:
-Run etta.jar
+Not needed
+
+
+Run ETTA.jar
