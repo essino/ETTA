@@ -9,10 +9,12 @@ import controller.BorrowedController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Person;
@@ -167,17 +169,22 @@ public class BorrowedAddGUI {
 	@FXML
 	public void addBorrowed() {
 		//checking that neither the description nor the borrower are empty
-		if (!inputCheck.isInputEmpty(borrowedThing.getText()) && ((this.bbc.getValue()) != null)) {
-		//if (!inputCheck.isInputEmpty(borrowedThing.getText())) {
-			controller.saveBorrowedThing();
-			AnchorPane borrowedviewanchorpane = null; 
-			FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml")); 
-			try {
-				borrowedviewanchorpane = loaderBorrowedView.load();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			borrowedaddanchorpane.getChildren().setAll(borrowedviewanchorpane);
+		//if (!inputCheck.isInputEmpty(borrowedThing.getText()) && ((this.bbc.getValue()) != null)) {
+			//TO DO mieti tätä!
+		if (!inputCheck.isInputEmpty(borrowedThing.getText()) && (!inputCheck.isInputEmpty(this.bbc.getValue())) && (!inputCheck.isDateEmpty(this.returnDate.getValue()))) {
+			if(inputCheck.dateCheck(getBorrowedLoanDate(), getBorrowedReturnDate())) {
+				controller.saveBorrowedThing();
+				AnchorPane borrowedviewanchorpane = null; 
+				FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml")); 
+				try {
+					borrowedviewanchorpane = loaderBorrowedView.load();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				borrowedaddanchorpane.getChildren().setAll(borrowedviewanchorpane);
+			} else {
+				inputCheck.alertDatesWrong();
+			} 
 		} else {
 			inputCheck.alertInputEmpty();
 		}
