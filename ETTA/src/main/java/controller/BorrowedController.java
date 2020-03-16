@@ -129,5 +129,11 @@ public class BorrowedController {
 		borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
 		tableGUI.removeFromBorrowedTable(tableGUI.getSelectedBorrowedThing());
 	}
+	
+	public void markReturned() {
+		BorrowedThing borrowedThing = borrowedThingDAO.readBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
+		borrowedThing.setReturned(true);
+		borrowedThingDAO.updateBorrowedThing(borrowedThing);
+	}
 }
 
