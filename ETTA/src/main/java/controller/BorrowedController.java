@@ -126,6 +126,11 @@ public class BorrowedController {
 	 * Method for deleting a borrowed thing from the database
 	 */ 
 	public void removeBorrowedThing() {
+		//essi jatka tästä
+		//eventDAO.deleteEvent(event_id))
+		//String loanDescription = tableGUI.getSelectedBorrowedThing().getDescription();
+		//System.out.println("Tässä on poistettavan lainan kuvaus :" + loanDescription);
+		//eventDAO.deleteEvent()
 		borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
 		tableGUI.removeFromBorrowedTable(tableGUI.getSelectedBorrowedThing());
 	}
