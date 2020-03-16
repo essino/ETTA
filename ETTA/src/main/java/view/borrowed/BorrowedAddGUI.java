@@ -168,9 +168,9 @@ public class BorrowedAddGUI {
 	 */
 	@FXML
 	public void addBorrowed() {
-		//checking that neither the description nor the borrower are empty
+		//checking that neither the description nor the borrower nor the return date are empty
 		//if (!inputCheck.isInputEmpty(borrowedThing.getText()) && ((this.bbc.getValue()) != null)) {
-			//TO DO mieti tätä!
+		//also checking if loan date is before return date
 		if (!inputCheck.isInputEmpty(borrowedThing.getText()) && (!inputCheck.isInputEmpty(this.bbc.getValue())) && (!inputCheck.isDateEmpty(this.returnDate.getValue()))) {
 			if(inputCheck.dateCheck(getBorrowedLoanDate(), getBorrowedReturnDate())) {
 				controller.saveBorrowedThing();
