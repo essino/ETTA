@@ -160,6 +160,7 @@ public class BorrowedController {
 			if (loanEvent[i].getTitle().equals(eventTitle)) {
 				int eventID = loanEvent[i].getEvent_id();
 				eventDAO.deleteEvent(eventID);
+				
 			}
 		}
 	}
