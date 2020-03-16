@@ -12,12 +12,15 @@ import model.Balance;
 import view.economy.BalanceOverviewGUI;
 import view.economy.EconomyAddIncomeGUI;
 import view.economy.EconomyAddOutcomeGUI;
+import view.economy.EconomyAddSavingGUI;
 import view.economy.EconomyGUI;
 import view.economy.EconomyIncomeGUI;
 import view.economy.EconomyOutcomeGUI;
 import model.BalanceDAO;
 import model.Category;
 import model.CategoryDAO;
+import model.Saving;
+import model.SavingDAO;
 import model.TransferDAO;
 import model.Transfer;
 
@@ -41,6 +44,8 @@ public class EconomyController {
 	 */
 	private EconomyAddOutcomeGUI addExpenceGUI;
 	
+
+
 	
 	/**
 	 * Reference to the EconomyOutcomeGUI
@@ -58,12 +63,21 @@ public class EconomyController {
 	 * CategoryDAO used for accessing the database
 	 */
 	private CategoryDAO categoryDAO = new CategoryDAO();
+	
+	/**
+	 * SavingDAO used for accessing the database
+	 */
+	private SavingDAO savingDAO = new SavingDAO();
 	/**
 	 * Reference to the EconomyAddIncomeGUI
 	 */
 	private EconomyAddIncomeGUI economyAddIncomeGUI;
 	
 	private EconomyIncomeGUI incomeGUI;
+	/**
+	 * Reference to the EconomyAddSavingGUI
+	 */
+	private EconomyAddSavingGUI economyAddSavingGUI;
 	
 	
 	
@@ -93,6 +107,16 @@ public class EconomyController {
 	
 	} 
 
+	/** 
+	 * Constructor 
+	 * @param economyAddSavingGUI 
+	 */ 
+
+	public EconomyController(EconomyAddSavingGUI economyAddSavingGUI) { 
+
+		this.economyAddSavingGUI= economyAddSavingGUI; 
+	
+	} 
 	/** 
 	 * Constructor 
 	 */ 
@@ -128,6 +152,7 @@ public class EconomyController {
 	public EconomyController(EconomyAddIncomeGUI economyAddIncomeGUI) {
 		this.economyAddIncomeGUI = economyAddIncomeGUI;
 	}
+
 
 	/** 
 	 * Method that gets balance amount from BalanceDAO and gives it forward to BalanceOverviewGUI to display it on the page 
@@ -276,6 +301,17 @@ public class EconomyController {
 		balance.setBalance(newAmount);
 		balanceDao.updateBalance(balance);
 		incomeGUI.removeFromTable(incomeGUI.transferToDelete());
+	}
+
+	/** 
+	 * Method that gets new saving's detail from economyAddSavingGUI and gives the saving to SavingDAO
+	 */
+	public void saveNewSaving() {
+		Saving saving = new Saving();
+		saving.setGoal_amount(economyAddSavingGUI.getSavingAmount());
+		saving.setDescription(economyAddSavingGUI.getDescription());
+		saving.setGoalDate(economyAddSavingGUI.getSavingDay());
+		savingDAO.createSaving(saving);
 	}
 
 
