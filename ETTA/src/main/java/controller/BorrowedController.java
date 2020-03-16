@@ -126,37 +126,43 @@ public class BorrowedController {
 	 * Method for deleting a borrowed thing from the database
 	 */ 
 	public void removeBorrowedThing() {
-		
-		String loanDescription = tableGUI.getSelectedBorrowedThing().getDescription();
-		//System.out.println("Tässä on poistettavan lainan kuvaus :" + loanDescription);
-		
-		Person loanPerson = tableGUI.getSelectedBorrowedThing().getPerson();
-		//System.out.println("Tässä on poistettavan lainan lainaaja :" + loanPerson);
-		
-		String eventTitle = loanPerson + " should return " + loanDescription;
-		//System.out.println(eventTitle);
-		
-		Event[] loanEvent = eventDAO.readEvents();
-		
-		for (int i = 0; loanEvent.length > i; i++) {
-			//System.out.println("Tässä on tapahtumat : " + i + ". " + loanEvent[i].getTitle());
-			
-			if (loanEvent[i].getTitle().equals(eventTitle)) {
-				//System.out.println("Destruction of event : " + i + ". " + loanEvent[i].getTitle());
-				int eventID = loanEvent[i].getEvent_id();
-				eventDAO.deleteEvent(eventID);
-			}
-		}
+		deleteBorrowedEvent();
 		borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
 		tableGUI.removeFromBorrowedTable(tableGUI.getSelectedBorrowedThing());
 	}
 	
+	/** 
+	 * Method for making the borrowed item returned
+	 */ 
 	public void markReturned() {
+		deleteBorrowedEvent();
 		BorrowedThing borrowedThing = borrowedThingDAO.readBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
 		borrowedThing.setReturned(true);
 		borrowedThingDAO.updateBorrowedThing(borrowedThing);
 	}
 	
-	//public void deleteBorrowedEvent()
+	/** 
+	 * Method for deleting the "should return" event from events
+	 */
+	public void deleteBorrowedEvent() {
+		//the description of the borrowed item
+		String loanDescription = tableGUI.getSelectedBorrowedThing().getDescription();
+		//the person who has borrowed the item
+		Person loanPerson = tableGUI.getSelectedBorrowedThing().getPerson();
+		//event title combined from the description and the borrowing person
+		String eventTitle = loanPerson + " should return " + loanDescription;
+		
+		//getting all the events
+		Event[] loanEvent = eventDAO.readEvents();
+		
+		//comparing all events' titles with this event title
+		for (int i = 0; loanEvent.length > i; i++) {
+			if (loanEvent[i].getTitle().equals(eventTitle)) {
+				int eventID = loanEvent[i].getEvent_id();
+				eventDAO.deleteEvent(eventID);
+			}
+		}
+	}
+	
 }
 
