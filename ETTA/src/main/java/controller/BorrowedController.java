@@ -126,11 +126,27 @@ public class BorrowedController {
 	 * Method for deleting a borrowed thing from the database
 	 */ 
 	public void removeBorrowedThing() {
-		//essi jatka tästä
-		//eventDAO.deleteEvent(event_id))
-		//String loanDescription = tableGUI.getSelectedBorrowedThing().getDescription();
+		
+		String loanDescription = tableGUI.getSelectedBorrowedThing().getDescription();
 		//System.out.println("Tässä on poistettavan lainan kuvaus :" + loanDescription);
-		//eventDAO.deleteEvent()
+		
+		Person loanPerson = tableGUI.getSelectedBorrowedThing().getPerson();
+		//System.out.println("Tässä on poistettavan lainan lainaaja :" + loanPerson);
+		
+		String eventTitle = loanPerson + " should return " + loanDescription;
+		//System.out.println(eventTitle);
+		
+		Event[] loanEvent = eventDAO.readEvents();
+		
+		for (int i = 0; loanEvent.length > i; i++) {
+			//System.out.println("Tässä on tapahtumat : " + i + ". " + loanEvent[i].getTitle());
+			
+			if (loanEvent[i].getTitle().equals(eventTitle)) {
+				//System.out.println("Destruction of event : " + i + ". " + loanEvent[i].getTitle());
+				int eventID = loanEvent[i].getEvent_id();
+				eventDAO.deleteEvent(eventID);
+			}
+		}
 		borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
 		tableGUI.removeFromBorrowedTable(tableGUI.getSelectedBorrowedThing());
 	}
@@ -140,5 +156,7 @@ public class BorrowedController {
 		borrowedThing.setReturned(true);
 		borrowedThingDAO.updateBorrowedThing(borrowedThing);
 	}
+	
+	//public void deleteBorrowedEvent()
 }
 
