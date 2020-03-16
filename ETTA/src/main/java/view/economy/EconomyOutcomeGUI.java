@@ -75,6 +75,21 @@ public class EconomyOutcomeGUI {
 	
 	}
 	
+	@FXML
+	public void showEditOutcome(ActionEvent event) {
+		AnchorPane showAddOutcomeView = null;
+		FXMLLoader loaderAddOutcomeView = new FXMLLoader(getClass().getResource("/view/economy/EconomyEditOutcome.fxml"));
+		try {
+			showAddOutcomeView = loaderAddOutcomeView.load();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		//shows the loaded fxml file
+		economyoutcomeaddanchorpane.getChildren().setAll(showAddOutcomeView);
+	
+	}
+	
 	/** 
 	 * Method that initializes the view and gets the expenses  from the controller to display them on the page
 	 */

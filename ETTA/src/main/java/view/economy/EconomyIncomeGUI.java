@@ -81,6 +81,21 @@ public class EconomyIncomeGUI {
 	
 	}
 	
+	@FXML
+	public void showEditIncome(ActionEvent event) {
+		AnchorPane showAddIncomeView = null;
+		FXMLLoader loaderAddIncomeView = new FXMLLoader(getClass().getResource("/view/economy/EconomyEditIncome.fxml"));
+		try {
+			showAddIncomeView = loaderAddIncomeView.load();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		
+		economyincomeanchorpane.getChildren().setAll(showAddIncomeView);
+	
+	}
+	
 	/** 
 	 * Method that initializes the view and gets the incomes  from the controller to display them on the page
 	 */
