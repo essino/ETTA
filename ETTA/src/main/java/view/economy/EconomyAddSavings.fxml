@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="addSavingPane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.economy.EconomyAddSavingGUI">
    <children>
       <GridPane layoutX="210.0" layoutY="213.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="28.0">
         <columnConstraints>
@@ -24,20 +24,20 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Description" />
-            <Label text="Goal" GridPane.rowIndex="1" />
-            <Label text="Deatline" GridPane.rowIndex="2" />
-            <Label text="Label" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Goal description" GridPane.rowIndex="1" />
+            <Label text="Goal amount" GridPane.rowIndex="2" />
+            <Label text="Goal date" GridPane.rowIndex="3" />
+            
+            <TextField fx:id="savingDescription" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="savingAmount" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="savingDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <ButtonBar layoutX="435.0" layoutY="686.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="28.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Add" />
-            <Button mnemonicParsing="false" text="Remove" />
-            <Button mnemonicParsing="false" text="Cancel" />
+          <Button onAction="#saveSaving" mnemonicParsing="false" text="Save" />
+
+            <Button onAction="#cancelAdding" mnemonicParsing="false" text="Cancel" />
         </buttons>
       </ButtonBar>
    </children>

@@ -3,7 +3,6 @@ package view.mainPage;
 import java.io.IOException;
 
 import com.calendarfx.view.CalendarView;
-import com.calendarfx.view.page.WeekPage;
 
 import controller.CalendarController;
 import javafx.fxml.FXMLLoader;

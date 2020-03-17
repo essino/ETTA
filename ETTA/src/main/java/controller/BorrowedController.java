@@ -7,8 +7,6 @@ import javafx.collections.ObservableList;
 import model.Person;
 import model.PersonDAO;
 
-//essi trying out: starts
-
 import model.BorrowedThing;
 import model.BorrowedThingDAO;
 import model.Event;
@@ -17,9 +15,11 @@ import view.borrowed.BorrowedAddGUI;
 import view.borrowed.BorrowedGUI;
 import view.borrowed.BorrowedTableGUI;
 
-//essi trying out: ends
 
-
+/** 
+ * Controller class for the Borrowed things part.  
+ * 
+ */
 public class BorrowedController {
 	
 	/**
@@ -46,24 +46,12 @@ public class BorrowedController {
 		return names;
 	}
 	
-	/**
-	 * BorrowedThingDAO used for accessing the database
-	 */
 	private BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO();
 	
-	/**
-	 * GUI for the Borrowed menu 
-	 */
 	private BorrowedGUI gui;
 	
-	/**
-	 * GUI for viewing the borrowed items
-	 */
 	private BorrowedTableGUI tableGUI;
 	
-	/**
-	 * GUI for adding the borrowed items
-	 */
 	private BorrowedAddGUI addGUI;
 	
 	
@@ -137,17 +125,44 @@ public class BorrowedController {
 	/** 
 	 * Method for deleting a borrowed thing from the database
 	 */ 
-	public void markReturned() {
-		BorrowedThing borrowedThing = borrowedThingDAO.readBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
-		borrowedThing.setReturned(true);
-		borrowedThingDAO.updateBorrowedThing(borrowedThing);
-		//the following does not work permanently. When the table is initialized it shows all items from database currently
+	public void removeBorrowedThing() {
+		deleteBorrowedEvent();
+		borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
 		tableGUI.removeFromBorrowedTable(tableGUI.getSelectedBorrowedThing());
 	}
 	
-	public void removeBorrowedThing() {
-		borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
-		//tableGUI.removeFromBorrowedTable(tableGUI.getSelectedBorrowedThing());
+	/** 
+	 * Method for making the borrowed item returned
+	 */ 
+	public void markReturned() {
+		deleteBorrowedEvent();
+		BorrowedThing borrowedThing = borrowedThingDAO.readBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
+		borrowedThing.setReturned(true);
+		borrowedThingDAO.updateBorrowedThing(borrowedThing);
 	}
+	
+	/** 
+	 * Method for deleting the "should return" event from events
+	 */
+	public void deleteBorrowedEvent() {
+		//the description of the borrowed item
+		String loanDescription = tableGUI.getSelectedBorrowedThing().getDescription();
+		//the person who has borrowed the item
+		Person loanPerson = tableGUI.getSelectedBorrowedThing().getPerson();
+		//event title combined from the description and the borrowing person
+		String eventTitle = loanPerson + " should return " + loanDescription;
+		
+		//getting all the events
+		Event[] loanEvent = eventDAO.readEvents();
+		
+		//comparing all events' titles with this event title
+		for (int i = 0; loanEvent.length > i; i++) {
+			if (loanEvent[i].getTitle().equals(eventTitle)) {
+				int eventID = loanEvent[i].getEvent_id();
+				eventDAO.deleteEvent(eventID);
+			}
+		}
+	}
+	
 }
 

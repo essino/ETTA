@@ -1,9 +1,16 @@
 package controller;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import model.Person;
 
-
+/** 
+ * Class for the checking the input of the user.  
+ * 
+ */
 public class InputCheck {
 	
 	/** 
@@ -61,6 +68,43 @@ public class InputCheck {
 		alert.showAndWait();
 	}
 	//TODO: add checking for Min and MAx values for integers and Floats
+	
+	/** 
+	 * Method that checks if loan date is before return data
+	 * @param loanDate when the item is borrowed
+	 * @param returnDate when the item is returned
+	 * @return b boolean showing if the loan date is before return Date
+	 */ 
+	public boolean dateCheck(Date loanDate, Date returnDate) {
+	    Boolean b = false;
+	    if (loanDate == null || returnDate.after(loanDate) || returnDate.equals(loanDate)) {
+	        b = true;
+	    }
+	    return b;
+	}
+	
+	public void alertDatesWrong() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("The return date is before the loan date.");
+		alert.setContentText("Change the dates.");
+		alert.showAndWait();
+	}
+	
+	/** 
+	 * Method that checks if loan date and return dates are ok
+	 * @param loanDate when the item is borrowed
+	 * @param returnDate when the item is returned
+	 * @return b boolean showing if the dates are ok
+	 */ 
+	public boolean isDateEmpty(LocalDate date) {
+	    Boolean b = false;
+	    if (date == null) {
+	        b = true;
+	    }
+	    return b;
+	}
+	
 }
 
 

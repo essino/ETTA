@@ -109,7 +109,7 @@ public class WishlistAddGUI {
 	                        toWhom.getItems().add(index, text);
 	                        toWhom.getSelectionModel().select(index);
 	                    });
-	                    evt.consume();
+	                    evt.consume(); 
 	                }
 	            });
 

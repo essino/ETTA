@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 controller
 fi.metropolia.OTP.group2.ETTA
 model
@@ -6,3 +7,6 @@ view.contacts
 view.economy
 view.mainPage
 view.wishlist
+=======
+model
+>>>>>>> branch 'master' of https://github.com/essino/ETTA.git

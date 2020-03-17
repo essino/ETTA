@@ -118,6 +118,7 @@ public class BorrowedThingDAO {
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean updateBorrowedThing(BorrowedThing borrowedThing) {
+	
 		boolean success = false;
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();
@@ -130,6 +131,7 @@ public class BorrowedThingDAO {
 		}
 		return success;
 	}
+	
 
 	/**
 	 * Method for deleting Borrowed items in the database

@@ -19,6 +19,10 @@ import com.calendarfx.model.Calendar.Style;
 import model.Event;
 import model.EventDAO;
 
+/** 
+ * Controller class for the calendar.  
+ * 
+ */
 public class CalendarController {
 	/**
 	 * EventDAO used for accessing the database

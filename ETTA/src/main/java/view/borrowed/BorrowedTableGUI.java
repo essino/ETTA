@@ -3,10 +3,8 @@ package view.borrowed;
 import java.io.IOException;
 import java.sql.Date;
 
-import com.sun.xml.bind.v2.schemagen.episode.Bindings;
 
 import controller.BorrowedController;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,15 +12,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import model.BorrowedThing;
-import model.Item;
 import model.Person;
 
 
@@ -84,7 +80,8 @@ public class BorrowedTableGUI {
 		controller = new BorrowedController(this);
 	}
 
-	/** 
+
+	/**
 	 * Method that shows all the borrowed items
 	 * @param event either Borrowed Things tab or Borrowed Items button is pushed
 	 */
@@ -102,8 +99,10 @@ public class BorrowedTableGUI {
 		borrowedviewanchorpane.getChildren().setAll(showBorrowedAdd);
 	}
 	
-	/** 
-	 * Method that adds the information of Borrowed items into the table
+
+	/**
+	 * Initialize-method called when the class is created
+	 * Fetches the list of borrowed items in the database 
 	 */
 	@FXML
 	public void initialize() {
@@ -155,11 +154,13 @@ public class BorrowedTableGUI {
 		
 	}
 	
+
 	@FXML
 	public void markAsReturned() {
 		controller.markReturned();
 		initialize();
 	}
+	
 } 
 
 

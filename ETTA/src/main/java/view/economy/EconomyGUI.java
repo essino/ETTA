@@ -103,6 +103,8 @@ public class EconomyGUI {
 	
 	
 	
+	
+	
 	/**
 	 * Method showing the Expenses view in the Economy items section
 	 * @param event ActionEvent that is handled
