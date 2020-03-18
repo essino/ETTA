@@ -152,7 +152,7 @@ public class WishlistAddGUI {
 	public Date getItemDate() {
 		try {
 			return Date.valueOf(this.date.getValue());
-		} catch(NullPointerException e) {
+		} catch (NullPointerException e) {
 			return null;
 		}
 	}

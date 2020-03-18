@@ -145,6 +145,23 @@ public class WishlistTableGUI {
 	}
 	
 	/**
+	 * Method for showing the view of edit wishlist
+	 * @param event ActionEvent that is handled
+	 */
+	@FXML
+	public void showEditWish(ActionEvent event) {
+		AnchorPane showEditWishView = null; 
+		FXMLLoader loaderEditWishView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistEdit.fxml")); 
+		try {
+			showEditWishView = loaderEditWishView.load();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		wishlistanchorpane.getChildren().setAll(showEditWishView);
+	}
+	
+	/**
 	 * Method for getting the selected item from the table
 	 * @return the selected item
 	 */
