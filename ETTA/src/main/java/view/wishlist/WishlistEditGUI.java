@@ -61,7 +61,7 @@ public class WishlistEditGUI {
 	/**
 	 * Reference to the used WishlistController
 	 */
-	WishlistController controller = new WishlistController(this);
+	WishlistController controller; //= new WishlistController(this);
 	
 	/**
 	 * The input check class used for validating user input
@@ -72,6 +72,10 @@ public class WishlistEditGUI {
 	 * PersonDAO used for accessing the database
 	 */
 	PersonDAO personDAO = new PersonDAO();
+	
+	public WishlistEditGUI(WishlistController controller) {
+		this.controller = controller;
+	}
 	
 	/**
 	 * Method for getting the value of the item text field
@@ -129,6 +133,7 @@ public class WishlistEditGUI {
 	 */
 	@FXML
 	public void initialize() {
+		System.out.println("tultiin edit init 132");
 		toWhom.getItems().addAll(controller.personsList());
 		toWhom.getItems().add("");
 		toWhom.setCellFactory(lv -> {
@@ -162,6 +167,7 @@ public class WishlistEditGUI {
 	       });
 	       return cell ;
 		});
+		System.out.println("tultiin edit init 166");
 		Item itemToBeUpdated = controller.getItem();
 		item.setText(itemToBeUpdated.getDescription());
 		toWhom.getSelectionModel().select(1);

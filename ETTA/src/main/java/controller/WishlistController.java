@@ -51,7 +51,9 @@ public class WishlistController {
 	 * The input check class used for validating user input
 	 */
 	InputCheck inputCheck = new InputCheck();
-	
+
+	public Item selectedItem = new Item();
+
 	/**
 	 * Constructor
 	 * @param gui WishlistTableGUI
@@ -152,7 +154,11 @@ public class WishlistController {
 	}
 	
 	public Item getItem() {
+		System.out.println("selected wishlist item " + gui.getSelectedItem().getDescription());
 		return itemDAO.readItem(gui.getSelectedItem().getDescription());
 	}
 
+	public void updateItem(Item editedItem) {
+		itemDAO.updateItem(editedItem);		
+	}
 }

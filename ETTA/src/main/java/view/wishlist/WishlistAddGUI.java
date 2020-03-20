@@ -62,7 +62,7 @@ public class WishlistAddGUI {
 	/**
 	 * Reference to the used WishlistController
 	 */
-	WishlistController controller = new WishlistController(this);
+	WishlistController controller; //= new WishlistController(this);
 	
 	/**
 	 * The input check class used for validating user input
@@ -72,6 +72,10 @@ public class WishlistAddGUI {
 	 * PersonDAO used for accessing the database
 	 */
 	PersonDAO personDAO = new PersonDAO();
+	
+	public WishlistAddGUI(WishlistController controller) {
+		this.controller = controller;
+	}
 	
 	/**
 	 * Initialize-method called when the class is created

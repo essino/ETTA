@@ -3,27 +3,26 @@ package view.wishlist;
 import java.io.IOException;
 import java.sql.Date;
 
-import com.sun.xml.bind.v2.schemagen.episode.Bindings;
-
 import controller.WishlistController;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import model.Item;
-import model.Transfer;
 
 
 public class WishlistTableGUI {
@@ -31,7 +30,7 @@ public class WishlistTableGUI {
 	/**
 	 * Reference to the used WishlistController
 	 */
-	WishlistController controller;
+	WishlistController controller = new WishlistController(this);
 	
 	/**
 	 * The anchor pane view from where adding, editing and deleting can be started
@@ -85,7 +84,8 @@ public class WishlistTableGUI {
 	 * Constructor responsible for creating the wishlist controller
 	 */
 	public WishlistTableGUI() {
-		controller = new WishlistController(this);
+		//controller = new WishlistController(this);
+		//this.controller = controller;
 	}
 
 	/**
@@ -94,7 +94,19 @@ public class WishlistTableGUI {
 	 */
 	@FXML
 	public void initialize() {
+		wishlisttable.setEditable(true);
 		item.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
+		item.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
+		item.setOnEditCommit(
+				new EventHandler<CellEditEvent<Item, String>>() {
+					@Override
+					public void handle(CellEditEvent<Item, String> t) {
+						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+						editedItem.setDescription(t.getNewValue());
+						controller.updateItem(editedItem);
+						wishlisttable.refresh();
+					}});
+		
 		person.setCellValueFactory(new Callback<CellDataFeatures<Item, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Item, String> item) {
 		         // item.getValue() returns the Data instance for a particular TableView row
@@ -125,6 +137,7 @@ public class WishlistTableGUI {
 		//bought.setCellValueFactory(new PropertyValueFactory<Item, Boolean>("bought"));
 		final ObservableList<Item> data = FXCollections.observableArrayList(controller.getItems());
 		wishlisttable.setItems(data);
+		
 	}
 	
 	/**
@@ -167,6 +180,7 @@ public class WishlistTableGUI {
 	 */
 	@FXML
 	public Item getSelectedItem() {
+		System.out.println("selected in tableGUI " + wishlisttable.getSelectionModel().getSelectedItem());
 		return wishlisttable.getSelectionModel().getSelectedItem();
 	}
 	
