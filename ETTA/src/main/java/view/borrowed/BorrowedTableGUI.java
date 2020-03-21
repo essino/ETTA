@@ -10,15 +10,19 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import model.BorrowedThing;
+import model.Item;
 import model.Person;
 
 
@@ -98,7 +102,6 @@ public class BorrowedTableGUI {
 		//shows the loaded fxml file
 		borrowedviewanchorpane.getChildren().setAll(showBorrowedAdd);
 	}
-	
 
 	/**
 	 * Initialize-method called when the class is created
@@ -106,7 +109,21 @@ public class BorrowedTableGUI {
 	 */
 	@FXML
 	public void initialize() {
+		//lisäys yksi rivi
+		borrowedTable.setEditable(true);
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
+		//lisäys
+		borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
+		borrowedThingDescr.setOnEditCommit(
+			new EventHandler<CellEditEvent<BorrowedThing, String>>(){
+				@Override
+				public void handle(CellEditEvent<BorrowedThing, String> t) {
+					BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+					editedBorrowedThing.setDescription(t.getNewValue());
+					controller.updateBorrowedThing(editedBorrowedThing);
+					borrowedTable.refresh();
+			}});
+		//lisäys loppuu
 		borrowedBy.setCellValueFactory(new PropertyValueFactory<Person, String>("person"));
 		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
 		returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));

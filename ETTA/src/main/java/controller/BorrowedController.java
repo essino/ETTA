@@ -164,5 +164,9 @@ public class BorrowedController {
 		}
 	}
 	
+	public void updateBorrowedThing(BorrowedThing borrowedThing) {
+		borrowedThingDAO.updateBorrowedThing(borrowedThing);
+	}
+	
 }
 
