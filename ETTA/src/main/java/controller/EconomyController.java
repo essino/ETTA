@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Callback;
 
 import java.sql.Date;
 
@@ -16,6 +17,7 @@ import view.economy.EconomyAddSavingGUI;
 import view.economy.EconomyGUI;
 import view.economy.EconomyIncomeGUI;
 import view.economy.EconomyOutcomeGUI;
+import view.economy.EconomySavingsGUI;
 import model.BalanceDAO;
 import model.Category;
 import model.CategoryDAO;
@@ -78,6 +80,7 @@ public class EconomyController {
 	 * Reference to the EconomyAddSavingGUI
 	 */
 	private EconomyAddSavingGUI economyAddSavingGUI;
+	private EconomySavingsGUI economySavingGUI;
 	
 	
 	
@@ -151,6 +154,11 @@ public class EconomyController {
 
 	public EconomyController(EconomyAddIncomeGUI economyAddIncomeGUI) {
 		this.economyAddIncomeGUI = economyAddIncomeGUI;
+	}
+
+
+	public EconomyController(EconomySavingsGUI economySavingsGUI) {
+		this.economySavingGUI = economySavingsGUI;
 	}
 
 
@@ -312,6 +320,11 @@ public class EconomyController {
 		saving.setDescription(economyAddSavingGUI.getDescription());
 		saving.setGoalDate(economyAddSavingGUI.getSavingDay());
 		savingDAO.createSaving(saving);
+	}
+
+
+	public Saving[] getSavingss() {
+		return savingDAO.readSavings();
 	}
 
 

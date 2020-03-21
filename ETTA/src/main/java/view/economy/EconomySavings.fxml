@@ -6,14 +6,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="economysavingsanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.economy.EconomyGUI">
+<AnchorPane fx:id="economysavingsanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.economy.EconomySavingsGUI">
    <children>
-      <TableView layoutX="141.0" layoutY="92.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="21.0">
+      <TableView fx:id="savingsTable" layoutX="141.0" layoutY="92.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="21.0">
         <columns>
-            <TableColumn prefWidth="173.0" text="Description" />
-          <TableColumn prefWidth="162.0" text="Total" />
-          <TableColumn prefWidth="265.0" text="Goal" />
-            <TableColumn prefWidth="157.0" text="Deatline" />
+            <TableColumn fx:id="savingsDescription" prefWidth="173.0" text="Description" />
+          <TableColumn fx:id="savingsSavedAmount" prefWidth="162.0" text="Saved amount" />
+          <TableColumn fx:id="savingsGoalAmount" prefWidth="265.0" text="Goal amount" />
+            <TableColumn fx:id="savingsGoalDate" prefWidth="157.0" text="Goal date" />
         </columns>
       </TableView>
       <ButtonBar layoutX="440.0" layoutY="716.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="28.0">

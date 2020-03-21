@@ -157,27 +157,6 @@ public class EconomyGUI {
 			}
 		economyincomeanchorpane.getChildren().setAll(showAddIncomeView);
 	}
-
-
-
-	/**
-	 * Method showing the view of the Add Savings in the Savings items section
-	 * @param event ActionEvent that is handled
-	 */
-	@FXML
-	public void showAddSavings(ActionEvent event) {
-		AnchorPane showAddSavingsView = null;
-		FXMLLoader loaderAddSavingsView = new FXMLLoader(getClass().getResource("/view/economy/EconomyAddSavings.fxml"));
-		try {
-			showAddSavingsView = loaderAddSavingsView.load();
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			}
-		
-		economysavingsanchorpane.getChildren().setAll(showAddSavingsView);
-		
-	}
 	
 
 	@FXML

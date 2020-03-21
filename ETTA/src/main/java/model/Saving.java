@@ -36,7 +36,7 @@ public class Saving {
 	public Saving(String desc, float amountGoal, float reachedGoal, Date date) {
 		this.description = desc;
 		this.goalAmount = amountGoal;
-		this.progress = reachedGoal;
+		this.amount = reachedGoal;
 		this.goalDate = date;
 	}
 

@@ -69,7 +69,7 @@ public class EconomyAddSavingGUI {
 	@FXML
 	public Date getSavingDay() {
 		try {
-		return java.sql.Date.valueOf(savingDate.getValue());
+			return java.sql.Date.valueOf(savingDate.getValue());
 		}
 		catch(NullPointerException e) {
 			return null;
