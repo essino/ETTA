@@ -24,6 +24,7 @@ import javafx.util.Callback;
 import model.BorrowedThing;
 import model.Item;
 import model.Person;
+import controller.InputCheck;
 
 
 public class BorrowedTableGUI {
@@ -84,6 +85,10 @@ public class BorrowedTableGUI {
 		controller = new BorrowedController(this);
 	}
 
+	/**
+	 * The reference of InputCheck class used for checking user's input
+	 */
+	InputCheck inputCheck = new InputCheck();
 
 	/**
 	 * Method that shows all the borrowed items
@@ -125,6 +130,7 @@ public class BorrowedTableGUI {
 			}});
 		//lisäys loppuu
 		borrowedBy.setCellValueFactory(new PropertyValueFactory<Person, String>("person"));
+		//miten sama datepickerillä?
 		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
 		returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
 		//returned.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Boolean>("returned"));
@@ -158,8 +164,10 @@ public class BorrowedTableGUI {
 	 */
 	@FXML
 	public void deleteSelectedBorrowedThing() {
-		controller.removeBorrowedThing();
-		initialize();
+		if (inputCheck.confirmDeleting()) {
+			controller.removeBorrowedThing();
+			initialize();
+		}
 	}
 	
 	/** 
