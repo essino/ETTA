@@ -2,9 +2,11 @@ package controller;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Optional;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import model.Person;
 
 /** 
@@ -105,6 +107,18 @@ public class InputCheck {
 	    return b;
 	}
 	
+	public boolean confirmDeleting() {
+		boolean delete = false;
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation");
+		alert.setHeaderText("Deleting can't be undone.");
+		alert.setContentText("Are you sure you want to delete this data permanently?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.isPresent() && result.get() == ButtonType.OK) {
+			delete = true;
+		 }
+		return delete;
+	}
 }
 
 
