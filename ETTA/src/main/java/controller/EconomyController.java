@@ -40,14 +40,10 @@ public class EconomyController {
 	 */
 	private EconomyGUI ecoGUI;
 	
-	
 	/**
 	 * Reference to the EconomyAddOutcomeGUI
 	 */
 	private EconomyAddOutcomeGUI addExpenceGUI;
-	
-
-
 	
 	/**
 	 * Reference to the EconomyOutcomeGUI
@@ -70,56 +66,53 @@ public class EconomyController {
 	 * SavingDAO used for accessing the database
 	 */
 	private SavingDAO savingDAO = new SavingDAO();
+	
 	/**
 	 * Reference to the EconomyAddIncomeGUI
 	 */
 	private EconomyAddIncomeGUI economyAddIncomeGUI;
 	
+	/**
+	 * Reference to the EconomyIncomeGUI
+	 */
 	private EconomyIncomeGUI incomeGUI;
+	
 	/**
 	 * Reference to the EconomyAddSavingGUI
 	 */
 	private EconomyAddSavingGUI economyAddSavingGUI;
+	
+	/**
+	 * Reference to the EconomySavingGUI
+	 */
 	private EconomySavingsGUI economySavingGUI;
 	
-	
-	
-	
 	public void saveTransfer() {
-
-
 		String description = ecoGUI.getDescription();
 		float incomeAmount = ecoGUI.getIncomeAmount();
 		Date incomeDate = ecoGUI.getIncomeDate();
 		Category category = null;
 		Boolean income = true;
 		Transfer transfer = new Transfer(description, category, income, incomeDate, incomeAmount);
-
 		Boolean Transfer = transDAO.createTransfer(transfer);
 	}
-
 	
 	/** 
 	 * Constructor 
 	 * @param balanceOverviewGUI 
 	 */ 
-
 	public EconomyController(BalanceOverviewGUI balanceOverviewGUI) { 
-
 		this.balanceOverviewGUI= balanceOverviewGUI; 
-	
 	} 
 
 	/** 
 	 * Constructor 
 	 * @param economyAddSavingGUI 
 	 */ 
-
 	public EconomyController(EconomyAddSavingGUI economyAddSavingGUI) { 
-
 		this.economyAddSavingGUI= economyAddSavingGUI; 
-	
 	} 
+	
 	/** 
 	 * Constructor 
 	 */ 
@@ -134,16 +127,15 @@ public class EconomyController {
 	public EconomyController(EconomyAddOutcomeGUI economyAddOutcomeGUI) {
 		this.addExpenceGUI = economyAddOutcomeGUI;
 	}
-	
 
-	
+	/** 
+	 * Constructor 
+	 * @param economyIncomeGUI 
+	 */ 
 	public EconomyController(EconomyIncomeGUI economyIncomeGUI) {
 		this.incomeGUI = economyIncomeGUI;
 	}
 	
-
-	
-
 	/** 
 	 * Constructor 
 	 * @param economyOutcomeGUI 
@@ -152,15 +144,21 @@ public class EconomyController {
 		this.expenceGUI = economyOutcomeGUI;
 	}
 
+	/** 
+	 * Constructor 
+	 * @param economyAddIncomeGUI 
+	 */ 
 	public EconomyController(EconomyAddIncomeGUI economyAddIncomeGUI) {
 		this.economyAddIncomeGUI = economyAddIncomeGUI;
 	}
 
-
+	/** 
+	 * Constructor 
+	 * @param economySavingGUI 
+	 */ 
 	public EconomyController(EconomySavingsGUI economySavingsGUI) {
 		this.economySavingGUI = economySavingsGUI;
 	}
-
 
 	/** 
 	 * Method that gets balance amount from BalanceDAO and gives it forward to BalanceOverviewGUI to display it on the page 
@@ -269,9 +267,6 @@ public class EconomyController {
 	}
 	
 	/** 
-	 * Method that gets the selected expense from expenceGUI, 
-	 * tells TransferDAO to edit the expense in the database 
-	 * and expenceGUI to display it from the tableView.
 	 */ 
 	public void editExpense() {
 
@@ -282,7 +277,7 @@ public class EconomyController {
 	
 	/** 
 	 * Method that gets Expenses from TransferDAO and makes a list containing expenses' details 
-	 * @return ObservableList<String> names - list of expenses
+	 * @return Transfer [] - list of expenses
 	 */ 
 	public Transfer[] getExpenses() {
 		return transDAO.readExpenses();
@@ -291,7 +286,7 @@ public class EconomyController {
 	
 	/** 
 	 * Method that gets Incomes from TransferDAO and makes a list containing incomes details 
-	 * @return ObservableList<String> names - list of incomes
+	 * @return Transfer[] - list of incomes
 	 */ 
 	public Transfer[] getIncomes() {
 		return transDAO.readIncome();
@@ -319,10 +314,14 @@ public class EconomyController {
 		saving.setGoal_amount(economyAddSavingGUI.getSavingAmount());
 		saving.setDescription(economyAddSavingGUI.getDescription());
 		saving.setGoalDate(economyAddSavingGUI.getSavingDay());
+		saving.setProgress(0);
 		savingDAO.createSaving(saving);
 	}
 
-
+	/** 
+	 * Method that gets Savings from SavingDAO and makes a list containing savings' details 
+	 * @return Savings[]  list of savings
+	 */ 
 	public Saving[] getSavingss() {
 		return savingDAO.readSavings();
 	}

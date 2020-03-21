@@ -92,8 +92,6 @@ public class EconomyAddSavingGUI {
 	@FXML
 	public void saveSaving() {
 		if(inputCheck.isInputFloat(savingAmount.getText())) {
-			
-		
 			if(!inputCheck.isInputEmpty(savingDescription.getText())) {
 			controller.saveNewSaving();
 			AnchorPane savingsView = null; 
@@ -101,7 +99,6 @@ public class EconomyAddSavingGUI {
 			try {
 				savingsView = loaderSavingsView.load();
 				} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				}
 			addSavingPane.getChildren().setAll(savingsView);

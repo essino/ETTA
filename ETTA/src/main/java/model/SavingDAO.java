@@ -120,6 +120,7 @@ public class SavingDAO {
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean updateSaving(Saving saving) {
+		saving.setProgress((saving.getAmount()/saving.getGoalAmount())*100);
 		boolean success = false;
 		try (Session session = factory.openSession()) {
 			transaction = session.beginTransaction();

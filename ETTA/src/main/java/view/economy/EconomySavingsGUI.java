@@ -48,6 +48,12 @@ public class EconomySavingsGUI {
 	 */
     @FXML
     private TableColumn<Saving, Float> savingsSavedAmount;
+    /**
+	 * The reference of TableColumn (savings's progress) will be injected by the FXML loader
+	 */
+    @FXML
+    private TableColumn<Saving, Float> savingsProgress;
+    
 	/**
 	 * The reference of TableColumn (savings's goal date) will be injected by the FXML loader
 	 */
@@ -55,7 +61,7 @@ public class EconomySavingsGUI {
     private TableColumn<Saving, Date> savingsGoalDate;
 
 	/** 
-	 * Method that initializes the view and gets the expenses  from the controller to display them on the page
+	 * Method that initializes the view and gets the savings  from the controller to display them on the page
 	 */
 	@FXML 
 	public void initialize() { 
@@ -67,6 +73,8 @@ public class EconomySavingsGUI {
                 new PropertyValueFactory<Saving, Float>("goalAmount"));
 		savingsSavedAmount.setCellValueFactory(
                 new PropertyValueFactory<Saving, Float>("amount"));
+		savingsProgress.setCellValueFactory( 
+				new PropertyValueFactory<Saving, Float>("progress"));
 		ObservableList<Saving> savings =  FXCollections.observableArrayList(controller.getSavingss());
 		savingsTable.setItems(savings);
 	}
