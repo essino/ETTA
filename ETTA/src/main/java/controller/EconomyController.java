@@ -326,5 +326,14 @@ public class EconomyController {
 		return savingDAO.readSavings();
 	}
 
+	public void removeSaving() {
+		savingDAO.deleteSaving(economySavingGUI.savingToDelete().getSaving_id());
+		Balance balance = balanceDao.readBalance(1);
+		float newAmount = balance.getBalance() + economySavingGUI.savingToDelete().getAmount();
+		balance.setBalance(newAmount);
+		balanceDao.updateBalance(balance);
+		economySavingGUI.removeFromTable(economySavingGUI.savingToDelete());
+	}
+
 
 }

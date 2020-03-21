@@ -21,7 +21,7 @@
         <buttons>
           <Button mnemonicParsing="false" onAction="#showAddSavings" text="Add" />
             <Button mnemonicParsing="false" text="Edit" />
-            <Button mnemonicParsing="false" text="Remove" />
+            <Button mnemonicParsing="false" onAction="#deleteSaving" text="Remove" />
         </buttons>
       </ButtonBar>
    </children>

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 
 import controller.EconomyController;
+import controller.InputCheck;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,6 +23,12 @@ import model.Transfer;
 
 public class EconomySavingsGUI {
 	EconomyController controller = new EconomyController(this);
+	
+	/**
+	 * The reference of InputCheck class used for checking user's input
+	 */
+	InputCheck inputCheck = new InputCheck();
+	
 	/**
 	 * The list view from where adding, editing and deleting can be started in savings
 	 */
@@ -94,6 +101,29 @@ public class EconomySavingsGUI {
 			}
 		
 		economysavingsanchorpane.getChildren().setAll(showAddSavingsView);
+		
+	}
+	
+	/** 
+	 * Method that tells controller to delete a saving
+	 */
+	@FXML
+	public void deleteSaving() {
+		if(inputCheck.confirmDeleting()) {
+			controller.removeSaving();
+		}
+	}
+	
+	/** 
+	 * Method that returns the selected saving
+	 * @return Saving that is selected
+	 */
+	public Saving savingToDelete() {
+		return savingsTable.getSelectionModel().getSelectedItem();
+	}
+	
+	public void removeFromTable(Saving savingToDelete) {
+		savingsTable.getItems().remove(savingToDelete);
 		
 	}
 }
