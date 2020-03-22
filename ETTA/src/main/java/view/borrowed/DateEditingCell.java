@@ -1,18 +1,21 @@
 package view.borrowed;
 
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Date;
+import java.util.Locale;
+import java.sql.Date;
 import java.time.LocalDate;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import model.BorrowedThing;
 
-public class DateEditingCell extends TableCell<BorrowedThing, Date> {
 
+public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
+	
+	
     private DatePicker datePicker;
-
+    
+    //changes language into English
+    //private final Locale myLocale = Locale.getDefault(Locale.Category.FORMAT);
+    
     public DateEditingCell() {
     }
 
@@ -29,13 +32,13 @@ public class DateEditingCell extends TableCell<BorrowedThing, Date> {
     @Override
     public void cancelEdit() {
         super.cancelEdit();
-
+        //onko tässä jotain
         setText(getDate().toString());
         setGraphic(null);
     }
 
     @Override
-    public void updateItem(Date item, boolean empty) {
+    public void updateItem(java.sql.Date item, boolean empty) {
         super.updateItem(item, empty);
 
         if (empty) {
@@ -44,32 +47,35 @@ public class DateEditingCell extends TableCell<BorrowedThing, Date> {
         } else {
             if (isEditing()) {
                 if (datePicker != null) {
-                    datePicker.setValue(getDate());
+                    datePicker.setValue(getDate().toLocalDate());
                 }
                 setText(null);
                 setGraphic(datePicker);
             } else {
-                setText(getDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
+                setText(getDate().toString());
                 setGraphic(null);
             }
         }
     }
 
     private void createDatePicker() {
-        datePicker = new DatePicker(getDate());
+        datePicker = new DatePicker(getDate().toLocalDate());
+        //changes the datepicker's language into English
+        datePicker.setOnShowing(e-> Locale.setDefault(Locale.Category.FORMAT,Locale.ENGLISH));
         datePicker.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
         datePicker.setOnAction((e) -> {
             System.out.println("Committed: " + datePicker.getValue().toString());
-            commitEdit(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            commitEdit((Date) Date.valueOf(datePicker.getValue()));
         });
-//        datePicker.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-//            if (!newValue) {
-//                commitEdit(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-//            }
-//        });
     }
 
-    private LocalDate getDate() {
-        return getItem() == null ? LocalDate.now() : getItem().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    private Date getDate() {
+    	if (getItem() == null) {
+    		return Date.valueOf(LocalDate.now());
+    	} else {
+    		return getItem();
+    	}
+        
+    	
     }
 }

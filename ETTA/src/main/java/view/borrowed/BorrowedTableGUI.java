@@ -23,11 +23,10 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import model.BorrowedThing;
-import model.Item;
 import model.Person;
 import controller.InputCheck;
 //import view.borrowed.DateEditingCell;
-import javafx.scene.control.cell.ComboBoxTableCell;
+
 
 
 public class BorrowedTableGUI {
@@ -93,7 +92,7 @@ public class BorrowedTableGUI {
 	 */
 	InputCheck inputCheck = new InputCheck();
 	
-	DateEditingCell cell = new DateEditingCell();
+	//DateEditingCell cell = new DateEditingCell();
 	Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
 
 	/**
@@ -140,7 +139,6 @@ public class BorrowedTableGUI {
 		borrowedBy.setCellValueFactory(new PropertyValueFactory<Person, String>("person"));
 		
 		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
-		//miten sama datepickerillä?
 		loanDate.setCellFactory(dateCellFactory);
 		/*loanDate.setOnEditCommit(
 			new EventHandler<CellEditEvent<BorrowedThing, Date>>(){
@@ -158,16 +156,19 @@ public class BorrowedTableGUI {
 				}
 			
 		);
-		
-		//toisesta projektista
-
-        
-
-		
-		//datepicker loppuu
 		returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
 		//returned.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Boolean>("returned"));
-		
+		returnDate.setCellFactory(dateCellFactory);
+		returnDate.setOnEditCommit(
+                (TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
+                    BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
+                    .get(t.getTablePosition().getRow()));
+                    editedBorrowedThing.setReturnDate(t.getNewValue());
+					controller.updateBorrowedThing(editedBorrowedThing);
+					borrowedTable.refresh();
+				}
+			
+		);
 		returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
 			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 				if (borrowedThingDescr.getValue().isReturned() == true) {
