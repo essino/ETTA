@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -25,6 +26,8 @@ import model.BorrowedThing;
 import model.Item;
 import model.Person;
 import controller.InputCheck;
+//import view.borrowed.DateEditingCell;
+import javafx.scene.control.cell.ComboBoxTableCell;
 
 
 public class BorrowedTableGUI {
@@ -89,6 +92,9 @@ public class BorrowedTableGUI {
 	 * The reference of InputCheck class used for checking user's input
 	 */
 	InputCheck inputCheck = new InputCheck();
+	
+	DateEditingCell cell = new DateEditingCell();
+	Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
 
 	/**
 	 * Method that shows all the borrowed items
@@ -127,11 +133,38 @@ public class BorrowedTableGUI {
 					editedBorrowedThing.setDescription(t.getNewValue());
 					controller.updateBorrowedThing(editedBorrowedThing);
 					borrowedTable.refresh();
-			}});
+		}});
 		//lisäys loppuu
+		
+		
 		borrowedBy.setCellValueFactory(new PropertyValueFactory<Person, String>("person"));
-		//miten sama datepickerillä?
+		
 		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
+		//miten sama datepickerillä?
+		loanDate.setCellFactory(dateCellFactory);
+		/*loanDate.setOnEditCommit(
+			new EventHandler<CellEditEvent<BorrowedThing, Date>>(){
+				@Override
+				public void handle (CellEditEvent<BorrowedThing, Date> t) {
+					BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+					editedBorrowedThing.setDateBorrowed(t.getNewValue());*/
+		loanDate.setOnEditCommit(
+                (TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
+                    BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
+                    .get(t.getTablePosition().getRow()));
+                    editedBorrowedThing.setDateBorrowed(t.getNewValue());
+					controller.updateBorrowedThing(editedBorrowedThing);
+					borrowedTable.refresh();
+				}
+			
+		);
+		
+		//toisesta projektista
+
+        
+
+		
+		//datepicker loppuu
 		returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
 		//returned.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Boolean>("returned"));
 		
