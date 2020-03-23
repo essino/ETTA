@@ -31,7 +31,7 @@ public class Saving {
 	private Date goalDate;
 	
 	@Column(name="progress")
-	private float progress = 0;
+	private double progress = 0;
 
 	public Saving(String desc, float amountGoal, float reachedGoal, Date date) {
 		this.description = desc;
@@ -84,11 +84,11 @@ public class Saving {
 		this.goalDate = goalDate;
 	}
 
-	public float getProgress() {
+	public double getProgress() {
 		return progress;
 	}
 
-	public void setProgress(float progress) {
+	public void setProgress(double progress) {
 		this.progress = progress;
 	}
 	

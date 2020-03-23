@@ -15,6 +15,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.ProgressBarTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import model.Category;
@@ -59,7 +60,7 @@ public class EconomySavingsGUI {
 	 * The reference of TableColumn (savings's progress) will be injected by the FXML loader
 	 */
     @FXML
-    private TableColumn<Saving, Float> savingsProgress;
+    private TableColumn<Saving, Double> savingsProgress;
     
 	/**
 	 * The reference of TableColumn (savings's goal date) will be injected by the FXML loader
@@ -81,7 +82,8 @@ public class EconomySavingsGUI {
 		savingsSavedAmount.setCellValueFactory(
                 new PropertyValueFactory<Saving, Float>("amount"));
 		savingsProgress.setCellValueFactory( 
-				new PropertyValueFactory<Saving, Float>("progress"));
+				new PropertyValueFactory<Saving, Double>("progress"));
+		savingsProgress.setCellFactory(ProgressBarTableCell.<Saving>forTableColumn());
 		ObservableList<Saving> savings =  FXCollections.observableArrayList(controller.getSavingss());
 		savingsTable.setItems(savings);
 	}

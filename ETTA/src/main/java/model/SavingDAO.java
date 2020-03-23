@@ -81,6 +81,7 @@ public class SavingDAO {
 			@SuppressWarnings("unchecked")
 			List<Saving> result = session.createQuery("from Saving").getResultList();
 			for(Saving saving : result) {
+				saving.setProgress(saving.getAmount()/saving.getGoalAmount());
 				list.add(saving);
 
 			}
