@@ -119,7 +119,6 @@ public class BorrowedTableGUI {
 	 */
 	@FXML
 	public void initialize() {
-		//lisäys yksi rivi
 		borrowedTable.setEditable(true);
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
 		//lisäys
@@ -130,22 +129,17 @@ public class BorrowedTableGUI {
 				public void handle(CellEditEvent<BorrowedThing, String> t) {
 					BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 					editedBorrowedThing.setDescription(t.getNewValue());
+					
+					
 					controller.updateBorrowedThing(editedBorrowedThing);
 					borrowedTable.refresh();
-		}});
-		//lisäys loppuu
-		
-		
+				}
+			}
+		);
 		borrowedBy.setCellValueFactory(new PropertyValueFactory<Person, String>("person"));
-		
 		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
 		loanDate.setCellFactory(dateCellFactory);
-		/*loanDate.setOnEditCommit(
-			new EventHandler<CellEditEvent<BorrowedThing, Date>>(){
-				@Override
-				public void handle (CellEditEvent<BorrowedThing, Date> t) {
-					BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-					editedBorrowedThing.setDateBorrowed(t.getNewValue());*/
+		
 		loanDate.setOnEditCommit(
                 (TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
                     BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
@@ -154,20 +148,21 @@ public class BorrowedTableGUI {
 					controller.updateBorrowedThing(editedBorrowedThing);
 					borrowedTable.refresh();
 				}
-			
-		);
+			);
+		
+		
 		returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
 		//returned.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Boolean>("returned"));
 		returnDate.setCellFactory(dateCellFactory);
 		returnDate.setOnEditCommit(
-                (TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
-                    BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
-                    .get(t.getTablePosition().getRow()));
-                    editedBorrowedThing.setReturnDate(t.getNewValue());
-					controller.updateBorrowedThing(editedBorrowedThing);
-					borrowedTable.refresh();
-				}
-			
+			(TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
+			BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
+            .get(t.getTablePosition().getRow()));
+			editedBorrowedThing.setReturnDate(t.getNewValue());
+			controller.updateBorrowedThing(editedBorrowedThing);
+			controller.updateReturnDate(editedBorrowedThing);
+			borrowedTable.refresh();
+			}	
 		);
 		returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
 			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
@@ -176,10 +171,8 @@ public class BorrowedTableGUI {
 				} else {
 					return new ReadOnlyObjectWrapper<>("No");
 				}
-					
 			}
 		});
-		
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
 		borrowedTable.setItems(data);
 	}
@@ -210,7 +203,6 @@ public class BorrowedTableGUI {
 	 */
 	public void removeFromBorrowedTable(BorrowedThing borrowedThing) {
 		borrowedTable.getItems().remove(borrowedThing);
-		
 	}
 	
 

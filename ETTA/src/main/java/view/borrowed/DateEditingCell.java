@@ -75,7 +75,6 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
     	} else {
     		return getItem();
     	}
-        
-    	
-    }
+    }  
+    
 }
