@@ -2,8 +2,12 @@ package controller;
 
 import java.sql.Date;
 
+import model.BorrowedThing;
+import model.BorrowedThingDAO;
 import model.Event;
 import model.EventDAO;
+import model.Item;
+import model.ItemDAO;
 import model.Person;
 import model.PersonDAO;
 import view.contacts.ContactsGUI;
@@ -31,6 +35,14 @@ public class ContactsController {
 	 * EventDAO used for accessing the database
 	 */
 	private EventDAO eventDAO = new EventDAO();
+	/**
+	 * BorrowedThingDAO used for accessing the database
+	 */
+	private BorrowedThingDAO borrowedDAO = new BorrowedThingDAO();
+	/**
+	 * ItemDAO used for accessing the database
+	 */
+	private ItemDAO wishlistDAO = new ItemDAO();
 	
 
 	/** 
@@ -103,6 +115,26 @@ public class ContactsController {
 	 */
 	public ContactsController(ContactsTableGUI contactsTableGUI) {
 		this.conTableGUI = contactsTableGUI;
+	}
+	
+	public boolean checkIfContactUsed(){
+		if(borrowedDAO.readBorrowedThingsByPerson(conTableGUI.personToDelete().getPerson_id()).length!=0 ||
+				wishlistDAO.readItemsByPerson(conTableGUI.personToDelete().getPerson_id()).length !=0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public void deletePersonAndEvents() {
+		for(BorrowedThing bt : borrowedDAO.readBorrowedThingsByPerson(conTableGUI.personToDelete().getPerson_id())) {
+			borrowedDAO.deleteBorrowedThing(bt.getThing_id());
+		}
+		for(Item i : wishlistDAO.readItemsByPerson(conTableGUI.personToDelete().getPerson_id())) {
+			wishlistDAO.deleteItem(i.getItem_id());
+		}
+		deletePerson();
 	}
 	
 }

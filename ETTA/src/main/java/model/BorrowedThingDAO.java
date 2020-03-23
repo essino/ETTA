@@ -152,4 +152,30 @@ public class BorrowedThingDAO {
 		}
 		return success;
 	}
+	
+	
+	/**
+	 * Method for reading one specific Borrowed Thing in the database
+	 * @param thing_id int referring to the Borrowed item which is to be read
+	 * @return borrowedThing Object that represents an item borrowed to someone
+	 */
+	public BorrowedThing [] readBorrowedThingsByPerson(int person_id) {
+		ArrayList<BorrowedThing> list = new ArrayList<>();
+		try (Session session = factory.openSession()) {
+			transaction = session.beginTransaction();
+			@SuppressWarnings("unchecked")
+			List<BorrowedThing> result = session.createQuery("from BorrowedThing where person=" + person_id).getResultList();
+			//System.out.println("reading all, length: " + result.size());
+			for(BorrowedThing borrowedThing : result) {
+				list.add(borrowedThing);
+				System.out.println("reading all for this person: " + borrowedThing.getDescription());
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		BorrowedThing[] borrowedThings = new BorrowedThing[list.size()];
+		return (BorrowedThing[])list.toArray(borrowedThings);
+	}
 }
