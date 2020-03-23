@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -239,5 +240,35 @@ public class EventDAO {
 		}catch (Exception e) { 
 				e.printStackTrace();  
 		} 
+	}
+
+	public void deleteBirthday(String name, Date birthday) {
+		try {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			List<Event> result;
+			result = session.createQuery( "from Event  e where e.title='" + name + "' and calendar='birthdays'").getResultList();
+			System.out.println("result " + result.toString());
+			//Event[] returnArray = new Event[result.size()];
+			Event e = result.get(0);
+			System.out.println("event_id found " + e.getEvent_id());
+			if (e != null) {
+				//Event e = (Event)session.get(Event.class, event_id);
+				session.delete(e);
+				System.out.println(e.getEvent_id() + " deleted.");
+			}
+			else {
+				System.out.println("Ei löydy listalta.");
+			}
+			session.getTransaction().commit();
+		}
+		catch(Exception e){
+			if (transaction!=null) transaction.rollback();
+			throw e;
+		}
+		finally{
+			session.close();
+		}
+		
 	}
 }

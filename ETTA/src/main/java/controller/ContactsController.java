@@ -83,8 +83,12 @@ public class ContactsController {
 	 * and contactsTableGUI to delete it from the tableView.
 	 */ 
 	public void deletePerson() {
-		perDAO.deletePerson(conTableGUI.personToDelete().getPerson_id());
-		conTableGUI.removeFromTable(conTableGUI.personToDelete());
+		Person personToDelete = conTableGUI.personToDelete();
+		if(conTableGUI.personToDelete().getBirthday() != null) {
+			eventDAO.deleteBirthday(personToDelete.getName(), personToDelete.getBirthday());
+		}
+		perDAO.deletePerson(personToDelete.getPerson_id());
+		conTableGUI.removeFromTable(personToDelete);
 	}
 	
 	/** 
@@ -128,10 +132,11 @@ public class ContactsController {
 	}
 
 	public void deletePersonAndEvents() {
-		for(BorrowedThing bt : borrowedDAO.readBorrowedThingsByPerson(conTableGUI.personToDelete().getPerson_id())) {
+		Person personToDelete = conTableGUI.personToDelete();
+		for(BorrowedThing bt : borrowedDAO.readBorrowedThingsByPerson(personToDelete.getPerson_id())) {
 			borrowedDAO.deleteBorrowedThing(bt.getThing_id());
 		}
-		for(Item i : wishlistDAO.readItemsByPerson(conTableGUI.personToDelete().getPerson_id())) {
+		for(Item i : wishlistDAO.readItemsByPerson(personToDelete.getPerson_id())) {
 			wishlistDAO.deleteItem(i.getItem_id());
 		}
 		deletePerson();
