@@ -326,6 +326,11 @@ public class EconomyController {
 		return savingDAO.readSavings();
 	}
 
+	/** 
+	 * Method that gets the selected saving from SavingGUI, 
+	 * tells SavingDAO to delete the saving goal from the database 
+	 * and SavingGUI to delete it from the tableView.
+	 */ 
 	public void removeSaving() {
 		savingDAO.deleteSaving(economySavingGUI.savingToDelete().getSaving_id());
 		Balance balance = balanceDao.readBalance(1);

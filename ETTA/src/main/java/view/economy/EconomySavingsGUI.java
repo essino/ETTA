@@ -124,6 +124,10 @@ public class EconomySavingsGUI {
 		return savingsTable.getSelectionModel().getSelectedItem();
 	}
 	
+	/** 
+	 * Method that removes a saving goal from the tableView
+	 * @param Saving to be removed
+	 */
 	public void removeFromTable(Saving savingToDelete) {
 		savingsTable.getItems().remove(savingToDelete);
 		
