@@ -155,9 +155,9 @@ public class BorrowedThingDAO {
 	
 	
 	/**
-	 * Method for reading one specific Borrowed Thing in the database
-	 * @param thing_id int referring to the Borrowed item which is to be read
-	 * @return borrowedThing Object that represents an item borrowed to someone
+	 * Method for reading Borrowed Things in the database that use a concrete Person
+	 * @param person_id int referring to the Person that might be used for Borrowed Thing
+	 * @return BorrowedThing[] Array containing all Borrowed items connected with this person in the database
 	 */
 	public BorrowedThing [] readBorrowedThingsByPerson(int person_id) {
 		ArrayList<BorrowedThing> list = new ArrayList<>();

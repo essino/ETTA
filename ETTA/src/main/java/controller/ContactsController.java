@@ -121,6 +121,11 @@ public class ContactsController {
 		this.conTableGUI = contactsTableGUI;
 	}
 	
+	/** 
+	 * Method that checks if a Person is used in Borrowed Things or in Wishlist
+	 * @return true if contact is used somewhere
+	 * @return false if contact is not used anywhere
+	 */ 
 	public boolean checkIfContactUsed(){
 		if(borrowedDAO.readBorrowedThingsByPerson(conTableGUI.personToDelete().getPerson_id()).length!=0 ||
 				wishlistDAO.readItemsByPerson(conTableGUI.personToDelete().getPerson_id()).length !=0) {
@@ -131,6 +136,10 @@ public class ContactsController {
 		}
 	}
 
+	/** 
+	 * Method deletes Borrowed Things and/or Wishlist Items that use a Person that should be deleted
+	 * After deleting data using this Person this method calls deletePerson() method 
+	 */ 
 	public void deletePersonAndEvents() {
 		Person personToDelete = conTableGUI.personToDelete();
 		for(BorrowedThing bt : borrowedDAO.readBorrowedThingsByPerson(personToDelete.getPerson_id())) {

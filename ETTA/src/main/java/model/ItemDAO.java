@@ -171,6 +171,11 @@ public class ItemDAO {
 		return success;
 	}
 
+	/**
+	 * Method for reading Wishlist Items in the database that use a concrete Person
+	 * @param person_id int referring to the Person that might be used for Wishlist Item
+	 * @return Item[] Array containing all Items connected with this person in the database
+	 */
 	public Item[] readItemsByPerson(int person_id) {
 		ArrayList<Item> list = new ArrayList<>();
 		try {
