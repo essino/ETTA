@@ -17,6 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.converter.FloatStringConverter;
 import model.Balance;
 import model.Category;
 import model.Item;
@@ -144,7 +145,8 @@ public class EconomyIncomeGUI {
 		
 		
 		//En tajua miten tuon setCellFactoryn pitäisi olla, vai mistä tämä ongelma tulee?
-		incomeAmount.setCellFactory(TextFieldTableCell.<Transfer>forTableColumn());
+		//incomeAmount.setCellFactory(TextFieldTableCell.<Transfer>forTableColumn());
+		incomeAmount.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
 		incomeAmount.setOnEditCommit(
 			new EventHandler<CellEditEvent<Transfer, Float>>(){
 				@Override
