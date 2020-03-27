@@ -110,7 +110,13 @@ public class EconomyController {
 	}
 	
 	public void updateIncomeAmount(Transfer editedIncomeAmount) {
+		float oldAmount = (transDAO.readTransfer(editedIncomeAmount.getTransfer_id())).getAmount();
+		float newAmount = editedIncomeAmount.getAmount();
+		float diff = newAmount-oldAmount;
 		transDAO.updateTransfer(editedIncomeAmount);
+		Balance balance = balanceDao.readBalance(1);
+		balance.setBalance(balance.getBalance() + diff);
+		balanceDao.updateBalance(balance);
 	}
 	
 	public void saveTransfer() {
