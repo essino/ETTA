@@ -67,7 +67,7 @@ public class EconomyAddIncomeGUI {
 	@FXML
 	private DatePicker incomeDate;
 	
-	EconomyController controller;  //= new EconomyController(this);
+	EconomyController controller = new EconomyController(this);
 	
 
 	
