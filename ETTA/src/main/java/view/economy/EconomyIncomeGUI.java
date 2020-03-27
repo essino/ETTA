@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 
 import controller.EconomyController;
+import controller.InputCheck;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -64,6 +65,11 @@ public class EconomyIncomeGUI {
   	 */
       @FXML
       private TableColumn<Category, String> incomeCategory;
+      
+      /**
+  	 * The reference of InputCheck class used for checking user's input
+  	 */
+  	InputCheck inputCheck = new InputCheck();
 	
 	
     /**
@@ -143,7 +149,10 @@ public class EconomyIncomeGUI {
 	 */
 	@FXML
 	public void deleteIncome() {
-		controller.removeIncome();
+		if (inputCheck.confirmDeleting()) {
+			controller.removeIncome();
+			initialize();
+		}
 	}
 	
 	/** 
