@@ -7,14 +7,19 @@ import controller.EconomyController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import model.Category;
 import model.Transfer;
+import javafx.event.EventHandler;
+import javafx.scene.control.TableColumn.CellEditEvent;
 
 public class EconomyOutcomeGUI {
 	
@@ -55,6 +60,10 @@ public class EconomyOutcomeGUI {
       @FXML
       private TableColumn<Category, String> expenseCategory;
       
+      
+      public EconomyOutcomeGUI() {
+  		
+  	}
 	
 	/**
 	 * Method showing the view of the Add Expense in the Expenses items section
@@ -105,6 +114,20 @@ public class EconomyOutcomeGUI {
                 new PropertyValueFactory<Category, String>("category"));
 		ObservableList<Transfer> expenses =  FXCollections.observableArrayList(controller.getExpenses());
 		expenseTable.setItems(expenses);
+		
+		expenseTable.setEditable(true);
+		expenseDescription.setCellValueFactory(new PropertyValueFactory<Transfer, String>("description")); 
+		
+		expenseDescription.setCellFactory(TextFieldTableCell.<Transfer>forTableColumn());
+		expenseDescription.setOnEditCommit(
+			new EventHandler<CellEditEvent<Transfer, String>>(){
+				@Override
+				public void handle(CellEditEvent<Transfer, String> t) {
+					Transfer editedOutcomeDesc = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+					editedOutcomeDesc.setDescription(t.getNewValue());
+					controller.updateOutcomeDesc(editedOutcomeDesc);
+					expenseTable.refresh();
+					}});
 	}
 	
 	/** 
@@ -138,5 +161,10 @@ public class EconomyOutcomeGUI {
 	public void editOutcome() {
 		//expenseTable.setEditable(true);
 		//controller.editExpense();
+	}
+	
+	@FXML
+	public Transfer getSelectedItem() {
+		return expenseTable.getSelectionModel().getSelectedItem();
 	}
 }

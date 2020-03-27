@@ -65,6 +65,10 @@ public class EconomyAddOutcomeGUI {
 	
 	EconomyController controller = new EconomyController(this);
 	
+	public EconomyAddOutcomeGUI() {
+		
+	}
+	
 	/** 
 	 * Method that initializes the view - gets the expense categories from the EconomyController and displays them in the drop down list
 	 */
@@ -196,5 +200,9 @@ public class EconomyAddOutcomeGUI {
 		}
 			addOutcomePane.getChildren().setAll(outcomeView);
 		}
+	
+	public EconomyAddOutcomeGUI(EconomyController controller){
+		this.controller = controller;
+	}
 	
 }

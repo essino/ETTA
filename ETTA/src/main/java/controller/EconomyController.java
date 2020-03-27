@@ -92,12 +92,18 @@ public class EconomyController {
 	
 	public Item selectedIncomeDesc = new Item();
 	
+	public Item selectedOutcomeDesc = new Item();
+	
 	/*
 	public Item getIncomeDesc() {
 		System.out.println("Selected income item " + incomeGUI.getSelectedItem().getDescription());
 		return transDAO.readTransfers(incomeGUI.getSelectedItem().getDescription());
 	}
 	*/
+	public void updateOutcomeDesc(Transfer editedOutcomeDesc) {
+		transDAO.updateTransfer(editedOutcomeDesc);
+	}
+	
 	
 	public void updateIncomeDesc(Transfer editedIncomeDesc) {
 		transDAO.updateTransfer(editedIncomeDesc);
