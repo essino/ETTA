@@ -109,6 +109,10 @@ public class EconomyController {
 		transDAO.updateTransfer(editedIncomeDesc);
 	}
 	
+	public void updateIncomeAmount(Transfer editedIncomeAmount) {
+		transDAO.updateTransfer(editedIncomeAmount);
+	}
+	
 	public void saveTransfer() {
 		String description = ecoGUI.getDescription();
 		float incomeAmount = ecoGUI.getIncomeAmount();

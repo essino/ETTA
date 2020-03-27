@@ -128,17 +128,33 @@ public class EconomyIncomeGUI {
 		
 		incomeTable.setEditable(true);
 		incomeDescription.setCellValueFactory(new PropertyValueFactory<Transfer, String>("description")); 
-		//lisäys
+		incomeAmount.setCellValueFactory(new PropertyValueFactory<Transfer, Float>("amount"));
+		
+		
 		incomeDescription.setCellFactory(TextFieldTableCell.<Transfer>forTableColumn());
 		incomeDescription.setOnEditCommit(
 			new EventHandler<CellEditEvent<Transfer, String>>(){
 				@Override
 				public void handle(CellEditEvent<Transfer, String> t) {
-					Transfer editedIncomeDesc = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+					Transfer editedIncomeDesc = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));	
 					editedIncomeDesc.setDescription(t.getNewValue());
-					controller.updateIncomeDesc(editedIncomeDesc);
+					controller.updateIncomeDesc(editedIncomeDesc);					
 					incomeTable.refresh();
 					}});
+		
+		
+		//En tajua miten tuon setCellFactoryn pitäisi olla, vai mistä tämä ongelma tulee?
+		incomeAmount.setCellFactory(TextFieldTableCell.<Transfer>forTableColumn());
+		incomeAmount.setOnEditCommit(
+			new EventHandler<CellEditEvent<Transfer, Float>>(){
+				@Override
+				public void handle(CellEditEvent<Transfer, Float> t) {			
+					Transfer editedIncomeAmount = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+					editedIncomeAmount.setAmount(t.getNewValue());
+					controller.updateIncomeAmount(editedIncomeAmount);
+					incomeTable.refresh();
+					}});
+		
 	}
 	
 	
