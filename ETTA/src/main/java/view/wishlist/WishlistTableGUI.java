@@ -3,6 +3,7 @@ package view.wishlist;
 import java.io.IOException;
 import java.sql.Date;
 
+import controller.InputCheck;
 import controller.WishlistController;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
@@ -83,6 +84,13 @@ public class WishlistTableGUI {
 	 */
 	@FXML
 	TableColumn<Item, String> bought;
+	
+	/**
+	 * The input check class used for validating user input
+	 */
+	InputCheck inputCheck = new InputCheck();
+	
+	ObservableList<Item> data = FXCollections.observableArrayList();
 	
 	Callback<TableColumn<Item, Date>, TableCell<Item, Date>> dateCellFactory = (TableColumn<Item, Date> param) -> new WishlistDateEditingCell();
 	
@@ -175,7 +183,7 @@ public class WishlistTableGUI {
 						wishlisttable.refresh();
 					}});
 		
-		final ObservableList<Item> data = FXCollections.observableArrayList(controller.getItems());
+		data = FXCollections.observableArrayList(controller.getItems());
 		wishlisttable.setItems(data);
 		
 	}
@@ -229,8 +237,10 @@ public class WishlistTableGUI {
 	 */
 	@FXML
 	public void deleteItem() {
-		controller.removeItem();
-		initialize();
+		if (inputCheck.confirmDeleting()) {
+			controller.removeItem();
+			initialize();
+		}
 	}
 	
 	/** 
@@ -240,6 +250,11 @@ public class WishlistTableGUI {
 	public void markAsBought() {
 		controller.setBought();
 		initialize();
+	}
+	
+	@FXML
+	public void setData(Item[] items) {
+		data = FXCollections.observableArrayList(items);
 	}
 	
 }

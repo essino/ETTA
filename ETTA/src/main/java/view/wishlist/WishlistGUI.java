@@ -32,6 +32,8 @@ public class WishlistGUI {
 	@FXML
 	BorderPane wishmainpane;
 	
+	WishlistController controller = new WishlistController();
+	
 	/**
 	 * Method showing the Wishlist view in the Wish section
 	 * @param event ActionEvent that is handled
@@ -48,4 +50,10 @@ public class WishlistGUI {
 			}
 		wishmainpane.setCenter(allView);
 	}
+	
+	@FXML
+	public void showBought(ActionEvent event) {
+		controller.getBoughtItems(true);
+	}
+	
 }

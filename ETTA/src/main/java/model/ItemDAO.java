@@ -195,4 +195,54 @@ public class ItemDAO {
 		Item[] items = new Item[list.size()];
 		return (Item[])list.toArray(items);
 	}
+	
+	/**
+	 * Method for reading Wishlist Items in the database that are either bought or not bought
+	 * @param boolean bought whether the item has been bought
+	 * @return Item[] Array containing all Items that are bought/not bought
+	 */
+	public Item[] readItemsByBought(boolean bought) {
+		ArrayList<Item> list = new ArrayList<>();
+		try {
+			Session session = factory.openSession();
+			transaction = session.beginTransaction();
+			@SuppressWarnings("unchecked")
+			List<Item> result = session.createQuery("from Item where bought=" + bought).getResultList();
+			for(Item item : result) {
+				list.add(item);
+				System.out.println("reading for one bought: " + item.getDescription());
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		Item[] items = new Item[list.size()];
+		return (Item[])list.toArray(items);
+	}
+	
+	/**
+	 * Method for reading Wishlist Items in the database whose connected person is null
+	 * @param person_id int referring to the Person that might be used for Wishlist Item
+	 * @return Item[] Array containing all Items with a null person in the database
+	 */
+	public Item[] readOwnItems() {
+		ArrayList<Item> list = new ArrayList<>();
+		try {
+			Session session = factory.openSession();
+			transaction = session.beginTransaction();
+			@SuppressWarnings("unchecked")
+			List<Item> result = session.createQuery("from Item where person=null").getResultList();
+			for(Item item : result) {
+				list.add(item);
+				System.out.println("reading for one own item: " + item.getDescription());
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		Item[] items = new Item[list.size()];
+		return (Item[])list.toArray(items);
+	}
 }
