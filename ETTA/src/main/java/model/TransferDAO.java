@@ -89,6 +89,8 @@ public class TransferDAO {
 		return transfer;
 	}
 	
+	
+	
 	/**
 	 * Method for reading all Transfers in the database
 	 * @return Transfer[] array with all the transfers in the database
@@ -201,4 +203,6 @@ public class TransferDAO {
 		}
 		return success;
 	}
+
+	
 }

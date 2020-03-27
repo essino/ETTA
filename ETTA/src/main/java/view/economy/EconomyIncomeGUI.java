@@ -7,14 +7,18 @@ import controller.EconomyController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import model.Balance;
 import model.Category;
+import model.Item;
 import model.Transfer;
 
 public class EconomyIncomeGUI {
@@ -96,6 +100,10 @@ public class EconomyIncomeGUI {
 	
 	}
 	
+	public EconomyIncomeGUI() {
+		
+	}
+	
 	/** 
 	 * Method that initializes the view and gets the incomes  from the controller to display them on the page
 	 */
@@ -111,6 +119,20 @@ public class EconomyIncomeGUI {
                 new PropertyValueFactory<Category, String>("category"));
 		ObservableList<Transfer> incomes =  FXCollections.observableArrayList(controller.getIncomes());
 		incomeTable.setItems(incomes);
+		
+		incomeTable.setEditable(true);
+		incomeDescription.setCellValueFactory(new PropertyValueFactory<Transfer, String>("description")); 
+		//lisäys
+		incomeDescription.setCellFactory(TextFieldTableCell.<Transfer>forTableColumn());
+		incomeDescription.setOnEditCommit(
+			new EventHandler<CellEditEvent<Transfer, String>>(){
+				@Override
+				public void handle(CellEditEvent<Transfer, String> t) {
+					Transfer editedIncomeDesc = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+					editedIncomeDesc.setDescription(t.getNewValue());
+					controller.updateIncomeDesc(editedIncomeDesc);
+					incomeTable.refresh();
+					}});
 	}
 	
 	
@@ -140,4 +162,11 @@ public class EconomyIncomeGUI {
 	public void removeFromTable(Transfer transfer) {
 		incomeTable.getItems().remove(transfer);
 	}
+	
+	@FXML
+	public Transfer getSelectedItem() {
+		return incomeTable.getSelectionModel().getSelectedItem();
+	}
+	
+	
 }

@@ -21,6 +21,7 @@ import view.economy.EconomySavingsGUI;
 import model.BalanceDAO;
 import model.Category;
 import model.CategoryDAO;
+import model.Item;
 import model.Saving;
 import model.SavingDAO;
 import model.TransferDAO;
@@ -86,6 +87,21 @@ public class EconomyController {
 	 * Reference to the EconomySavingGUI
 	 */
 	private EconomySavingsGUI economySavingGUI;
+	
+	
+	
+	public Item selectedIncomeDesc = new Item();
+	
+	/*
+	public Item getIncomeDesc() {
+		System.out.println("Selected income item " + incomeGUI.getSelectedItem().getDescription());
+		return transDAO.readTransfers(incomeGUI.getSelectedItem().getDescription());
+	}
+	*/
+	
+	public void updateIncomeDesc(Transfer editedIncomeDesc) {
+		transDAO.updateTransfer(editedIncomeDesc);
+	}
 	
 	public void saveTransfer() {
 		String description = ecoGUI.getDescription();

@@ -19,7 +19,7 @@ import model.Category;
 import model.CategoryDAO;
 import model.Transfer;
 
-public class EconomyAddIncomeGUI {
+public class EconomyEditIncomeGUI {
 	
 	/**
 	 * The reference of InputCheck class used for checking user's input
@@ -56,7 +56,7 @@ public class EconomyAddIncomeGUI {
 	private ComboBox<String> incomeCategoryList;
 	
 	
-	public EconomyAddIncomeGUI() {
+	public EconomyEditIncomeGUI() {
 		
 	}
 	
@@ -67,7 +67,7 @@ public class EconomyAddIncomeGUI {
 	@FXML
 	private DatePicker incomeDate;
 	
-	EconomyController controller;  //= new EconomyController(this);
+	EconomyController controller; // = new EconomyController(this);
 	
 
 	
@@ -113,6 +113,10 @@ public class EconomyAddIncomeGUI {
 
             return cell ;
         });
+	}
+	
+	public EconomyEditIncomeGUI(EconomyController controller) {
+		this.controller = controller;
 	}
 	
 	/** 
@@ -162,11 +166,12 @@ public class EconomyAddIncomeGUI {
 	 * and displays the view of the list of incomes in the Economy section after adding new income 
 	 */
 	@FXML
-	public void AddNewIncome() {
+	public void EditIncome() {
 		if(inputCheck.isInputFloat(incomeAmount.getText())){
 			
 			if(!inputCheck.isInputEmpty(incomeDescription.getText())) {
 			controller.saveIncome();
+			//controller.removeIncome();
 			AnchorPane incomeView = null; 
 			FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyIncome.fxml")); 
 			try {
@@ -207,9 +212,5 @@ public class EconomyAddIncomeGUI {
 		}
 		economyincomeaddanchorpane.getChildren().setAll(incomeView);
 		}
-	
-	public EconomyAddIncomeGUI(EconomyController controller){
-		this.controller = controller;
-	}
 
 }
