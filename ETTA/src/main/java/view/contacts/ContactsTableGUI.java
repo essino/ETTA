@@ -2,15 +2,20 @@ package view.contacts;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Optional;
 
 import controller.ContactsController;
+import controller.InputCheck;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import model.Person;
@@ -53,6 +58,10 @@ public class ContactsTableGUI {
       private TableColumn<Person, String> contactsAddress;
       
      ContactsController controller = new ContactsController(this); 
+ 	/**
+ 	 * The reference of InputCheck class used for checking user's input
+ 	 */
+ 	InputCheck inputCheck = new InputCheck();
   	
   	/** 
   	 * Method that initializes the view and gets the contacts  from the controller to display them on the page
@@ -90,7 +99,22 @@ public class ContactsTableGUI {
 	 */
 	@FXML
 	public void deleteContact() {
-		controller.deletePerson();
+		if(inputCheck.confirmDeleting()) {
+			if(!controller.checkIfContactUsed()) {
+				controller.deletePerson();
+			}
+			else {
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Confirmation");
+				alert.setHeaderText("This contact is used in other parts.");
+				alert.setContentText("Are you sure you want to delete this data permanently? "
+						+ "All the data where the contact is used will be also deleted.");
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.isPresent() && result.get() == ButtonType.OK) {
+					controller.deletePersonAndEvents();
+				 }
+			}
+		}
 	}
 	
 	/** 

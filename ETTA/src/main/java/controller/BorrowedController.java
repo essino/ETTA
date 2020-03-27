@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -145,27 +146,51 @@ public class BorrowedController {
 	 * Method for deleting the "should return" event from events
 	 */
 	public void deleteBorrowedEvent() {
-		//the description of the borrowed item
-		String loanDescription = tableGUI.getSelectedBorrowedThing().getDescription();
-		//the person who has borrowed the item
-		Person loanPerson = tableGUI.getSelectedBorrowedThing().getPerson();
-		//event title combined from the description and the borrowing person
-		String eventTitle = loanPerson + " should return " + loanDescription;
+		Event event = findRightEvent();
+		try {
+			int eventID = event.getEvent_id();
+			eventDAO.deleteEvent(eventID);
+		//if the borrowed thing has been returned, the event relating to it has been already deleted
+		} catch(NullPointerException e) {
+			System.out.println("No borrowing event to delete");
+		}
 		
-		//getting all the events
-		Event[] loanEvent = eventDAO.readEvents();
+	}
+	
+	public void updateReturnDate(BorrowedThing borrowedThing) {
 		
-		//comparing all events' titles with this event title
-		for (int i = 0; loanEvent.length > i; i++) {
-			if (loanEvent[i].getTitle().equals(eventTitle)) {
-				int eventID = loanEvent[i].getEvent_id();
-				eventDAO.deleteEvent(eventID);
-			}
+		Date returnDate = tableGUI.getSelectedBorrowedThing().getReturnDate();
+		
+		Event updatingEvent = findRightEvent();
+		try {
+			updatingEvent.setStartDate(returnDate);
+			updatingEvent.setEndDate(returnDate);
+			eventDAO.updateEvent(updatingEvent);
+		//if the borrowed thing has been returned, the event relating to it has been already deleted
+		} catch(NullPointerException e) {
+			System.out.println("No borrowing event to delete");
 		}
 	}
 	
+	
+	
 	public void updateBorrowedThing(BorrowedThing borrowedThing) {
 		borrowedThingDAO.updateBorrowedThing(borrowedThing);
+	}
+	
+	public Event findRightEvent() {
+		String loanDescription = tableGUI.getSelectedBorrowedThing().getDescription();
+		//the person who has borrowed the item
+		Person loanPerson = tableGUI.getSelectedBorrowedThing().getPerson();
+		String eventTitle = loanPerson + " should return " + loanDescription;
+		Event[] loanEvent = eventDAO.readEvents();
+		for (int i = 0; loanEvent.length > i; i++) {
+			if (loanEvent[i].getTitle().equals(eventTitle)) {
+				Event event = loanEvent[i];
+				return event;
+			} 
+		}
+		return null;
 	}
 	
 }

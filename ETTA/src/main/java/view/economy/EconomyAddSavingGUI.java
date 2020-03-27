@@ -64,7 +64,7 @@ public class EconomyAddSavingGUI {
 	/** 
 	 * Method that gets the chosen date from savingDate DatePicker and returns it
 	 * @return Date date of the saving's goal
-	 * @return null if date is not selected ---??? onko edes mahdollista?
+	 * @return null if date is not selected 
 	 */
 	@FXML
 	public Date getSavingDay() {

@@ -2,8 +2,12 @@ package controller;
 
 import java.sql.Date;
 
+import model.BorrowedThing;
+import model.BorrowedThingDAO;
 import model.Event;
 import model.EventDAO;
+import model.Item;
+import model.ItemDAO;
 import model.Person;
 import model.PersonDAO;
 import view.contacts.ContactsGUI;
@@ -31,6 +35,14 @@ public class ContactsController {
 	 * EventDAO used for accessing the database
 	 */
 	private EventDAO eventDAO = new EventDAO();
+	/**
+	 * BorrowedThingDAO used for accessing the database
+	 */
+	private BorrowedThingDAO borrowedDAO = new BorrowedThingDAO();
+	/**
+	 * ItemDAO used for accessing the database
+	 */
+	private ItemDAO wishlistDAO = new ItemDAO();
 	
 
 	/** 
@@ -71,8 +83,12 @@ public class ContactsController {
 	 * and contactsTableGUI to delete it from the tableView.
 	 */ 
 	public void deletePerson() {
-		perDAO.deletePerson(conTableGUI.personToDelete().getPerson_id());
-		conTableGUI.removeFromTable(conTableGUI.personToDelete());
+		Person personToDelete = conTableGUI.personToDelete();
+		if(conTableGUI.personToDelete().getBirthday() != null) {
+			eventDAO.deleteBirthday(personToDelete.getName(), personToDelete.getBirthday());
+		}
+		perDAO.deletePerson(personToDelete.getPerson_id());
+		conTableGUI.removeFromTable(personToDelete);
 	}
 	
 	/** 
@@ -103,6 +119,36 @@ public class ContactsController {
 	 */
 	public ContactsController(ContactsTableGUI contactsTableGUI) {
 		this.conTableGUI = contactsTableGUI;
+	}
+	
+	/** 
+	 * Method that checks if a Person is used in Borrowed Things or in Wishlist
+	 * @return true if contact is used somewhere
+	 * @return false if contact is not used anywhere
+	 */ 
+	public boolean checkIfContactUsed(){
+		if(borrowedDAO.readBorrowedThingsByPerson(conTableGUI.personToDelete().getPerson_id()).length!=0 ||
+				wishlistDAO.readItemsByPerson(conTableGUI.personToDelete().getPerson_id()).length !=0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/** 
+	 * Method deletes Borrowed Things and/or Wishlist Items that use a Person that should be deleted
+	 * After deleting data using this Person this method calls deletePerson() method 
+	 */ 
+	public void deletePersonAndEvents() {
+		Person personToDelete = conTableGUI.personToDelete();
+		for(BorrowedThing bt : borrowedDAO.readBorrowedThingsByPerson(personToDelete.getPerson_id())) {
+			borrowedDAO.deleteBorrowedThing(bt.getThing_id());
+		}
+		for(Item i : wishlistDAO.readItemsByPerson(personToDelete.getPerson_id())) {
+			wishlistDAO.deleteItem(i.getItem_id());
+		}
+		deletePerson();
 	}
 	
 }

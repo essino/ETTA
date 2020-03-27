@@ -152,4 +152,30 @@ public class BorrowedThingDAO {
 		}
 		return success;
 	}
+	
+	
+	/**
+	 * Method for reading Borrowed Things in the database that use a concrete Person
+	 * @param person_id int referring to the Person that might be used for Borrowed Thing
+	 * @return BorrowedThing[] Array containing all Borrowed items connected with this person in the database
+	 */
+	public BorrowedThing [] readBorrowedThingsByPerson(int person_id) {
+		ArrayList<BorrowedThing> list = new ArrayList<>();
+		try (Session session = factory.openSession()) {
+			transaction = session.beginTransaction();
+			@SuppressWarnings("unchecked")
+			List<BorrowedThing> result = session.createQuery("from BorrowedThing where person=" + person_id).getResultList();
+			//System.out.println("reading all, length: " + result.size());
+			for(BorrowedThing borrowedThing : result) {
+				list.add(borrowedThing);
+				System.out.println("reading all for this person: " + borrowedThing.getDescription());
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		BorrowedThing[] borrowedThings = new BorrowedThing[list.size()];
+		return (BorrowedThing[])list.toArray(borrowedThings);
+	}
 }

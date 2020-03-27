@@ -170,4 +170,29 @@ public class ItemDAO {
 		}
 		return success;
 	}
+
+	/**
+	 * Method for reading Wishlist Items in the database that use a concrete Person
+	 * @param person_id int referring to the Person that might be used for Wishlist Item
+	 * @return Item[] Array containing all Items connected with this person in the database
+	 */
+	public Item[] readItemsByPerson(int person_id) {
+		ArrayList<Item> list = new ArrayList<>();
+		try {
+			Session session = factory.openSession();
+			transaction = session.beginTransaction();
+			@SuppressWarnings("unchecked")
+			List<Item> result = session.createQuery("from Item where person=" + person_id).getResultList();
+			for(Item item : result) {
+				list.add(item);
+				System.out.println("reading for one person: " + item.getDescription());
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		Item[] items = new Item[list.size()];
+		return (Item[])list.toArray(items);
+	}
 }

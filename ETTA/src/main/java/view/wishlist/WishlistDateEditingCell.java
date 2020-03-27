@@ -1,22 +1,21 @@
-package view.borrowed;
+package view.wishlist;
 
-import java.util.Locale;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Locale;
+
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
-import model.BorrowedThing;
+import model.Item;
 
-
-public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
+public class WishlistDateEditingCell extends TableCell<Item, java.sql.Date> {
 	
-	
-    private DatePicker datePicker;
+private DatePicker datePicker;
     
     //changes language into English
     //private final Locale myLocale = Locale.getDefault(Locale.Category.FORMAT);
     
-    public DateEditingCell() {
+    public WishlistDateEditingCell() {
     }
 
     @Override
@@ -76,5 +75,5 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
     		return getItem();
     	}
     }  
-    
+
 }

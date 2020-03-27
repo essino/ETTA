@@ -22,7 +22,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
+import javafx.util.converter.DateStringConverter;
+import javafx.util.converter.DoubleStringConverter;
+import model.BorrowedThing;
 import model.Item;
+import view.borrowed.DateEditingCell;
 
 
 public class WishlistTableGUI {
@@ -80,6 +84,8 @@ public class WishlistTableGUI {
 	@FXML
 	TableColumn<Item, String> bought;
 	
+	Callback<TableColumn<Item, Date>, TableCell<Item, Date>> dateCellFactory = (TableColumn<Item, Date> param) -> new WishlistDateEditingCell();
+	
 	/**
 	 * Constructor responsible for creating the wishlist controller
 	 */
@@ -121,6 +127,7 @@ public class WishlistTableGUI {
 		         
 			}
 		});
+		
 		bought.setCellValueFactory(new Callback<CellDataFeatures<Item, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Item, String> item) {
 				if (item.getValue().isBought() == true) {
@@ -131,10 +138,43 @@ public class WishlistTableGUI {
 					
 			}
 		});
+		
 		price.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
+		price.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+		price.setOnEditCommit(
+				new EventHandler<CellEditEvent<Item, Double>>() {
+					@Override
+					public void handle(CellEditEvent<Item, Double> t) {
+						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+						editedItem.setPrice(t.getNewValue());
+						controller.updateItem(editedItem);
+						wishlisttable.refresh();
+					}});
+		
 		date.setCellValueFactory(new PropertyValueFactory<Item, Date>("dateNeeded"));
+		date.setCellFactory(dateCellFactory);
+		date.setOnEditCommit(
+				(TableColumn.CellEditEvent<Item, Date> t) -> {
+				Item editedItem = ((Item) t.getTableView().getItems()
+	            .get(t.getTablePosition().getRow()));
+				editedItem.setDateNeeded(t.getNewValue());
+				controller.updateItem(editedItem);
+				wishlisttable.refresh();
+				}	
+			);	
+		
 		addinfo.setCellValueFactory(new PropertyValueFactory<Item, String>("additionalInfo"));
-		//bought.setCellValueFactory(new PropertyValueFactory<Item, Boolean>("bought"));
+		addinfo.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
+		addinfo.setOnEditCommit(
+				new EventHandler<CellEditEvent<Item, String>>() {
+					@Override
+					public void handle(CellEditEvent<Item, String> t) {
+						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+						editedItem.setAdditionalInfo(t.getNewValue());
+						controller.updateItem(editedItem);
+						wishlisttable.refresh();
+					}});
+		
 		final ObservableList<Item> data = FXCollections.observableArrayList(controller.getItems());
 		wishlisttable.setItems(data);
 		
