@@ -185,4 +185,8 @@ public class WishlistController {
 	public void updateItem(Item editedItem) {
 		itemDAO.updateItem(editedItem);		
 	}
+	
+	public Person findPerson(String name) {
+		return personDAO.readPerson(name);
+	}
 }

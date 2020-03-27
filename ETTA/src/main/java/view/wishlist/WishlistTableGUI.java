@@ -19,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
@@ -27,6 +28,7 @@ import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.DoubleStringConverter;
 import model.BorrowedThing;
 import model.Item;
+import model.Person;
 import view.borrowed.DateEditingCell;
 
 
@@ -120,22 +122,22 @@ public class WishlistTableGUI {
 						controller.updateItem(editedItem);
 						wishlisttable.refresh();
 					}});
-		
-		person.setCellValueFactory(new Callback<CellDataFeatures<Item, String>, ObservableValue<String>>() {
-			public ObservableValue<String> call(CellDataFeatures<Item, String> item) {
-		         // item.getValue() returns the Data instance for a particular TableView row
-				if (item.getValue().getPerson() != null) {
-					//TODO - jos henkilö on poistettu, getPerson != null, mutta henkilöä ei löydy listalta ->
-					//ohjelma kaatuu
-					return new ReadOnlyObjectWrapper(item.getValue().getPerson().getName());
-				} else {
-					ObservableValue<String> me = new ReadOnlyObjectWrapper<>("Me");
-					return me;
-				}
-		         
-			}
-		});
-		
+
+		person.setCellValueFactory(new PropertyValueFactory<Item, String>("person"));
+		person.setCellFactory(ComboBoxTableCell.<Item, String>forTableColumn(controller.personsList()));
+		person.setOnEditCommit(
+				new EventHandler<CellEditEvent<Item, String>>() {
+					@Override
+					public void handle(CellEditEvent<Item, String> t) {
+						
+						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+						String newName = t.getNewValue();
+						Person newPerson = controller.findPerson(newName);
+						editedItem.setPerson(newPerson);
+						controller.updateItem(editedItem);
+						wishlisttable.refresh();
+					}});
+					
 		bought.setCellValueFactory(new Callback<CellDataFeatures<Item, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Item, String> item) {
 				if (item.getValue().isBought() == true) {
