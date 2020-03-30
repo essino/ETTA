@@ -163,8 +163,13 @@ public class WishlistController {
 	
 	/** 
 	 * Method for deleting an item from the database
+	 * Also removes the event connected to the item if there is one
 	 */ 
 	public void removeItem() {
+		Event event = findEvent(gui.getSelectedItem());
+		if (event != null) {
+			eventDAO.deleteEvent(event.getEvent_id());
+		}
 		itemDAO.deleteItem(gui.getSelectedItem().getItem_id());
 	}
 	
@@ -177,16 +182,54 @@ public class WishlistController {
 		itemDAO.updateItem(item);
 	}
 	
+	/** 
+	 * Method for fetching the selected item from the database
+	 */ 
 	public Item getItem() {
 		System.out.println("selected wishlist item " + gui.getSelectedItem().getDescription());
 		return itemDAO.readItem(gui.getSelectedItem().getDescription());
 	}
 
+	/** 
+	 * Method for updating an item
+	 * Also updates the event connected to the item if there is one
+	 * @param editedItem the item with the updated information
+	 */ 
 	public void updateItem(Item editedItem) {
+		Event event = findEvent(editedItem);
+		System.out.println(event);
+		if (event != null) {
+			event.setStartDate(editedItem.getDateNeeded());
+			event.setEndDate(editedItem.getDateNeeded());
+			event.setTitle("Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName());
+			eventDAO.updateEvent(event);
+		}
 		itemDAO.updateItem(editedItem);		
 	}
 	
+	/** 
+	 * Method for finding a specific person from the database
+	 */ 
 	public Person findPerson(String name) {
 		return personDAO.readPerson(name);
+	}
+	
+	/** 
+	 * Method for finding the event connected to the selected item from the database
+	 * @param item the Item the event is connected to
+	 */ 
+	public Event findEvent(Item item) {
+		String description = gui.getSelectedItem().getDescription();
+		//the person who has borrowed the item
+		Person person = gui.getSelectedItem().getPerson();
+		String eventTitle = "Buy " + description + " for " + person;
+		Event[] events = eventDAO.readEvents();
+		for (int i = 0; events.length > i; i++) {
+			if (events[i].getTitle().equals(eventTitle)) {
+				Event event = events[i];
+				return event;
+			} 
+		}
+		return null;
 	}
 }

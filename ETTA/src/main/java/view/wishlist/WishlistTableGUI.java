@@ -92,21 +92,23 @@ public class WishlistTableGUI {
 	 */
 	InputCheck inputCheck = new InputCheck();
 	
+	/**
+	 * Reference to the list of data displayed in the table view
+	 */
 	ObservableList<Item> data = FXCollections.observableArrayList();
 	
 	Callback<TableColumn<Item, Date>, TableCell<Item, Date>> dateCellFactory = (TableColumn<Item, Date> param) -> new WishlistDateEditingCell();
 	
 	/**
-	 * Constructor responsible for creating the wishlist controller
+	 * Constructor
 	 */
 	public WishlistTableGUI() {
-		//controller = new WishlistController(this);
-		//this.controller = controller;
+		
 	}
 
 	/**
 	 * Initialize-method called when the class is created
-	 * Fetches the wishlist items from the database and displays them in the table view
+	 * Fetches the wishlist items from the database, displays them in the table view, and enables in-table editing
 	 */
 	@FXML
 	public void initialize() {
@@ -254,6 +256,9 @@ public class WishlistTableGUI {
 		initialize();
 	}
 	
+	/** 
+	 * Method for setting the contents of the list observed by the table view
+	 */
 	@FXML
 	public void setData(Item[] items) {
 		data = FXCollections.observableArrayList(items);
