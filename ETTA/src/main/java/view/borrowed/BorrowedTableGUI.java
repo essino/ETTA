@@ -93,7 +93,7 @@ public class BorrowedTableGUI {
 	/**
 	 * The reference of InputCheck class used for checking user's input
 	 */
-	InputCheck inputCheck = new InputCheck();
+	InputCheck inputCheck = new InputCheck(); 
 	
 	//DateEditingCell cell = new DateEditingCell();
 	Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
