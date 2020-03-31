@@ -16,35 +16,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class BorrowedThingDAO {
 	
 	/**
-	 * SessionFactory object needed to open session with the database
-	 */
-	SessionFactory factory = null;
-	
-	/**
 	 * Transaction object to carry out database transaction
 	 */
 	Transaction transaction = null;
-	
-	/**
-	 * Constructor for BorrowedThingDAO
-	 */
-	public BorrowedThingDAO() {
-		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-		try {
-			factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-		} catch (Exception e) {
-			System.out.println("Creation of session factory failed");
-			StandardServiceRegistryBuilder.destroy(registry);
-			e.printStackTrace();
-			System.exit(-1);}
-	}
-	
-	/**
-	 * Method for closing the database session
-	 */
-	protected void finalize() {
-		factory.close();
-	}
 	
 	/**
 	 * Method for creating a new BorrowedThing item in the database
@@ -53,7 +27,7 @@ public class BorrowedThingDAO {
 	 */
 	public boolean createBorrowedThing(BorrowedThing borrowedThing) {
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(borrowedThing);
 			transaction.commit();
@@ -75,7 +49,7 @@ public class BorrowedThingDAO {
 	public BorrowedThing readBorrowedThing(int thing_id) {
 		BorrowedThing borrowedThing = new BorrowedThing();
 		try {
-			Session session = factory.openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			borrowedThing = (BorrowedThing)session.get(BorrowedThing.class, thing_id);		
 			transaction.commit();
@@ -94,7 +68,7 @@ public class BorrowedThingDAO {
 	 */
 	public BorrowedThing[] readBorrowedThings() {
 		ArrayList<BorrowedThing> list = new ArrayList<>();
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<BorrowedThing> result = session.createQuery("from BorrowedThing").getResultList();
@@ -120,7 +94,7 @@ public class BorrowedThingDAO {
 	public boolean updateBorrowedThing(BorrowedThing borrowedThing) {
 	
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.update(borrowedThing);
 			transaction.commit();
@@ -140,7 +114,7 @@ public class BorrowedThingDAO {
 	 */
 	public boolean deleteBorrowedThing(int thing_id) {
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			BorrowedThing borrowedThing = (BorrowedThing)session.get(BorrowedThing.class, thing_id);
 			session.delete(borrowedThing);
@@ -161,7 +135,7 @@ public class BorrowedThingDAO {
 	 */
 	public BorrowedThing [] readBorrowedThingsByPerson(int person_id) {
 		ArrayList<BorrowedThing> list = new ArrayList<>();
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<BorrowedThing> result = session.createQuery("from BorrowedThing where person=" + person_id).getResultList();

@@ -12,31 +12,11 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
  */
 
 public class BalanceDAO {
-	/**
-	 * SessionFactory object needed to open session with the database
-	 */
-	SessionFactory factory = null;
+	
 	/**
 	 * Transaction object to carry out database transaction
 	 */
 	Transaction transaction = null;
-	
-	public BalanceDAO() {
-		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-		try {
-			factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-		} catch (Exception e) {
-			System.out.println("Creation of session factory failed");
-			StandardServiceRegistryBuilder.destroy(registry);
-			e.printStackTrace();
-			System.exit(-1);}
-	}
-	/**
-	 * method for closing the database session
-	 */
-	protected void finalize() {
-		factory.close();
-	}
 	
 	/** 
 	 * Method that creates a balance row in the Balance table. Is is used only once, there should be only one row on the Balance table. 
@@ -46,7 +26,7 @@ public class BalanceDAO {
 	public boolean createBalance(Balance balance) {
 		boolean success = false;
 		try {
-			Session session = factory.openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(balance);
 			transaction.commit();
@@ -67,7 +47,7 @@ public class BalanceDAO {
 	 */
 	public boolean updateBalance(Balance balance) {
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.update(balance);
 			transaction.commit();
@@ -86,7 +66,7 @@ public class BalanceDAO {
 	 */
 	public Balance readBalance(int balance_id) {
 		Balance balance = new Balance();
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			balance = (Balance)session.get(Balance.class, balance_id);		
 			transaction.commit();

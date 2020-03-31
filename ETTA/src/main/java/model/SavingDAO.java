@@ -16,34 +16,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class SavingDAO {
 	
 	/**
-	 * SessionFactory object needed to open session with the database
-	 */
-	SessionFactory factory = null;
-	/**
 	 * Transaction object to carry out database transactions
 	 */
 	Transaction transaction = null;
-	
-	/**
-	 * Constructor for SavingDAO
-	 */
-	public SavingDAO() {
-		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-		try {
-			factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-		} catch (Exception e) {
-			System.out.println("Creation of session factory failed");
-			StandardServiceRegistryBuilder.destroy(registry);
-			e.printStackTrace();
-			System.exit(-1);}
-	}
-	
-	/**
-	 * Method for closing the database connection
-	 */
-	protected void finalize() {
-		factory.close();
-	}
 	
 	 /**
 		 * Method for creating a new Saving in the database
@@ -53,7 +28,7 @@ public class SavingDAO {
 	public boolean createSaving(Saving saving) {
 		boolean success = false;
 		try {
-			Session session = factory.openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(saving);
 			transaction.commit();
@@ -76,7 +51,7 @@ public class SavingDAO {
 		ArrayList<Saving> list = new ArrayList<>();
 		
 		try  {
-			Session session = factory.openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Saving> result = session.createQuery("from Saving").getResultList();
@@ -102,7 +77,7 @@ public class SavingDAO {
 	public Saving readSaving(int saving_id) {
 		Saving saving = new Saving();
 		try {
-			Session session = factory.openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			saving = (Saving)session.get(Saving.class, saving_id);		
 			transaction.commit();
@@ -123,7 +98,7 @@ public class SavingDAO {
 	public boolean updateSaving(Saving saving) {
 		saving.setProgress((saving.getAmount()/saving.getGoalAmount())*100);
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.update(saving);
 			transaction.commit();
@@ -142,7 +117,7 @@ public class SavingDAO {
 	 */
 	public boolean deleteSaving(int saving_id) {
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			Saving saving = (Saving)session.get(Saving.class, saving_id);
 			session.delete(saving);

@@ -11,32 +11,11 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class CalendarDAO {
-	/**
-	 * SessionFactory object needed to open session with the database
-	 */
-	SessionFactory factory = null;
+	
 	/**
 	 * Transaction object to carry out database transaction
 	 */
 	Transaction transaction = null;
-	
-	public CalendarDAO() {
-		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-		try {
-			factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-		} catch (Exception e) {
-			System.out.println("Creation of session factory failed");
-			StandardServiceRegistryBuilder.destroy(registry);
-			e.printStackTrace();
-			System.exit(-1);}
-	}
-	
-	/**
-	 * method for closing the database session
-	 */
-	protected void finalize() {
-		factory.close();
-	}
 	
 	/**
 	 * method for making a new Calendar in the database
@@ -46,7 +25,7 @@ public class CalendarDAO {
 	public boolean createCalendar(Calendar calendar) {
 		boolean success = false;
 		try {
-			Session session = factory.openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(calendar);
 			transaction.commit();
@@ -66,7 +45,7 @@ public class CalendarDAO {
 	public Calendar readCalendar(int id) {
 		Calendar calendar = new Calendar();
 		try {
-			Session session = factory.openSession();
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			calendar = (Calendar)session.get(Calendar.class, id);		
 			transaction.commit();
@@ -85,7 +64,7 @@ public class CalendarDAO {
 	 */
 	public Calendar[] readCalendars() {
 		ArrayList<Calendar> list = new ArrayList<>();
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			
 			List<Calendar> result = session.createQuery("from Calandar").getResultList();
@@ -109,7 +88,7 @@ public class CalendarDAO {
 	 */
 	public boolean updateCategory(Calendar calendar) {
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			session.update(calendar);
 			transaction.commit();
@@ -128,7 +107,7 @@ public class CalendarDAO {
 	 */
 	public boolean deleteCalendar(String name) {
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			transaction = session.beginTransaction();
 			Calendar calendar = (Calendar)session.get(Calendar.class, name);
 			session.delete(calendar);

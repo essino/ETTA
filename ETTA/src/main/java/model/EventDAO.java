@@ -14,22 +14,12 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
  * Data access object class for Events. Used in the communication with the database table for Events through Hibernate.
  */
 public class EventDAO {
-	/**
-	 * SessionFactory object needed to open session with the database
-	 */
-	SessionFactory sessionFactory= null;
+
 	Session session;
 	/**
 	 * Transaction object to carry out database transaction
 	 */
 	Transaction transaction = null;
-	
-	public EventDAO(){
-		
-		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-		
-		sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-	}
 	
 	/**
 	 * method for reading all events from the database
@@ -40,7 +30,7 @@ public class EventDAO {
 		List<Event> result;
 		Event[] returnArray;
 		try {
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			result = session.createQuery( "from Event order by event_id" ).list();
 			for ( Event e : (List<Event>) result ) {
@@ -68,7 +58,7 @@ public class EventDAO {
 		Transaction transaction = null;
 		Event event = new Event();
 		try {
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			event = (Event)session.get(Event.class, event_id);	
 			
@@ -100,7 +90,7 @@ public class EventDAO {
 		Transaction transaction = null;
 
 		try{
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(event);
 			transaction.commit();
@@ -125,7 +115,7 @@ public class EventDAO {
 		System.out.println("changing calendar " + event.getCalendar());
 		boolean updated =false;
 		try {
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();	
 			session.update(event);
 			transaction.commit();
@@ -151,7 +141,7 @@ public class EventDAO {
 		boolean deleted = false;
 		// Tiedon haku Session.get-metodilla + poisto jos löytyi
 		try {
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 
 			Event e = (Event)session.get(Event.class, event_id);
@@ -183,7 +173,7 @@ public class EventDAO {
 		List<Event> result;
 		Event[] returnArray;
 		try {
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			result = session.createQuery( "from Event where calendar="+ calendar).list();
 			for ( Event e : (List<Event>) result ) {
@@ -212,7 +202,7 @@ public class EventDAO {
 		List<Event> result;
 		Event[] returnArray;
 		try {
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			result = session.createQuery( "from Event where startDate=current_date()").list();
 			session.getTransaction().commit();
@@ -227,24 +217,10 @@ public class EventDAO {
 		}	
 		return result.toArray(returnArray);
 	}
-	
-	/**
-	 * method for closing the database session
-	 */
-	public void finalize() { // destruktori 
-		try { 
-			// oli sama yhteys koko sovelluksen ajan 
-			if (sessionFactory != null) {// vapauttaa muutkin resurssit 
-				sessionFactory.close(); 
-			}
-		}catch (Exception e) { 
-				e.printStackTrace();  
-		} 
-	}
 
 	public void deleteBirthday(String name, Date birthday) {
 		try {
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			List<Event> result;
 			result = session.createQuery( "from Event  e where e.title='" + name + "' and calendar='birthdays'").getResultList();
@@ -266,7 +242,7 @@ public class EventDAO {
 			if (transaction!=null) transaction.rollback();
 			throw e;
 		}
-		finally{
+		finally {
 			session.close();
 		}
 		
