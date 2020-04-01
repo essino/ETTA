@@ -17,6 +17,7 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.converter.FloatStringConverter;
 import model.Category;
 import model.Transfer;
 import javafx.event.EventHandler;
@@ -124,6 +125,8 @@ public class EconomyOutcomeGUI {
 		expenseTable.setEditable(true);
 		expenseDescription.setCellValueFactory(new PropertyValueFactory<Transfer, String>("description")); 
 		
+		expenseAmount.setCellValueFactory(new PropertyValueFactory<Transfer, Float>("amount"));
+		
 		expenseDescription.setCellFactory(TextFieldTableCell.<Transfer>forTableColumn());
 		expenseDescription.setOnEditCommit(
 			new EventHandler<CellEditEvent<Transfer, String>>(){
@@ -134,6 +137,18 @@ public class EconomyOutcomeGUI {
 					controller.updateOutcomeDesc(editedOutcomeDesc);
 					expenseTable.refresh();
 					}});
+		
+		expenseAmount.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
+		expenseAmount.setOnEditCommit(
+			new EventHandler<CellEditEvent<Transfer, Float>>(){
+				@Override
+				public void handle(CellEditEvent<Transfer, Float> t) {			
+					Transfer editedOutcomeAmount = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+					editedOutcomeAmount.setAmount(t.getNewValue());
+					controller.updateIncomeAmount(editedOutcomeAmount);
+					expenseTable.refresh();
+					}});
+		
 	}
 	
 	/** 

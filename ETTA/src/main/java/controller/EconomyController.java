@@ -119,6 +119,16 @@ public class EconomyController {
 		balanceDao.updateBalance(balance);
 	}
 	
+	public void updateOutcomeAmount(Transfer editedOutcomeAmount) {
+		float oldAmount = (transDAO.readTransfer(editedOutcomeAmount.getTransfer_id())).getAmount();
+		float newAmount = editedOutcomeAmount.getAmount();
+		float diff = newAmount-oldAmount;
+		transDAO.updateTransfer(editedOutcomeAmount);
+		Balance balance = balanceDao.readBalance(1);
+		balance.setBalance(balance.getBalance() - diff);
+		balanceDao.updateBalance(balance);
+	}
+	
 	public void saveTransfer() {
 		String description = ecoGUI.getDescription();
 		float incomeAmount = ecoGUI.getIncomeAmount();
