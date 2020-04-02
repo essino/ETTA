@@ -34,6 +34,7 @@ public class PersonDAO {
 			success = true;
 			System.out.println("creating: " + person.getPerson_id());
 			System.out.println("creating: " + person.getName());
+			System.out.println("creating: " + person.getBirthday());
 		} catch (Exception e) {
 			if (transaction != null) transaction.rollback();
 			throw e;

@@ -150,5 +150,10 @@ public class ContactsController {
 		}
 		deletePerson();
 	}
+
+	public void updatePerson(Person editedPerson) {
+		perDAO.updatePerson(editedPerson);
+		
+	}
 	
 }
