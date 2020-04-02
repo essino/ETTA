@@ -383,4 +383,8 @@ public class EconomyController {
 	}
 
 
+	public void updateSaving(Saving editedSavingDesc) {
+		savingDAO.updateSaving(editedSavingDesc);
+	}
+
 }
