@@ -47,12 +47,24 @@ public class BorrowedController {
 		return names;
 	}
 	
+	/** 
+	 * BorrowedThingDAo used for accessing the database
+	 */ 
 	private BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO();
 	
+	/** 
+	 * Reference to BorrowedGUI to introduce the overall GUI to the controller
+	 */ 
 	private BorrowedGUI gui;
 	
+	/** 
+	 * Reference to BorrowedTableGUI to introduce the GUI in charge of the list of borrowed things to the controller
+	 */ 
 	private BorrowedTableGUI tableGUI;
 	
+	/** 
+	 * Reference to BorrowedAddGUI to introduce the GUI in charge of adding borrowed items
+	 */ 
 	private BorrowedAddGUI addGUI;
 	
 	
@@ -128,7 +140,7 @@ public class BorrowedController {
 	 */ 
 	public void removeBorrowedThing() {
 		String description = tableGUI.getSelectedBorrowedThing().getDescription();
-		deleteBorrowedEvent(description);
+		deleteBorrowedEvent(description); //deletes the borrowed event
 		borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
 		tableGUI.removeFromBorrowedTable(tableGUI.getSelectedBorrowedThing());
 	}
@@ -138,12 +150,13 @@ public class BorrowedController {
 	 */ 
 	public void markReturned() {
 		String description = tableGUI.getSelectedBorrowedThing().getDescription();
-		deleteBorrowedEvent(description);
+		deleteBorrowedEvent(description); //deletes the borrowed event
 		BorrowedThing borrowedThing = borrowedThingDAO.readBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
 		borrowedThing.setReturned(true);
 		borrowedThingDAO.updateBorrowedThing(borrowedThing);
 	}
 	
+	//deletes borrowed event
 	/** 
 	 * Method for deleting the "should return" event from events
 	 */
@@ -159,6 +172,11 @@ public class BorrowedController {
 		
 	}
 	
+	//updates the return date in the borrowed event
+	/** 
+	 * Method for updating the return date in an event concerning the borrowed item
+	 * @param borrowedThing the borrowed thing, the event of which is changed
+	 */
 	public void updateReturnDate(BorrowedThing borrowedThing) {
 		
 		Date returnDate = tableGUI.getSelectedBorrowedThing().getReturnDate();
@@ -176,6 +194,11 @@ public class BorrowedController {
 		}
 	}
 	
+	//updates the title of the borrowed event - HARD CODED!
+	/** 
+	 * Method for updating the title of the borrowed event 
+	 * @param oldDescription the description of the borrowed item that is being changed
+	 */
 	public void updateBorrowedEventTitle(String oldDescription) {
 		String thingDescription = tableGUI.getSelectedBorrowedThing().getDescription();
 		Event updatingEvent = findRightEvent(oldDescription);
@@ -202,12 +225,19 @@ public class BorrowedController {
 		}
 	}
 	
-	
-	
+	/** 
+	 * Method for updating the borrowed item
+	 * @param borrowedThing the borrowed thing that is being updated
+	 */
 	public void updateBorrowedThing(BorrowedThing borrowedThing) {
 		borrowedThingDAO.updateBorrowedThing(borrowedThing);
 	}
 	
+	//used for updating or deleting the right borrowed event - HARD CODED!
+	/** 
+	 * Method for finding the borrowed event based on the description of the borrowed item
+	 * @param description the description of the borrowed item, the event of which is being searched for
+	 */
 	public Event findRightEvent(String description) {
 		//String loanDescription = tableGUI.getSelectedBorrowedThing().getDescription();
 		//the person who has borrowed the item
@@ -223,6 +253,10 @@ public class BorrowedController {
 		return null;
 	}
 	
+	/** 
+	 * Method for finding the right person
+	 * @param name the name matching the person that is being searched for
+	 */
 	public Person findPerson(String name) {
 		return personDAO.readPerson(name);
 	}

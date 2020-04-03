@@ -7,18 +7,29 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import model.BorrowedThing;
 
-
+/**
+ * Class used for inline editing of dates
+ * Extends JavaFX class TableCell
+ */
 public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
 	
-	
+	/**
+	 * Reference to the datepicker
+	 */
     private DatePicker datePicker;
     
     //changes language into English
     //private final Locale myLocale = Locale.getDefault(Locale.Category.FORMAT);
     
+    /**
+     * Constructor for the date editing cell
+     */
     public DateEditingCell() {
     }
 
+    /**
+     * Method for beginning date editing
+     */
     @Override
     public void startEdit() {
         if (!isEmpty()) {
@@ -29,6 +40,9 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
         }
     }
 
+    /**
+     * Method for canceling date editing
+     */
     @Override
     public void cancelEdit() {
         super.cancelEdit();
@@ -37,6 +51,11 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
         setGraphic(null);
     }
 
+    /**
+     * Method for updating the date
+     * @param item the date being updated
+     * @param empty indicates if the cell is empty
+     */
     @Override
     public void updateItem(java.sql.Date item, boolean empty) {
         super.updateItem(item, empty);
@@ -58,6 +77,9 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
         }
     }
 
+    /**
+     * Method for creating the date picker in which the date is selected by the user
+     */
     private void createDatePicker() {
         datePicker = new DatePicker(getDate().toLocalDate());
         //changes the datepicker's language into English
@@ -69,6 +91,10 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
         });
     }
 
+    /**
+     * Method for beginning date editing
+     * @return Date the value of the date picker. If there is no value, the current date is added
+     */
     private Date getDate() {
     	if (getItem() == null) {
     		return Date.valueOf(LocalDate.now());

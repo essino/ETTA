@@ -30,8 +30,9 @@ import model.Person;
 import controller.InputCheck;
 //import view.borrowed.DateEditingCell;
 
-
-
+/**
+ * GUI class in charge of the view showing the list of borrowed items
+ */
 public class BorrowedTableGUI {
 	
 	//NB! this is different in Tiina's WishlistTableGUI - could cause problems
@@ -119,6 +120,7 @@ public class BorrowedTableGUI {
 	/**
 	 * Initialize-method called when the class is created
 	 * Fetches the list of borrowed items in the database 
+	 * Also allows for insline editing of the borrowed items on the list
 	 */
 	@FXML
 	public void initialize() {
@@ -249,7 +251,9 @@ public class BorrowedTableGUI {
 		borrowedTable.getItems().remove(borrowedThing);
 	}
 	
-
+	/** 
+	 * Method that marks an event as returned
+	 */
 	@FXML
 	public void markAsReturned() {
 		controller.markReturned();
