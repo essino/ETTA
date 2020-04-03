@@ -39,6 +39,14 @@ public class BorrowedGUI {
 	@FXML 
 	AnchorPane borrowedviewanchorpane;
 	
+	//ADDED 3/4
+	/**
+	 * The list view for returned items
+	 */
+	//@FXML 
+	//AnchorPane borrowedReturnedViewAnchorpane;
+	
+	
 	/**
 	 * the controller for borrowed things
 	 */
@@ -102,5 +110,22 @@ public class BorrowedGUI {
 		borrowedviewanchorpane.getChildren().setAll(borrowedAdd);
 	}
 
+	//ADDED FOR RETURNING ON 3/4/2020
+	/**
+	 * Method showing the view of returned items
+	 * @param event ActionEvent that is handled
+	 */
+	@FXML
+	public void showReturned(ActionEvent event) {
+		AnchorPane borrowedReturned = null;
+		FXMLLoader loaderBorrowedReturned = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedReturnedView.fxml"));
+		try {
+			borrowedReturned = loaderBorrowedReturned.load();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		borrowedRootBorderPane.setCenter(borrowedReturned);
+	}
 }
 

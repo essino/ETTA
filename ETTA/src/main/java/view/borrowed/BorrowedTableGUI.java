@@ -9,6 +9,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -220,7 +221,10 @@ public class BorrowedTableGUI {
 			}
 		});
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
-		borrowedTable.setItems(data);
+		//lisäys 3/4
+		FilteredList<BorrowedThing> filteredData = new FilteredList<>(data,
+	            s -> !s.isReturned());
+		borrowedTable.setItems(filteredData);
 	}
 	
 	/**
@@ -248,7 +252,12 @@ public class BorrowedTableGUI {
 	 * @param borrowedThing the borrowed item to be removed
 	 */
 	public void removeFromBorrowedTable(BorrowedThing borrowedThing) {
-		borrowedTable.getItems().remove(borrowedThing);
+		try {
+			borrowedTable.getItems().remove(borrowedThing);
+		} catch (Exception e) {
+			System.out.println("Nothing to remove");
+		}
+		
 	}
 	
 	/** 
@@ -256,8 +265,11 @@ public class BorrowedTableGUI {
 	 */
 	@FXML
 	public void markAsReturned() {
-		controller.markReturned();
-		initialize();
+		if (inputCheck.confirmReturn()) {
+			controller.markReturned();
+			initialize();
+		}
+		
 	}
 	
 } 

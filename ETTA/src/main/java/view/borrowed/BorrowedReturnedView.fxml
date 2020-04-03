@@ -6,17 +6,16 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="borrowedviewanchorpane" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.borrowed.BorrowedTableGUI">
+<AnchorPane fx:id="borrowedReturnedViewAnchorpane" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.borrowed.BorrowedReturnedTableGUI">
    <children>
       <ButtonBar layoutY="643.0" prefHeight="40.0" prefWidth="600.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="643.0">
         <buttons>
-            <Button mnemonicParsing="false" onAction="#showBorrowedAdd" text="Add new item" />
+            <Button mnemonicParsing="false" text="Mark as borrowed" />
             <Button mnemonicParsing="false" text="Send email" />
-            <Button mnemonicParsing="false" onAction="#markAsReturned" text="Mark as returned" />
-          <Button mnemonicParsing="false" onAction="#deleteSelectedBorrowedThing" text="Delete" />
+          <Button mnemonicParsing="false" onAction="#deleteSelectedReturnedThing" text="Delete" />
         </buttons>
       </ButtonBar>
-      <TableView fx:id="borrowedTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
+      <TableView fx:id="borrowedReturnedTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
         <columns>
           <TableColumn fx:id="borrowedThingDescr" minWidth="-Infinity" prefWidth="150.0" text="Item" />
           <TableColumn fx:id="loanDate" minWidth="-Infinity" prefWidth="150.0" text="Loan date" />
