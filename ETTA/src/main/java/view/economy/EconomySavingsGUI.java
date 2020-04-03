@@ -111,6 +111,22 @@ public class EconomySavingsGUI {
 					savingsTable.refresh();
 					}});
 		
+		savingsSavedAmount.setCellValueFactory(new PropertyValueFactory<Saving, Float>("amount"));
+		savingsSavedAmount.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
+		savingsSavedAmount.setOnEditCommit(
+			new EventHandler<CellEditEvent<Saving, Float>>(){
+				@Override
+				public void handle(CellEditEvent<Saving, Float> t) {			
+					Saving editedSaving = ((Saving) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+					Float oldAmount = editedSaving.getAmount();
+					Float newAmount = t.getNewValue();
+					editedSaving.setAmount(newAmount);
+					Float difference = oldAmount-newAmount;
+					controller.updateBalanceAmount(difference);
+					controller.updateSaving(editedSaving);
+					initialize();
+					}});
+		
 		savingsGoalAmount.setCellValueFactory(new PropertyValueFactory<Saving, Float>("goalAmount"));
 		savingsGoalAmount.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
 		savingsGoalAmount.setOnEditCommit(
@@ -122,6 +138,7 @@ public class EconomySavingsGUI {
 					controller.updateSaving(editedSavingGoalAmount);
 					initialize();
 					}});
+		
 		savingsGoalDate.setCellFactory(dateCellFactory);
 		savingsGoalDate.setOnEditCommit(
 			(TableColumn.CellEditEvent<Saving, Date> t) -> {
