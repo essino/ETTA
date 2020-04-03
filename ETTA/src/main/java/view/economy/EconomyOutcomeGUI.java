@@ -11,12 +11,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 import javafx.util.converter.FloatStringConverter;
 import model.Category;
 import model.Transfer;
@@ -67,6 +69,7 @@ public class EconomyOutcomeGUI {
     	 */
     	InputCheck inputCheck = new InputCheck();
       
+    	Callback<TableColumn<Transfer, Date>, TableCell<Transfer, Date>> dateCellFactory = (TableColumn<Transfer, Date> param) -> new DateEditingCell(); 
       
       public EconomyOutcomeGUI() {
   		
@@ -108,6 +111,7 @@ public class EconomyOutcomeGUI {
 	
 	/** 
 	 * Method that initializes the view and gets the expenses  from the controller to display them on the page
+	 *  Fetches the expenses items from the database, displays them in the table view, and enables in-table editing
 	 */
 	@FXML 
 	public void initialize() { 
@@ -127,6 +131,8 @@ public class EconomyOutcomeGUI {
 		
 		expenseAmount.setCellValueFactory(new PropertyValueFactory<Transfer, Float>("amount"));
 		
+		expenseDate.setCellValueFactory(new PropertyValueFactory<Transfer, Date>("date"));
+		
 		expenseDescription.setCellFactory(TextFieldTableCell.<Transfer>forTableColumn());
 		expenseDescription.setOnEditCommit(
 			new EventHandler<CellEditEvent<Transfer, String>>(){
@@ -145,7 +151,18 @@ public class EconomyOutcomeGUI {
 				public void handle(CellEditEvent<Transfer, Float> t) {			
 					Transfer editedOutcomeAmount = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 					editedOutcomeAmount.setAmount(t.getNewValue());
-					controller.updateIncomeAmount(editedOutcomeAmount);
+					controller.updateOutcomeAmount(editedOutcomeAmount);
+					expenseTable.refresh();
+					}});
+		
+		expenseDate.setCellFactory(dateCellFactory);
+		expenseDate.setOnEditCommit(
+			new EventHandler<CellEditEvent<Transfer, Date>>(){
+				@Override
+				public void handle(CellEditEvent<Transfer, Date> t) {			
+					Transfer editedOutcomeDate = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+					editedOutcomeDate.setDate(t.getNewValue());
+					controller.updateOutcomeDate(editedOutcomeDate);
 					expenseTable.refresh();
 					}});
 		

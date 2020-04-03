@@ -117,6 +117,7 @@ public class EconomyIncomeGUI {
 	
 	/** 
 	 * Method that initializes the view and gets the incomes  from the controller to display them on the page
+	 * Fetches the incomes items from the database, displays them in the table view, and enables in-table editing
 	 */
 	@FXML 
 	public void initialize() { 
