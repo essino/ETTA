@@ -129,6 +129,12 @@ public class EconomyController {
 		balanceDao.updateBalance(balance);
 	}
 	
+	public void updateIncomeDate(Transfer editedIncomeDate) {
+		//Date oldIncomeDate = (transDAO.readTransfer(editedIncomeDate.getTransfer_id())).getDate();
+		//Date newIncomeDate = editedIncomeDate.getDate();
+		transDAO.updateTransfer(editedIncomeDate);
+	}
+	
 	public void saveTransfer() {
 		String description = ecoGUI.getDescription();
 		float incomeAmount = ecoGUI.getIncomeAmount();

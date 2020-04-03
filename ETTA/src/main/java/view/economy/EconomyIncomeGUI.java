@@ -11,12 +11,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 import javafx.util.converter.FloatStringConverter;
 import model.Balance;
 import model.Category;
@@ -71,6 +73,8 @@ public class EconomyIncomeGUI {
   	 * The reference of InputCheck class used for checking user's input
   	 */
   	InputCheck inputCheck = new InputCheck();
+  	
+  	Callback<TableColumn<Transfer, Date>, TableCell<Transfer, Date>> dateCellFactory = (TableColumn<Transfer, Date> param) -> new DateEditingCell(); 
 	
 	
     /**
@@ -130,6 +134,7 @@ public class EconomyIncomeGUI {
 		incomeTable.setEditable(true);
 		incomeDescription.setCellValueFactory(new PropertyValueFactory<Transfer, String>("description")); 
 		incomeAmount.setCellValueFactory(new PropertyValueFactory<Transfer, Float>("amount"));
+		incomeDate.setCellValueFactory(new PropertyValueFactory<Transfer, Date>("date"));
 		
 		
 		incomeDescription.setCellFactory(TextFieldTableCell.<Transfer>forTableColumn());
@@ -144,8 +149,6 @@ public class EconomyIncomeGUI {
 					}});
 		
 		
-		//En tajua miten tuon setCellFactoryn pitäisi olla, vai mistä tämä ongelma tulee?
-		//incomeAmount.setCellFactory(TextFieldTableCell.<Transfer>forTableColumn());
 		incomeAmount.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
 		incomeAmount.setOnEditCommit(
 			new EventHandler<CellEditEvent<Transfer, Float>>(){
@@ -154,6 +157,17 @@ public class EconomyIncomeGUI {
 					Transfer editedIncomeAmount = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 					editedIncomeAmount.setAmount(t.getNewValue());
 					controller.updateIncomeAmount(editedIncomeAmount);
+					incomeTable.refresh();
+					}});
+		
+		incomeDate.setCellFactory(dateCellFactory);
+		incomeDate.setOnEditCommit(
+			new EventHandler<CellEditEvent<Transfer, Date>>(){
+				@Override
+				public void handle(CellEditEvent<Transfer, Date> t) {			
+					Transfer editedIncomeDate = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+					editedIncomeDate.setDate(t.getNewValue());
+					controller.updateIncomeDate(editedIncomeDate);
 					incomeTable.refresh();
 					}});
 		
