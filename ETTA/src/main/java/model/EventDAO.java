@@ -112,14 +112,12 @@ public class EventDAO {
 	 * @return updated Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean updateEvent(Event event) {
-		System.out.println("changing calendar " + event.getCalendar());
 		boolean updated =false;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			transaction = session.beginTransaction();	
 			session.update(event);
 			transaction.commit();
-			//System.out.println("changed" + event.getEvent_id());
 			updated = true;
 		}
 		catch(Exception e){
@@ -133,7 +131,37 @@ public class EventDAO {
 	}
 	
 	/**
-	 * method for deleting one Category from the database
+	 * method for updating an event in the database
+	 * @param event Object that represents an event
+	 * @return updated Boolean indicating the success or failure of the database transaction
+	 */
+	public boolean updateEvent(String description) {
+		boolean updated =false;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			List<Event> result;
+			result = session.createQuery( "from Event  e where e.title='" + description).getResultList();
+			System.out.println("result " + result.toString());
+			Event e = result.get(0);
+			System.out.println("event_id found " + e.getEvent_id());
+			session.update(e);
+			System.out.println(e.getEvent_id() + " updated.");
+			session.getTransaction().commit();
+			updated = true;
+		}
+		catch(Exception e){
+			if (transaction!=null) transaction.rollback();
+			throw e;
+		}
+		finally{
+			session.close();
+		}
+		return updated;
+	}
+	
+	/**
+	 * method for deleting one Event from the database
 	 * @param id the id of the event
 	 * @return deleted Boolean indicating the success or failure of the database transaction
 	 */
@@ -225,15 +253,12 @@ public class EventDAO {
 			List<Event> result;
 			result = session.createQuery( "from Event  e where e.title='" + name + "' and calendar='birthdays'").getResultList();
 			System.out.println("result " + result.toString());
-			//Event[] returnArray = new Event[result.size()];
-			Event e = result.get(0);
-			System.out.println("event_id found " + e.getEvent_id());
-			if (e != null) {
-				//Event e = (Event)session.get(Event.class, event_id);
+			try  {
+				Event e = result.get(0);
 				session.delete(e);
 				System.out.println(e.getEvent_id() + " deleted.");
 			}
-			else {
+			catch(IndexOutOfBoundsException e) {
 				System.out.println("Ei löydy listalta.");
 			}
 			session.getTransaction().commit();
@@ -247,4 +272,6 @@ public class EventDAO {
 		}
 		
 	}
+	
+	
 }

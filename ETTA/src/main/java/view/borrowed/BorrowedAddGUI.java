@@ -22,6 +22,9 @@ import model.PersonDAO;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
+/**
+ * GUI class in charge of the view used for adding borrowed items
+ */
 public class BorrowedAddGUI {
 	
 	/**

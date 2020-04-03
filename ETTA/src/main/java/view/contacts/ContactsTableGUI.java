@@ -9,15 +9,20 @@ import controller.InputCheck;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 import model.Person;
 
 public class ContactsTableGUI {
@@ -63,6 +68,7 @@ public class ContactsTableGUI {
  	 */
  	InputCheck inputCheck = new InputCheck();
   	
+ 	Callback<TableColumn<Person, Date>, TableCell<Person, Date>> dateCellFactory = (TableColumn<Person, Date> param) -> new ContactsDateEditingCell();
   	/** 
   	 * Method that initializes the view and gets the contacts  from the controller to display them on the page
   	 */
@@ -76,6 +82,42 @@ public class ContactsTableGUI {
                   new PropertyValueFactory<Person, Date>("birthday"));
   		ObservableList<Person> contacts =  FXCollections.observableArrayList(controller.getPeople());
   		contactsTable.setItems(contacts);
+  		contactsTable.setEditable(true);
+  		
+  		contactsName.setCellFactory(TextFieldTableCell.<Person>forTableColumn());
+  		contactsName.setOnEditCommit(
+				new EventHandler<CellEditEvent<Person, String>>() {
+					@Override
+					public void handle(CellEditEvent<Person, String> t) {
+						Person editedPerson = ((Person) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+						editedPerson.setName(t.getNewValue());
+						controller.updatePerson(editedPerson);
+						contactsTable.refresh();
+					}});
+  		
+  		contactsBirthday.setCellFactory(dateCellFactory);
+  		contactsBirthday.setOnEditCommit(
+				(TableColumn.CellEditEvent<Person, Date> t) -> {
+				Person editedPerson = ((Person) t.getTableView().getItems()
+	            .get(t.getTablePosition().getRow()));
+				System.out.println("new date " + t.getNewValue());
+				editedPerson.setBirthday(t.getNewValue());
+				controller.updatePerson(editedPerson);
+				System.out.println("new date in person " + editedPerson.getBirthday());
+				contactsTable.refresh();
+				}	
+			);	
+  		
+  		contactsEmail.setCellFactory(TextFieldTableCell.<Person>forTableColumn());
+  		contactsEmail.setOnEditCommit(
+				new EventHandler<CellEditEvent<Person, String>>() {
+					@Override
+					public void handle(CellEditEvent<Person, String> t) {
+						Person editedPerson = ((Person) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+						editedPerson.setEmail(t.getNewValue());
+						controller.updatePerson(editedPerson);
+						contactsTable.refresh();
+					}});
   	} 
 	/**
 	 * Method showing the view of the Add contacts in the Contacts section
