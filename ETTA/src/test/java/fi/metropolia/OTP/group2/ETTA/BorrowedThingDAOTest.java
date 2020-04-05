@@ -20,7 +20,7 @@ import model.PersonDAO;
 @TestMethodOrder(OrderAnnotation.class)
 public class BorrowedThingDAOTest {
 
-	private static BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO();
+	private static BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO(true);
 	private static int thing_id = 1;
 	private String description = "The red hammer";
 	private String strLoan = "2020-02-10";
@@ -28,7 +28,7 @@ public class BorrowedThingDAOTest {
 	private String strReturn = "2020-03-10";
 	private Date returnDate = Date.valueOf(strReturn);
 	private static Person person = new Person("Tiina", Date.valueOf("1997-06-17"), "tiina.vanhanen@metropolia.fi");
-	private static PersonDAO personDAO = new PersonDAO();
+	private static PersonDAO personDAO = new PersonDAO(true);
 	private BorrowedThing borrowedThing = new BorrowedThing(description, loanDate, returnDate, person);
 	private static int length = 0;
 	/*

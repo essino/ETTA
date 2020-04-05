@@ -18,6 +18,29 @@ public class BalanceDAO {
 	 */
 	Transaction transaction = null;
 	
+	/**
+	 * Boolean indicating whether the DAO should connect to the test database or not
+	 * Default value false
+	 */
+	boolean test = false;
+	
+	/**
+	 * Construction without parameters
+	 */
+	public BalanceDAO() {
+		
+	}
+	
+	/**
+	 * Constructor
+	 * @param test boolean indicating whether the DAO is used for testing or not
+	 */
+	public BalanceDAO(boolean test) {
+		if (test) {
+			this.test = true;
+		}
+	}
+	
 	/** 
 	 * Method that creates a balance row in the Balance table. Is is used only once, there should be only one row on the Balance table. 
 	 * @param balance Balance object 
@@ -26,7 +49,7 @@ public class BalanceDAO {
 	public boolean createBalance(Balance balance) {
 		boolean success = false;
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(balance);
 			transaction.commit();
@@ -47,7 +70,7 @@ public class BalanceDAO {
 	 */
 	public boolean updateBalance(Balance balance) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
 			transaction = session.beginTransaction();
 			session.update(balance);
 			transaction.commit();
@@ -66,7 +89,7 @@ public class BalanceDAO {
 	 */
 	public Balance readBalance(int balance_id) {
 		Balance balance = new Balance();
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
 			transaction = session.beginTransaction();
 			balance = (Balance)session.get(Balance.class, balance_id);		
 			transaction.commit();

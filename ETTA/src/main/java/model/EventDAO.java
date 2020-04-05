@@ -22,6 +22,29 @@ public class EventDAO {
 	Transaction transaction = null;
 	
 	/**
+	 * Boolean indicating whether the DAO should connect to the test database or not
+	 * Default value false
+	 */
+	boolean test = false;
+	
+	/**
+	 * Construction without parameters
+	 */
+	public EventDAO() {
+		
+	}
+	
+	/**
+	 * Constructor
+	 * @param test boolean indicating whether the DAO is used for testing or not
+	 */
+	public EventDAO(boolean test) {
+		if (test) {
+			this.test = true;
+		}
+	}
+	
+	/**
 	 * method for reading all events from the database
 	 * @return Event[]  list of  event objects read from the database
 	 */
@@ -30,7 +53,7 @@ public class EventDAO {
 		List<Event> result;
 		Event[] returnArray;
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			session.beginTransaction();
 			result = session.createQuery( "from Event order by event_id" ).list();
 			for ( Event e : (List<Event>) result ) {
@@ -58,7 +81,7 @@ public class EventDAO {
 		Transaction transaction = null;
 		Event event = new Event();
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			event = (Event)session.get(Event.class, event_id);	
 			
@@ -90,7 +113,7 @@ public class EventDAO {
 		Transaction transaction = null;
 
 		try{
-			session = HibernateUtil.getSessionFactory().openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(event);
 			transaction.commit();
@@ -114,7 +137,7 @@ public class EventDAO {
 	public boolean updateEvent(Event event) {
 		boolean updated =false;
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();	
 			session.update(event);
 			transaction.commit();
@@ -138,7 +161,7 @@ public class EventDAO {
 	public boolean updateEvent(String description) {
 		boolean updated =false;
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			session.beginTransaction();
 			List<Event> result;
 			result = session.createQuery( "from Event  e where e.title='" + description).getResultList();
@@ -169,7 +192,7 @@ public class EventDAO {
 		boolean deleted = false;
 		// Tiedon haku Session.get-metodilla + poisto jos löytyi
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			session.beginTransaction();
 
 			Event e = (Event)session.get(Event.class, event_id);
@@ -201,7 +224,7 @@ public class EventDAO {
 		List<Event> result;
 		Event[] returnArray;
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			session.beginTransaction();
 			result = session.createQuery( "from Event where calendar="+ calendar).list();
 			for ( Event e : (List<Event>) result ) {
@@ -230,7 +253,7 @@ public class EventDAO {
 		List<Event> result;
 		Event[] returnArray;
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			session.beginTransaction();
 			result = session.createQuery( "from Event where startDate=current_date()").list();
 			session.getTransaction().commit();
@@ -248,7 +271,7 @@ public class EventDAO {
 
 	public void deleteBirthday(String name, Date birthday) {
 		try {
-			session = HibernateUtil.getSessionFactory().openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			session.beginTransaction();
 			List<Event> result;
 			result = session.createQuery( "from Event  e where e.title='" + name + "' and calendar='birthdays'").getResultList();
