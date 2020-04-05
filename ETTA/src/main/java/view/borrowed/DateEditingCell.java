@@ -91,6 +91,7 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
         });
     }
 
+    //TÄMÄ EI TOIMI OIKEIN: ERI TAVALLA RETURNED JA BORROWED SIVUILLA
     /**
      * Method for beginning date editing
      * @return Date the value of the date picker. If there is no value, the current date is added
@@ -101,6 +102,14 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
     	} else {
     		return getItem();
     	}
+    	/*Date date = null;
+    	try {
+    		date = getItem();
+    		//return date;
+    	} catch (NullPointerException e) {
+    		System.out.println("Ei merkitty päivää!");
+    	}
+    	return date;*/
     }  
     
 }

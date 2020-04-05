@@ -120,93 +120,11 @@ public class BorrowedReturnedTableGUI {
 		 */
 		@FXML
 		public void initialize() {
-			//borrowedReturnedTable.setEditable(true);
 			borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
-			//lisäys
 			borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
-			/*borrowedThingDescr.setOnEditCommit(
-				new EventHandler<CellEditEvent<BorrowedThing, String>>(){
-					@Override
-					public void handle(CellEditEvent<BorrowedThing, String> t) {
-						BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-						String oldDescription = t.getOldValue();
-						//System.out.println("Tididii dii tididii " + oldDescription);
-						editedBorrowedThing.setDescription(t.getNewValue());
-						
-						
-						controller.updateBorrowedThing(editedBorrowedThing);
-						controller.updateBorrowedEventTitle(oldDescription);
-						borrowedReturnedTable.refresh();
-					}
-				}
-			);*/
 			borrowedBy.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("person"));
-			/*borrowedBy.setCellFactory(ComboBoxTableCell.<BorrowedThing, String>forTableColumn(controller.personsList()));
-			borrowedBy.setOnEditCommit(
-					new EventHandler<CellEditEvent<BorrowedThing, String>>() {
-						@Override
-						public void handle(CellEditEvent<BorrowedThing, String> t) {
-							
-							BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-							String newName = t.getNewValue();
-							Person newPerson = controller.findPerson(newName);
-							editedBorrowedThing.setPerson(newPerson);
-							controller.updateBorrowedThing(editedBorrowedThing);
-							borrowedReturnedTable.refresh();
-						}});*/
 			loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
-			/*loanDate.setCellFactory(dateCellFactory);
-			
-			loanDate.setOnEditCommit(
-	                (TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
-	                    BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
-	                    .get(t.getTablePosition().getRow()));
-	                    //essin lisäys
-	               
-	                    java.sql.Date tempLoanDate = t.getNewValue();
-	                    java.sql.Date tempRDate = editedBorrowedThing.getReturnDate();
-	                    if(inputCheck.dateCheck(tempLoanDate, tempRDate)) {
-	                    
-	                    	editedBorrowedThing.setDateBorrowed(tempLoanDate);
-	                    	controller.updateBorrowedThing(editedBorrowedThing);
-	                    } else {
-	                    	inputCheck.alertDatesWrong();
-	    					//sets the loan date as return date
-	    					editedBorrowedThing.setDateBorrowed(tempRDate);
-	    					controller.updateBorrowedThing(editedBorrowedThing);
-	                    }
-	                    borrowedReturnedTable.refresh();
-	                }
-				);*/
-			
-			
 			returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
-			//returned.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Boolean>("returned"));
-			/*returnDate.setCellFactory(dateCellFactory);
-			returnDate.setOnEditCommit(
-				(TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
-					BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
-							.get(t.getTablePosition().getRow()));
-					java.sql.Date tempReturnDate = t.getNewValue();
-					//essin lisäys
-					java.sql.Date tempLDate = editedBorrowedThing.getDateBorrowed();
-					System.out.println("This is the rhythm of the loan date " + tempLDate);
-					if(inputCheck.dateCheck(tempLDate, tempReturnDate)) {
-						editedBorrowedThing.setReturnDate(tempReturnDate);
-						controller.updateBorrowedThing(editedBorrowedThing);
-						controller.updateReturnDate(editedBorrowedThing);
-					} else {
-						inputCheck.alertDatesWrong();
-						//sets the loan date as return date
-						editedBorrowedThing.setReturnDate(tempLDate);
-						controller.updateBorrowedThing(editedBorrowedThing);
-						controller.updateReturnDate(editedBorrowedThing);
-					}
-					borrowedReturnedTable.refresh();
-				}
-				//essin lisäys loppuu
-			);*/
-
 			returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
 				public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 					if (borrowedThingDescr.getValue().isReturned() == true) {
@@ -216,14 +134,9 @@ public class BorrowedReturnedTableGUI {
 					}
 				}
 			});
-		
 			ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
-			//lisäys miten saadaan filtered list
-			// 1. Wrap the ObservableList in a FilteredList 
 			FilteredList<BorrowedThing> filteredData = new FilteredList<>(data,
 		            s -> s.isReturned());
-		            
-		   
 			borrowedReturnedTable.setItems(filteredData);
 		}
 		
@@ -261,6 +174,12 @@ public class BorrowedReturnedTableGUI {
 		@FXML
 		public void markAsReturned() {
 			controller.markReturned();
+			initialize();
+		}
+		
+		@FXML
+		public void makeReturnedBorrowed() {
+			controller.changeReturnedToBorrowed();
 			initialize();
 		}
 		
