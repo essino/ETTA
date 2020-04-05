@@ -132,6 +132,14 @@ public class InputCheck {
 		 }
 		return wantReturn;
 	}
+	
+	public void alertNotEnoughBalance() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("The balance is not enough for this action.");
+		alert.setContentText("Check the new data and the balance.");
+		alert.showAndWait();
+	}
 }
 
 

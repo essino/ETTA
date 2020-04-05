@@ -120,10 +120,14 @@ public class EconomySavingsGUI {
 					Saving editedSaving = ((Saving) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 					Float oldAmount = editedSaving.getAmount();
 					Float newAmount = t.getNewValue();
-					editedSaving.setAmount(newAmount);
 					Float difference = oldAmount-newAmount;
-					controller.updateBalanceAmount(difference);
-					controller.updateSaving(editedSaving);
+					if(controller.updateBalanceAmount(difference)) {
+						editedSaving.setAmount(newAmount);
+						controller.updateSaving(editedSaving);
+					}
+					else {
+						inputCheck.alertNotEnoughBalance();
+					}
 					initialize();
 					}});
 		

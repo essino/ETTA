@@ -407,10 +407,25 @@ public class EconomyController {
 		return balanceDao.readBalance(1).getBalance(); 
 	}
 
-	public void updateBalanceAmount(float amount) {
+	public boolean updateBalanceAmount(float amount) {
+		if(enoughBalance(amount)) {
+			Balance balance = balanceDao.readBalance(1);
+			float newAmount = balance.getBalance() + amount;
+			balance.setBalance(newAmount);
+			balanceDao.updateBalance(balance);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean enoughBalance(float amount) {
 		Balance balance = balanceDao.readBalance(1);
 		float newAmount = balance.getBalance() + amount;
-		balance.setBalance(newAmount);
-		balanceDao.updateBalance(balance);
+		if(newAmount>=0) {
+			return true;
+		}
+		return false;
 	}
 }
