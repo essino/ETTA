@@ -102,14 +102,6 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
     	} else {
     		return getItem();
     	}
-    	/*Date date = null;
-    	try {
-    		date = getItem();
-    		//return date;
-    	} catch (NullPointerException e) {
-    		System.out.println("Ei merkitty päivää!");
-    	}
-    	return date;*/
     }  
     
 }

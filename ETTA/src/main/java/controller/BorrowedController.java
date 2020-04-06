@@ -132,6 +132,7 @@ public class BorrowedController {
 		System.out.println("person id " + person.getPerson_id());
 		borrowedThing.setPerson(person);
 		borrowedThing.setDateBorrowed(addGUI.getBorrowedLoanDate());
+		System.out.println("Lainauspäivä: " + addGUI.getBorrowedLoanDate());
 		borrowedThing.setReturnDate(addGUI.getBorrowedReturnDate());
 		borrowedThing.setReturned(false);
 		borrowedThingDAO.createBorrowedThing(borrowedThing);
