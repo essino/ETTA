@@ -149,5 +149,19 @@ public class MainViewGUI {
 		borderPaneCalendar.setCenter(calendarView);
 		return borderPaneCalendar;
 	}
-		
+	/**
+	 * Method loading the settings page view - root with the button menu and the content
+	 * @return BorderPane settings page view
+	 */
+	public BorderPane SettingsView() {
+		BorderPane borderPaneSettings = new BorderPane();
+		FXMLLoader loaderSettings  = new FXMLLoader(getClass().getResource("/view/settings/Settings.fxml"));
+		try {
+			borderPaneSettings = loaderSettings.load();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		return borderPaneSettings;
+	}
 }

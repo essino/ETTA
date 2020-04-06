@@ -33,6 +33,7 @@ public class App extends Application
         Tab tab4 = new Tab("Wishlists");
         Tab tab5 = new Tab("Borrowed things");
         Tab tab6 = new Tab("Contacts");
+        Tab tab7 = new Tab("Settings");
 
         //main page view
         tab1.setContent(mainViewGUI.mainPageView());
@@ -79,12 +80,20 @@ public class App extends Application
 	            }
 	        });
 		
+		//settings main view
+		tab7.setOnSelectionChanged(event -> {
+	        if (tab7.isSelected()) {
+	        	tab7.setContent(mainViewGUI.SettingsView());
+	            }
+	        });
+		
         tabPane.getTabs().add(tab1);
         tabPane.getTabs().add(tab2);
         tabPane.getTabs().add(tab3);
         tabPane.getTabs().add(tab4);
         tabPane.getTabs().add(tab5);
         tabPane.getTabs().add(tab6);
+        tabPane.getTabs().add(tab7);
         
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         VBox vBox = new VBox(tabPane);
