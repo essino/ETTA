@@ -3,6 +3,7 @@ package view.borrowed;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
 
 import controller.InputCheck;
 import controller.BorrowedController;
@@ -144,10 +145,11 @@ public class BorrowedAddGUI {
 	 */
 	@FXML
 	public Date getBorrowedLoanDate() {
-		try {
+		if (this.loanDate.getValue() == null) {
+			return Date.valueOf(LocalDate.now());
+		} else {
+			
 			return Date.valueOf(this.loanDate.getValue());
-		} catch(NullPointerException e) {
-			return null;
 		}
 	}
 	

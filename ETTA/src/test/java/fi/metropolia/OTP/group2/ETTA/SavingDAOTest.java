@@ -19,7 +19,7 @@ import model.SavingDAO;
 @TestMethodOrder(OrderAnnotation.class)
 public class SavingDAOTest {
 
-	private SavingDAO savingDAO = new SavingDAO();
+	private SavingDAO savingDAO = new SavingDAO(true);
 	private String desc = "Kossin matka";
 	private float amountGoal = 2000f;
 	private float reachedGoal = 5f;

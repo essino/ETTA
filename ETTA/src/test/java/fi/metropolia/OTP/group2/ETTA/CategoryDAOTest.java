@@ -16,7 +16,7 @@ import model.CategoryDAO;
 @TestMethodOrder(OrderAnnotation.class)
 public class CategoryDAOTest {
 	
-	private static CategoryDAO categoryDAO = new CategoryDAO();
+	private static CategoryDAO categoryDAO = new CategoryDAO(true);
 	private String desc = "abracadabra";
 	private boolean income = false;
 	private Category category = new Category(desc, income);

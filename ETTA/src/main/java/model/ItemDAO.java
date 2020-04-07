@@ -21,13 +21,36 @@ public class ItemDAO {
 	Transaction transaction = null;
 	
 	/**
+	 * Boolean indicating whether the DAO should connect to the test database or not
+	 * Default value false
+	 */
+	boolean test = false;
+	
+	/**
+	 * Construction without parameters
+	 */
+	public ItemDAO() {
+		
+	}
+	
+	/**
+	 * Constructor
+	 * @param test boolean indicating whether the DAO is used for testing or not
+	 */
+	public ItemDAO(boolean test) {
+		if (test) {
+			this.test = true;
+		}
+	}
+	
+	/**
 	 * Method for creating a new Item in the database
 	 * @param item Item the item object to be added to the database
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean createItem(Item item) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(item);
 			transaction.commit();
@@ -50,7 +73,7 @@ public class ItemDAO {
 	public Item readItem(int item_id) {
 		Item item = new Item();
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			item = (Item)session.get(Item.class, item_id);		
 			transaction.commit();
@@ -65,7 +88,7 @@ public class ItemDAO {
 	public Item readItem(String desc) {
 		Item item = new Item();
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			List<Item>  result = session.createQuery( "from Item where description='" + desc + "'" ).list();
 			item = result.get(0);		
@@ -86,7 +109,7 @@ public class ItemDAO {
 	public Item[] readItems() {
 		ArrayList<Item> list = new ArrayList<>();
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Item> result = session.createQuery("from Item").getResultList();
@@ -110,7 +133,7 @@ public class ItemDAO {
 	 */
 	public boolean updateItem(Item item) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
 			transaction = session.beginTransaction();
 			session.update(item);
 			transaction.commit();
@@ -130,7 +153,7 @@ public class ItemDAO {
 	public boolean deleteItem(int item_id) {
 		boolean success = false;
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			Item item = (Item)session.get(Item.class, item_id);
 			session.delete(item);
@@ -151,7 +174,7 @@ public class ItemDAO {
 	public Item[] readItemsByPerson(int person_id) {
 		ArrayList<Item> list = new ArrayList<>();
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Item> result = session.createQuery("from Item where person=" + person_id).getResultList();
@@ -176,7 +199,7 @@ public class ItemDAO {
 	public Item[] readItemsByBought(boolean bought) {
 		ArrayList<Item> list = new ArrayList<>();
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Item> result = session.createQuery("from Item where bought=" + bought).getResultList();
@@ -201,7 +224,7 @@ public class ItemDAO {
 	public Item[] readOwnItems() {
 		ArrayList<Item> list = new ArrayList<>();
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Item> result = session.createQuery("from Item where person=null").getResultList();

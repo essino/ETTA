@@ -119,6 +119,27 @@ public class InputCheck {
 		 }
 		return delete;
 	}
+	
+	public boolean confirmReturn() {
+		boolean wantReturn = false;
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation");
+		alert.setHeaderText("You're about to mark the item as returned.");
+		alert.setContentText("Are you sure you want to mark this item as returned?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.isPresent() && result.get() == ButtonType.OK) {
+			wantReturn = true;
+		 }
+		return wantReturn;
+	}
+	
+	public void alertNotEnoughBalance() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("The balance is not enough for this action.");
+		alert.setContentText("Check the new data and the balance.");
+		alert.showAndWait();
+	}
 }
 
 

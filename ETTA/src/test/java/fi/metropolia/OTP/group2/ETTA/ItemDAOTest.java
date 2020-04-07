@@ -22,7 +22,7 @@ import model.PersonDAO;
 @TestMethodOrder(OrderAnnotation.class)
 class ItemDAOTest {
 /*
-		private ItemDAO itemDAO = new ItemDAO();
+		private ItemDAO itemDAO = new ItemDAO(true);
 		//private int id=1;
 		private String desc = "Ystävänpäiväkortti";
 		private double price = 3.5;
@@ -30,7 +30,7 @@ class ItemDAOTest {
 		private Date dateNeeded = Date.valueOf(str);
 		private String additionalInfo = null;
 		private static Person tiina = new Person("Tiina", Date.valueOf("1997-06-17"), "tiina.vanhanen@metropolia.fi");
-		private static  PersonDAO personDAO = new PersonDAO();
+		private static  PersonDAO personDAO = new PersonDAO(true);
 		private Item item = new Item(desc, tiina, price, dateNeeded, additionalInfo);
 		private int length = 0;
 		private int id = 0;

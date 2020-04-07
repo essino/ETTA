@@ -19,11 +19,11 @@ import model.TransferDAO;
 @TestMethodOrder(OrderAnnotation.class)
 class TransferDAOTest {
 	/*
-	private static TransferDAO transferDAO = new TransferDAO();
+	private static TransferDAO transferDAO = new TransferDAO(true);
 	//private int id = 1;
 	private String desc = "shopping";
 	
-	private static CategoryDAO catDAO = new CategoryDAO();
+	private static CategoryDAO catDAO = new CategoryDAO(true);
 	private static Category cat = catDAO.readCategory("food");
 	//private static Category cat = new Category("food", false);
 	private boolean income = false;

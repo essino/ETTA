@@ -20,6 +20,29 @@ public class SavingDAO {
 	 */
 	Transaction transaction = null;
 	
+	/**
+	 * Boolean indicating whether the DAO should connect to the test database or not
+	 * Default value false
+	 */
+	boolean test = false;
+	
+	/**
+	 * Construction without parameters
+	 */
+	public SavingDAO() {
+		
+	}
+	
+	/**
+	 * Constructor
+	 * @param test boolean indicating whether the DAO is used for testing or not
+	 */
+	public SavingDAO(boolean test) {
+		if (test) {
+			this.test = true;
+		}
+	}
+	
 	 /**
 		 * Method for creating a new Saving in the database
 		 * @param saving Saving the saving object to be added to the database
@@ -28,7 +51,7 @@ public class SavingDAO {
 	public boolean createSaving(Saving saving) {
 		boolean success = false;
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(saving);
 			transaction.commit();
@@ -51,7 +74,7 @@ public class SavingDAO {
 		ArrayList<Saving> list = new ArrayList<>();
 		
 		try  {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Saving> result = session.createQuery("from Saving").getResultList();
@@ -77,7 +100,7 @@ public class SavingDAO {
 	public Saving readSaving(int saving_id) {
 		Saving saving = new Saving();
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			saving = (Saving)session.get(Saving.class, saving_id);		
 			transaction.commit();
@@ -98,7 +121,7 @@ public class SavingDAO {
 	public boolean updateSaving(Saving saving) {
 		saving.setProgress((saving.getAmount()/saving.getGoalAmount())*100);
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
 			transaction = session.beginTransaction();
 			session.update(saving);
 			transaction.commit();
@@ -117,7 +140,7 @@ public class SavingDAO {
 	 */
 	public boolean deleteSaving(int saving_id) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
 			transaction = session.beginTransaction();
 			Saving saving = (Saving)session.get(Saving.class, saving_id);
 			session.delete(saving);

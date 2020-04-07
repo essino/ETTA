@@ -19,71 +19,61 @@ import model.PersonDAO;
 @TestMethodOrder(OrderAnnotation.class)
 class PersonDAOTest {
 
-	private PersonDAO personDAO = new PersonDAO();
+	private PersonDAO personDAO = new PersonDAO(true);
 	private int id = 1;
 	private String str = "1997-06-17";
 	private Date date = Date.valueOf(str);
 	private String name = "Jesper";
 	private String email = "jesper@jesper.com";
 	private Person jesper = new Person(name, date, email);
-	private int length = 0;
-	private int index = 0;
 
-	/*
-	@BeforeEach
-	public void createCategory() {
-		Person person = new Person(name, date, email);
-		PersonDAO pDAO = new PersonDAO();
-		pDAO.createPerson(person);
-	}
-	*/
-	
 	@Test
 	@Order(1)
-	public void testCreate() {
+	public void testCreatePerson() {
 		assertEquals(true, personDAO.createPerson(jesper), "Creation of person failed");
 	}
 	
 	@Test
 	@Order(2)
-	public void testReadPeople() {
-		length = personDAO.readPeople().length;
-		Person lena = new Person("lenochka", Date.valueOf("1980-08-10"), "lena@lena.com");
-		assertEquals(true, personDAO.createPerson(lena), "Creation of person failed");
-		length++;
-		assertEquals(length, personDAO.readPeople().length, "Reading all failed");
+	public void testReadPerson() {
+		assertEquals(name, personDAO.readPerson(1).getName(), "Reading one failed (name)");
+		assertEquals(date, personDAO.readPerson(1).getBirthday(), "Reading one failed (bday)");
+		assertEquals(email, personDAO.readPerson(1).getEmail(), "Reading one failed (email)");
 	}
 	
 	@Test
 	@Order(3)
-	public void testReadPerson() {
-		length = personDAO.readPeople().length;
-		index = personDAO.readPeople()[length-2].getPerson_id();
-		//assertEquals(date, personDAO.readPerson(index).getBirthday(), "Reading one failed (bday)");
-		assertEquals(email, personDAO.readPerson(index).getEmail(), "Reading one failed (email)");
+	public void testReadPersonWithName() {
+		assertEquals(date, personDAO.readPerson(name).getBirthday(), "Reading one with name failed (bday)");
+		assertEquals(email, personDAO.readPerson(name).getEmail(), "Reading one with name failed (email)");
+		assertEquals(null, personDAO.readPerson("Tiina"), "Reading with a name that doesn't exitst failed");
 	}
 	
 	@Test
 	@Order(4)
+	public void testReadPeople() {
+		assertEquals(1, personDAO.readPeople().length, "Reading all failed (1)");
+		Person lena = new Person("Lena", Date.valueOf("1980-08-10"), "lena@lena.com");
+		assertEquals(true, personDAO.createPerson(lena), "Creation of person failed");
+		assertEquals(2, personDAO.readPeople().length, "Reading all failed (2)");
+	}
+	
+	@Test
+	@Order(5)
 	public void testUpdate() {
 		Date newDate = Date.valueOf("1990-03-16");
-		length = personDAO.readPeople().length;
-		index = personDAO.readPeople()[length-2].getPerson_id();
-		Person updatedPerson = personDAO.readPerson(index);
+		Person updatedPerson = personDAO.readPerson(1);
 		updatedPerson.setBirthday(newDate);
 		assertEquals(true, personDAO.updatePerson(updatedPerson), "Updating failed");
-		//assertEquals(newDate, personDAO.readPerson(index).getBirthday(), "Bday updating failed");
+		assertEquals(newDate, personDAO.readPerson(1).getBirthday(), "Bday updating failed");
 	}
 	
 	
 	@Test
-	@Order(5)
+	@Order(6)
 	public void testDelete() {
-		length = personDAO.readPeople().length;
-		index = personDAO.readPeople()[length-1].getPerson_id();
-		assertEquals(true, personDAO.deletePerson(index-1), "Deleting tiina failed");
-		assertEquals(true, personDAO.deletePerson(index), "Deleting lena failed");
-		
+		assertEquals(true, personDAO.deletePerson(1), "Deleting jesper failed");
+		assertEquals(true, personDAO.deletePerson(2), "Deleting lena failed");
 	}
 
 }

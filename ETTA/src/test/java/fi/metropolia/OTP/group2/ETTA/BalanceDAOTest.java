@@ -15,7 +15,7 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 @TestMethodOrder(OrderAnnotation.class)
 public class BalanceDAOTest {
 
-	private BalanceDAO balanceDAO = new BalanceDAO();
+	private BalanceDAO balanceDAO = new BalanceDAO(true);
 	private Balance balance = new Balance(100);
 	private int id = 1;
 	

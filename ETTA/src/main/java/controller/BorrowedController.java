@@ -14,6 +14,7 @@ import model.Event;
 import model.EventDAO;
 import view.borrowed.BorrowedAddGUI;
 import view.borrowed.BorrowedGUI;
+import view.borrowed.BorrowedReturnedTableGUI;
 import view.borrowed.BorrowedTableGUI;
 
 
@@ -67,6 +68,11 @@ public class BorrowedController {
 	 */ 
 	private BorrowedAddGUI addGUI;
 	
+	//Essi added this reference for RETURNED ITEMS on 03/04/2020
+	/** 
+	 * Reference to BorrowedReturnedTableGUI to introduce the GUI showing returned items
+	 */ 
+	private BorrowedReturnedTableGUI returnedGUI;
 	
 	/**
 	 * Constructor to create controller for BorrowedThings
@@ -98,6 +104,15 @@ public class BorrowedController {
 		this.addGUI = addGUI;
 	}
 	
+	//Essi added this constructor for RETURNED ITEMS on 03/04/2020
+	/**
+	 * Constructor to create controller for BorrowedThings
+	 *@param returnedGUI the gui for showing returned items
+	 */
+	public BorrowedController(BorrowedReturnedTableGUI returnedGUI) {
+		this.returnedGUI = returnedGUI;
+	}
+	
 	/** 
 	 * Method for creating a new borrowed thing and saving it to the database
 	 * return BorrowedThing[] array contains all borrowed things
@@ -117,6 +132,7 @@ public class BorrowedController {
 		System.out.println("person id " + person.getPerson_id());
 		borrowedThing.setPerson(person);
 		borrowedThing.setDateBorrowed(addGUI.getBorrowedLoanDate());
+		System.out.println("Lainauspäivä: " + addGUI.getBorrowedLoanDate());
 		borrowedThing.setReturnDate(addGUI.getBorrowedReturnDate());
 		borrowedThing.setReturned(false);
 		borrowedThingDAO.createBorrowedThing(borrowedThing);
@@ -139,21 +155,74 @@ public class BorrowedController {
 	 * Method for deleting a borrowed thing from the database
 	 */ 
 	public void removeBorrowedThing() {
-		String description = tableGUI.getSelectedBorrowedThing().getDescription();
-		deleteBorrowedEvent(description); //deletes the borrowed event
-		borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
-		tableGUI.removeFromBorrowedTable(tableGUI.getSelectedBorrowedThing());
+		
+		
+			BorrowedThing thing = tableGUI.getSelectedBorrowedThing();
+			String description = tableGUI.getSelectedBorrowedThing().getDescription();
+			deleteBorrowedEvent(description); //deletes the borrowed event 
+			borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
+			//tableGUI.removeFromBorrowedTable(thing); //tätä ei kyllä taideta tarvita, aiheuttaa exceptionin
+
+		
+	}
+	
+	//added 3/4/2020 by Essi :)
+	/** 
+	 * Method for deleting a returned thing from the database
+	 */ 
+	public void removeReturnedThing() {
+		try {
+			String description = returnedGUI.getSelectedBorrowedThing().getDescription();
+			//deleteBorrowedEvent(description); //deletes the borrowed event; this won't be necessary as the event is already deleted; if deletion of event changed may be necessary
+			borrowedThingDAO.deleteBorrowedThing(returnedGUI.getSelectedBorrowedThing().getThing_id());
+			//returnedGUI.removeFromBorrowedTable(returnedGUI.getSelectedBorrowedThing());
+		} catch(NullPointerException e) {
+			System.out.println("No returned item selected.");
+		}
+		
+		
 	}
 	
 	/** 
 	 * Method for making the borrowed item returned
 	 */ 
 	public void markReturned() {
-		String description = tableGUI.getSelectedBorrowedThing().getDescription();
-		deleteBorrowedEvent(description); //deletes the borrowed event
-		BorrowedThing borrowedThing = borrowedThingDAO.readBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
-		borrowedThing.setReturned(true);
-		borrowedThingDAO.updateBorrowedThing(borrowedThing);
+		try {
+			String description = tableGUI.getSelectedBorrowedThing().getDescription();
+			deleteBorrowedEvent(description); //deletes the borrowed event
+			BorrowedThing borrowedThing = borrowedThingDAO.readBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
+			borrowedThing.setReturned(true);
+			borrowedThingDAO.updateBorrowedThing(borrowedThing);
+			
+		} catch (NullPointerException e) {
+			System.out.println("No item selected.");
+		}
+		
+	}
+	
+	public void changeReturnedToBorrowed() {
+		try {
+			BorrowedThing returnedThing = borrowedThingDAO.readBorrowedThing(returnedGUI.getSelectedBorrowedThing().getThing_id());
+			returnedThing.setReturned(false);
+			borrowedThingDAO.updateBorrowedThing(returnedThing);
+			//create a calendar event - DOES IT WORK LIKE THIS?
+			int lastEvent = eventDAO.readEvents().length; 
+			int lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();
+			Event borrowed = new Event();
+			borrowed.setEvent_id(lastEventId+1);
+			borrowed.setTitle(returnedGUI.getSelectedBorrowedThing().getPerson() + " should return " +  returnedGUI.getSelectedBorrowedThing().getDescription());
+			borrowed.setLocation(null);
+			borrowed.setStartDate(returnedGUI.getSelectedBorrowedThing().getReturnDate());
+			borrowed.setEndDate(returnedGUI.getSelectedBorrowedThing().getReturnDate());
+			borrowed.setFullday(true);
+			borrowed.setRecurring(false);
+			borrowed.setCalendar("borrowed");
+			eventDAO.createEvent(borrowed);
+		} catch (NullPointerException e) {
+			System.out.println("No item selected.");
+		}
+		
+		
 	}
 	
 	//deletes borrowed event
@@ -178,7 +247,7 @@ public class BorrowedController {
 	 * @param borrowedThing the borrowed thing, the event of which is changed
 	 */
 	public void updateReturnDate(BorrowedThing borrowedThing) {
-		
+		//tämä ei toimi palautettujen kanssa
 		Date returnDate = tableGUI.getSelectedBorrowedThing().getReturnDate();
 		String description = borrowedThing.getDescription();
 		System.out.println("Description of the borrowed thing" + description);
@@ -200,6 +269,7 @@ public class BorrowedController {
 	 * @param oldDescription the description of the borrowed item that is being changed
 	 */
 	public void updateBorrowedEventTitle(String oldDescription) {
+		//tämä ei toimi palautetteujen päivityksessä
 		String thingDescription = tableGUI.getSelectedBorrowedThing().getDescription();
 		Event updatingEvent = findRightEvent(oldDescription);
 		String newTitle = "";	

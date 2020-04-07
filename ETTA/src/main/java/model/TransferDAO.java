@@ -23,13 +23,36 @@ public class TransferDAO {
 	Transaction transaction = null;
 	
 	/**
+	 * Boolean indicating whether the DAO should connect to the test database or not
+	 * Default value false
+	 */
+	boolean test = false;
+	
+	/**
+	 * Construction without parameters
+	 */
+	public TransferDAO() {
+		
+	}
+	
+	/**
+	 * Constructor
+	 * @param test boolean indicating whether the DAO is used for testing or not
+	 */
+	public TransferDAO(boolean test) {
+		if (test) {
+			this.test = true;
+		}
+	}
+	
+	/**
 	 * Method for creating a new Transfer in the database
 	 * @param transfer Transfer the transfer object to be added to the database
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean createTransfer(Transfer transfer) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(transfer);
 			transaction.commit();
@@ -51,7 +74,7 @@ public class TransferDAO {
 	public Transfer readTransfer(int transfer_id) {
 		Transfer transfer = new Transfer();
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			transfer = (Transfer)session.get(Transfer.class, transfer_id);		
 			transaction.commit();
@@ -73,7 +96,7 @@ public class TransferDAO {
 	public Transfer[] readTransfers() {
 		ArrayList<Transfer> list = new ArrayList<>();
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Transfer> result = session.createQuery("from Transfer").getResultList();
@@ -97,7 +120,7 @@ public class TransferDAO {
 	public Transfer[] readExpenses() {
 		ArrayList<Transfer> list = new ArrayList<>();
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Transfer> result = session.createQuery("from Transfer where income=false order by date desc").getResultList();
@@ -121,7 +144,7 @@ public class TransferDAO {
 	public Transfer[] readIncome() {
 		ArrayList<Transfer> list = new ArrayList<>();
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Transfer> result = session.createQuery("from Transfer where income=true order by date desc").getResultList();
@@ -146,7 +169,7 @@ public class TransferDAO {
 	public boolean updateTransfer(Transfer transfer) {
 		boolean success = false;
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			session.update(transfer);
 			transaction.commit();
@@ -166,7 +189,7 @@ public class TransferDAO {
 	public boolean deleteTransfer(int transfer_id) {
 		boolean success = false;
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			Transfer transfer = (Transfer)session.get(Transfer.class, transfer_id);
 			session.delete(transfer);

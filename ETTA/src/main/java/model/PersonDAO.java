@@ -20,6 +20,29 @@ public class PersonDAO {
 	 */
 	Transaction transaction = null;
 	
+	/**
+	 * Boolean indicating whether the DAO should connect to the test database or not
+	 * Default value false
+	 */
+	boolean test = false;
+	
+	/**
+	 * Construction without parameters
+	 */
+	public PersonDAO() {
+		
+	}
+	
+	/**
+	 * Constructor
+	 * @param test boolean indicating whether the DAO is used for testing or not
+	 */
+	public PersonDAO(boolean test) {
+		if (test) {
+			this.test = true;
+		}
+	}
+	
 	 /**
 	 * Method for creating a new Person in the database
 	 * @param person Person the person object to be added to the database
@@ -27,7 +50,8 @@ public class PersonDAO {
 	 */
 	public boolean createPerson(Person person) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+			System.out.println(session);
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(person);
 			transaction.commit();
@@ -50,7 +74,7 @@ public class PersonDAO {
 	public Person readPerson(int person_id) {
 		Person person = new Person();
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			person = (Person)session.get(Person.class, person_id);		
 			transaction.commit();
@@ -67,7 +91,7 @@ public class PersonDAO {
 		//System.out.println("id in reading one " + id);
 		Person person = new Person();
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			List<Person>  result = session.createQuery( "from Person where name='" + name + "'" ).list();
 			if (result.size() != 0) {
@@ -92,7 +116,7 @@ public class PersonDAO {
 	 */
 	public Person[] readPeople() {
 		ArrayList<Person> list = new ArrayList<>();
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Person> result = session.createQuery("from Person").getResultList();
@@ -116,7 +140,7 @@ public class PersonDAO {
 	 */
 	public boolean updatePerson(Person person) {
 		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
 			transaction = session.beginTransaction();
 			session.update(person);
 			transaction.commit();
@@ -136,7 +160,7 @@ public class PersonDAO {
 	public boolean deletePerson(int person_id) {
 		boolean success = false;
 		try {
-			Session session = HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			Person person = (Person)session.get(Person.class, person_id);
 			session.delete(person);

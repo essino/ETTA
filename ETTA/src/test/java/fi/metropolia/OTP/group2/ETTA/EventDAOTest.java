@@ -19,7 +19,7 @@ import model.EventDAO;
 @TestMethodOrder(OrderAnnotation.class)
 public class EventDAOTest {
 	
-	private static EventDAO eventDAO = new EventDAO();
+	private static EventDAO eventDAO = new EventDAO(true);
 	private String str = "1974-03-05";
 	private Date date = Date.valueOf(str);
 	private int event_id = 1;
