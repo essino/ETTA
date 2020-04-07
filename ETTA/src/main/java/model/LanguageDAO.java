@@ -119,4 +119,21 @@ public class LanguageDAO {
 		return language;
 		
 	}
+	
+	public Language getSelectedLanguage() {
+		Language language = new Language();
+		try {
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			session.beginTransaction();
+			List<Language> result;
+			result = session.createQuery( "from Language l where l.chosen=true").getResultList();	
+			language = result.get(0);
+			session.getTransaction().commit();
+		} catch(Exception e) {
+			if (transaction!= null) transaction.rollback();
+			throw e;
+		}
+		return language;
+		
+	}
 }
