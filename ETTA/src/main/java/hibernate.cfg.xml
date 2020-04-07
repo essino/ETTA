@@ -29,5 +29,6 @@
 		<mapping class="model.Person" />
 		<mapping class="model.Balance" />
 		<mapping class="model.Item" />
+		<mapping class="model.Language" />
 	</session-factory>
 </hibernate-configuration>
