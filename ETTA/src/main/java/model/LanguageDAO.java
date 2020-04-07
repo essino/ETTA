@@ -85,7 +85,7 @@ public class LanguageDAO {
 	 * @param language Language the updated Language object
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
-	public boolean updateItem(Language language) {
+	public boolean selectLanguage(Language language) {
 		boolean success = false;
 		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
 			transaction = session.beginTransaction();
@@ -96,6 +96,27 @@ public class LanguageDAO {
 			if (transaction != null) transaction.rollback();
 			throw e;
 		}
+		System.out.println("selected" + language.getDescription());
 		return success;
+	}
+
+	public Language unselectLanguage(boolean b) {
+		Language language = new Language();
+		try {
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			session.beginTransaction();
+			List<Language> result;
+			result = session.createQuery( "from Language l where l.chosen=" + b).getResultList();	
+			language = result.get(0);
+			language.setChosen(false);
+			session.update(language);
+			session.getTransaction().commit();
+		} catch(Exception e) {
+			if (transaction!= null) transaction.rollback();
+			throw e;
+		}
+		System.out.println("unselected " + language.getDescription() + " " + language.isChosen());
+		return language;
+		
 	}
 }
