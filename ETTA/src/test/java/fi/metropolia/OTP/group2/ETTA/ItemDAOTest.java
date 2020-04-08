@@ -7,10 +7,6 @@ import java.sql.Date;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-
-import com.mysql.cj.conf.BooleanProperty;
-
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
@@ -21,9 +17,9 @@ import model.PersonDAO;
 
 @TestMethodOrder(OrderAnnotation.class)
 class ItemDAOTest {
-/*
+
 		private ItemDAO itemDAO = new ItemDAO(true);
-		//private int id=1;
+		private int id = 1;
 		private String desc = "Ystävänpäiväkortti";
 		private double price = 3.5;
 		private String str = "2020-02-14";
@@ -32,23 +28,12 @@ class ItemDAOTest {
 		private static Person tiina = new Person("Tiina", Date.valueOf("1997-06-17"), "tiina.vanhanen@metropolia.fi");
 		private static  PersonDAO personDAO = new PersonDAO(true);
 		private Item item = new Item(desc, tiina, price, dateNeeded, additionalInfo);
-		private int length = 0;
-		private int id = 0;
-	
-		
+
 		@BeforeAll
 		public static void createPerson() {
-			//personDAO.createPerson(tiina);
-			assertEquals(true, personDAO.createPerson(tiina), "Creation of person failed");
+			personDAO.createPerson(tiina);
 		}
 		
-		@AfterAll
-		public static void deletePerson() {
-			int length = personDAO.readPeople().length;
-			int id = personDAO.readPeople()[length-1].getPerson_id();
-			assertEquals(true, personDAO.deletePerson(id), "Deleting person failed");
-		}
-
 		@Test
 		@Order(1)
 		public void testCreate() {
@@ -57,43 +42,66 @@ class ItemDAOTest {
 		
 		@Test
 		@Order(2)
-		public void testReadItems() {
-			length = itemDAO.readItems().length;
-			Item item2 = new Item("kirja", tiina, 10, dateNeeded, additionalInfo);
-			assertEquals(true, itemDAO.createItem(item2), "Creation of item2 failed");
-			assertEquals(length+1, itemDAO.readItems().length, "Reading all failed");
+		public void testReadItem() {
+			assertEquals(desc, itemDAO.readItem(1).getDescription(), "Reading one failed (description)");
+			assertEquals(price, itemDAO.readItem(1).getPrice(), "Reading one failed (price)");
+			assertEquals(dateNeeded, itemDAO.readItem(1).getDateNeeded(), "Reading one failed (date)");
+			assertEquals(tiina.getName(), itemDAO.readItem(1).getPerson().getName(), "Reading one failed (person)");
 		}
-		
 		@Test
 		@Order(3)
-		public void testReadItem() {
-			length = itemDAO.readItems().length;
-			id = itemDAO.readItems()[length-2].getItem_id();
-			assertEquals(desc, itemDAO.readItem(id).getDescription(), "Reading one failed (description)");
-			assertEquals(price, itemDAO.readItem(id).getPrice(), "Reading one failed (price)");
-			assertEquals(dateNeeded, itemDAO.readItem(id).getDateNeeded(), "Reading one failed (date)");
-			assertEquals(tiina.getName(), itemDAO.readItem(id).getPerson().getName(), "Reading one failed (person)");
+		public void testReadItemWithDesc() {
+			assertEquals(price, itemDAO.readItem("Ystävänpäiväkortti").getPrice(), "Reading one with desc failed (price)");
+			assertEquals(dateNeeded, itemDAO.readItem("Ystävänpäiväkortti").getDateNeeded(), "Reading one with desc failed (date)");
+			assertEquals(tiina.getName(), itemDAO.readItem("Ystävänpäiväkortti").getPerson().getName(), "Reading one with desc failed (person)");
+			assertEquals(null, itemDAO.readItem("Mekko"), "Reading with a desc that doesn't exitst failed");
 		}
 		
 		@Test
 		@Order(4)
-		public void testUpdate() {
-			length = itemDAO.readItems().length;
-			id = itemDAO.readItems()[length-2].getItem_id();
-			Item updatedItem = itemDAO.readItem(id);
-			updatedItem.setPrice(2.3);
-			assertEquals(true, itemDAO.updateItem(updatedItem), "Updating failed");
-			assertEquals(2.3, itemDAO.readItem(item.getItem_id()).getPrice(), "Price updating failed");
+		public void testReadItems() {
+			assertEquals(1, itemDAO.readItems().length, "Reading all failed");
+			Item item2 = new Item("Kirja", tiina, 10.0, dateNeeded, additionalInfo);
+			assertEquals(true, itemDAO.createItem(item2), "Creation of item2 failed");
+			assertEquals(2, itemDAO.readItems().length, "Reading all failed");
 		}
 		
 		@Test
 		@Order(5)
-		public void testDelete() {
-			length = itemDAO.readItems().length;
-			id = itemDAO.readItems()[length-2].getItem_id();
-			assertEquals(true, itemDAO.deleteItem(id), "Deleting 1 failed");
-			assertEquals(true, itemDAO.deleteItem(id+1), "Deleting 2 failed");
+		public void testReadItemsByPerson() {
+			assertEquals(2, itemDAO.readItemsByPerson(1).length, "Reading all Tiina's items failed");
 		}
-*/
+		
+		@Test
+		@Order(6)
+		public void testReadOwnItems() {
+			Item item2 = new Item("Paita", null, 49.99, dateNeeded, "Zalando");
+			assertEquals(true, itemDAO.createItem(item2), "Creation of item failed");
+			assertEquals(1, itemDAO.readOwnItems().length, "Reading all own items failed");
+		}
+		
+		@Test
+		@Order(7)
+		public void testReadItemsByBought() {
+			Item item2 = new Item("Lippu", tiina, 5.0, dateNeeded, additionalInfo, true);
+			assertEquals(true, itemDAO.createItem(item2), "Creation of item failed");
+			assertEquals(1, itemDAO.readItemsByBought(true).length, "Reading all bought items failed");
+		}
+		
+		@Test
+		@Order(8)
+		public void testUpdate() {
+			Item updatedItem = itemDAO.readItem(1);
+			updatedItem.setPrice(2.3);
+			assertEquals(true, itemDAO.updateItem(updatedItem), "Updating failed");
+			assertEquals(2.3, itemDAO.readItem(1).getPrice(), "Price updating failed");
+		}
+		
+		@Test
+		@Order(9)
+		public void testDelete() {
+			assertEquals(true, itemDAO.deleteItem(1), "Deleting 1 failed");
+			assertEquals(true, itemDAO.deleteItem(2), "Deleting 2 failed");
+		}
 
 }
