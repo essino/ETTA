@@ -15,7 +15,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 public class Item {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private int item_id;
 	
@@ -60,6 +60,24 @@ public class Item {
 		this.dateNeeded = date;
 		this.additionalInfo = info;
 		this.bought = false;
+	}
+	
+	/**
+	 * Constructor to create items
+	 *@param description String describing what the item is
+	 *@param person Person the person who the item is for
+	 *@param price double the price of the item
+	 *@param dateNeeded Date when the item is needed
+	 *@param additionalInfo String additional information about the item
+	 *@param bought boolean whether the item has been bought or not
+	 */
+	public Item(String desc, Person person, Double price, Date date, String info, boolean bought) {
+		this.description = desc;
+		this.person = person;
+		this.price = price;
+		this.dateNeeded = date;
+		this.additionalInfo = info;
+		this.bought = bought;
 	}
 
 	/**
