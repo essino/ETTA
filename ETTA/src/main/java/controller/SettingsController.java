@@ -27,4 +27,11 @@ public class SettingsController {
 		return names;
 	}
 
+	public void updateChoice(int selectedIndex) {
+		Language oldLang = langDAO.unselectLanguage(true);
+		Language newLang = langDAO.readLanguage(selectedIndex);
+		newLang.setChosen(true);
+		langDAO.selectLanguage(newLang);	
+	}
+
 }

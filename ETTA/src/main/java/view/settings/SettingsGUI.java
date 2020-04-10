@@ -27,6 +27,7 @@ public class SettingsGUI {
 	
 	@FXML
 	public void saveLanguage() {
+		controller.updateChoice(languageList.getSelectionModel().getSelectedIndex());
 		
 	}
 	

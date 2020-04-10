@@ -137,10 +137,17 @@ public class BorrowedController {
 		borrowedThing.setReturned(false);
 		borrowedThingDAO.createBorrowedThing(borrowedThing);
 		//create a calendar event
-		int lastEvent = eventDAO.readEvents().length; 
-		int lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();
+		//int lastEventId=-1;
+		/*
+		try {
+			int lastEvent = eventDAO.readEvents().length; 
+			lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();}
+		catch(ArrayIndexOutOfBoundsException e){
+			//ei ole vielä tapahtumia, id:ksi tulee 0
+		}
+		*/
 		Event borrowed = new Event();
-		borrowed.setEvent_id(lastEventId+1);
+		//borrowed.setEvent_id(lastEventId+1);
 		borrowed.setTitle(addGUI.getBorrowedPerson() + " should return " +  addGUI.getBorrowedDescription());
 		borrowed.setLocation(null);
 		borrowed.setStartDate(addGUI.getBorrowedReturnDate());

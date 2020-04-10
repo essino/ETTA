@@ -1,6 +1,8 @@
 package view.mainPage;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import com.calendarfx.view.CalendarView;
 
@@ -8,23 +10,59 @@ import controller.CalendarController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import model.Language;
+import model.LanguageDAO;
 /**
  * GUI class relating to the main views of the pages
  */
 public class MainViewGUI {
 	
 	CalendarController calendarController = new CalendarController();
+	LanguageDAO langDao = new LanguageDAO();
+	Locale locale;
+	ResourceBundle bundle;
+	FXMLLoader loader;
+	/*
+	public MainViewGUI() {
+	String chosenLocale = langDao.getSelectedLanguage().getDescription();
+		if(chosenLocale=="Finnish") {
+			locale  =new Locale("fi", "FI");
+			bundle = ResourceBundle.getBundle("res.TextResources_fi_FI", locale);
+			}
+		else {
+			locale  =new Locale("en", "GB");
+			bundle = ResourceBundle.getBundle("res.TextResources_en_GB", locale);
+		}
+		
+	}*/
 	
+	public ResourceBundle getBundle() {
+		Language language = langDao.getSelectedLanguage();
+		String chosenLocale = language.getDescription();
+		System.out.println("chosenlocale " + chosenLocale);
+		if(chosenLocale.equals("Finnish")) {
+			System.out.println("chosenlocale in finnish " + chosenLocale);
+			locale  =new Locale("fi", "FI");
+			bundle = ResourceBundle.getBundle("res.TextResources_fi_FI", locale);
+			}
+		else {
+			System.out.println("chosenlocale in english " + chosenLocale);
+			locale  = new Locale("en", "GB");
+			bundle = ResourceBundle.getBundle("res.TextResources_en_GB", locale);
+		}
+		return bundle;
+	}
 	/**
 	 * Method loading the main page view 
 	 * @return BorderPane main page view
 	 */
 	public BorderPane mainPageView() {
 		BorderPane borderPane = new BorderPane();
-		FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/view/mainPage/MainMainView.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/view/mainPage/MainMainView.fxml"));
 		AnchorPane content = null;
+		loader.setResources(getBundle());
 		try {
-			content = loader2.load();
+			content = loader.load();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -38,21 +76,25 @@ public class MainViewGUI {
 	 */
 	public BorderPane EconomyView() {
 		BorderPane borderPaneEconomy = new BorderPane();
-		FXMLLoader loaderEconomy  = new FXMLLoader(getClass().getResource("/view/economy/EconomyRoot.fxml"));
+		loader  = new FXMLLoader(getClass().getResource("/view/economy/EconomyRoot.fxml"));
+		loader.setResources(getBundle());
 		try {
-			borderPaneEconomy = loaderEconomy.load();
+			borderPaneEconomy = loader.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		FXMLLoader loaderBalance  = new FXMLLoader(getClass().getResource("/view/economy/EconomyBalanceOverview.fxml"));
+		loader  = new FXMLLoader(getClass().getResource("/view/economy/EconomyBalanceOverview.fxml"));
 		AnchorPane balanceOverview = null;
+		loader.setResources(getBundle());
+		//loaderBalance.setResources(bundle);
 		try {
-			balanceOverview = loaderBalance.load();
+			balanceOverview = loader.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		borderPaneEconomy.setCenter(balanceOverview);
 		return borderPaneEconomy;
 	}
@@ -62,17 +104,19 @@ public class MainViewGUI {
 	 */
 	public BorderPane WishlistView() {
 		BorderPane borderPaneWishlist = new BorderPane();
-		FXMLLoader loaderWishlist  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistRoot.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistRoot.fxml"));
+		loader.setResources(bundle);
 		try {
-			borderPaneWishlist = loaderWishlist.load();
+			borderPaneWishlist = loader.load();
 			} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		AnchorPane wishlistView = null;
-		FXMLLoader loaderWishlistView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistView.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistView.fxml"));
+		loader.setResources(bundle);
 		try {
-			wishlistView = loaderWishlistView.load();
+			wishlistView = loader.load();
 			} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,15 +131,17 @@ public class MainViewGUI {
 	 */
 	public BorderPane BorrowedView() {
 		BorderPane borderPaneBorrowed = new BorderPane();
-		FXMLLoader loaderBorrowed  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedRoot.fxml"));
+		loader = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedRoot.fxml"));
+		loader.setResources(bundle);
 		try {
-			borderPaneBorrowed = loaderBorrowed.load();
+			borderPaneBorrowed = loader.load();
 			} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		AnchorPane borrowedView = null;
 		FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml"));
+		loader.setResources(bundle);
 		try {
 			borrowedView = loaderBorrowedView.load();
 			} catch (IOException e) {
@@ -111,17 +157,19 @@ public class MainViewGUI {
 	 */
 	public BorderPane ContactsView() {
 		BorderPane borderPaneContacts = new BorderPane();
-		FXMLLoader loaderContacts  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsRoot.fxml"));
+		loader  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsRoot.fxml"));
+		loader.setResources(bundle);
 		try {
-			borderPaneContacts = loaderContacts.load();
+			borderPaneContacts = loader.load();
 			} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		AnchorPane contactsView = null;
-		FXMLLoader loaderContactsView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsView.fxml"));
+		loader  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsView.fxml"));
+		loader.setResources(bundle);
 		try {
-			contactsView = loaderContactsView.load();
+			contactsView = loader.load();
 			} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

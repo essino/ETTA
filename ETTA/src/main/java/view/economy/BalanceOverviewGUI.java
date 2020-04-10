@@ -1,5 +1,8 @@
 package view.economy;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import controller.EconomyController;
 import controller.InputCheck;
 import javafx.fxml.FXML;

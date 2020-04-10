@@ -1,5 +1,8 @@
 package fi.metropolia.OTP.group2.ETTA;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import controller.MainViewController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -8,12 +11,17 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Language;
+import model.LanguageDAO;
 import view.mainPage.MainPageGUI;
 import view.mainPage.MainViewGUI;
 
 
 public class App extends Application
 {
+	LanguageDAO langDao = new LanguageDAO();
+	Locale locale;
+	ResourceBundle bundle;
 	
     public static void main( String[] args )
     {
@@ -25,14 +33,16 @@ public class App extends Application
     	MainPageGUI mainPageGUI = new MainPageGUI();
     	MainViewController controller = new MainViewController(mainPageGUI);
     	
+    	
         TabPane tabPane = new TabPane();
 
-        Tab tab1 = new Tab("Main Page");
-        Tab tab2 = new Tab("Economy");
-        Tab tab3 = new Tab("Calendar");
-        Tab tab4 = new Tab("Wishlists");
-        Tab tab5 = new Tab("Borrowed things");
-        Tab tab6 = new Tab("Contacts");
+       // Tab tab1 = new Tab("Main Page");
+        Tab tab1 = new Tab(getBundle().getString("pageMain"));
+        Tab tab2 = new Tab(getBundle().getString("pageEconomy"));
+        Tab tab3 = new Tab(getBundle().getString("pageCalendar"));
+        Tab tab4 = new Tab(getBundle().getString("pageWishlist"));
+        Tab tab5 = new Tab(getBundle().getString("pageBorrowed"));
+        Tab tab6 = new Tab(getBundle().getString("pageContacts"));
         Tab tab7 = new Tab("Settings");
 
         //main page view
@@ -104,5 +114,22 @@ public class App extends Application
 
         primaryStage.show();
     }
+    
+    public ResourceBundle getBundle() {
+		Language language = langDao.getSelectedLanguage();
+		String chosenLocale = language.getDescription();
+		System.out.println("chosenlocale " + chosenLocale);
+		if(chosenLocale.equals("Finnish")) {
+			System.out.println("chosenlocale in finnish " + chosenLocale);
+			locale  =new Locale("fi", "FI");
+			bundle = ResourceBundle.getBundle("res.TextResources_fi_FI", locale);
+			}
+		else {
+			System.out.println("chosenlocale in english " + chosenLocale);
+			locale  = new Locale("en", "GB");
+			bundle = ResourceBundle.getBundle("res.TextResources_en_GB", locale);
+		}
+		return bundle;
+	}
 }
 

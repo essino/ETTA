@@ -91,10 +91,14 @@ public class ItemDAO {
 			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			List<Item>  result = session.createQuery( "from Item where description='" + desc + "'" ).list();
-			item = result.get(0);		
-			transaction.commit();
-			System.out.println("result " + result);
-			System.out.println("reading one:" + item.getDescription());
+			if (result.size() != 0) {
+				item = result.get(0);		
+				transaction.commit();
+				System.out.println("result " + result);
+				System.out.println("reading one:" + item.getDescription());
+			} else {
+				item = null;
+			}
 		} catch (Exception e) {
 			if (transaction!= null) transaction.rollback();
 			throw e;
