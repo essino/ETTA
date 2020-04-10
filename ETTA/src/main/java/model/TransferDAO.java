@@ -99,10 +99,10 @@ public class TransferDAO {
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			//Onko tämä oikein?
-			List<Transfer> result = session.createQuery("from Transfer where date between =" +dateStart+ "and"+dateEnd).getResultList();
+			List<Transfer> result = session.createQuery("from Transfer where date between '" +dateStart+ "' and '"+dateEnd + "'").getResultList();
 			for(Transfer transfer : result) {
 				list.add(transfer);
-				System.out.println("reading all: " + transfer.getDescription());
+				System.out.println("reading selected: " + transfer.getDescription());
 			}
 			transaction.commit();
 		} catch (Exception e) {

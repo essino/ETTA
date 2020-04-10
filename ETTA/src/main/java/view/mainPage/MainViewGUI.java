@@ -37,8 +37,14 @@ public class MainViewGUI {
 	}*/
 	
 	public ResourceBundle getBundle() {
-		Language language = langDao.getSelectedLanguage();
-		String chosenLocale = language.getDescription();
+		String chosenLocale="";
+		if(langDao.getSelectedLanguage()==null) {
+			chosenLocale="English";
+		}
+		else {
+			Language language = langDao.getSelectedLanguage();
+			chosenLocale = language.getDescription();
+		}
 		System.out.println("chosenlocale " + chosenLocale);
 		if(chosenLocale.equals("Finnish")) {
 			System.out.println("chosenlocale in finnish " + chosenLocale);

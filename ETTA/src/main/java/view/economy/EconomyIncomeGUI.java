@@ -2,6 +2,7 @@ package view.economy;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
 
 import controller.EconomyController;
 import controller.InputCheck;
@@ -11,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -69,6 +71,12 @@ public class EconomyIncomeGUI {
       @FXML
       private TableColumn<Category, String> incomeCategory;
       
+      @FXML
+      private DatePicker incomeStartDate;
+      
+      @FXML
+      private DatePicker incomeEndDate;
+      
       /**
   	 * The reference of InputCheck class used for checking user's input
   	 */
@@ -113,6 +121,10 @@ public class EconomyIncomeGUI {
 	
 	@FXML
 	public void searchIncomes(ActionEvent event) {
+		LocalDate startDate = incomeStartDate.getValue();
+		LocalDate endDate = incomeEndDate.getValue();
+		controller.getSeletedIncomes(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+		/*
 		AnchorPane showIncomeView = null; 
 	
 		FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyIncome.fxml")); 
@@ -124,6 +136,7 @@ public class EconomyIncomeGUI {
 			}
 		System.out.println("Olen täällä!");
 		economyincomeanchorpane.getChildren().setAll(showIncomeView);
+		*/
 	}
 	
 	
@@ -226,9 +239,10 @@ public class EconomyIncomeGUI {
 	public Transfer getSelectedItem() {
 		return incomeTable.getSelectionModel().getSelectedItem();
 	}
-
+	
+	@FXML
 	public void setData(Transfer[] readSeletedTransfers) {
-		income =  FXCollections.observableArrayList(readSeletedTransfers);
+		incomeTable.setItems(FXCollections.observableArrayList(readSeletedTransfers));
 		
 	}
 	
