@@ -334,6 +334,14 @@ public class EconomyController {
 	}
 	
 	/** 
+	 * Method fetching all expences from selected days from database
+	 */ 
+	public void getSeletedExpences(Date expenceStartDate, Date expenceEndDate) {
+		expenceGUI.setData(transDAO.readSeletedTransfers(expenceStartDate, expenceEndDate));
+	}
+	
+	
+	/** 
 	 * Method that gets the selected expense from expenceGUI, 
 	 * tells TransferDAO to delete the expense from the database 
 	 * and expenceGUI to delete it from the tableView.
@@ -371,6 +379,16 @@ public class EconomyController {
 	 * @return Transfer[] - list of incomes
 	 */ 
 	public Transfer[] getIncomes() {
+		return transDAO.readIncome();
+	}
+	
+	
+	
+	/** 
+	 * Method that gets seleted Incomes from TransferDAO and makes a list containing incomes details 
+	 * @return Transfer[] - list of incomes
+	 */ 
+	public Transfer[] getIncomesSeletedDays(Date dateStart, Date dateEnd) {
 		return transDAO.readIncome();
 	}
 	

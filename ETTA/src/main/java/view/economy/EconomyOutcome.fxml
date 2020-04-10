@@ -2,13 +2,15 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane fx:id="economyoutcomeaddanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.economy.EconomyOutcomeGUI">
    <children>
-      <TableView fx:id="expenseTable" layoutX="166.0" layoutY="149.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
+      <TableView fx:id="expenseTable" layoutX="166.0" layoutY="149.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="169.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
         <columns>
           <TableColumn fx:id="expenseCategory" prefWidth="247.0" text="Category" />
           <TableColumn fx:id="expenseDescription" prefWidth="261.0" text="Description" />
@@ -23,5 +25,10 @@
             <Button mnemonicParsing="false" onAction="#deleteOutcome" text="Remove" />
         </buttons>
       </ButtonBar>
+      <Label layoutX="87.0" layoutY="598.0" text="Search" AnchorPane.leftAnchor="108.0" AnchorPane.topAnchor="587.0" />
+      <DatePicker fx:id="expenceStartDate" layoutX="66.0" layoutY="638.0" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="613.0" />
+      <DatePicker fx:id="expenceEndDate" layoutX="307.0" layoutY="638.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="613.0" />
+      <Label layoutX="260.0" layoutY="651.0" text="-" AnchorPane.bottomAnchor="116.0" AnchorPane.leftAnchor="290.0" />
+      <Button onAction="#searchExpence" layoutX="522.0" layoutY="613.0" mnemonicParsing="false" text="Search" AnchorPane.leftAnchor="527.0" AnchorPane.topAnchor="613.0" />
    </children>
 </AnchorPane>

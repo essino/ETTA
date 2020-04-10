@@ -25,10 +25,10 @@
             <Button mnemonicParsing="false" onAction="#deleteIncome" text="Delete" />
         </buttons>
       </ButtonBar>
-      <Label layoutX="108.0" layoutY="587.0" text="Search" />
-      <DatePicker fx:id="incomeStartDate" layoutX="101.0" layoutY="613.0" />
-      <DatePicker fx:id="incomeEndDate" layoutX="320.0" layoutY="613.0" />
-      <Label layoutX="290.0" layoutY="617.0" text="-" />
-      <Button  onAction="#searchIncomes" layoutX="527.0" layoutY="613.0" mnemonicParsing="false" text="Search" />
+      <Label layoutX="108.0" layoutY="587.0" text="Search" AnchorPane.leftAnchor="108.0" AnchorPane.topAnchor="587.0" />
+      <DatePicker fx:id="incomeStartDate" layoutX="101.0" layoutY="613.0" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="613.0" />
+      <DatePicker fx:id="incomeEndDate" layoutX="320.0" layoutY="613.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="613.0" />
+      <Label layoutX="290.0" layoutY="617.0" text="-" AnchorPane.bottomAnchor="116.0" AnchorPane.leftAnchor="290.0" />
+      <Button layoutX="527.0" layoutY="613.0" mnemonicParsing="false" onAction="#searchIncomes" text="Search" AnchorPane.leftAnchor="527.0" AnchorPane.topAnchor="613.0" />
    </children>
 </AnchorPane>

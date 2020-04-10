@@ -2,6 +2,7 @@ package view.economy;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
 
 import controller.EconomyController;
 import controller.InputCheck;
@@ -11,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -64,6 +66,13 @@ public class EconomyOutcomeGUI {
       @FXML
       private TableColumn<Category, String> expenseCategory;
       
+      
+      @FXML
+      private DatePicker expenceStartDate;
+
+      @FXML
+      private DatePicker expenceEndDate;
+      
       /**
     	 * The reference of InputCheck class used for checking user's input
     	 */
@@ -107,6 +116,16 @@ public class EconomyOutcomeGUI {
 		//shows the loaded fxml file
 		economyoutcomeaddanchorpane.getChildren().setAll(showAddOutcomeView);
 	
+	}
+	/**
+	 * Method searching information of the seleted days on Expenses items section
+	 * @param event ActionEvent that is handled
+	 */
+	@FXML
+	public void searchExpence(ActionEvent event) {
+		LocalDate startDate = expenceStartDate.getValue();
+		LocalDate endDate = expenceEndDate.getValue();
+		controller.getSeletedExpences(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
 	}
 	
 	/** 
@@ -207,5 +226,10 @@ public class EconomyOutcomeGUI {
 	@FXML
 	public Transfer getSelectedItem() {
 		return expenseTable.getSelectionModel().getSelectedItem();
+	}
+	
+	public void setData(Transfer[] readSeletedTransfers) {
+		expenseTable.setItems(FXCollections.observableArrayList(readSeletedTransfers));
+
 	}
 }

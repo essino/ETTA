@@ -119,24 +119,16 @@ public class EconomyIncomeGUI {
 	
 	}
 	
+	/**
+	 * Method searching information of the seleted days on incomes items section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void searchIncomes(ActionEvent event) {
 		LocalDate startDate = incomeStartDate.getValue();
 		LocalDate endDate = incomeEndDate.getValue();
 		controller.getSeletedIncomes(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
-		/*
-		AnchorPane showIncomeView = null; 
-	
-		FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyIncome.fxml")); 
-		try {
-			showIncomeView = loaderIncomeView.load();
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			}
-		System.out.println("Olen täällä!");
-		economyincomeanchorpane.getChildren().setAll(showIncomeView);
-		*/
+		
 	}
 	
 	
@@ -239,6 +231,8 @@ public class EconomyIncomeGUI {
 	public Transfer getSelectedItem() {
 		return incomeTable.getSelectionModel().getSelectedItem();
 	}
+	
+	
 	
 	@FXML
 	public void setData(Transfer[] readSeletedTransfers) {
