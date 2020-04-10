@@ -139,11 +139,17 @@ public class EconomyGUI {
 		economyrootborderpane.setCenter(showSavingsView);
 	}
 	
+	
+	
+	
+	
+	
 	/**
 	 * Method showing the view of the Add Income in the Income items section
 	 * @param event ActionEvent that is handled
 	 */
 	
+
 	
 	@FXML
 	public void showAddIncome(ActionEvent event) {

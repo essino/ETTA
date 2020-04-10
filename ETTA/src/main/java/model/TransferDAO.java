@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +88,30 @@ public class TransferDAO {
 		return transfer;
 	}
 	
+	/**
+	 * Method for reading seleted Transfers in the database
+	 * @return Transfer[] array with all the transfers in the database
+	 */
+	public Transfer[] readSeletedTransfers(Date dateStart, Date dateEnd) {
+		ArrayList<Transfer> list = new ArrayList<>();
+		try {
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			transaction = session.beginTransaction();
+			@SuppressWarnings("unchecked")
+			//Onko tämä oikein?
+			List<Transfer> result = session.createQuery("from Transfer where date between =" +dateStart+ "and"+dateEnd).getResultList();
+			for(Transfer transfer : result) {
+				list.add(transfer);
+				System.out.println("reading all: " + transfer.getDescription());
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		Transfer[] transfers = new Transfer[list.size()];
+		return (Transfer[])list.toArray(transfers);
+	}
 	
 	
 	/**

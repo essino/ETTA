@@ -111,6 +111,23 @@ public class EconomyIncomeGUI {
 	
 	}
 	
+	@FXML
+	public void searchIncomes(ActionEvent event) {
+		AnchorPane showIncomeView = null; 
+	
+		FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyIncome.fxml")); 
+		try {
+			showIncomeView = loaderIncomeView.load();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		System.out.println("Olen täällä!");
+		economyincomeanchorpane.getChildren().setAll(showIncomeView);
+	}
+	
+	
+	
 	public EconomyIncomeGUI() {
 		
 	}
@@ -208,6 +225,11 @@ public class EconomyIncomeGUI {
 	@FXML
 	public Transfer getSelectedItem() {
 		return incomeTable.getSelectionModel().getSelectedItem();
+	}
+
+	public void setData(Transfer[] readSeletedTransfers) {
+		income =  FXCollections.observableArrayList(readSeletedTransfers);
+		
 	}
 	
 	

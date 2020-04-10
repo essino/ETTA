@@ -307,7 +307,7 @@ public class EconomyController {
 	
 	
 	/** 
-	 * Method that gets new expense's detail from addExpenceGUI and gives the expense to TransferDAO
+	 * Method that gets new expense's detail from addOutcomeGUI and gives the expense to TransferDAO
 	 */ 
 	public void saveExpense() {
 		Transfer expense = new Transfer();
@@ -323,6 +323,14 @@ public class EconomyController {
 		//balance.setBalance(newAmount);
 		//balanceDao.updateBalance(balance);
 		updateBalanceAmount(expense.getAmount());
+	}
+	
+	
+	/** 
+	 * Method fetching all incomes from selected days from database
+	 */ 
+	public void getSeletedIncomes(Date incomeStartDate, Date incomeEndDate) {
+		incomeGUI.setData(transDAO.readSeletedTransfers(incomeStartDate, incomeEndDate));
 	}
 	
 	/** 
