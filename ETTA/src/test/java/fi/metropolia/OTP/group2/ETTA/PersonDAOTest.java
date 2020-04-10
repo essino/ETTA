@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Date;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -18,7 +16,6 @@ import model.PersonDAO;
 class PersonDAOTest {
 
 	private PersonDAO personDAO = new PersonDAO(true);
-	private int id = 1;
 	private String str = "1997-06-17";
 	private Date date = Date.valueOf(str);
 	private String name = "Jesper";
@@ -66,12 +63,12 @@ class PersonDAOTest {
 		assertEquals(newDate, personDAO.readPerson(1).getBirthday(), "Bday updating failed");
 	}
 	
-	
 	@Test
 	@Order(6)
 	public void testDelete() {
 		assertEquals(true, personDAO.deletePerson(1), "Deleting jesper failed");
 		assertEquals(true, personDAO.deletePerson(2), "Deleting lena failed");
+		assertEquals(0, personDAO.readPeople().length, "Deleting all failed");
 	}
 
 }

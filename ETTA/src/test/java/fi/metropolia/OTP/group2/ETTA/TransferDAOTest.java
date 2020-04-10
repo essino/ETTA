@@ -7,7 +7,6 @@ import java.sql.Date;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
@@ -18,32 +17,22 @@ import model.TransferDAO;
 
 @TestMethodOrder(OrderAnnotation.class)
 class TransferDAOTest {
-	/*
+
 	private static TransferDAO transferDAO = new TransferDAO(true);
-	//private int id = 1;
-	private String desc = "shopping";
-	
+	private String desc = "grocery shopping";
 	private static CategoryDAO catDAO = new CategoryDAO(true);
-	private static Category cat = catDAO.readCategory("food");
-	//private static Category cat = new Category("food", false);
+	private static Category cat1 = new Category("food", false);
+	private static Category cat2 = new Category("salary", true);
 	private boolean income = false;
 	private String str = "2020-02-09";
 	private Date date = Date.valueOf(str);
 	private float amount = 74;
-	private Transfer transfer = new Transfer(desc, cat, income, date, amount);
-	static int index = 0;
-	static int length = 0;
+	private Transfer transfer = new Transfer(desc, cat1, income, date, amount);
 	
 	@BeforeAll
 	public static void createCategory() {
-		//catDAO.createCategory(cat);
-	}
-	
-	@AfterAll
-	public static void clear() {
-		length = catDAO.readCategories().length;
-		index = catDAO.readCategories()[length-1].getCategory_id();
-		assertEquals(true, catDAO.deleteCategory(index), "deleting failed");
+		catDAO.createCategory(cat1);
+		catDAO.createCategory(cat2);
 	}
 
 	@Test
@@ -53,46 +42,60 @@ class TransferDAOTest {
 	}
 	
 	@Test
+	@Order(3)
+	public void testReadTransfer() {
+		assertEquals(date, transferDAO.readTransfer(1).getDate(), "Reading one failed (date)");
+		assertEquals(amount, transferDAO.readTransfer(1).getAmount(), "Reading one failed (amount)");
+		assertEquals(cat1.getDescription(), transferDAO.readTransfer(1).getCategory().getDescription(), "Reading one failed (category)");
+	}
+	
+	@Test
 	@Order(2)
 	public void testReadTransfers() {
-		length = transferDAO.readTransfers().length;
-		Transfer transfer2 = new Transfer("icecream", cat, income, date, 25);
+		assertEquals(1, transferDAO.readTransfers().length, "Reading all failed (1)");
+		Transfer transfer2 = new Transfer("Ice cream", cat1, income, Date.valueOf("2020-03-21"), 3);
 		assertEquals(true, transferDAO.createTransfer(transfer2), "Creation of transfer failed");
-		length++;
-		assertEquals(length, transferDAO.readTransfers().length, "Reading all failed");
+		assertEquals(2, transferDAO.readTransfers().length, "Reading all failed (2)");
 	}
 	
 	@Test
 	@Order(3)
-	public void testReadTransfer() {
-		length = transferDAO.readTransfers().length;
-		System.out.println("length " + length);
-		index = transferDAO.readTransfers()[length-1].getTransfer_id();
-		System.out.println("id" + index);
-		//assertEquals(date, transferDAO.readTransfer(index).getDate(), "Reading one failed (date)");
-		assertEquals(25, transferDAO.readTransfer(index).getAmount(), "Reading one failed (amount)");
+	public void testReadSelectedTransfers() {
+		Date startDate = Date.valueOf("2020-02-01");
+		Date endDate = Date.valueOf("2020-03-01");
+		assertEquals(1, transferDAO.readSeletedTransfers(startDate, endDate).length, "Reading selected transfers failed");
 	}
 	
 	@Test
 	@Order(4)
-	public void testUpdateTransfer() {
-		length = transferDAO.readTransfers().length;
-		System.out.println("length " + length);
-		index = transferDAO.readTransfers()[length-1].getTransfer_id();
-		Transfer updatedTransfer = transferDAO.readTransfer(index);
-		updatedTransfer.setDate(Date.valueOf("2020-02-11"));
-		assertEquals(true, transferDAO.updateTransfer(updatedTransfer), "Updating failed");
-		//assertEquals(Date.valueOf("2020-02-11"), transferDAO.readTransfer(index).getDate(), "Date updating failed");
+	public void testReadExpenses() {
+		assertEquals(2, transferDAO.readExpenses().length, "Reading expenses failed");
 	}
 	
 	@Test
 	@Order(5)
-	public void testDeleteTransfer() {
-		length = transferDAO.readTransfers().length;
-		System.out.println("length " + length);
-		index = transferDAO.readTransfers()[length-1].getTransfer_id();
-		assertEquals(true, transferDAO.deleteTransfer(index), "Deleting failed");
-		assertEquals(true, transferDAO.deleteTransfer(index-1), "Deleting  2 failed");
+	public void testReadIncome() {
+		Transfer transfer3 = new Transfer("Work", cat2, true, date, 2500);
+		assertEquals(true, transferDAO.createTransfer(transfer3), "Creation of transfer failed");
+		assertEquals(1, transferDAO.readIncome().length, "Reading incomes failed");
 	}
-*/
+	
+	@Test
+	@Order(6)
+	public void testUpdateTransfer() {
+		Transfer updatedTransfer = transferDAO.readTransfer(1);
+		updatedTransfer.setDate(Date.valueOf("2020-02-11"));
+		assertEquals(true, transferDAO.updateTransfer(updatedTransfer), "Updating failed");
+		assertEquals(Date.valueOf("2020-02-11"), transferDAO.readTransfer(1).getDate(), "Date updating failed");
+	}
+	
+	@Test
+	@Order(7)
+	public void testDeleteTransfer() {
+		assertEquals(true, transferDAO.deleteTransfer(1), "Deleting 1 failed");
+		assertEquals(true, transferDAO.deleteTransfer(2), "Deleting 2 failed");
+		assertEquals(true, transferDAO.deleteTransfer(3), "Deleting 3 failed");
+		assertEquals(0, transferDAO.readTransfers().length, "Deleting all failed");
+	}
+
 }
