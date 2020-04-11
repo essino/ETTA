@@ -156,4 +156,11 @@ public class ContactsController {
 		
 	}
 	
+	public boolean checkIfPersonexists(String name) {
+		if(perDAO.readPerson(name)==null) {
+			return false;
+		}
+		return true;
+	}
+	
 }

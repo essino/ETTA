@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 
 import controller.ContactsController;
+import controller.InputCheck;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,6 +48,10 @@ public class ContactsGUI {
 	@FXML
 	DatePicker personBirthday;
 	
+	/**
+	 * The reference of InputCheck class used for checking user's input
+	 */
+	InputCheck inputCheck = new InputCheck();
 	
 	/** 
 	 * Constructor  
@@ -98,17 +103,26 @@ public class ContactsGUI {
 	 */
 	@FXML
 	public void saveNewPerson(ActionEvent event) {
-		
-		controller.savePerson();
-		AnchorPane contactsView = null; 
-		FXMLLoader loaderContactsView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsView.fxml")); 
-		try {
-			contactsView = loaderContactsView.load();
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(inputCheck.isInputEmpty(personName.getText())) {
+			inputCheck.alertInputEmpty();
+		}
+		else {
+			if(!controller.checkIfPersonexists(getPersonName())) {
+				controller.savePerson();
+				AnchorPane contactsView = null; 
+				FXMLLoader loaderContactsView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsView.fxml")); 
+				try {
+					contactsView = loaderContactsView.load();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				contactsaddanchorpane.getChildren().setAll(contactsView);
 			}
-		contactsaddanchorpane.getChildren().setAll(contactsView);
+			else {
+				inputCheck.alertPersonExists();
+			}
+		}
 	}
 	
 	
