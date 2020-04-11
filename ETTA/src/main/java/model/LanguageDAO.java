@@ -131,7 +131,8 @@ public class LanguageDAO {
 			session.getTransaction().commit();
 		} catch(Exception e) {
 			if (transaction!= null) transaction.rollback();
-			throw e;
+			//throw e;
+			return null;
 		}
 		return language;
 		

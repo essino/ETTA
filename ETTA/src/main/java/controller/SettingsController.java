@@ -7,11 +7,15 @@ import javafx.collections.ObservableList;
 import model.Category;
 import model.Language;
 import model.LanguageDAO;
+import res.MyBundle;
+import res.MyTab;
 import view.settings.SettingsGUI;
 
 public class SettingsController {
 	SettingsGUI settingsGUI;
 	LanguageDAO langDAO = new LanguageDAO();
+	MyTab myTab = MyTab.getMyTab();
+	MyBundle myBundle = new MyBundle();
 
 	public SettingsController(SettingsGUI settingsGUI) {
 		this.settingsGUI=settingsGUI;
@@ -31,7 +35,8 @@ public class SettingsController {
 		Language oldLang = langDAO.unselectLanguage(true);
 		Language newLang = langDAO.readLanguage(selectedIndex);
 		newLang.setChosen(true);
-		langDAO.selectLanguage(newLang);	
+		langDAO.selectLanguage(newLang);
+		myTab.setTabName();
 	}
 
 }
