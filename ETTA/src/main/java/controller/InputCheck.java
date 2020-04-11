@@ -140,6 +140,17 @@ public class InputCheck {
 		alert.setContentText("Check the new data and the balance.");
 		alert.showAndWait();
 	}
+
+
+
+	public void alertPersonExists() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("There is already a contact with this name.");
+		alert.setContentText("Check the name or add something to it.");
+		alert.showAndWait();
+		
+	}
 }
 
 

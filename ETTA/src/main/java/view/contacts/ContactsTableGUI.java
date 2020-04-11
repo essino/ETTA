@@ -98,8 +98,7 @@ public class ContactsTableGUI {
   		contactsBirthday.setCellFactory(dateCellFactory);
   		contactsBirthday.setOnEditCommit(
 				(TableColumn.CellEditEvent<Person, Date> t) -> {
-				Person editedPerson = ((Person) t.getTableView().getItems()
-	            .get(t.getTablePosition().getRow()));
+				Person editedPerson = ((Person) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 				System.out.println("new date " + t.getNewValue());
 				editedPerson.setBirthday(t.getNewValue());
 				controller.updatePerson(editedPerson);
