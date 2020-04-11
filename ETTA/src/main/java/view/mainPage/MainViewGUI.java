@@ -146,10 +146,10 @@ public class MainViewGUI {
 			e.printStackTrace();
 			}
 		AnchorPane borrowedView = null;
-		FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml"));
+		loader  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml"));
 		loader.setResources(bundle);
 		try {
-			borrowedView = loaderBorrowedView.load();
+			borrowedView = loader.load();
 			} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
