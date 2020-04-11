@@ -9,7 +9,7 @@
       <VBox prefHeight="750.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#showBorrowedView" prefHeight="125.0" prefWidth="200.0" text="%pageBorrowed" />
-            <Button mnemonicParsing="false" onAction="#showReturned" prefHeight="125.0" prefWidth="200.0" text="%returnedThings" />
+            <Button mnemonicParsing="false" onAction="#showReturned" prefHeight="125.0" prefWidth="200.0" text="%borrowReturnedThings" />
             <Button layoutX="10.0" layoutY="135.0" mnemonicParsing="false" onAction="#showBorrowedSearch" prefHeight="125.0" prefWidth="200.0" text="%buttonSearch" />
            
          </children>
