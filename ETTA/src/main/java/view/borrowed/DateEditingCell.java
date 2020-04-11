@@ -18,7 +18,7 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
 	 */
     private DatePicker datePicker;
     
-    //changes language into English
+    //changes language into English 
     //private final Locale myLocale = Locale.getDefault(Locale.Category.FORMAT);
     
     /**
