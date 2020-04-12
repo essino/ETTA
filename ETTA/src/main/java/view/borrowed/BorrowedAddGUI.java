@@ -55,7 +55,7 @@ public class BorrowedAddGUI {
 	 * ComboBox for selecting the person who has borrowed the item
 	 */
 	@FXML
-	ComboBox<String> bbc;
+	ComboBox<String> bbc; 
 	
 	/**
 	 * The anchor pane for the add view
