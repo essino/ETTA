@@ -226,7 +226,7 @@ public class EventDAO {
 		try {
 			session = HibernateUtil.getSessionFactory(test).openSession();
 			session.beginTransaction();
-			result = session.createQuery( "from Event where calendar='"+ calendar + "'").list();
+			result = session.createQuery( "from Event where calendar="+ calendar).list();
 			for ( Event e : (List<Event>) result ) {
 				//System.out.println( "Event (" + e.getTitle() + ") : " + e.getStartDate() + ", " + e.getStartTime());
 			}
