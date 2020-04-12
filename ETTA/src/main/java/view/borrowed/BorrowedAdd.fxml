@@ -27,22 +27,22 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="35.0" prefWidth="293.0" text="Borrowed item">
+            <Label prefHeight="35.0" prefWidth="293.0" text="%item">
                <GridPane.margin>
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Borrowed by" GridPane.rowIndex="1">
+            <Label text="%borrower" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Loan date" GridPane.rowIndex="2">
+            <Label text="%borrowLoanDate" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Return date" GridPane.rowIndex="3">
+            <Label text="%borrowReturnDate" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
@@ -57,14 +57,14 @@
             <ComboBox fx:id="bbc" prefHeight="66.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <ButtonBar layoutX="546.0" layoutY="554.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="156.0" AnchorPane.rightAnchor="54.0">
+      <ButtonBar layoutX="546.0" layoutY="554.0" prefHeight="40.0" prefWidth="289.0" AnchorPane.bottomAnchor="156.0" AnchorPane.rightAnchor="54.0">
         <buttons>
-          <Button fx:id="buttonAdd" mnemonicParsing="false" onAction="#addBorrowed" text="Add">
+          <Button fx:id="buttonAdd" mnemonicParsing="false" onAction="#addBorrowed" prefHeight="39.0" text="%buttonAdd">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#cancelAddBorrowed" text="Cancel">
+            <Button mnemonicParsing="false" onAction="#cancelAddBorrowed" text="%buttonCancel">
                <font>
                   <Font size="18.0" />
                </font>

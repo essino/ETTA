@@ -4,6 +4,7 @@ package view.borrowed;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 import controller.InputCheck;
 import controller.BorrowedController;
@@ -20,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Person;
 import model.PersonDAO;
+import res.MyBundle;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
@@ -27,6 +29,9 @@ import javafx.scene.control.TextField;
  * GUI class in charge of the view used for adding borrowed items
  */
 public class BorrowedAddGUI {
+	
+	MyBundle myBundle = new MyBundle();
+	ResourceBundle resourceBundle = myBundle.getBundle();
 	
 	/**
 	 * PersonDAO used for accessing the database
@@ -56,9 +61,6 @@ public class BorrowedAddGUI {
 	 */
 	@FXML
 	ComboBox<String> bbc;
-	
-	/*@FXML
-	Button buttonAdd;*/
 	
 	/**
 	 * The anchor pane for the add view
@@ -181,6 +183,7 @@ public class BorrowedAddGUI {
 				controller.saveBorrowedThing();
 				AnchorPane borrowedviewanchorpane = null; 
 				FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml")); 
+				loaderBorrowedView.setResources(resourceBundle);
 				try {
 					borrowedviewanchorpane = loaderBorrowedView.load();
 				} catch (IOException e) {
@@ -203,6 +206,7 @@ public class BorrowedAddGUI {
 	public void cancelAddBorrowed() {
 		AnchorPane borrowedviewanchorpane = null; 
 		FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml")); 
+		loaderBorrowedView.setResources(resourceBundle);
 		try {
 			borrowedviewanchorpane = loaderBorrowedView.load();
 		} catch (IOException e) {

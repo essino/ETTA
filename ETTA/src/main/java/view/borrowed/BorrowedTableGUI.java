@@ -2,8 +2,7 @@ package view.borrowed;
 
 import java.io.IOException;
 import java.sql.Date;
-
-
+import java.util.ResourceBundle;
 import controller.BorrowedController;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
@@ -23,24 +22,24 @@ import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import model.BorrowedThing;
-import model.Item;
 import model.Person;
+import res.MyBundle;
 import controller.InputCheck;
-//import view.borrowed.DateEditingCell;
 
 /**
  * GUI class in charge of the view showing the list of borrowed items
  */
 public class BorrowedTableGUI {
 	
-	//NB! this is different in Tiina's WishlistTableGUI - could cause problems
+	MyBundle myBundle = new MyBundle();
+	ResourceBundle resourceBundle = myBundle.getBundle();
+	
 	/**
 	 * the controller for Borrowed things
 	 */
-	BorrowedController controller;// = new BorrowedController(this);
+	BorrowedController controller;
 	
 	/**
 	 * The anchorpane for the overall view of borrowed things
@@ -97,7 +96,9 @@ public class BorrowedTableGUI {
 	 */
 	InputCheck inputCheck = new InputCheck(); 
 	
-	//DateEditingCell cell = new DateEditingCell();
+	/**
+	 * Default cell factory for inline editing of cells containing dates
+	 */
 	Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
 
 	/**
@@ -108,10 +109,10 @@ public class BorrowedTableGUI {
 	public void showBorrowedAdd(ActionEvent event) {
 		AnchorPane showBorrowedAdd = null;
 		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedAdd.fxml"));
+		loaderBorrowedAdd.setResources(resourceBundle);
 		try {
 			showBorrowedAdd = loaderBorrowedAdd.load();
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		//shows the loaded fxml file
@@ -121,13 +122,12 @@ public class BorrowedTableGUI {
 	/**
 	 * Initialize-method called when the class is created
 	 * Fetches the list of borrowed items in the database 
-	 * Also allows for insline editing of the borrowed items on the list
+	 * Also allows for inline editing of the borrowed items on the list
 	 */
 	@FXML
 	public void initialize() {
 		borrowedTable.setEditable(true);
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
-		//lisäys
 		borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
 		borrowedThingDescr.setOnEditCommit(
 			new EventHandler<CellEditEvent<BorrowedThing, String>>(){
@@ -135,23 +135,18 @@ public class BorrowedTableGUI {
 				public void handle(CellEditEvent<BorrowedThing, String> t) {
 					BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 					String oldDescription = t.getOldValue();
-					//System.out.println("Tididii dii tididii " + oldDescription);
+					//System.out.println("Old description " + oldDescription);
 					editedBorrowedThing.setDescription(t.getNewValue());
-					
-					
 					controller.updateBorrowedThing(editedBorrowedThing);
 					controller.updateBorrowedEventTitle(oldDescription);
 					borrowedTable.refresh();
-				}
-			}
-		);
+				}});
 		borrowedBy.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("person"));
 		borrowedBy.setCellFactory(ComboBoxTableCell.<BorrowedThing, String>forTableColumn(controller.personsList()));
 		borrowedBy.setOnEditCommit(
 				new EventHandler<CellEditEvent<BorrowedThing, String>>() {
 					@Override
 					public void handle(CellEditEvent<BorrowedThing, String> t) {
-						
 						BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 						String newName = t.getNewValue();
 						Person newPerson = controller.findPerson(newName);
@@ -161,17 +156,13 @@ public class BorrowedTableGUI {
 					}});
 		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
 		loanDate.setCellFactory(dateCellFactory);
-		
 		loanDate.setOnEditCommit(
                 (TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
                     BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
                     .get(t.getTablePosition().getRow()));
-                    //essin lisäys
-               
                     java.sql.Date tempLoanDate = t.getNewValue();
                     java.sql.Date tempRDate = editedBorrowedThing.getReturnDate();
                     if(inputCheck.dateCheck(tempLoanDate, tempRDate)) {
-                    
                     	editedBorrowedThing.setDateBorrowed(tempLoanDate);
                     	controller.updateBorrowedThing(editedBorrowedThing);
                     } else {
@@ -181,19 +172,14 @@ public class BorrowedTableGUI {
     					controller.updateBorrowedThing(editedBorrowedThing);
                     }
                     borrowedTable.refresh();
-                }
-			);
-		
-		
+                });
 		returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
-		//returned.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Boolean>("returned"));
 		returnDate.setCellFactory(dateCellFactory);
 		returnDate.setOnEditCommit(
 			(TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
 				BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
 						.get(t.getTablePosition().getRow()));
 				java.sql.Date tempReturnDate = t.getNewValue();
-				//essin lisäys
 				java.sql.Date tempLDate = editedBorrowedThing.getDateBorrowed();
 				System.out.println("This is the rhythm of the loan date " + tempLDate);
 				if(inputCheck.dateCheck(tempLDate, tempReturnDate)) {
@@ -208,9 +194,7 @@ public class BorrowedTableGUI {
 					controller.updateReturnDate(editedBorrowedThing);
 				}
 				borrowedTable.refresh();
-			}
-			//essin lisäys loppuu
-		);
+			});
 		returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
 			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 				if (borrowedThingDescr.getValue().isReturned() == true) {
@@ -218,10 +202,8 @@ public class BorrowedTableGUI {
 				} else {
 					return new ReadOnlyObjectWrapper<>("No");
 				}
-			}
-		});
+			}});
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
-		//lisäys 3/4
 		FilteredList<BorrowedThing> filteredData = new FilteredList<>(data,
 	            s -> !s.isReturned());
 		borrowedTable.setItems(filteredData);
@@ -257,7 +239,6 @@ public class BorrowedTableGUI {
 		} catch (Exception e) {
 			System.out.println("Nothing to remove");
 		}
-		
 	}
 	
 	/** 
@@ -269,7 +250,6 @@ public class BorrowedTableGUI {
 			controller.markReturned();
 			initialize();
 		}
-		
 	}
 	
 } 

@@ -30,11 +30,10 @@ import model.Person;
 
 public class BorrowedReturnedTableGUI {
 	
-		//NB! this is different in Tiina's WishlistTableGUI - could cause problems
 		/**
 		 * the controller for Borrowed things
 		 */
-		BorrowedController controller;// = new BorrowedController(this);
+		BorrowedController controller;
 		
 		/**
 		 * The anchorpane for the overall view of returned things
@@ -79,7 +78,6 @@ public class BorrowedReturnedTableGUI {
 		@FXML
 		private TableColumn<BorrowedThing, String> returned;
 		
-		//DOES THIS CAUSE PROBLEMS WITH A NEW CONTROLLER? DOES IT WORK?
 		/**
 		 * A constructor for BorrowedTableGUI in which the controller object is created
 		 */
@@ -92,26 +90,7 @@ public class BorrowedReturnedTableGUI {
 		 */
 		InputCheck inputCheck = new InputCheck(); 
 		
-		//DateEditingCell cell = new DateEditingCell();
-		Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
-
-		/**
-		 * Method that shows all the borrowed items
-		 * @param event either Borrowed Things tab or Borrowed Items button is pushed
-		 */
-		@FXML
-		public void showBorrowedAdd(ActionEvent event) {
-			AnchorPane showBorrowedAdd = null;
-			FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedAdd.fxml"));
-			try {
-				showBorrowedAdd = loaderBorrowedAdd.load();
-				} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				}
-			//shows the loaded fxml file
-			borrowedReturnedViewAnchorpane.getChildren().setAll(showBorrowedAdd);
-		}
+		//Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
 
 		/**
 		 * Initialize-method called when the class is created
@@ -132,8 +111,7 @@ public class BorrowedReturnedTableGUI {
 					} else {
 						return new ReadOnlyObjectWrapper<>("No");
 					}
-				}
-			});
+				}});
 			ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
 			FilteredList<BorrowedThing> filteredData = new FilteredList<>(data,
 		            s -> s.isReturned());
@@ -177,6 +155,9 @@ public class BorrowedReturnedTableGUI {
 			initialize();
 		}
 		
+		/** 
+		 * Method that changes an item's status from returned to borrowed again
+		 */
 		@FXML
 		public void makeReturnedBorrowed() {
 			controller.changeReturnedToBorrowed();

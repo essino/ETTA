@@ -6,7 +6,7 @@
 
 <AnchorPane fx:id="borrowedsearchanchorpane" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children> 
-      <Button layoutX="374.0" layoutY="154.0" mnemonicParsing="false" text="Search" />
+      <Button layoutX="374.0" layoutY="154.0" mnemonicParsing="false" text="%buttonSearch" />
       <ComboBox layoutX="183.0" layoutY="154.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

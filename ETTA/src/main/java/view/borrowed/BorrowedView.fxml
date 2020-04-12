@@ -11,7 +11,7 @@
       <ButtonBar layoutY="643.0" prefHeight="40.0" prefWidth="600.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="643.0">
         <buttons>
             <Button mnemonicParsing="false" onAction="#showBorrowedAdd" text="%buttonAdd" />
-            <Button mnemonicParsing="false" text="Send email" />
+            <Button mnemonicParsing="false" text="%buttonEmail" />
             <Button mnemonicParsing="false" onAction="#markAsReturned" text="%borrowMarkReturned" />
           <Button mnemonicParsing="false" onAction="#deleteSelectedBorrowedThing" text="%buttonDelete" />
         </buttons>
