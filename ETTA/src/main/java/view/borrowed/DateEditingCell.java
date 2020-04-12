@@ -15,9 +15,6 @@ import res.MyBundle;
  */
 public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
 	
-	//MyBundle myBundle = new MyBundle();
-	//ResourceBundle resourceBundle = myBundle.getBundle();
-	
 	/**
 	 * Reference to the datepicker
 	 */
@@ -88,10 +85,15 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
     private void createDatePicker() {
         datePicker = new DatePicker(getDate().toLocalDate());
         //changes the datepicker's language
-        //Locale locale = resourceBundle.getLocale();
-        //System.out.println("Locale in Date Editing Cell " + locale.getDisplayLanguage());
-        datePicker.setOnShowing(e-> Locale.setDefault(Locale.Category.FORMAT,Locale.ENGLISH));
-        
+        /*MyBundle myBundle = new MyBundle();
+        Locale locale = myBundle.getBundle().getLocale();
+        System.out.println(myBundle.getBundle().getBaseBundleName());
+        if ((myBundle.getBundle().getBaseBundleName()).equals("res.TextResources_fi_FI")) {     
+        	System.out.println("Date picker in Finnish");
+        	//datePicker.setOnShowing(e-> Locale.setDefault(Locale.Category.FORMAT, locale));
+        } else {
+        	datePicker.setOnShowing(e-> Locale.setDefault(Locale.Category.FORMAT,Locale.ENGLISH));
+        }*/
         datePicker.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
         datePicker.setOnAction((e) -> {
             System.out.println("Committed: " + datePicker.getValue().toString());

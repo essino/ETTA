@@ -4,6 +4,8 @@ package view.borrowed;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Locale;
+
 import controller.InputCheck;
 import controller.BorrowedController;
 import javafx.fxml.FXML;
@@ -79,6 +81,31 @@ public class BorrowedAddGUI {
 	 */
 	@FXML
 	public void initialize() {
+		
+		//System.out.println("Trying to change datepicker's language");
+		/*Locale thisLocale = Locale.getDefault();
+		
+		Locale[] locales = Locale.getAvailableLocales();
+		for (Locale l: locales) {
+			System.out.println("Locales " + l);
+		}*/
+		
+		//System.out.println("locale " + thisLocale.getDisplayLanguage());
+		
+		//Locale finLocale = myBundle.getBundle().getLocale();
+		//System.out.println("mylocale " + finLocale.getDisplayLanguage());
+		//Locale.setDefault(locale);
+		
+		//loanDate.setOnShowing(e-> Locale.setDefault(locale));
+		//loanDate.setOnShown(e-> Locale.setDefault(locale));
+		//loanDate.setOnHiding(e-> Locale.setDefault(locale));
+		//loanDate.setOnAction(e-> Locale.setDefault(locale));
+		//loanDate.setOnHiding(e-> Locale.setDefault(Locale.Category.FORMAT, Locale.getDefault()));
+		
+		//Locale.setDefault(finLocale);
+		//loanDate.setOnHiding(e-> Locale.setDefault(Locale.Category.FORMAT, Locale.ENGLISH));
+		//Locale.setDefault(finLocale);
+			
 			bbc.getItems().addAll(controller.personsList());
 			bbc.getItems().add("");
 			bbc.setCellFactory(lv -> {
@@ -207,5 +234,6 @@ public class BorrowedAddGUI {
 		}
 		borrowedaddanchorpane.getChildren().setAll(borrowedviewanchorpane);
 	}
-	
+
+
 }
