@@ -1,28 +1,13 @@
 package view.borrowed;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.util.ResourceBundle;
-
 import controller.BorrowedController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.util.Callback;
-import model.BorrowedThing;
 import res.MyBundle;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-
 
 /**
  * GUI class relating to the Borrowed items section
@@ -30,8 +15,6 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 public class BorrowedGUI {
 
 	MyBundle myBundle = new MyBundle();
-	ResourceBundle resourceBundle = myBundle.getBundle();
-	
 	
 	/**
 	 * The menu view to which the alternative views in the Borrowed items section are added
@@ -51,7 +34,7 @@ public class BorrowedGUI {
 	BorrowedController controller;
 	
 	/**
-	 * an empty construtor for BorrowedGUI
+	 * an empty constructor for BorrowedGUI
 	 */
 	public BorrowedGUI() {
 	}
@@ -64,7 +47,7 @@ public class BorrowedGUI {
 	public void showBorrowedSearch(ActionEvent event) {
 		AnchorPane borrowedSearch = null;
 		FXMLLoader loaderBorrowedSearch  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedSearch.fxml"));
-		loaderBorrowedSearch.setResources(resourceBundle);
+		loaderBorrowedSearch.setResources(myBundle.getBundle());
 		try {
 			borrowedSearch = loaderBorrowedSearch.load();
 			} catch (IOException e) {
@@ -81,7 +64,7 @@ public class BorrowedGUI {
 	public void showBorrowedView(ActionEvent event) {
 		AnchorPane borrowedView = null;
 		FXMLLoader loaderBorrowedView = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml"));
-		loaderBorrowedView.setResources(resourceBundle);
+		loaderBorrowedView.setResources(myBundle.getBundle());
 		try {
 			borrowedView = loaderBorrowedView.load();
 			} catch (IOException e) {
@@ -98,7 +81,7 @@ public class BorrowedGUI {
 	public void showBorrowedAdd(ActionEvent event) {
 		AnchorPane borrowedAdd = null;
 		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedAdd.fxml"));
-		loaderBorrowedAdd.setResources(resourceBundle);
+		loaderBorrowedAdd.setResources(myBundle.getBundle());
 		try {
 				borrowedAdd = loaderBorrowedAdd.load();
 			} catch (IOException e) { 
@@ -116,7 +99,7 @@ public class BorrowedGUI {
 	public void showReturned(ActionEvent event) {
 		AnchorPane borrowedReturned = null;
 		FXMLLoader loaderBorrowedReturned = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedReturnedView.fxml"));
-		loaderBorrowedReturned.setResources(resourceBundle);
+		loaderBorrowedReturned.setResources(myBundle.getBundle());
 		try {
 			borrowedReturned = loaderBorrowedReturned.load();
 			} catch (IOException e) {
@@ -124,5 +107,6 @@ public class BorrowedGUI {
 			}
 		borrowedRootBorderPane.setCenter(borrowedReturned);
 	}
+	
 }
 

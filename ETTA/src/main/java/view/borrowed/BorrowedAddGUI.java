@@ -4,19 +4,13 @@ package view.borrowed;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
-
 import controller.InputCheck;
 import controller.BorrowedController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Person;
@@ -31,7 +25,6 @@ import javafx.scene.control.TextField;
 public class BorrowedAddGUI {
 	
 	MyBundle myBundle = new MyBundle();
-	ResourceBundle resourceBundle = myBundle.getBundle();
 	
 	/**
 	 * PersonDAO used for accessing the database
@@ -69,7 +62,7 @@ public class BorrowedAddGUI {
 	AnchorPane borrowedaddanchorpane;
 	
 	/**
-	 * Reference to the used BorrowedController
+	 * BorrowedController object created
 	 */
 	BorrowedController controller = new BorrowedController(this);
 	
@@ -183,7 +176,7 @@ public class BorrowedAddGUI {
 				controller.saveBorrowedThing();
 				AnchorPane borrowedviewanchorpane = null; 
 				FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml")); 
-				loaderBorrowedView.setResources(resourceBundle);
+				loaderBorrowedView.setResources(myBundle.getBundle());
 				try {
 					borrowedviewanchorpane = loaderBorrowedView.load();
 				} catch (IOException e) {
@@ -206,7 +199,7 @@ public class BorrowedAddGUI {
 	public void cancelAddBorrowed() {
 		AnchorPane borrowedviewanchorpane = null; 
 		FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml")); 
-		loaderBorrowedView.setResources(resourceBundle);
+		loaderBorrowedView.setResources(myBundle.getBundle());
 		try {
 			borrowedviewanchorpane = loaderBorrowedView.load();
 		} catch (IOException e) {

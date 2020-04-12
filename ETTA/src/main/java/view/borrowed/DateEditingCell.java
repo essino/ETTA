@@ -1,17 +1,22 @@
 package view.borrowed;
 
 import java.util.Locale;
+import java.util.ResourceBundle;
 import java.sql.Date;
 import java.time.LocalDate;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import model.BorrowedThing;
+import res.MyBundle;
 
 /**
  * Class used for inline editing of dates
  * Extends JavaFX class TableCell
  */
 public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
+	
+	//MyBundle myBundle = new MyBundle();
+	//ResourceBundle resourceBundle = myBundle.getBundle();
 	
 	/**
 	 * Reference to the datepicker
@@ -82,8 +87,11 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
      */
     private void createDatePicker() {
         datePicker = new DatePicker(getDate().toLocalDate());
-        //changes the datepicker's language into English
-        //datePicker.setOnShowing(e-> Locale.setDefault(Locale.Category.FORMAT,Locale.ENGLISH));
+        //changes the datepicker's language
+        //Locale locale = resourceBundle.getLocale();
+        //System.out.println("Locale in Date Editing Cell " + locale.getDisplayLanguage());
+        datePicker.setOnShowing(e-> Locale.setDefault(Locale.Category.FORMAT,Locale.ENGLISH));
+        
         datePicker.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
         datePicker.setOnAction((e) -> {
             System.out.println("Committed: " + datePicker.getValue().toString());

@@ -2,7 +2,6 @@ package view.borrowed;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ResourceBundle;
 import controller.BorrowedController;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
@@ -34,7 +33,6 @@ import controller.InputCheck;
 public class BorrowedTableGUI {
 	
 	MyBundle myBundle = new MyBundle();
-	ResourceBundle resourceBundle = myBundle.getBundle();
 	
 	/**
 	 * the controller for Borrowed things
@@ -97,7 +95,7 @@ public class BorrowedTableGUI {
 	InputCheck inputCheck = new InputCheck(); 
 	
 	/**
-	 * Default cell factory for inline editing of cells containing dates
+	 * Default cell factory for the purpose of inline editing of cells containing dates
 	 */
 	Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
 
@@ -109,7 +107,7 @@ public class BorrowedTableGUI {
 	public void showBorrowedAdd(ActionEvent event) {
 		AnchorPane showBorrowedAdd = null;
 		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedAdd.fxml"));
-		loaderBorrowedAdd.setResources(resourceBundle);
+		loaderBorrowedAdd.setResources(myBundle.getBundle());
 		try {
 			showBorrowedAdd = loaderBorrowedAdd.load();
 			} catch (IOException e) {
@@ -197,10 +195,13 @@ public class BorrowedTableGUI {
 			});
 		returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
 			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
+
 				if (borrowedThingDescr.getValue().isReturned() == true) {
-					return new ReadOnlyObjectWrapper<>("Yes");
+					//return new ReadOnlyObjectWrapper<>("Yes");
+					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("yesYes"));
 				} else {
-					return new ReadOnlyObjectWrapper<>("No");
+					//return new ReadOnlyObjectWrapper<>("No");
+					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
 				}
 			}});
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());

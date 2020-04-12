@@ -2,12 +2,10 @@ package controller;
 
 import java.sql.Date;
 import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Person;
 import model.PersonDAO;
-
 import model.BorrowedThing;
 import model.BorrowedThingDAO;
 import model.Event;
@@ -337,5 +335,6 @@ public class BorrowedController {
 	public Person findPerson(String name) {
 		return personDAO.readPerson(name);
 	}
+
 }
 
