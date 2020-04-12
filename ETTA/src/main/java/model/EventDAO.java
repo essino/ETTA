@@ -155,7 +155,7 @@ public class EventDAO {
 	
 	/**
 	 * method for updating an event in the database
-	 * @param event Object that represents an event
+	 * @param description String the title of the event
 	 * @return updated Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean updateEvent(String description) {
@@ -226,7 +226,7 @@ public class EventDAO {
 		try {
 			session = HibernateUtil.getSessionFactory(test).openSession();
 			session.beginTransaction();
-			result = session.createQuery( "from Event where calendar="+ calendar).list();
+			result = session.createQuery( "from Event where calendar='"+ calendar + "'").list();
 			for ( Event e : (List<Event>) result ) {
 				//System.out.println( "Event (" + e.getTitle() + ") : " + e.getStartDate() + ", " + e.getStartTime());
 			}
