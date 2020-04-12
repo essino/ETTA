@@ -269,7 +269,8 @@ public class EventDAO {
 		return result.toArray(returnArray);
 	}
 
-	public void deleteBirthday(String name, Date birthday) {
+	public boolean deleteBirthday(String name, Date birthday) {
+		boolean deleted = false;
 		try {
 			session = HibernateUtil.getSessionFactory(test).openSession();
 			session.beginTransaction();
@@ -280,11 +281,13 @@ public class EventDAO {
 				Event e = result.get(0);
 				session.delete(e);
 				System.out.println(e.getEvent_id() + " deleted.");
+				deleted = true;
 			}
 			catch(IndexOutOfBoundsException e) {
 				System.out.println("Ei löydy listalta.");
 			}
 			session.getTransaction().commit();
+			
 		}
 		catch(Exception e){
 			if (transaction!=null) transaction.rollback();
@@ -293,7 +296,7 @@ public class EventDAO {
 		finally {
 			session.close();
 		}
-		
+		return deleted;
 	}
 	
 	
