@@ -1,10 +1,13 @@
 package view.mainPage;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
+import java.time.temporal.WeekFields;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.calendarfx.view.CalendarView;
+import com.calendarfx.view.WeekFieldsView;
 
 import controller.CalendarController;
 import javafx.fxml.FXMLLoader;
@@ -160,6 +163,13 @@ public class MainViewGUI {
 			e.printStackTrace();
 		}
 		CalendarView calendarView  = new CalendarView();
+		calendarView.setShowAddCalendarButton(false);
+		if(myBundle.getBundle().getString("language").equals("fi")) {
+			calendarView.setWeekFields(WeekFields.of(DayOfWeek.MONDAY,1));
+		}
+		else {
+			calendarView.setWeekFields(WeekFields.of(DayOfWeek.SUNDAY,1));
+		}
 		calendarView.getCalendarSources().addAll(calendarController.getCalendarSource());
 		calendarController.getDefaultCalendarSource(calendarView);
 		borderPaneCalendar.setCenter(calendarView);
