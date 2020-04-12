@@ -158,6 +158,7 @@ public class EventDAO {
 	 * @param description String the title of the event
 	 * @return updated Boolean indicating the success or failure of the database transaction
 	 */
+	/*
 	public boolean updateEvent(String description) {
 		boolean updated =false;
 		try {
@@ -181,7 +182,7 @@ public class EventDAO {
 			session.close();
 		}
 		return updated;
-	}
+	}*/
 	
 	/**
 	 * method for deleting one Event from the database
@@ -269,7 +270,7 @@ public class EventDAO {
 		return result.toArray(returnArray);
 	}
 
-	public boolean deleteBirthday(String name, Date birthday) {
+	public boolean deleteBirthday(String name) {
 		boolean deleted = false;
 		try {
 			session = HibernateUtil.getSessionFactory(test).openSession();

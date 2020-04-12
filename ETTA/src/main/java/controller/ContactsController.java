@@ -85,7 +85,7 @@ public class ContactsController {
 	public void deletePerson() {
 		Person personToDelete = conTableGUI.personToDelete();
 		if(conTableGUI.personToDelete().getBirthday() != null) {
-			eventDAO.deleteBirthday(personToDelete.getName(), personToDelete.getBirthday());
+			eventDAO.deleteBirthday(personToDelete.getName());
 		}
 		perDAO.deletePerson(personToDelete.getPerson_id());
 		conTableGUI.removeFromTable(personToDelete);
