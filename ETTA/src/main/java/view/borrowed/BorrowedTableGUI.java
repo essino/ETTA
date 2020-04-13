@@ -34,7 +34,6 @@ import controller.InputCheck;
 public class BorrowedTableGUI {
 	
 	MyBundle myBundle = new MyBundle();
-	ResourceBundle resourceBundle = myBundle.getBundle();
 	
 	/**
 	 * the controller for Borrowed things
@@ -109,7 +108,7 @@ public class BorrowedTableGUI {
 	public void showBorrowedAdd(ActionEvent event) {
 		AnchorPane showBorrowedAdd = null;
 		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedAdd.fxml"));
-		loaderBorrowedAdd.setResources(resourceBundle);
+		loaderBorrowedAdd.setResources(myBundle.getBundle());
 		try {
 			showBorrowedAdd = loaderBorrowedAdd.load();
 			} catch (IOException e) {
@@ -198,8 +197,10 @@ public class BorrowedTableGUI {
 		returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
 			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 				if (borrowedThingDescr.getValue().isReturned() == true) {
+					//return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("yesYes"));
 					return new ReadOnlyObjectWrapper<>("Yes");
 				} else {
+					//return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
 					return new ReadOnlyObjectWrapper<>("No");
 				}
 			}});
