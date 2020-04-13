@@ -154,7 +154,7 @@ public class EconomyAddIncomeGUI {
 	 */
 	@FXML
 	public float getIncomeAmount() {
-		return Float.parseFloat(incomeAmount.getText());
+		return Math.abs(Float.parseFloat(incomeAmount.getText()));
 	}
 
 	/**
