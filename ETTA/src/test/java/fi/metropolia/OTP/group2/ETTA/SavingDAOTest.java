@@ -19,13 +19,12 @@ public class SavingDAOTest {
 	private String desc = "Kossin matka";
 	private float amountGoal = 2000f;
 	private float reachedGoal = 5f;
-	private String str = "2020-10-15";
-	private Date date = Date.valueOf(str);
+	private Date date = Date.valueOf("2020-10-15");
 	private Saving kossinMatka = new Saving(desc, amountGoal, reachedGoal, date);
 
 	@Test
 	@Order(1)
-	public void testCreate() {
+	public void testCreateSaving() {
 		assertEquals(true, savingDAO.createSaving(kossinMatka), "Creation of saving failed");
 	}
 	
@@ -49,7 +48,7 @@ public class SavingDAOTest {
 	
 	@Test
 	@Order(4)
-	public void testUpdate() {
+	public void testUpdateSaving() {
 		Date newDate = Date.valueOf("2021-10-15");
 		Saving updatedSaving = savingDAO.readSaving(1);
 		updatedSaving.setGoalDate(newDate);
@@ -59,7 +58,7 @@ public class SavingDAOTest {
 	
 	@Test
 	@Order(5)
-	public void testDelete() {
+	public void testDeleteSaving() {
 		assertEquals(true, savingDAO.deleteSaving(1), "Deleting 1 failed");
 		assertEquals(true, savingDAO.deleteSaving(2), "Deleting 2 failed");
 		assertEquals(0, savingDAO.readSavings().length, "Deleting all failed");
