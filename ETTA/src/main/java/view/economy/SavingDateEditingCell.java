@@ -61,7 +61,7 @@ public class SavingDateEditingCell extends TableCell<Saving, java.sql.Date> {
 	    private void createDatePicker() {
 	        datePicker = new DatePicker(getDate().toLocalDate());
 	        //changes the datepicker's language into English
-	        datePicker.setOnShowing(e-> Locale.setDefault(Locale.Category.FORMAT,Locale.ENGLISH));
+	        //datePicker.setOnShowing(e-> Locale.setDefault(Locale.Category.FORMAT,Locale.ENGLISH));
 	        datePicker.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
 	        datePicker.setOnAction((e) -> {
 	            commitEdit((Date) Date.valueOf(datePicker.getValue()));
