@@ -65,7 +65,7 @@ public class CalendarController {
 		ObservableList<Calendar> calendars = myCalendarSource.getCalendars();
 		EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
 		for(Calendar calendar : calendars) {
-			Event [] events = eventDAO.readEventsFromOneCalendar("'" + calendar.getName() + "'");
+			Event [] events = eventDAO.readEventsFromOneCalendar("'" + calendar.getName() + "'", false);
 			for (Event event : events) {
 				Entry entry = fromEventToEntry(event);
 				calendar.addEntry(entry);
@@ -180,7 +180,7 @@ public class CalendarController {
 	        Calendar defaultCalendar = calendarSource.getCalendars().get(0);
 	        EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
 	        defaultCalendar.addEventHandler(handler);
-			Event [] events = eventDAO.readEventsFromOneCalendar("'" + defaultCalendar.getName() + "'");
+			Event [] events = eventDAO.readEventsFromOneCalendar("'" + defaultCalendar.getName() + "'", false);
 			for (Event event2 : events) {
 				Entry entry = fromEventToEntry(event2);
 				entry.setCalendar(defaultCalendar);

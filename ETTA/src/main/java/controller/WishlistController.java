@@ -11,6 +11,7 @@ import model.ItemDAO;
 import model.Person;
 import model.PersonDAO;
 import view.wishlist.WishlistAddGUI;
+import view.wishlist.WishlistBoughtGUI;
 import view.wishlist.WishlistEditGUI;
 import view.wishlist.WishlistGUI;
 import view.wishlist.WishlistTableGUI;
@@ -39,6 +40,8 @@ public class WishlistController {
 	private WishlistEditGUI editGui;
 	
 	private WishlistGUI mainGui;
+	
+	private WishlistBoughtGUI boughtGui;
 	
 	/**
 	 * PersonDAO used for accessing the database
@@ -83,6 +86,14 @@ public class WishlistController {
 	
 	public WishlistController(WishlistGUI gui) {
 		this.mainGui = gui;
+	}
+	
+	/**
+	 * Constructor
+	 * @param gui WishlistBoughtGUI
+	 */
+	public WishlistController(WishlistBoughtGUI gui) {
+		this.boughtGui = gui;
 	}
 	
 	/**

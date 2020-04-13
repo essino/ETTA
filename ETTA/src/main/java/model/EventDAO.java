@@ -221,16 +221,21 @@ public class EventDAO {
 	 * method for reading events only belonging to the calendar recieved as parameter from the database
 	 * @return Event[]  list of  event objects read from the database
 	 */
-	public Event[] readEventsFromOneCalendar(String calendar) {
+	public Event[] readEventsFromOneCalendar(String calendar, boolean test) {
 		List<Event> result;
 		Event[] returnArray;
 		try {
 			session = HibernateUtil.getSessionFactory(test).openSession();
 			session.beginTransaction();
-			result = session.createQuery( "from Event where calendar="+ calendar).list();
-			for ( Event e : (List<Event>) result ) {
-				//System.out.println( "Event (" + e.getTitle() + ") : " + e.getStartDate() + ", " + e.getStartTime());
+			if (test) {
+				result = session.createQuery( "from Event where calendar='"+ calendar + "'").list();
+			} else {
+				result = session.createQuery( "from Event where calendar="+ calendar).list();
 			}
+			
+			/*for ( Event e : (List<Event>) result ) {
+				//System.out.println( "Event (" + e.getTitle() + ") : " + e.getStartDate() + ", " + e.getStartTime());
+			}*/
 			session.getTransaction().commit();
 			returnArray = new Event[result.size()];
 		}
