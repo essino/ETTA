@@ -63,7 +63,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="personCancel" mnemonicParsing="false" text="Cancel">
+            <Button fx:id="personCancel" mnemonicParsing="false" onAction="#cancelAdding" text="Cancel">
                <font>
                   <Font size="18.0" />
                </font>

@@ -152,5 +152,17 @@ public class ContactsGUI {
 		
 	}
 	
+	@FXML
+	public void cancelAdding() {
+		AnchorPane contactsView = null; 
+		FXMLLoader loaderContactsView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsView.fxml")); 
+		try {
+			contactsView = loaderContactsView.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		contactsaddanchorpane.getChildren().setAll(contactsView);
+	}
 	
 }
