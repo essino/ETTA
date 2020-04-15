@@ -46,13 +46,6 @@ public class SettingsController {
 		
 		File enFile = new File("./com/calendarfx/view/messages_en");
 		File fiFile = new File("./com/calendarfx/view/messages_fi");
-		try {
-			System.out.println("en " + enFile.getCanonicalPath());
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			//e1.printStackTrace();
-		}
-		System.out.println("fi " + fiFile.getAbsolutePath());
 		File messages = new File("./com/calendarfx/view/messages");
 		if (newLang.getDescription().equals("Finnish")) {
 			try {
@@ -67,7 +60,7 @@ public class SettingsController {
 				FileUtils.copyFile(enFile, messages);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 	}

@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import res.MyBundle;
 import controller.EconomyController;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -18,6 +19,8 @@ import javafx.scene.control.TextField;
 public class EconomyGUI {
 	
 	EconomyController controller;
+	
+	MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * The menu view to which the alternative views in the Economy section are added
@@ -130,6 +133,7 @@ public class EconomyGUI {
 	public void showSavings(ActionEvent event) {
 		AnchorPane showSavingsView = null; 
 		FXMLLoader loaderSavingsView  = new FXMLLoader(getClass().getResource("/view/economy/EconomySavings.fxml")); 
+		loaderSavingsView .setResources(myBundle.getBundle());
 		try {
 			showSavingsView = loaderSavingsView.load();
 			} catch (IOException e) {

@@ -10,8 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import res.MyBundle;
 
 public class EconomyAddSavingGUI {
+	
+	MyBundle myBundle = new MyBundle();
 
 	/**
 	 * The reference of InputCheck class used for checking user's input
@@ -96,6 +99,7 @@ public class EconomyAddSavingGUI {
 			controller.saveNewSaving();
 			AnchorPane savingsView = null; 
 			FXMLLoader loaderSavingsView  = new FXMLLoader(getClass().getResource("/view/economy/EconomySavings.fxml")); 
+			loaderSavingsView .setResources(myBundle.getBundle());
 			try {
 				savingsView = loaderSavingsView.load();
 				} catch (IOException e) {
@@ -119,6 +123,7 @@ public class EconomyAddSavingGUI {
 	public void cancelAdding() {
 		AnchorPane savingView = null; 
 		FXMLLoader loaderSavingsView  = new FXMLLoader(getClass().getResource("/view/economy/EconomySavings.fxml")); 
+		loaderSavingsView .setResources(myBundle.getBundle());
 		try {
 			savingView = loaderSavingsView.load();
 		} catch (IOException e) {

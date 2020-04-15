@@ -11,12 +11,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.ProgressBarTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,14 +21,13 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import javafx.util.converter.FloatStringConverter;
-import model.BorrowedThing;
-import model.Category;
 import model.Saving;
-import model.Transfer;
-import view.borrowed.DateEditingCell;
+import res.MyBundle;
 
 public class EconomySavingsGUI {
 	EconomyController controller = new EconomyController(this);
+	
+	MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * The reference of InputCheck class used for checking user's input
@@ -164,6 +160,7 @@ public class EconomySavingsGUI {
 	public void showAddSavings(ActionEvent event) {
 		AnchorPane showAddSavingsView = null;
 		FXMLLoader loaderAddSavingsView = new FXMLLoader(getClass().getResource("/view/economy/EconomyAddSavings.fxml"));
+		loaderAddSavingsView .setResources(myBundle.getBundle());
 		try {
 			showAddSavingsView = loaderAddSavingsView.load();
 			} catch (IOException e) {

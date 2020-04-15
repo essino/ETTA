@@ -24,9 +24,9 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Goal description" GridPane.rowIndex="1" />
-            <Label text="Goal amount" GridPane.rowIndex="2" />
-            <Label text="Goal date" GridPane.rowIndex="3" />
+            <Label text="%savingsLabelDescription" GridPane.rowIndex="1" />
+            <Label text="%savingsLabelAmount" GridPane.rowIndex="2" />
+            <Label text="%savingsLabelDate" GridPane.rowIndex="3" />
             
             <TextField fx:id="savingDescription" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="savingAmount" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -35,9 +35,9 @@
       </GridPane>
       <ButtonBar layoutX="435.0" layoutY="686.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="28.0">
         <buttons>
-          <Button onAction="#saveSaving" mnemonicParsing="false" text="Save" />
+          <Button onAction="#saveSaving" mnemonicParsing="false" text="%buttonSave" />
 
-            <Button onAction="#cancelAdding" mnemonicParsing="false" text="Cancel" />
+            <Button onAction="#cancelAdding" mnemonicParsing="false" text="%buttonCancel" />
         </buttons>
       </ButtonBar>
    </children>
