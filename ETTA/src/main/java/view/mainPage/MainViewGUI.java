@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import model.LanguageDAO;
 import res.MyBundle;
+import view.calendar.MyCalendarView;
 /**
  * GUI class relating to the main views of the pages
  */
@@ -159,6 +160,7 @@ public class MainViewGUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		/*
 		CalendarView calendarView  = new CalendarView();
 		calendarView.setShowAddCalendarButton(false);
 		if(myBundle.getBundle().getString("language").equals("fi")) {
@@ -170,7 +172,9 @@ public class MainViewGUI {
 
 		calendarView.getCalendarSources().addAll(calendarController.getCalendarSource());
 		calendarController.getDefaultCalendarSource(calendarView);
-		borderPaneCalendar.setCenter(calendarView);
+		*/
+		//CalendarView calendarView  = (new MyCalendarView()).getMyCalendarView();
+		borderPaneCalendar.setCenter(new MyCalendarView().getMyCalendarView());
 		return borderPaneCalendar;
 	}
 	/**
