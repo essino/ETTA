@@ -23,14 +23,16 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Language" GridPane.rowIndex="1" />
+            <Label fx:id="language" text="%settingsLanguageLabel" GridPane.rowIndex="1" />
             <ComboBox fx:id="languageList" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="chosenLanguageLabel" text="%settingsChosenLanguageLabel"/>
+                  <Label fx:id="chosenLanguage" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <ButtonBar layoutX="467.0" layoutY="696.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="54.0">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#saveLanguage" text="Save" />
-            <Button mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+          <Button mnemonicParsing="false" onAction="#saveLanguage" text="%buttonSave" />
+            <Button mnemonicParsing="false" onAction="#cancel" text="%buttonCancel" />
         </buttons>
       </ButtonBar>
    </children>

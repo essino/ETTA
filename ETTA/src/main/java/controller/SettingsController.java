@@ -65,4 +65,8 @@ public class SettingsController {
 		}
 	}
 
+	public String getSelectedLanguage() {
+		return langDAO.getSelectedLanguage().getDescription();
+	}
+
 }

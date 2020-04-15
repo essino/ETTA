@@ -184,6 +184,7 @@ public class MainViewGUI {
 	public BorderPane SettingsView() {
 		BorderPane borderPaneSettings = new BorderPane();
 		FXMLLoader loaderSettings  = new FXMLLoader(getClass().getResource("/view/settings/Settings.fxml"));
+		loaderSettings.setResources(myBundle.getBundle());
 		try {
 			borderPaneSettings = loaderSettings.load();
 			} catch (IOException e) {
