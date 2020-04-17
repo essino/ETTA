@@ -26,11 +26,6 @@
                   <Font size="18.0" />
                </font>
             </Button>
-          <Button mnemonicParsing="false" onAction="#showEditWish" text="Edit">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
             <Button mnemonicParsing="false" onAction="#deleteItem" text="Delete">
                <font>
                   <Font size="18.0" />

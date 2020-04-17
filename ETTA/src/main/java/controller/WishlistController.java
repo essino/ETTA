@@ -11,9 +11,6 @@ import model.ItemDAO;
 import model.Person;
 import model.PersonDAO;
 import view.wishlist.WishlistAddGUI;
-import view.wishlist.WishlistBoughtGUI;
-import view.wishlist.WishlistEditGUI;
-import view.wishlist.WishlistGUI;
 import view.wishlist.WishlistTableGUI;
 
 
@@ -33,15 +30,6 @@ public class WishlistController {
 	 * Reference to the WishlistAddGUI
 	 */
 	private WishlistAddGUI addGui;
-	
-	/**
-	 * Reference to the WishlistEditGUI
-	 */
-	private WishlistEditGUI editGui;
-	
-	private WishlistGUI mainGui;
-	
-	private WishlistBoughtGUI boughtGui;
 	
 	/**
 	 * PersonDAO used for accessing the database
@@ -78,33 +66,13 @@ public class WishlistController {
 	
 	/**
 	 * Constructor
-	 * @param gui WishlistEditGUI
-	 */
-	public WishlistController(WishlistEditGUI gui) {
-		this.editGui = gui;
-	}
-	
-	public WishlistController(WishlistGUI gui) {
-		this.mainGui = gui;
-	}
-	
-	/**
-	 * Constructor
-	 * @param gui WishlistBoughtGUI
-	 */
-	public WishlistController(WishlistBoughtGUI gui) {
-		this.boughtGui = gui;
-	}
-	
-	/**
-	 * Constructor
 	 */
 	public WishlistController() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
-	 * Method for fetching the wishlist items from the database
+	 * Method for fetching all the wishlist items from the database
 	 * @return Item[] array containing all the wishlist items from the database
 	 */
 	public Item[] getItems() {
@@ -112,11 +80,19 @@ public class WishlistController {
 	}
 	
 	/**
-	 * Method for fetching the wishlist items from the database
+	 * Method for fetching all own items from the database
 	 * @return Item[] array containing the wishlist items from the database
 	 */
-	public Item[] getOwnItem() {
+	public Item[] getOwnItems() {
 		return itemDAO.readOwnItems();
+	}
+	
+	/**
+	 * Method for fetching the wishlist items meant as gifts for other people from the database
+	 * @return Item[] array containing the wishlist items from the database
+	 */
+	public Item[] getItemsForOthers() {
+		return itemDAO.readItemsForOthers();
 	}
 	
 	/**
@@ -124,8 +100,8 @@ public class WishlistController {
 	 * @param bought boolean indicating whether to get the bought or not bought items from the database
 	 * @return Item[] array containing all bought/not bought wishlist items from the database
 	 */
-	public void getBoughtItems(boolean bought) {
-		gui.setData(itemDAO.readItemsByBought(bought));
+	public Item[] getBoughtItems(boolean bought) {
+		return itemDAO.readItemsByBought(bought);
 	}
 	
 	/** 
@@ -134,7 +110,7 @@ public class WishlistController {
 	 */ 
 	public ObservableList<String> personsList() {
 		Person[] people = personDAO.readPeople();
-		ArrayList peopleNames = new ArrayList();
+		ArrayList<String> peopleNames = new ArrayList<String>();
 		for (Person person : people){
 			peopleNames.add(person.getName());
 		}

@@ -18,21 +18,20 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
-import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.DoubleStringConverter;
-import model.BorrowedThing;
 import model.Item;
 import model.Person;
-import view.borrowed.DateEditingCell;
+import res.MyBundle;
 
 
 public class WishlistTableGUI {
+	
+	MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * Reference to the used WishlistController
@@ -200,6 +199,7 @@ public class WishlistTableGUI {
 	public void showAddWish(ActionEvent event) {
 		AnchorPane showAddWishView = null; 
 		FXMLLoader loaderAddWishView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistAdd.fxml")); 
+		loaderAddWishView.setResources(myBundle.getBundle());
 		try {
 			showAddWishView = loaderAddWishView.load();
 			} catch (IOException e) {
@@ -207,23 +207,6 @@ public class WishlistTableGUI {
 			e.printStackTrace();
 			}
 		wishlistanchorpane.getChildren().setAll(showAddWishView);
-	}
-	
-	/**
-	 * Method for showing the view of edit wishlist
-	 * @param event ActionEvent that is handled
-	 */
-	@FXML
-	public void showEditWish(ActionEvent event) {
-		AnchorPane showEditWishView = null; 
-		FXMLLoader loaderEditWishView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistEdit.fxml")); 
-		try {
-			showEditWishView = loaderEditWishView.load();
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			}
-		wishlistanchorpane.getChildren().setAll(showEditWishView);
 	}
 	
 	/**
@@ -254,14 +237,6 @@ public class WishlistTableGUI {
 	public void markAsBought() {
 		controller.setBought();
 		initialize();
-	}
-	
-	/** 
-	 * Method for setting the contents of the list observed by the table view
-	 */
-	@FXML
-	public void setData(Item[] items) {
-		data = FXCollections.observableArrayList(items);
 	}
 	
 }

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="wishlistanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.wishlist.WishlistTableGUI">
+<AnchorPane fx:id="wishlistOwnAnchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.wishlist.WishlistOwnGUI">
    <children>
       <TableView fx:id="wishlisttable" layoutX="212.0" layoutY="61.0" prefHeight="478.0" prefWidth="508.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
         <columns>
@@ -21,17 +21,12 @@
       </TableView>
       <ButtonBar layoutX="127.0" layoutY="597.0" prefHeight="40.0" prefWidth="652.0" AnchorPane.bottomAnchor="113.0" AnchorPane.leftAnchor="127.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="597.0">
         <buttons>
-            <Button mnemonicParsing="false" onAction="#showAddWish" text="Add Item">
+            <Button mnemonicParsing="false" onAction="#showAddWish" prefHeight="39.0" prefWidth="134.0" text="Add Item">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
             <Button mnemonicParsing="false" onAction="#deleteItem" text="Delete">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#markAsBought" text="Mark as Bought">
                <font>
                   <Font size="18.0" />
                </font>

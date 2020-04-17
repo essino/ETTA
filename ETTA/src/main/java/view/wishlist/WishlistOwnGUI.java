@@ -28,10 +28,8 @@ import model.Item;
 import model.Person;
 import res.MyBundle;
 
+public class WishlistOwnGUI {
 
-
-public class WishlistBoughtGUI {
-	
 	MyBundle myBundle = new MyBundle();
 	
 	/**
@@ -43,7 +41,7 @@ public class WishlistBoughtGUI {
 	 * The anchor pane view from where adding, editing and deleting can be started
 	 */
 	@FXML
-	AnchorPane wishlistBoughtAnchorpane;
+	AnchorPane wishlistOwnAnchorpane;
 	
 	/**
 	 * Table view for showing the wishlist items
@@ -177,7 +175,7 @@ public class WishlistBoughtGUI {
 						wishlisttable.refresh();
 					}});
 		
-		data = FXCollections.observableArrayList(controller.getBoughtItems(true));
+		data = FXCollections.observableArrayList(controller.getOwnItems());
 		wishlisttable.setItems(data);
 	}
 	
@@ -188,7 +186,7 @@ public class WishlistBoughtGUI {
 	@FXML
 	public void showAddWish(ActionEvent event) {
 		AnchorPane showAddWishView = null; 
-		FXMLLoader loaderAddWishView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistAdd.fxml")); 
+		FXMLLoader loaderAddWishView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistAdd.fxml"));
 		loaderAddWishView.setResources(myBundle.getBundle());
 		try {
 			showAddWishView = loaderAddWishView.load();
@@ -196,7 +194,7 @@ public class WishlistBoughtGUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
-		wishlistBoughtAnchorpane.getChildren().setAll(showAddWishView);
+		wishlistOwnAnchorpane.getChildren().setAll(showAddWishView);
 	}
 	
 	/**
@@ -219,5 +217,4 @@ public class WishlistBoughtGUI {
 			initialize();
 		}
 	}
-
 }

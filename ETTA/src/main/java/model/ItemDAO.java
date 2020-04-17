@@ -222,7 +222,6 @@ public class ItemDAO {
 	
 	/**
 	 * Method for reading Wishlist Items in the database whose connected person is null
-	 * @param person_id int referring to the Person that might be used for Wishlist Item
 	 * @return Item[] Array containing all Items with a null person in the database
 	 */
 	public Item[] readOwnItems() {
@@ -235,6 +234,30 @@ public class ItemDAO {
 			for(Item item : result) {
 				list.add(item);
 				System.out.println("reading for one own item: " + item.getDescription());
+			}
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		Item[] items = new Item[list.size()];
+		return (Item[])list.toArray(items);
+	}
+	
+	/**
+	 * Method for reading Wishlist Items in the database whose connected person is not null
+	 * @return Item[] Array containing all Items with a not null person in the database
+	 */
+	public Item[] readItemsForOthers() {
+		ArrayList<Item> list = new ArrayList<>();
+		try {
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			transaction = session.beginTransaction();
+			@SuppressWarnings("unchecked")
+			List<Item> result = session.createQuery("from Item where person is not null").getResultList();
+			for(Item item : result) {
+				list.add(item);
+				System.out.println("reading for one gift item: " + item.getDescription());
 			}
 			transaction.commit();
 		} catch (Exception e) {

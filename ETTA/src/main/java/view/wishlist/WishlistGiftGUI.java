@@ -28,10 +28,8 @@ import model.Item;
 import model.Person;
 import res.MyBundle;
 
+public class WishlistGiftGUI {
 
-
-public class WishlistBoughtGUI {
-	
 	MyBundle myBundle = new MyBundle();
 	
 	/**
@@ -43,7 +41,7 @@ public class WishlistBoughtGUI {
 	 * The anchor pane view from where adding, editing and deleting can be started
 	 */
 	@FXML
-	AnchorPane wishlistBoughtAnchorpane;
+	AnchorPane wishlistGiftAnchorpane;
 	
 	/**
 	 * Table view for showing the wishlist items
@@ -95,6 +93,15 @@ public class WishlistBoughtGUI {
 	ObservableList<Item> data = FXCollections.observableArrayList();
 	
 	Callback<TableColumn<Item, Date>, TableCell<Item, Date>> dateCellFactory = (TableColumn<Item, Date> param) -> new WishlistDateEditingCell();
+	
+	/**
+	 * Constructor responsible for creating the wishlist controller
+	 */
+	/*
+	public WishlistGiftGUI() {
+		controller = new WishlistController(this);
+	}
+	*/
 
 	/**
 	 * Initialize-method called when the class is created
@@ -177,7 +184,7 @@ public class WishlistBoughtGUI {
 						wishlisttable.refresh();
 					}});
 		
-		data = FXCollections.observableArrayList(controller.getBoughtItems(true));
+		data = FXCollections.observableArrayList(controller.getItemsForOthers());
 		wishlisttable.setItems(data);
 	}
 	
@@ -196,7 +203,7 @@ public class WishlistBoughtGUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
-		wishlistBoughtAnchorpane.getChildren().setAll(showAddWishView);
+		wishlistGiftAnchorpane.getChildren().setAll(showAddWishView);
 	}
 	
 	/**
@@ -219,5 +226,4 @@ public class WishlistBoughtGUI {
 			initialize();
 		}
 	}
-
 }
