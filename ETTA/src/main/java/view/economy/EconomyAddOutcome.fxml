@@ -25,9 +25,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Description" GridPane.rowIndex="1" />
-            <Label text="Amount" GridPane.rowIndex="2" />
-            <Label text="Date" GridPane.rowIndex="3" />
+            <Label text="%expenceLabelDescription" GridPane.rowIndex="1" />
+            <Label text="%expenceLabelAmount" GridPane.rowIndex="2" />
+            <Label text="%labelDate" GridPane.rowIndex="3" />
             <TextField fx:id="outcomeDescription" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="outcomeAmount" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Category" />
@@ -37,8 +37,8 @@
       </GridPane>
       <ButtonBar layoutX="474.0" layoutY="682.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="52.0">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#saveExpense" text="Save" />
-            <Button mnemonicParsing="false" onAction="#cancelAdding" text="Cancel" />
+          <Button mnemonicParsing="false" onAction="#saveExpense" text="%buttonSave" />
+            <Button mnemonicParsing="false" onAction="#cancelAdding" text="%buttonCancel" />
             <Button mnemonicParsing="false" text="Button" />
         </buttons>
       </ButtonBar>

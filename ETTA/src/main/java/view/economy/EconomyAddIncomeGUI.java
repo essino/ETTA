@@ -18,8 +18,11 @@ import model.Balance;
 import model.Category;
 import model.CategoryDAO;
 import model.Transfer;
+import res.MyBundle;
 
 public class EconomyAddIncomeGUI {
+	
+	MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * The reference of InputCheck class used for checking user's input
@@ -149,7 +152,7 @@ public class EconomyAddIncomeGUI {
 	}
 	
 	/** 
-	 * Method that gets the value from incomeAmount TextField and returns it in float format
+	 * Method that gets the value from incomeAmount TextField and returns it in absolute value float format
 	 * @return Float amount of the income
 	 */
 	@FXML
@@ -168,7 +171,8 @@ public class EconomyAddIncomeGUI {
 			if(!inputCheck.isInputEmpty(incomeDescription.getText())) {
 			controller.saveIncome();
 			AnchorPane incomeView = null; 
-			FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyIncome.fxml")); 
+			FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyIncome.fxml"));
+			loaderIncomeView .setResources(myBundle.getBundle());
 			try {
 				incomeView = loaderIncomeView.load();
 				} catch (IOException e) {
@@ -197,6 +201,7 @@ public class EconomyAddIncomeGUI {
 		AnchorPane incomeView = null; 
 
 		FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyIncome.fxml")); 
+		loaderIncomeView .setResources(myBundle.getBundle());
 
 		try {
 			incomeView = loaderIncomeView.load();

@@ -24,12 +24,14 @@ import javafx.util.Callback;
 import javafx.util.converter.FloatStringConverter;
 import model.Category;
 import model.Transfer;
+import res.MyBundle;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn.CellEditEvent;
 
 public class EconomyOutcomeGUI {
 	
 	EconomyController controller = new EconomyController(this);
+	MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * The list view from where adding, editing and deleting can be started in expencies
@@ -92,6 +94,7 @@ public class EconomyOutcomeGUI {
 	public void showAddOutcome(ActionEvent event) {
 		AnchorPane showAddOutcomeView = null;
 		FXMLLoader loaderAddOutcomeView = new FXMLLoader(getClass().getResource("/view/economy/EconomyAddOutcome.fxml"));
+		loaderAddOutcomeView .setResources(myBundle.getBundle());
 		try {
 			showAddOutcomeView = loaderAddOutcomeView.load();
 			} catch (IOException e) {
@@ -107,6 +110,7 @@ public class EconomyOutcomeGUI {
 	public void showEditOutcome(ActionEvent event) {
 		AnchorPane showAddOutcomeView = null;
 		FXMLLoader loaderAddOutcomeView = new FXMLLoader(getClass().getResource("/view/economy/EconomyEditOutcome.fxml"));
+		loaderAddOutcomeView .setResources(myBundle.getBundle());
 		try {
 			showAddOutcomeView = loaderAddOutcomeView.load();
 			} catch (IOException e) {

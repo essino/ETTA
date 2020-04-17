@@ -26,10 +26,12 @@ import model.Balance;
 import model.Category;
 import model.Item;
 import model.Transfer;
+import res.MyBundle;
 
 public class EconomyIncomeGUI {
 
 	EconomyController controller = new EconomyController(this);
+	MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * The list view from where adding, editing and deleting can be started in incomes
@@ -93,6 +95,7 @@ public class EconomyIncomeGUI {
 	public void showAddIncome(ActionEvent event) {
 		AnchorPane showAddIncomeView = null;
 		FXMLLoader loaderAddIncomeView = new FXMLLoader(getClass().getResource("/view/economy/EconomyAddIncome2.fxml"));
+		loaderAddIncomeView .setResources(myBundle.getBundle());
 		try {
 			showAddIncomeView = loaderAddIncomeView.load();
 			} catch (IOException e) {
@@ -108,6 +111,7 @@ public class EconomyIncomeGUI {
 	public void showEditIncome(ActionEvent event) {
 		AnchorPane showAddIncomeView = null;
 		FXMLLoader loaderAddIncomeView = new FXMLLoader(getClass().getResource("/view/economy/EconomyEditIncome.fxml"));
+		loaderAddIncomeView .setResources(myBundle.getBundle());
 		try {
 			showAddIncomeView = loaderAddIncomeView.load();
 			} catch (IOException e) {

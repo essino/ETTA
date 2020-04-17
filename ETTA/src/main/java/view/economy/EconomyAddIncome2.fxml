@@ -26,10 +26,10 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Reason" GridPane.rowIndex="1" />
-            <Label text="Category" />
-            <Label text="Income" GridPane.rowIndex="2" />
-            <Label text="Date" GridPane.rowIndex="3" />
+            <Label text="%incomeLabelReason" GridPane.rowIndex="1" />
+            <Label text="%incomeLabelCategory" />
+            <Label text="%incomeLabelIncome" GridPane.rowIndex="2" />
+            <Label text="%labelDate" GridPane.rowIndex="3" />
             <TextField fx:id="incomeDescription" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="incomeAmount" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ComboBox fx:id="incomeCategoryList" prefWidth="150.0" GridPane.columnIndex="1" />
@@ -38,9 +38,9 @@
       </GridPane>
       <ButtonBar layoutX="467.0" layoutY="696.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="54.0">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#AddNewIncome" text="Add" />
-            <Button mnemonicParsing="false" text="Remove" />
-            <Button mnemonicParsing="false"  onAction="#cancelAdding" text="Cancel" />
+          <Button mnemonicParsing="false" onAction="#AddNewIncome" text="%buttonAdd" />
+            <Button mnemonicParsing="false" text="%buttonRemove" />
+            <Button mnemonicParsing="false"  onAction="#cancelAdding" text="%buttonCancel" />
         </buttons>
       </ButtonBar>
    </children>

@@ -147,8 +147,8 @@ public class EconomyAddOutcomeGUI {
 	}
 	
 	/** 
-	 * Method that gets the value from outcomeAmount TextField and returns it in float format
-	 * @return 	Absolute value float amount of the expense
+	 * Method that gets the value from outcomeAmount TextField and returns it in absolute value float format  
+	 * @return 	Float amount of the expense
 	 */
 	@FXML
 	public float getExpenseAmount() {
