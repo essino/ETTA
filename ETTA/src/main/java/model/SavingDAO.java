@@ -153,4 +153,20 @@ public class SavingDAO {
 		return success;
 	}
 
+	public Saving getSaving(String description) {
+		Saving saving = new Saving();
+		try  {
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			transaction = session.beginTransaction();
+			@SuppressWarnings("unchecked")
+			List<Saving> result = session.createQuery("from Saving where description='"+description + "'").getResultList();
+			saving = result.get(0);
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		return saving;
+	}
+
 }
