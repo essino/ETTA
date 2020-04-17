@@ -17,7 +17,7 @@
          <children>
             <Label layoutX="37.0" layoutY="87.0" text="Set balance" />
             <TextField fx:id="newBalance" layoutX="151.0" layoutY="75.0" />
-             <Button layoutX="434.0" layoutY="81.0" mnemonicParsing="false"  onAction="#saveBalance"  text="%buttonSave" />
+             <Button layoutX="434.0" layoutY="81.0" mnemonicParsing="false"  onAction="#saveBalance"  text="Save" />
          </children>
       </Pane>
                </children>

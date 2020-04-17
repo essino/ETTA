@@ -475,4 +475,19 @@ public class EconomyController {
 		}
 		return false;
 	}
+
+	public ObservableList<String> getSavingsList() {
+		Saving[] savings = savingDAO.readSavings();
+		ArrayList<String> savingNames = new ArrayList<String>();
+		for (Saving s : savings){
+			savingNames.add(s.getDescription());
+		}
+		ObservableList<String> names =  FXCollections.observableArrayList(savingNames);
+		return names;
+	}
+
+	public Saving getSaving(String description) {
+		Saving saving = savingDAO.getSaving(description);
+		return saving;
+	}
 }

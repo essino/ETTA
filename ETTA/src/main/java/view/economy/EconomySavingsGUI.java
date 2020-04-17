@@ -5,15 +5,20 @@ import java.sql.Date;
 
 import controller.EconomyController;
 import controller.InputCheck;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.ProgressBarTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -71,7 +76,20 @@ public class EconomySavingsGUI {
 	 */
     @FXML
     private TableColumn<Saving, Date> savingsGoalDate;
+    
+    
+    @FXML
+    private ComboBox<String> savingGoalList;
+    
+    @FXML
+    private Label savingGoalAmount;
+    
+    @FXML
+    private Label savingSavedAmount;
 
+    @FXML
+    private TextField savingAddedAmount;
+    
     Callback<TableColumn<Saving, Date>, TableCell<Saving, Date>> dateCellFactory = (TableColumn<Saving, Date> param) -> new SavingDateEditingCell();
     
 	/** 
@@ -150,8 +168,19 @@ public class EconomySavingsGUI {
 				savingsTable.refresh();
 			}
 		);
+		savingGoalList.getItems().addAll(controller.getSavingsList());
+		savingGoalList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
+        {
+            public void changed(ObservableValue<? extends String> ov,
+                    final String oldvalue, final String newvalue)
+            {
+            	Saving saving = controller.getSaving(savingGoalList.getValue());
+            	savingGoalAmount.setText(String.valueOf(saving.getGoalAmount()));
+        		savingSavedAmount.setText(String.valueOf(saving.getAmount()));
+        }});
 		
 	}
+
 	/**
 	 * Method showing the view of the Add Savings in the Savings items section
 	 * @param event ActionEvent that is handled
@@ -197,5 +226,35 @@ public class EconomySavingsGUI {
 	public void removeFromTable(Saving savingToDelete) {
 		savingsTable.getItems().remove(savingToDelete);
 		
+	}
+	
+	@FXML
+	public void updateSavingAmount() {
+		if(inputCheck.isInputFloat(savingAddedAmount.getText())){
+			if(!inputCheck.isInputEmpty(savingAddedAmount.getText())) {
+				Saving editedSaving = controller.getSaving(savingGoalList.getValue());
+				Float oldAmount = editedSaving.getAmount();
+				Float difference = Float.parseFloat(savingAddedAmount.getText());
+				if(controller.updateBalanceAmount(0-difference)) {
+					editedSaving.setAmount(oldAmount+difference);
+					controller.updateSaving(editedSaving);
+				}
+				else {
+					inputCheck.alertNotEnoughBalance();
+				}
+				savingGoalList.getSelectionModel().clearSelection();
+				savingGoalAmount.setText("");
+				savingSavedAmount.setText("");
+				savingAddedAmount.clear();
+				initialize();
+			}
+			else {
+				inputCheck.alertInputEmpty();
+			}
+		}
+		else {
+			inputCheck.alertInputNotFloat();
+			
+		}
 	}
 }
