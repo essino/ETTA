@@ -25,7 +25,7 @@
             <Button mnemonicParsing="false" onAction="#deleteOutcome" text="%buttonRemove" />
         </buttons>
       </ButtonBar>
-      <Label layoutX="87.0" layoutY="598.0" text="Search" AnchorPane.leftAnchor="108.0" AnchorPane.topAnchor="587.0" />
+      <Label layoutX="87.0" layoutY="598.0" text="%labelSearch" AnchorPane.leftAnchor="108.0" AnchorPane.topAnchor="587.0" />
       <DatePicker fx:id="expenceStartDate" layoutX="66.0" layoutY="638.0" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="613.0" />
       <DatePicker fx:id="expenceEndDate" layoutX="307.0" layoutY="638.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="613.0" />
       <Label layoutX="260.0" layoutY="651.0" text="-" AnchorPane.bottomAnchor="116.0" AnchorPane.leftAnchor="290.0" />

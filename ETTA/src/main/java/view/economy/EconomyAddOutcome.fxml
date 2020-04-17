@@ -27,10 +27,10 @@
          <children>
             <Label text="%expenceLabelDescription" GridPane.rowIndex="1" />
             <Label text="%expenceLabelAmount" GridPane.rowIndex="2" />
-            <Label text="%labelDate" GridPane.rowIndex="3" />
+            <Label text="%expenceLabelDate" GridPane.rowIndex="3" />
             <TextField fx:id="outcomeDescription" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="outcomeAmount" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="Category" />
+            <Label text="%expenceLabelCategory" />
             <DatePicker fx:id="outcomeDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ComboBox fx:id="outcomeCategoryList" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" />
          </children>

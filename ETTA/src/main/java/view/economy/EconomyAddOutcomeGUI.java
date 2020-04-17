@@ -17,11 +17,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Category;
 import model.CategoryDAO;
+import res.MyBundle;
 
 /**
  * GUI class relating to the Expense adding section of economy page
  */
 public class EconomyAddOutcomeGUI {
+	
+	MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * The reference of InputCheck class used for checking user's input
@@ -168,6 +171,7 @@ public class EconomyAddOutcomeGUI {
 			controller.saveExpense();
 			AnchorPane outcomeView = null; 
 			FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyOutcome.fxml")); 
+			loaderOutcomeView .setResources(myBundle.getBundle());
 			try {
 				outcomeView = loaderOutcomeView.load();
 				} catch (IOException e) {
@@ -191,7 +195,8 @@ public class EconomyAddOutcomeGUI {
 	@FXML
 	public void cancelAdding() {
 		AnchorPane outcomeView = null; 
-		FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyOutcome.fxml")); 
+		FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyOutcome.fxml"));
+		loaderOutcomeView .setResources(myBundle.getBundle());
 		try {
 			outcomeView = loaderOutcomeView.load();
 		} catch (IOException e) {
