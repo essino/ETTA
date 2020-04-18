@@ -110,11 +110,11 @@ public class BorrowedReturnedTableGUI {
 			returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
 				public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 					if (borrowedThingDescr.getValue().isReturned() == true) {
-						//return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("yesYes")); 
-						return new ReadOnlyObjectWrapper<>("Yes");
+						return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("yesYes")); 
+						//return new ReadOnlyObjectWrapper<>("Yes");
 					} else {
-						//return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
-						return new ReadOnlyObjectWrapper<>("No");
+						return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
+						//return new ReadOnlyObjectWrapper<>("No");
 					}
 				}});
 			ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
