@@ -2,7 +2,9 @@ package view.borrowed;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.function.Predicate;
 
 import controller.BorrowedController;
@@ -33,6 +35,9 @@ import res.MyBundle;
 public class BorrowedReturnedTableGUI {
 	
 		static MyBundle myBundle = new MyBundle();
+		
+		Locale locale = Locale.getDefault();
+	    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
 	
 		/**
 		 * the controller for Borrowed things
@@ -110,7 +115,7 @@ public class BorrowedReturnedTableGUI {
 			//essin muutoksia 18.4.
 			loanDate.setCellFactory(column -> {
 		        TableCell<BorrowedThing, Date> cell = new TableCell<BorrowedThing, Date>() {
-		            private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+		           // private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 
 		            @Override
 		            protected void updateItem(Date item, boolean empty) {
@@ -119,8 +124,8 @@ public class BorrowedReturnedTableGUI {
 		                    setText(null);
 		                }
 		                else {
-		                    this.setText(format.format(item));
-
+		                    //this.setText(format.format(item));
+		                	setText(df.format(item));
 		                }
 		            }
 		        };
@@ -132,8 +137,8 @@ public class BorrowedReturnedTableGUI {
 			//essin 18.4.
 			returnDate.setCellFactory(column -> {
 		        TableCell<BorrowedThing, Date> cell = new TableCell<BorrowedThing, Date>() {
-		            private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-		            
+		        	// private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+
 		            @Override
 		            protected void updateItem(Date item, boolean empty) {
 		                super.updateItem(item, empty);
@@ -141,8 +146,8 @@ public class BorrowedReturnedTableGUI {
 		                    setText(null);
 		                }
 		                else {
-		                    this.setText(format.format(item));
-
+		                    //this.setText(format.format(item));
+		                	setText(df.format(item));
 		                }
 		            }
 		        };

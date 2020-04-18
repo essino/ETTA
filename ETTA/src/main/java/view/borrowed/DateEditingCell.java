@@ -1,6 +1,7 @@
 package view.borrowed;
 
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Locale;
@@ -25,22 +26,23 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
     /**
 	 * MyBundle object for formatting the dates in cells
 	 */
-    private static MyBundle myBundle = new MyBundle();
+    //private static MyBundle myBundle = new MyBundle();
     
     /**
 	 * new format object for Finnish date formatting
 	 */
-    private static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+    //private static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
     
     /**
 	 * new format object for international date formatting
 	 */
-    private static SimpleDateFormat formatI = new SimpleDateFormat("dd/MM/yyyy");
+    //private static SimpleDateFormat formatI = new SimpleDateFormat("dd/MM/yyyy");
 
     
     //changes language into English  
     //private final Locale myLocale = Locale.getDefault(Locale.Category.FORMAT);
-    //Locale locale = Locale.getDefault();
+    Locale locale = Locale.getDefault();
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
     
     
     /**
@@ -92,14 +94,14 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
                 setText(null);
                 setGraphic(datePicker);
             } else {
-            	//setText(getDate().toString());
+            	setText(df.format(getDate()));
             	//formats the date in the cell 
             	//System.out.println("We're the kids in a locale " + locale);
-            	if (myBundle.getBundle().getBaseBundleName().equals("res.TextResources_en_GB")) {
+            	/*if (myBundle.getBundle().getBaseBundleName().equals("res.TextResources_en_GB")) {
             		setText(formatI.format(getDate()));
             	} else {
             		setText(format.format(getDate()));
-            	}
+            	}*/
             	setGraphic(null);
                 
             }
