@@ -2,6 +2,7 @@ package view.borrowed;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.function.Predicate;
 
 import controller.BorrowedController;
@@ -31,7 +32,7 @@ import res.MyBundle;
 
 public class BorrowedReturnedTableGUI {
 	
-		MyBundle myBundle = new MyBundle();
+		static MyBundle myBundle = new MyBundle();
 	
 		/**
 		 * the controller for Borrowed things
@@ -106,7 +107,49 @@ public class BorrowedReturnedTableGUI {
 			borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
 			borrowedBy.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("person"));
 			loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
+			//essin muutoksia 18.4.
+			loanDate.setCellFactory(column -> {
+		        TableCell<BorrowedThing, Date> cell = new TableCell<BorrowedThing, Date>() {
+		            private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+
+		            @Override
+		            protected void updateItem(Date item, boolean empty) {
+		                super.updateItem(item, empty);
+		                if(empty) {
+		                    setText(null);
+		                }
+		                else {
+		                    this.setText(format.format(item));
+
+		                }
+		            }
+		        };
+
+		        return cell;
+		    });
+			
 			returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
+			//essin 18.4.
+			returnDate.setCellFactory(column -> {
+		        TableCell<BorrowedThing, Date> cell = new TableCell<BorrowedThing, Date>() {
+		            private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+		            
+		            @Override
+		            protected void updateItem(Date item, boolean empty) {
+		                super.updateItem(item, empty);
+		                if(empty) {
+		                    setText(null);
+		                }
+		                else {
+		                    this.setText(format.format(item));
+
+		                }
+		            }
+		        };
+
+		        return cell;
+		    });
+			
 			returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
 				public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 					if (borrowedThingDescr.getValue().isReturned() == true) {

@@ -2,6 +2,7 @@ package view.borrowed;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import controller.BorrowedController;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -33,7 +34,7 @@ import controller.InputCheck;
  */
 public class BorrowedTableGUI {
 	
-	MyBundle myBundle = new MyBundle();
+	static MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * the controller for Borrowed things
@@ -99,7 +100,7 @@ public class BorrowedTableGUI {
 	 * Default cell factory for inline editing of cells containing dates
 	 */
 	Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
-
+	
 	/**
 	 * Method that shows all the borrowed items
 	 * @param event either Borrowed Things tab or Borrowed Items button is pushed

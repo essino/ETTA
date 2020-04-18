@@ -29,8 +29,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
  */
 public class BorrowedGUI {
 
-	MyBundle myBundle = new MyBundle();
-	ResourceBundle resourceBundle = myBundle.getBundle();
+	static MyBundle myBundle = new MyBundle();
 	
 	
 	/**
@@ -64,7 +63,7 @@ public class BorrowedGUI {
 	public void showBorrowedSearch(ActionEvent event) {
 		AnchorPane borrowedSearch = null;
 		FXMLLoader loaderBorrowedSearch  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedSearch.fxml"));
-		loaderBorrowedSearch.setResources(resourceBundle);
+		loaderBorrowedSearch.setResources(myBundle.getBundle());
 		try {
 			borrowedSearch = loaderBorrowedSearch.load();
 			} catch (IOException e) {
@@ -81,7 +80,7 @@ public class BorrowedGUI {
 	public void showBorrowedView(ActionEvent event) {
 		AnchorPane borrowedView = null;
 		FXMLLoader loaderBorrowedView = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml"));
-		loaderBorrowedView.setResources(resourceBundle);
+		loaderBorrowedView.setResources(myBundle.getBundle());
 		try {
 			borrowedView = loaderBorrowedView.load();
 			} catch (IOException e) {
@@ -98,7 +97,7 @@ public class BorrowedGUI {
 	public void showBorrowedAdd(ActionEvent event) {
 		AnchorPane borrowedAdd = null;
 		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedAdd.fxml"));
-		loaderBorrowedAdd.setResources(resourceBundle);
+		loaderBorrowedAdd.setResources(myBundle.getBundle());
 		try {
 				borrowedAdd = loaderBorrowedAdd.load();
 			} catch (IOException e) { 
@@ -116,7 +115,7 @@ public class BorrowedGUI {
 	public void showReturned(ActionEvent event) {
 		AnchorPane borrowedReturned = null;
 		FXMLLoader loaderBorrowedReturned = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedReturnedView.fxml"));
-		loaderBorrowedReturned.setResources(resourceBundle);
+		loaderBorrowedReturned.setResources(myBundle.getBundle());
 		try {
 			borrowedReturned = loaderBorrowedReturned.load();
 			} catch (IOException e) {

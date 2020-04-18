@@ -1,10 +1,15 @@
 package view.borrowed;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import model.BorrowedThing;
+import res.MyBundle;
 
 /**
  * Class used for inline editing of dates
@@ -17,15 +22,33 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
 	 */
     private DatePicker datePicker;
     
+    /**
+	 * MyBundle object for formatting the dates in cells
+	 */
+    private static MyBundle myBundle = new MyBundle();
+    
+    /**
+	 * new format object for Finnish date formatting
+	 */
+    private static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+    
+    /**
+	 * new format object for international date formatting
+	 */
+    private static SimpleDateFormat formatI = new SimpleDateFormat("dd/MM/yyyy");
+
+    
     //changes language into English  
     //private final Locale myLocale = Locale.getDefault(Locale.Category.FORMAT);
+    //Locale locale = Locale.getDefault();
+    
     
     /**
      * Constructor for the date editing cell
      */
     public DateEditingCell() {
     }
-
+    
     /**
      * Method for beginning date editing
      */
@@ -45,7 +68,6 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
     @Override
     public void cancelEdit() {
         super.cancelEdit();
-        //onko tässä jotain
         setText(getDate().toString());
         setGraphic(null);
     }
@@ -70,8 +92,16 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
                 setText(null);
                 setGraphic(datePicker);
             } else {
-                setText(getDate().toString());
-                setGraphic(null);
+            	//setText(getDate().toString());
+            	//formats the date in the cell 
+            	//System.out.println("We're the kids in a locale " + locale);
+            	if (myBundle.getBundle().getBaseBundleName().equals("res.TextResources_en_GB")) {
+            		setText(formatI.format(getDate()));
+            	} else {
+            		setText(format.format(getDate()));
+            	}
+            	setGraphic(null);
+                
             }
         }
     }
@@ -90,7 +120,6 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
         });
     }
 
-    //TÄMÄ EI TOIMI OIKEIN: ERI TAVALLA RETURNED JA BORROWED SIVUILLA
     /**
      * Method for beginning date editing
      * @return Date the value of the date picker. If there is no value, the current date is added

@@ -30,8 +30,7 @@ import javafx.scene.control.TextField;
  */
 public class BorrowedAddGUI {
 	
-	MyBundle myBundle = new MyBundle();
-	ResourceBundle resourceBundle = myBundle.getBundle();
+	static MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * PersonDAO used for accessing the database
@@ -183,7 +182,7 @@ public class BorrowedAddGUI {
 				controller.saveBorrowedThing();
 				AnchorPane borrowedviewanchorpane = null; 
 				FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml")); 
-				loaderBorrowedView.setResources(resourceBundle);
+				loaderBorrowedView.setResources(myBundle.getBundle());
 				try {
 					borrowedviewanchorpane = loaderBorrowedView.load();
 				} catch (IOException e) {
@@ -206,7 +205,7 @@ public class BorrowedAddGUI {
 	public void cancelAddBorrowed() {
 		AnchorPane borrowedviewanchorpane = null; 
 		FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml")); 
-		loaderBorrowedView.setResources(resourceBundle);
+		loaderBorrowedView.setResources(myBundle.getBundle());
 		try {
 			borrowedviewanchorpane = loaderBorrowedView.load();
 		} catch (IOException e) {
