@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.Optional;
 
+import controller.CalendarController;
 import controller.ContactsController;
 import controller.InputCheck;
 import javafx.collections.FXCollections;
@@ -64,6 +65,8 @@ public class ContactsTableGUI {
       private TableColumn<Person, String> contactsAddress;
       
      ContactsController controller = new ContactsController(this); 
+     
+     CalendarController calendarController = new CalendarController();
  	/**
  	 * The reference of InputCheck class used for checking user's input
  	 */
@@ -93,8 +96,13 @@ public class ContactsTableGUI {
 					@Override
 					public void handle(CellEditEvent<Person, String> t) {
 						Person editedPerson = ((Person) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+						String oldName = editedPerson.getName();
 						editedPerson.setName(t.getNewValue());
 						controller.updatePerson(editedPerson);
+						//updating birthday event
+						if(editedPerson.getBirthday()!=null) {
+							calendarController.updateBirthday(oldName, editedPerson.getName());
+						}
 						contactsTable.refresh();
 					}});
   		
@@ -102,10 +110,10 @@ public class ContactsTableGUI {
   		contactsBirthday.setOnEditCommit(
 				(TableColumn.CellEditEvent<Person, Date> t) -> {
 				Person editedPerson = ((Person) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-				System.out.println("new date " + t.getNewValue());
+				Date oldDate = editedPerson.getBirthday();
 				editedPerson.setBirthday(t.getNewValue());
 				controller.updatePerson(editedPerson);
-				System.out.println("new date in person " + editedPerson.getBirthday());
+				calendarController.updateBirthday(editedPerson.getName(), oldDate, editedPerson.getBirthday());
 				contactsTable.refresh();
 				}	
 			);	

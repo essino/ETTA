@@ -305,5 +305,32 @@ public class EventDAO {
 		return deleted;
 	}
 	
+	public Event readBirthday(String name) {
+		Event event =null;
+		try {
+			session = HibernateUtil.getSessionFactory(test).openSession();
+			session.beginTransaction();
+			List<Event> result;
+			result = session.createQuery( "from Event  e where e.title='" + name + "' and calendar='birthdays'").getResultList();
+			System.out.println("result " + result.toString());
+			try  {
+				event = result.get(0);
+			}
+			catch(IndexOutOfBoundsException e) {
+				System.out.println("Ei löydy listalta.");
+			}
+			session.getTransaction().commit();
+			
+		}
+		catch(Exception e){
+			if (transaction!=null) transaction.rollback();
+			throw e;
+		}
+		finally {
+			session.close();
+		}
+		return event;
+	}
+	
 	
 }

@@ -189,4 +189,36 @@ public class CalendarController {
 			
 		 return calendarSource;
 	 }
+
+	 //update birthday event if name changes
+		public void updateBirthday(String oldName, String newName) {
+			Event birthdayEvent = eventDAO.readBirthday(oldName);
+			birthdayEvent.setTitle(newName);
+			eventDAO.updateEvent(birthdayEvent);
+		}
+		//update birthday event if date changes
+		public void updateBirthday(String name, Date oldDate, Date birthday) {
+			Event birthdayEvent = eventDAO.readBirthday(name);
+			//there was a birthday event already
+			if(birthdayEvent!=null) {
+				birthdayEvent.setStartDate(birthday);
+				birthdayEvent.setEndDate(birthday);
+				eventDAO.updateEvent(birthdayEvent);
+			}
+			//no event before, let's create it
+			else {
+				int lastEvent = eventDAO.readEvents().length; 
+				int lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();
+				birthdayEvent = new Event();
+				birthdayEvent.setTitle(name);
+				birthdayEvent.setEvent_id(lastEventId+1);
+				birthdayEvent.setCalendar("birthdays");
+				birthdayEvent.setStartDate(birthday);
+				birthdayEvent.setEndDate(birthday);
+				birthdayEvent.setFullday(true);
+				birthdayEvent.setRecurring(true);
+				birthdayEvent.setRrule("RRULE:FREQ=YEARLY;");
+				eventDAO.createEvent(birthdayEvent);
+			}
+		}
 }
