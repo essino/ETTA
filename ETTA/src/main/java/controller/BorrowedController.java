@@ -15,6 +15,7 @@ import model.EventDAO;
 import view.borrowed.BorrowedAddGUI;
 import view.borrowed.BorrowedGUI;
 import view.borrowed.BorrowedReturnedTableGUI;
+import view.borrowed.BorrowedSearchGUI;
 import view.borrowed.BorrowedTableGUI;
 
 
@@ -74,6 +75,8 @@ public class BorrowedController {
 	 */ 
 	private BorrowedReturnedTableGUI returnedGUI;
 	
+	private BorrowedSearchGUI searchGUI;
+	
 	/**
 	 * Constructor to create controller for BorrowedThings
 	 *@param gui the general gui for BorrowedThing
@@ -111,6 +114,14 @@ public class BorrowedController {
 	 */
 	public BorrowedController(BorrowedReturnedTableGUI returnedGUI) {
 		this.returnedGUI = returnedGUI;
+	}
+	
+	/**
+	 * Constructor to create controller for BorrowedThings
+	 *@param returnedGUI the gui for showing returned items
+	 */
+	public BorrowedController(BorrowedSearchGUI searchGUI) {
+		this.searchGUI = searchGUI;
 	}
 	
 	/** 
@@ -162,15 +173,11 @@ public class BorrowedController {
 	 * Method for deleting a borrowed thing from the database
 	 */ 
 	public void removeBorrowedThing() {
-		
-		
 			BorrowedThing thing = tableGUI.getSelectedBorrowedThing();
 			String description = tableGUI.getSelectedBorrowedThing().getDescription();
 			deleteBorrowedEvent(description); //deletes the borrowed event 
 			borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
 			//tableGUI.removeFromBorrowedTable(thing); //tätä ei kyllä taideta tarvita, aiheuttaa exceptionin
-
-		
 	}
 	
 	//added 3/4/2020 by Essi :)
@@ -186,8 +193,6 @@ public class BorrowedController {
 		} catch(NullPointerException e) {
 			System.out.println("No returned item selected.");
 		}
-		
-		
 	}
 	
 	/** 
@@ -204,7 +209,6 @@ public class BorrowedController {
 		} catch (NullPointerException e) {
 			System.out.println("No item selected.");
 		}
-		
 	}
 	
 	public void changeReturnedToBorrowed() {
@@ -228,8 +232,6 @@ public class BorrowedController {
 		} catch (NullPointerException e) {
 			System.out.println("No item selected.");
 		}
-		
-		
 	}
 	
 	//deletes borrowed event
@@ -245,7 +247,6 @@ public class BorrowedController {
 		} catch(NullPointerException e) {
 			System.out.println("No borrowing event to delete");
 		}
-		
 	}
 	
 	//updates the return date in the borrowed event

@@ -103,6 +103,7 @@ public class BorrowedReturnedTableGUI {
 		 */
 		@FXML
 		public void initialize() {
+			System.out.println("Aputulostus");
 			MyBundle myBundle = new MyBundle();
 			
 			//for setting the right formatting for dates in table cells

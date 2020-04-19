@@ -1,10 +1,13 @@
 package view.borrowed;
 
-import java.io.IOException;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ResourceBundle;
+import java.text.DateFormat;
+import java.util.Locale;
+
+import org.controlsfx.control.textfield.TextFields;
+
 import controller.BorrowedController;
+import controller.InputCheck;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,12 +16,12 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -27,13 +30,9 @@ import javafx.util.Callback;
 import model.BorrowedThing;
 import model.Person;
 import res.MyBundle;
-import controller.InputCheck;
 
-/**
- * GUI class in charge of the view showing the list of borrowed items
- */
-public class BorrowedTableGUI {
-	
+public class BorrowedSearchGUI {
+
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
@@ -45,16 +44,16 @@ public class BorrowedTableGUI {
 	BorrowedController controller;
 	
 	/**
-	 * The anchorpane for the overall view of borrowed things
+	 * The anchorpane for the overall view of returned things
 	 */
 	@FXML
-	AnchorPane borrowedviewanchorpane;
+	AnchorPane borrowedsearchanchorpane;
 	
 	/**
-	 * The TableView for viewing all borrowed things
+	 * The TableView for viewing all returned items
 	 */
 	@FXML
-	private TableView<BorrowedThing> borrowedTable;
+	private TableView<BorrowedThing> borrowedSearchTable;
 	
 	/**
 	 * The TableColumn that shows the items' names
@@ -87,10 +86,18 @@ public class BorrowedTableGUI {
 	@FXML
 	private TableColumn<BorrowedThing, String> returned;
 	
+	//returned changed from boolean to String
+	/**
+	 * The TableColumn that shows if the item has been returned
+	 */
+	@FXML
+	private TextField input;
+		
+	
 	/**
 	 * A constructor for BorrowedTableGUI in which the controller object is created
 	 */
-	public BorrowedTableGUI() {
+	public BorrowedSearchGUI() {
 		controller = new BorrowedController(this);
 	}
 
@@ -99,39 +106,20 @@ public class BorrowedTableGUI {
 	 */
 	InputCheck inputCheck = new InputCheck(); 
 	
-	/**
-	 * Default cell factory for inline editing of cells containing dates
-	 */
 	Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
-	
-	/**
-	 * Method that shows all the borrowed items
-	 * @param event either Borrowed Things tab or Borrowed Items button is pushed
-	 */
-	@FXML
-	public void showBorrowedAdd(ActionEvent event) {
-		AnchorPane showBorrowedAdd = null;
-		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedAdd.fxml"));
-		loaderBorrowedAdd.setResources(myBundle.getBundle());
-		try {
-			showBorrowedAdd = loaderBorrowedAdd.load();
-			} catch (IOException e) {
-			e.printStackTrace();
-			}
-		//shows the loaded fxml file
-		borrowedviewanchorpane.getChildren().setAll(showBorrowedAdd);
-	}
 
 	/**
 	 * Initialize-method called when the class is created
-	 * Fetches the list of borrowed items in the database 
+	 * Fetches the list of returned items in the database 
 	 * Also allows for inline editing of the borrowed items on the list
 	 */
 	@FXML
 	public void initialize() {
-		borrowedTable.setEditable(true);
+		System.out.println("We don't need no education!");
+		
+		//borrowedSearchTable.setEditable(true);
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
-		borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
+		/*borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
 		borrowedThingDescr.setOnEditCommit(
 			new EventHandler<CellEditEvent<BorrowedThing, String>>(){
 				@Override
@@ -142,10 +130,10 @@ public class BorrowedTableGUI {
 					editedBorrowedThing.setDescription(t.getNewValue());
 					controller.updateBorrowedThing(editedBorrowedThing);
 					controller.updateBorrowedEventTitle(oldDescription);
-					borrowedTable.refresh();
-				}});
+					borrowedSearchTable.refresh();
+				}});*/
 		borrowedBy.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("person"));
-		borrowedBy.setCellFactory(ComboBoxTableCell.<BorrowedThing, String>forTableColumn(controller.personsList()));
+		/*borrowedBy.setCellFactory(ComboBoxTableCell.<BorrowedThing, String>forTableColumn(controller.personsList()));
 		borrowedBy.setOnEditCommit(
 				new EventHandler<CellEditEvent<BorrowedThing, String>>() {
 					@Override
@@ -155,10 +143,10 @@ public class BorrowedTableGUI {
 						Person newPerson = controller.findPerson(newName);
 						editedBorrowedThing.setPerson(newPerson);
 						controller.updateBorrowedThing(editedBorrowedThing);
-						borrowedTable.refresh();
-					}});
+						borrowedSearchTable.refresh();
+					}});*/
 		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
-		loanDate.setCellFactory(dateCellFactory);
+		/*loanDate.setCellFactory(dateCellFactory);
 		loanDate.setOnEditCommit(
                 (TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
                     BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
@@ -174,10 +162,10 @@ public class BorrowedTableGUI {
     					editedBorrowedThing.setDateBorrowed(tempRDate);
     					controller.updateBorrowedThing(editedBorrowedThing);
                     }
-                    borrowedTable.refresh();
-                });
+                    borrowedSearchTable.refresh();
+                });*/
 		returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
-		returnDate.setCellFactory(dateCellFactory);
+		/*returnDate.setCellFactory(dateCellFactory);
 		returnDate.setOnEditCommit(
 			(TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
 				BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
@@ -196,8 +184,8 @@ public class BorrowedTableGUI {
 					controller.updateBorrowedThing(editedBorrowedThing);
 					controller.updateReturnDate(editedBorrowedThing);
 				}
-				borrowedTable.refresh();
-			});
+				borrowedSearchTable.refresh();
+			});*/
 		returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
 			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 				if (borrowedThingDescr.getValue().isReturned() == true) {
@@ -208,10 +196,18 @@ public class BorrowedTableGUI {
 					//return new ReadOnlyObjectWrapper<>("No");
 				}
 			}});
-		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
-		FilteredList<BorrowedThing> filteredData = new FilteredList<>(data,
-	            s -> !s.isReturned());
-		borrowedTable.setItems(filteredData);
+		
+		BorrowedThing[] borrowedThings = controller.getBorrowedThings();
+		String[] possibleWords = new String[borrowedThings.length];
+		for (int i = 0; i < borrowedThings.length; i++) {
+			possibleWords[i] = borrowedThings[i].getDescription();
+		}
+		TextFields.bindAutoCompletion(input, possibleWords);
+		
+		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(borrowedThings);
+		/*FilteredList<BorrowedThing> filteredData = new FilteredList<>(data,
+	            s -> !s.isReturned());*/
+		borrowedSearchTable.setItems(data);
 	}
 	
 	/**
@@ -220,49 +216,55 @@ public class BorrowedTableGUI {
 	 */
 	@FXML
 	public BorrowedThing getSelectedBorrowedThing() {
-		return borrowedTable.getSelectionModel().getSelectedItem();
+		return borrowedSearchTable.getSelectionModel().getSelectedItem();
 	}
 	
 	/**
 	 * Method for deleting the selected borrowed thing from the database
 	 */
-	@FXML
-	public void deleteSelectedBorrowedThing() {
+	/*@FXML
+	public void deleteSelectedReturnedThing() {
 		if (inputCheck.confirmDeleting()) {
-			controller.removeBorrowedThing();
+			controller.removeReturnedThing();
 			initialize();
 		}
-	}
+	}*/
 	
 	/** 
 	 * Method that removes an item from the table
 	 * @param borrowedThing the borrowed item to be removed
 	 */
-	public void removeFromBorrowedTable(BorrowedThing borrowedThing) {
-		try {
-			borrowedTable.getItems().remove(borrowedThing);
-		} catch (Exception e) {
-			System.out.println("Nothing to remove");
-		}
-	}
+	/*public void removeFromBorrowedTable(BorrowedThing borrowedThing) {
+		borrowedReturnedTable.getItems().remove(borrowedThing);
+	}*/
 	
 	/** 
 	 * Method that marks an event as returned
 	 */
-	@FXML
+	/*@FXML
 	public void markAsReturned() {
-		if (inputCheck.confirmReturn()) {
-			controller.markReturned();
-			initialize();
-		}
+		controller.markReturned();
+		initialize();
+	}*/
+	
+	/** 
+	 * Method that changes an item's status from returned to borrowed again
+	 */
+	/*@FXML
+	public void makeReturnedBorrowed() {
+		controller.changeReturnedToBorrowed();
+		initialize();
+	}*/
+	
+	public void searchBorrowedThing(ActionEvent event) {
+		String value = input.getText();
+		System.out.println("Input " + value);
+		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
+		FilteredList<BorrowedThing> filteredData = new FilteredList<>(data,
+	            s -> ((s.getDescription())).equals(value));
+		borrowedSearchTable.setItems(filteredData);
 	}
 	
-} 
-
-
-	
-	
-	
-	
+}
 	
 
