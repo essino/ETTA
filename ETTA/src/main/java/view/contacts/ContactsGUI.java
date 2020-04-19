@@ -12,6 +12,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import res.MyBundle;
 
 /**
  * GUI class relating to the Contacts items section
@@ -48,6 +49,8 @@ public class ContactsGUI {
 	@FXML
 	DatePicker personBirthday;
 	
+	MyBundle myBundle = new MyBundle();
+	
 	/**
 	 * The reference of InputCheck class used for checking user's input
 	 */
@@ -69,6 +72,7 @@ public class ContactsGUI {
 	public void showSearchView(ActionEvent event) {
 		AnchorPane contactsSearchView = null;
 		FXMLLoader loaderContactsSearchView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsSearch.fxml"));
+		loaderContactsSearchView.setResources(myBundle.getBundle());
 		try {
 			contactsSearchView = loaderContactsSearchView.load();
 			} catch (IOException e) {
@@ -86,6 +90,7 @@ public class ContactsGUI {
 	public void showContactsView(ActionEvent event) {
 		AnchorPane contactsView = null;
 		FXMLLoader loaderContactsView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsView.fxml"));
+		loaderContactsView.setResources(myBundle.getBundle());
 		try {
 			contactsView = loaderContactsView.load();
 			} catch (IOException e) {
@@ -111,6 +116,7 @@ public class ContactsGUI {
 				controller.savePerson();
 				AnchorPane contactsView = null; 
 				FXMLLoader loaderContactsView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsView.fxml")); 
+				loaderContactsView.setResources(myBundle.getBundle());
 				try {
 					contactsView = loaderContactsView.load();
 				} catch (IOException e) {
@@ -156,6 +162,7 @@ public class ContactsGUI {
 	public void cancelAdding() {
 		AnchorPane contactsView = null; 
 		FXMLLoader loaderContactsView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsView.fxml")); 
+		loaderContactsView.setResources(myBundle.getBundle());
 		try {
 			contactsView = loaderContactsView.load();
 		} catch (IOException e) {

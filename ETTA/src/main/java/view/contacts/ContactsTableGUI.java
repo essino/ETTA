@@ -24,6 +24,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import model.Person;
+import res.MyBundle;
 
 public class ContactsTableGUI {
 	
@@ -67,6 +68,8 @@ public class ContactsTableGUI {
  	 * The reference of InputCheck class used for checking user's input
  	 */
  	InputCheck inputCheck = new InputCheck();
+ 	
+ 	MyBundle myBundle = new MyBundle();
   	
  	Callback<TableColumn<Person, Date>, TableCell<Person, Date>> dateCellFactory = (TableColumn<Person, Date> param) -> new ContactsDateEditingCell();
   	/** 
@@ -126,6 +129,7 @@ public class ContactsTableGUI {
 	public void showAddContact(ActionEvent event) {
 		AnchorPane showAddContactView = null; 
 		FXMLLoader loaderAddContactView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsAdd.fxml")); 
+		loaderAddContactView.setResources(myBundle.getBundle());
 		try {
 			showAddContactView = loaderAddContactView.load();
 			} catch (IOException e) {

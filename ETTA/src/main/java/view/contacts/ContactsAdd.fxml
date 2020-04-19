@@ -26,22 +26,22 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="35.0" prefWidth="293.0" text="Person">
+            <Label prefHeight="35.0" prefWidth="293.0" text="%contactsPerson">
                <GridPane.margin>
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Email" GridPane.rowIndex="1">
+            <Label text="%contactsEmail" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Address" GridPane.rowIndex="2">
+            <Label text="%contactsAddress" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Birthday" GridPane.rowIndex="3">
+            <Label text="%contactsBirthday" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
@@ -58,12 +58,12 @@
       </GridPane>
       <ButtonBar layoutX="697.0" layoutY="672.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="54.0">
         <buttons>
-          <Button fx:id="personAdd" mnemonicParsing="false" onAction="#saveNewPerson" text="Add">
+          <Button mnemonicParsing="false" onAction="#saveNewPerson" text="%buttonAdd">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="personCancel" mnemonicParsing="false" onAction="#cancelAdding" text="Cancel">
+            <Button mnemonicParsing="false" onAction="#cancelAdding" text="%buttonCancel">
                <font>
                   <Font size="18.0" />
                </font>

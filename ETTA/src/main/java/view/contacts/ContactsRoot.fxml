@@ -9,8 +9,8 @@
       <VBox prefHeight="750.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             
-            <Button  mnemonicParsing="false" onAction="#showContactsView" prefHeight="125.0" prefWidth="200.0" text="Contacts" />
-            <Button mnemonicParsing="false" onAction="#showSearchView" prefHeight="125.0" prefWidth="200.0" text="Search" />
+            <Button  mnemonicParsing="false" onAction="#showContactsView" prefHeight="125.0" prefWidth="200.0" text="%buttonContacts" />
+            <Button mnemonicParsing="false" onAction="#showSearchView" prefHeight="125.0" prefWidth="200.0" text="%buttonSearch" />
          </children>
       </VBox>
    </left>
