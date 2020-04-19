@@ -338,5 +338,26 @@ public class BorrowedController {
 	public Person findPerson(String name) {
 		return personDAO.readPerson(name);
 	}
+
+	//updating borrowed event if person changes
+	public void updateBorrowedEventPerson(Person oldPerson, BorrowedThing editedBorrowedThing) {
+		String oldEvent = oldPerson.getName() + " should return " + editedBorrowedThing.getDescription();
+		Event event = findBorrowedEvent(oldEvent);
+		if (event!=null) {
+			event.setTitle(editedBorrowedThing.getPerson().getName() + " should return " + editedBorrowedThing.getDescription());
+			eventDAO.updateEvent(event);
+		}
+		
+	}
+	
+	/** 
+	 * Method for finding the borrowed event based on the name of the event
+	 * @param description the name of the event, the event of which is being searched for
+	 */
+	public Event findBorrowedEvent(String description) {
+		Event loanEvent = eventDAO.readBorrowed(description);
+		return loanEvent;
+	}
+	
 }
 

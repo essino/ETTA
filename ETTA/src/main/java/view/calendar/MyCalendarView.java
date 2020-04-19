@@ -14,6 +14,7 @@ public class MyCalendarView extends CalendarView{
 
 	public CalendarView getMyCalendarView() {
 		CalendarView calendarView  = new CalendarView();
+		System.out.println("new calendar");
 		calendarView.setShowAddCalendarButton(false);
 		if(myBundle.getBundle().getString("language").equals("fi")) {
 			calendarView.setWeekFields(WeekFields.of(DayOfWeek.MONDAY,1));

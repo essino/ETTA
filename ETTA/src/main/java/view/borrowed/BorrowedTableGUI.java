@@ -151,10 +151,12 @@ public class BorrowedTableGUI {
 					@Override
 					public void handle(CellEditEvent<BorrowedThing, String> t) {
 						BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+						Person oldPerson = editedBorrowedThing.getPerson();
 						String newName = t.getNewValue();
 						Person newPerson = controller.findPerson(newName);
 						editedBorrowedThing.setPerson(newPerson);
 						controller.updateBorrowedThing(editedBorrowedThing);
+						controller.updateBorrowedEventPerson(oldPerson, editedBorrowedThing);
 						borrowedTable.refresh();
 					}});
 		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
