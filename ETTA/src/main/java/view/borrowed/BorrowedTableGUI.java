@@ -34,7 +34,10 @@ import controller.InputCheck;
  */
 public class BorrowedTableGUI {
 	
-	static MyBundle myBundle = new MyBundle();
+	/**
+	 * MyBundle object for setting the right resource bundle to localize the application
+	 */
+	MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * the controller for Borrowed things
@@ -181,7 +184,7 @@ public class BorrowedTableGUI {
 						.get(t.getTablePosition().getRow()));
 				java.sql.Date tempReturnDate = t.getNewValue();
 				java.sql.Date tempLDate = editedBorrowedThing.getDateBorrowed();
-				System.out.println("This is the rhythm of the loan date " + tempLDate);
+				//System.out.println("This is the rhythm of the loan date " + tempLDate);
 				if(inputCheck.dateCheck(tempLDate, tempReturnDate)) {
 					editedBorrowedThing.setReturnDate(tempReturnDate);
 					controller.updateBorrowedThing(editedBorrowedThing);

@@ -3,7 +3,6 @@ package view.borrowed;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.function.Predicate;
 
@@ -33,12 +32,7 @@ import model.Person;
 import res.MyBundle;
 
 public class BorrowedReturnedTableGUI {
-	
-		static MyBundle myBundle = new MyBundle();
 		
-		Locale locale = Locale.getDefault();
-	    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-	
 		/**
 		 * the controller for Borrowed things
 		 */
@@ -99,24 +93,31 @@ public class BorrowedReturnedTableGUI {
 		 */
 		InputCheck inputCheck = new InputCheck(); 
 		
+		//not needed because returned items are not editable
 		//Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
 
 		/**
 		 * Initialize-method called when the class is created
 		 * Fetches the list of returned items in the database 
-		 * Also allows for insline editing of the borrowed items on the list
+		 * Also allows for inline editing of the borrowed items on the list
 		 */
 		@FXML
 		public void initialize() {
+			MyBundle myBundle = new MyBundle();
+			
+			//for setting the right formatting for dates in table cells
+			Locale locale = Locale.getDefault();
+    	    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+    	    
 			borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
 			borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
 			borrowedBy.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("person"));
 			loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
-			//essin muutoksia 18.4.
+			//for setting the right formatting for dates in table cells
 			loanDate.setCellFactory(column -> {
 		        TableCell<BorrowedThing, Date> cell = new TableCell<BorrowedThing, Date>() {
 		           // private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-
+		        	
 		            @Override
 		            protected void updateItem(Date item, boolean empty) {
 		                super.updateItem(item, empty);
@@ -134,11 +135,9 @@ public class BorrowedReturnedTableGUI {
 		    });
 			
 			returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
-			//essin 18.4.
+			//for setting the right formatting for dates in table cells
 			returnDate.setCellFactory(column -> {
 		        TableCell<BorrowedThing, Date> cell = new TableCell<BorrowedThing, Date>() {
-		        	// private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-
 		            @Override
 		            protected void updateItem(Date item, boolean empty) {
 		                super.updateItem(item, empty);
@@ -146,12 +145,10 @@ public class BorrowedReturnedTableGUI {
 		                    setText(null);
 		                }
 		                else {
-		                    //this.setText(format.format(item));
 		                	setText(df.format(item));
 		                }
 		            }
 		        };
-
 		        return cell;
 		    });
 			

@@ -24,26 +24,14 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
     private DatePicker datePicker;
     
     /**
-	 * MyBundle object for formatting the dates in cells
+	 * Default locale
 	 */
-    //private static MyBundle myBundle = new MyBundle();
-    
-    /**
-	 * new format object for Finnish date formatting
-	 */
-    //private static SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-    
-    /**
-	 * new format object for international date formatting
-	 */
-    //private static SimpleDateFormat formatI = new SimpleDateFormat("dd/MM/yyyy");
-
-    
-    //changes language into English  
-    //private final Locale myLocale = Locale.getDefault(Locale.Category.FORMAT);
     Locale locale = Locale.getDefault();
-    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
     
+    /**
+	 * DateFormat for localizing the dates
+	 */
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
     
     /**
      * Constructor for the date editing cell
@@ -94,14 +82,8 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
                 setText(null);
                 setGraphic(datePicker);
             } else {
+            	//formats the date
             	setText(df.format(getDate()));
-            	//formats the date in the cell 
-            	//System.out.println("We're the kids in a locale " + locale);
-            	/*if (myBundle.getBundle().getBaseBundleName().equals("res.TextResources_en_GB")) {
-            		setText(formatI.format(getDate()));
-            	} else {
-            		setText(format.format(getDate()));
-            	}*/
             	setGraphic(null);
                 
             }

@@ -30,7 +30,10 @@ import javafx.scene.control.TextField;
  */
 public class BorrowedAddGUI {
 	
-	static MyBundle myBundle = new MyBundle();
+	/**
+	 * MyBundle object for setting the right resource bundle to localize the application
+	 */
+	MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * PersonDAO used for accessing the database

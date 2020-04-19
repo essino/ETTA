@@ -29,8 +29,10 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
  */
 public class BorrowedGUI {
 
-	static MyBundle myBundle = new MyBundle();
-	
+	/**
+	 * MyBundle object for setting the right resource bundle to localize the application
+	 */
+	MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * The menu view to which the alternative views in the Borrowed items section are added
