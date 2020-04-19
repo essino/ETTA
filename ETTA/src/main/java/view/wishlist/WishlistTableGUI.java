@@ -3,6 +3,7 @@ package view.wishlist;
 import java.io.IOException;
 import java.sql.Date;
 
+import controller.CalendarController;
 import controller.InputCheck;
 import controller.WishlistController;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -38,6 +39,8 @@ public class WishlistTableGUI {
 	 * Reference to the used WishlistController
 	 */
 	WishlistController controller = new WishlistController(this);
+	
+	CalendarController calendarController = new CalendarController();
 	
 	/**
 	 * The anchor pane view from where adding, editing and deleting can be started
@@ -121,8 +124,10 @@ public class WishlistTableGUI {
 					@Override
 					public void handle(CellEditEvent<Item, String> t) {
 						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+						String oldDescription = editedItem.getDescription();
 						editedItem.setDescription(t.getNewValue());
 						controller.updateItem(editedItem);
+						calendarController.updateWishlistDescription(oldDescription, editedItem);
 						wishlisttable.refresh();
 					}});
 
@@ -133,10 +138,12 @@ public class WishlistTableGUI {
 					@Override
 					public void handle(CellEditEvent<Item, String> t) {
 						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+						String oldName = editedItem.getPerson().getName();
 						String newName = t.getNewValue();
 						Person newPerson = controller.findPerson(newName);
 						editedItem.setPerson(newPerson);
 						controller.updateItem(editedItem);
+						calendarController.updateWishlistPerson(oldName, editedItem);
 						wishlisttable.refresh();
 					}});
 					
@@ -169,8 +176,10 @@ public class WishlistTableGUI {
 				(TableColumn.CellEditEvent<Item, Date> t) -> {
 				Item editedItem = ((Item) t.getTableView().getItems()
 	            .get(t.getTablePosition().getRow()));
+				Date oldDate = editedItem.getDateNeeded();
 				editedItem.setDateNeeded(t.getNewValue());
 				controller.updateItem(editedItem);
+				calendarController.updateWishlistDate(oldDate, editedItem);
 				wishlisttable.refresh();
 				}	
 			);	

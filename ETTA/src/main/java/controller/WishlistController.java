@@ -143,7 +143,7 @@ public class WishlistController {
 			wishlistEvent.setTitle("Buy " + addGui.getItemDesc() + " for " + addGui.getItemPerson());
 			wishlistEvent.setLocation(null);
 			wishlistEvent.setRecurring(false);
-			wishlistEvent.setCalendar("default");
+			wishlistEvent.setCalendar("wishlist");
 			eventDAO.createEvent(wishlistEvent); 
 		}
 	}
