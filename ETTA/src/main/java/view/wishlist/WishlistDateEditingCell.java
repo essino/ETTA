@@ -1,6 +1,7 @@
 package view.wishlist;
 
 import java.sql.Date;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.Locale;
 
@@ -10,12 +11,20 @@ import model.Item;
 
 public class WishlistDateEditingCell extends TableCell<Item, java.sql.Date> {
 	
-private DatePicker datePicker;
+	private DatePicker datePicker;
     
-    //changes language into English
-    //private final Locale myLocale = Locale.getDefault(Locale.Category.FORMAT);
+	/**
+	 * Default locale
+	 */
+	Locale locale = Locale.getDefault();
+
+	/**
+	 * DateFormat for localizing the dates
+	 */
+	DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
     
     public WishlistDateEditingCell() {
+    	
     }
 
     @Override
@@ -51,7 +60,7 @@ private DatePicker datePicker;
                 setText(null);
                 setGraphic(datePicker);
             } else {
-                setText(getDate().toString());
+            	setText(df.format(getDate()));
                 setGraphic(null);
             }
         }

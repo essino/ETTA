@@ -17,11 +17,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Person;
 import model.PersonDAO;
+import res.MyBundle;
 
 /**
  * GUI class relating to the wishlist add section
  */
 public class WishlistAddGUI {
+	
+	MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * Text field for the name of the item to be added
@@ -95,7 +98,7 @@ public class WishlistAddGUI {
 	                        setText(null);
 	                    } else {
 	                        if (item.isEmpty()) {
-	                            setText("Add person...");
+	                            setText(myBundle.getBundle().getString("addPerson"));
 	                        } else {
 	                            setText(item);
 	                        }
@@ -106,7 +109,7 @@ public class WishlistAddGUI {
 	            cell.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
 	                if (cell.getItem().isEmpty() && ! cell.isEmpty()) {
 	                    TextInputDialog dialog = new TextInputDialog();
-	                    dialog.setContentText("Enter name");
+	                    dialog.setContentText(myBundle.getBundle().getString("enterName"));
 	                    dialog.showAndWait().ifPresent(text -> {
 	                    	personDAO.createPerson(new Person(text));
 	                        int index = toWhom.getItems().size()-1;
@@ -184,6 +187,7 @@ public class WishlistAddGUI {
 				controller.saveItem();
 				AnchorPane wishlistView = null; 
 				FXMLLoader loaderWishlistView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistView.fxml")); 
+				loaderWishlistView.setResources(myBundle.getBundle());
 				try {
 					wishlistView = loaderWishlistView.load();
 				} catch (IOException e) {
@@ -206,6 +210,7 @@ public class WishlistAddGUI {
 	public void cancelAdd() {
 		AnchorPane wishlistView = null; 
 		FXMLLoader loaderWishlistView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistView.fxml")); 
+		loaderWishlistView.setResources(myBundle.getBundle());
 		try {
 			wishlistView = loaderWishlistView.load();
 		} catch (IOException e) {

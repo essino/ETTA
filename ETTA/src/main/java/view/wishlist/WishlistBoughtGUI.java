@@ -22,6 +22,7 @@ import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import javafx.util.converter.DoubleStringConverter;
 import model.Item;
@@ -103,6 +104,7 @@ public class WishlistBoughtGUI {
 	@FXML
 	public void initialize() {
 		wishlisttable.setEditable(true);
+		wishlisttable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
 		item.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
 		item.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
 		item.setOnEditCommit(
@@ -133,9 +135,9 @@ public class WishlistBoughtGUI {
 		bought.setCellValueFactory(new Callback<CellDataFeatures<Item, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Item, String> item) {
 				if (item.getValue().isBought() == true) {
-					return new ReadOnlyObjectWrapper<>("Yes");
+					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("yesYes"));
 				} else {
-					return new ReadOnlyObjectWrapper<>("No");
+					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
 				}
 					
 			}

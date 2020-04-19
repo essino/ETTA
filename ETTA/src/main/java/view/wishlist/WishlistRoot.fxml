@@ -10,22 +10,22 @@
       <VBox prefHeight="750.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#showAll" prefHeight="125.0" prefWidth="200.0" text="All Items">
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#showAll" prefHeight="125.0" prefWidth="200.0" text="%wishlistAllItems">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="136.0" mnemonicParsing="false" onAction="#showOwn" prefHeight="125.0" prefWidth="200.0" text="My Shopping List">
+            <Button layoutX="10.0" layoutY="136.0" mnemonicParsing="false" onAction="#showOwn" prefHeight="125.0" prefWidth="200.0" text="%wishlistMyItems">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="261.0" mnemonicParsing="false" onAction="#showGifts" prefHeight="125.0" prefWidth="200.0" text="Gifts">
+            <Button layoutX="10.0" layoutY="261.0" mnemonicParsing="false" onAction="#showGifts" prefHeight="125.0" prefWidth="200.0" text="%wishlistGifts">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="387.0" mnemonicParsing="false" onAction="#showBought" prefHeight="125.0" prefWidth="200.0" text="Bought Items">
+            <Button layoutX="10.0" layoutY="387.0" mnemonicParsing="false" onAction="#showBought" prefHeight="125.0" prefWidth="200.0" text="%wishlistBoughtItems">
                <font>
                   <Font size="18.0" />
                </font>

@@ -28,7 +28,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="35.0" prefWidth="293.0" text="What do you want to buy?">
+            <Label prefHeight="35.0" prefWidth="293.0" text="%wishlistLabelItem">
                <font>
                   <Font size="24.0" />
                </font>
@@ -36,7 +36,7 @@
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Who is it for?" GridPane.rowIndex="1">
+            <Label text="%wishlistLabelPerson" GridPane.rowIndex="1">
                <font>
                   <Font size="24.0" />
                </font>
@@ -44,7 +44,7 @@
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
             </Label>
-            <Label text="What does it cost?" GridPane.rowIndex="2">
+            <Label text="%wishlistLabelPrice" GridPane.rowIndex="2">
                <font>
                   <Font size="24.0" />
                </font>
@@ -52,7 +52,7 @@
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
             </Label>
-            <Label text="When do you need it?" GridPane.rowIndex="3">
+            <Label text="%wishlistLabelDate" GridPane.rowIndex="3">
                <font>
                   <Font size="24.0" />
                </font>
@@ -67,7 +67,7 @@
             </TextField>
             <TextField fx:id="price" prefHeight="65.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <DatePicker fx:id="date" prefHeight="65.0" prefWidth="555.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label prefHeight="35.0" prefWidth="293.0" text="Additional Information" GridPane.rowIndex="4">
+            <Label prefHeight="35.0" prefWidth="293.0" text="%wishlistLabelInfo" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
@@ -79,14 +79,14 @@
             <ComboBox fx:id="toWhom" prefHeight="65.0" prefWidth="578.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <ButtonBar layoutX="697.0" layoutY="672.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="54.0">
+      <ButtonBar layoutX="697.0" layoutY="672.0" prefHeight="40.0" prefWidth="254.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="54.0">
         <buttons>
-          <Button  mnemonicParsing="false" onAction="#addNewItem" text="Add">
+          <Button mnemonicParsing="false" onAction="#addNewItem" prefHeight="39.0" text="%buttonAdd">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#cancelAdd" text="Cancel">
+            <Button mnemonicParsing="false" onAction="#cancelAdd" prefHeight="39.0" text="%buttonCancel">
                <font>
                   <Font size="18.0" />
                </font>
