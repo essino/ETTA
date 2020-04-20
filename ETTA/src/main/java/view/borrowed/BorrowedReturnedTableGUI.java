@@ -26,6 +26,7 @@ import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import model.BorrowedThing;
 import model.Person;
@@ -103,13 +104,14 @@ public class BorrowedReturnedTableGUI {
 		 */
 		@FXML
 		public void initialize() {
+			
 			System.out.println("Aputulostus");
 			MyBundle myBundle = new MyBundle();
 			
 			//for setting the right formatting for dates in table cells
 			Locale locale = Locale.getDefault();
     	    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-    	    
+    	    borrowedReturnedTable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
 			borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
 			borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
 			borrowedBy.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("person"));

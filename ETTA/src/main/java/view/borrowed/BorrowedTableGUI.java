@@ -23,6 +23,7 @@ import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import model.BorrowedThing;
 import model.Person;
@@ -130,6 +131,7 @@ public class BorrowedTableGUI {
 	@FXML
 	public void initialize() {
 		borrowedTable.setEditable(true);
+		borrowedTable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
 		borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
 		borrowedThingDescr.setOnEditCommit(

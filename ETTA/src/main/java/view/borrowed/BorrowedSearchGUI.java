@@ -26,6 +26,7 @@ import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import model.BorrowedThing;
 import model.Person;
@@ -116,7 +117,7 @@ public class BorrowedSearchGUI {
 	@FXML
 	public void initialize() {
 		System.out.println("We don't need no education!");
-		
+		borrowedSearchTable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
 		//borrowedSearchTable.setEditable(true);
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
 		/*borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
