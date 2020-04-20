@@ -25,7 +25,7 @@ public class HibernateUtil {
 				StandardServiceRegistry registry = null;
 				try {
 					// Create registry
-					registry = new StandardServiceRegistryBuilder().configure("ETTA/src/main/java/hibernate-test.cfg.xml").build();
+					registry = new StandardServiceRegistryBuilder().configure("hibernate-test.cfg.xml").build();
 					// Create SessionFactory
 					testFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 				} catch (Exception e) {
