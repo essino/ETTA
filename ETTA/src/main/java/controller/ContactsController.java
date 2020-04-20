@@ -143,9 +143,17 @@ public class ContactsController {
 	public void deletePersonAndEvents() {
 		Person personToDelete = conTableGUI.personToDelete();
 		for(BorrowedThing bt : borrowedDAO.readBorrowedThingsByPerson(personToDelete.getPerson_id())) {
+			Event event = eventDAO.readBorrowed(bt.getPerson().getName() + " should return " + bt.getDescription());
+			if (event!=null) {
+				eventDAO.deleteEvent(event.getEvent_id());
+			}
 			borrowedDAO.deleteBorrowedThing(bt.getThing_id());
 		}
 		for(Item i : wishlistDAO.readItemsByPerson(personToDelete.getPerson_id())) {
+			Event event2 = eventDAO.readWishlistEvent("Buy " + i.getDescription() + " for " + i.getPerson().getName());
+			if(event2!=null) {
+				eventDAO.deleteEvent(event2.getEvent_id());
+			}
 			wishlistDAO.deleteItem(i.getItem_id());
 		}
 		deletePerson();

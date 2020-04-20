@@ -18,6 +18,7 @@ import com.calendarfx.model.Calendar.Style;
 
 import model.Event;
 import model.EventDAO;
+import model.Item;
 
 /** 
  * Controller class for the calendar.  
@@ -196,6 +197,7 @@ public class CalendarController {
 			birthdayEvent.setTitle(newName);
 			eventDAO.updateEvent(birthdayEvent);
 		}
+		
 		//update birthday event if date changes
 		public void updateBirthday(String name, Date oldDate, Date birthday) {
 			Event birthdayEvent = eventDAO.readBirthday(name);
@@ -220,5 +222,40 @@ public class CalendarController {
 				birthdayEvent.setRrule("RRULE:FREQ=YEARLY;");
 				eventDAO.createEvent(birthdayEvent);
 			}
+		}
+
+		//update wishlist event if item description changes
+		public void updateWishlistDescription(String oldDescription, Item editedItem) {
+			String oldEvent = "Buy " + oldDescription + " for " + editedItem.getPerson().getName();
+			System.out.println("old wishlist event" + oldEvent);
+			Event wishlistEvent = eventDAO.readWishlistEvent(oldEvent);
+			if(wishlistEvent != null) {
+				wishlistEvent.setTitle("Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName());
+				eventDAO.updateEvent(wishlistEvent);
+			}
+			
+		}
+
+		//update wishlist event if person changes
+		public void updateWishlistPerson(String oldName, Item editedItem) {
+			String oldEvent = "Buy " + editedItem.getDescription() + " for " + oldName;
+			Event wishlistEvent = eventDAO.readWishlistEvent(oldEvent);
+			if(wishlistEvent != null) {
+				wishlistEvent.setTitle("Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName());
+				eventDAO.updateEvent(wishlistEvent);
+			}
+			
+		}
+
+		//update wishlist event if date changes
+		public void updateWishlistDate(Date oldDate, Item editedItem) {
+			String event = "Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName();
+			Event wishlistEvent = eventDAO.readWishlistEvent(event);
+			if(wishlistEvent != null) {
+				wishlistEvent.setStartDate(editedItem.getDateNeeded());
+				wishlistEvent.setEndDate(editedItem.getDateNeeded());
+				eventDAO.updateEvent(wishlistEvent);
+			}
+			
 		}
 }
