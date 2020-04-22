@@ -181,7 +181,7 @@ public class CategoryConnectedDAOTest {
 		assertEquals(0, categoryDAO.readIncomeCategories().length, "Deleting all incomes failed");
 		assertEquals(0, categoryDAO.readExpenseCategories().length, "Deleting all expenses failed");
 	}
-	
+	/*
 	@Test
 	@Order(16)
 	public void readSavings() {
@@ -192,5 +192,5 @@ public class CategoryConnectedDAOTest {
 		//saving.setDescription("Prahan matka");
 		//assertEquals(true, economyController.updateSaving(saving), "Updating saving failed");
 		assertEquals(true, savingDAO.deleteSaving(1), "Deleting 1 failed");
-	}
+	}*/
 }
