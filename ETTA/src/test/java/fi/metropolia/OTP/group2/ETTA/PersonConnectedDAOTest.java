@@ -5,10 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.util.TimeZone;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+
+import controller.ContactsController;
+import controller.WishlistController;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -29,6 +32,9 @@ class PersonConnectedDAOTest {
 	private ItemDAO itemDAO = new ItemDAO(true);
 	private BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO(true);
 	private static EventDAO eventDAO = new EventDAO(true);
+	
+	private ContactsController contactsController = new ContactsController(personDAO);
+	private WishlistController wishlistController = new WishlistController(itemDAO, personDAO);
 	
 	private static Date bday1 = Date.valueOf("1997-06-17");
 	private static Date bday2 = Date.valueOf("1980-11-04");
@@ -79,13 +85,15 @@ class PersonConnectedDAOTest {
 		assertEquals(true, personDAO.createPerson(lena), "Creation of person failed");
 	}
 	
+	
 	@Test
 	@Order(2)
 	public void testReadPerson() {
 		assertEquals(name, personDAO.readPerson(1).getName(), "Reading one failed (name)");
 		//assertEquals(bday1, personDAO.readPerson(1).getBirthday(), "Reading one failed (bday)");
 		assertEquals(email, personDAO.readPerson(1).getEmail(), "Reading one failed (email)");
-	}
+		assertEquals(true, contactsController.checkIfPersonexists(name), "Reading one failed (controller)");
+	} 
 	
 	@Test
 	@Order(3)
@@ -93,6 +101,7 @@ class PersonConnectedDAOTest {
 		//assertEquals(bday1, personDAO.readPerson(name).getBirthday(), "Reading one with name failed (bday)");
 		assertEquals(email, personDAO.readPerson(name).getEmail(), "Reading one with name failed (email)");
 		assertEquals(null, personDAO.readPerson("Elena"), "Reading with a name that doesn't exitst failed");
+		assertEquals(name, wishlistController.findPerson(name).getName(), "Reading one with name failed (controller)");
 	}
 	
 	@Test
@@ -100,6 +109,8 @@ class PersonConnectedDAOTest {
 	public void testReadPeople() {
 		assertEquals(3, personDAO.readPeople().length, "Reading all failed (1)");
 		//assertEquals(2, personDAO.readPeople().length, "Reading all failed (2)");
+		assertEquals(3, contactsController.getPeople().length, "Reading allfailed (contacts controller)");
+		assertEquals(3, wishlistController.personsList().size(), "Reading allfailed (wishlist controller)");
 	}
 	
 	@Test
@@ -142,6 +153,7 @@ class PersonConnectedDAOTest {
 		assertEquals(1, itemDAO.readItems().length, "Reading all failed");
 		assertEquals(true, itemDAO.createItem(item2), "Creation of item2 failed");
 		assertEquals(2, itemDAO.readItems().length, "Reading all failed");
+		assertEquals(2, wishlistController.getItems().length, "Reading all failed(controller)");
 	}
 
 	@Test
@@ -154,8 +166,9 @@ class PersonConnectedDAOTest {
 	@Order(11)
 	public void testReadOwnItems() {
 		assertEquals(0, itemDAO.readOwnItems().length, "Reading all own items failed");
-		assertEquals(true, itemDAO.createItem(item3), "Creation of item failed");
+		assertEquals(true, itemDAO.createItem(item3), "Creation of item failed"); 
 		assertEquals(1, itemDAO.readOwnItems().length, "Reading all own items failed");
+		assertEquals(1, wishlistController.getOwnItems().length, "Reading all own items failed(controller)");
 	}
 
 	@Test
@@ -164,6 +177,7 @@ class PersonConnectedDAOTest {
 		assertEquals(0, itemDAO.readItemsByBought(true).length, "Reading all bought items failed");
 		assertEquals(true, itemDAO.createItem(item4), "Creation of item failed");
 		assertEquals(1, itemDAO.readItemsByBought(true).length, "Reading all bought items failed");
+		assertEquals(1, wishlistController.getBoughtItems(true).length, "Reading all bought items failed(controller)");
 	}
 
 	@Test

@@ -71,20 +71,26 @@ public class WishlistController {
 		
 	}
 
+	//constructor used for tests
+	public WishlistController(ItemDAO itemDAO2, PersonDAO personDAO2) {
+		this.itemDAO = itemDAO2;
+		this.personDAO = personDAO2;
+	}
+
 	/**
 	 * Method for fetching all the wishlist items from the database
 	 * @return Item[] array containing all the wishlist items from the database
 	 */
 	public Item[] getItems() {
 		return itemDAO.readItems();
-	}
+	} 
 	
 	/**
 	 * Method for fetching all own items from the database
 	 * @return Item[] array containing the wishlist items from the database
 	 */
 	public Item[] getOwnItems() {
-		return itemDAO.readOwnItems();
+		return itemDAO.readOwnItems(); 
 	}
 	
 	/**

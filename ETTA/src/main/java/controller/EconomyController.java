@@ -57,7 +57,7 @@ public class EconomyController {
 	/**
 	 * TransferDAO used for accessing the database
 	 */
-	private TransferDAO transDAO = new TransferDAO();
+	private TransferDAO transDAO = new TransferDAO(); 
 	/**
 	 * CategoryDAO used for accessing the database
 	 */
@@ -231,6 +231,17 @@ public class EconomyController {
 		this.economySavingGUI = economySavingsGUI;
 	}
 
+	//constructor used for tests
+	public EconomyController(CategoryDAO categoryDAO2, TransferDAO transferDAO) {
+		this.categoryDAO = categoryDAO2;
+		this.transDAO = transferDAO; 
+	}
+
+	//constructor used for tests
+	public EconomyController(BalanceDAO balanceDAO2) {
+		this.balanceDao = balanceDAO2;
+	}
+
 	/** 
 	 * Method that gets balance amount from BalanceDAO and gives it forward to BalanceOverviewGUI to display it on the page 
 	 */ 
@@ -246,7 +257,7 @@ public class EconomyController {
 	
 	/** 
 	 * Method that gets balance amount from BalanceOverviewGUI  and gives it forward to BalanceDAO  to update in the database. 
-	 * @param amount float amount of the new balance
+	 * @param amount float amount of the new balance 
 	 */
 	public void updateBalance(float amount) {
 		Balance balance = new Balance(1, amount);

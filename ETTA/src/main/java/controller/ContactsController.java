@@ -121,6 +121,10 @@ public class ContactsController {
 		this.conTableGUI = contactsTableGUI;
 	}
 	
+	public ContactsController(PersonDAO personDAO) {
+		this.perDAO= personDAO;
+	}
+
 	/** 
 	 * Method that checks if a Person is used in Borrowed Things or in Wishlist
 	 * @return true if contact is used somewhere

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import controller.EconomyController;
 import model.Balance;
 import model.BalanceDAO;
 
@@ -16,8 +17,11 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 public class BalanceDAOTest {
 
 	private BalanceDAO balanceDAO = new BalanceDAO(true);
+	private EconomyController controller = new EconomyController(balanceDAO);
+	
 	private Balance balance = new Balance(100);
-	private int id = 1;
+	private int id = 1; 
+	
 	
 	@Test
 	@Order(1)
@@ -29,6 +33,7 @@ public class BalanceDAOTest {
 	@Order(2)
 	public void testReadBalance() {
 		assertEquals(100, balanceDAO.readBalance(id).getBalance(), "Reading failed");
+		assertEquals(true, controller.enoughBalance(50), "Reading failed (controller)");
 	}
 	
 	@Test

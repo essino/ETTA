@@ -8,6 +8,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+
+import controller.EconomyController;
+
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 import model.Category;
@@ -21,6 +24,7 @@ public class CategoryConnectedDAOTest {
 	private static CategoryDAO categoryDAO = new CategoryDAO(true);
 	private static TransferDAO transferDAO = new TransferDAO(true);
 	
+	private EconomyController economyController = new EconomyController(categoryDAO, transferDAO);
 	
 	private static String catDesc = "lottery";
 	private static boolean catIncome = true;
@@ -65,13 +69,14 @@ public class CategoryConnectedDAOTest {
 	@Order(4)
 	public void testReadIncomeCategories() {
 		assertEquals(2, categoryDAO.readIncomeCategories().length, "Reading all income categories failed");
-	
+		assertEquals(2, economyController.incomeCategoriesList().size(), "Reading all income categories failed (controller)");
 	}
 	
 	@Test
 	@Order(5)
 	public void testreadExpenseCategories() {
 		assertEquals(1, categoryDAO.readExpenseCategories().length, "Reading all expense categories failed");
+		assertEquals(1, economyController.expenseCategoriesList().size(), "Reading all expense categories failed(controller");
 	}
 	
 	@Test
@@ -118,6 +123,7 @@ public class CategoryConnectedDAOTest {
 	@Order(11)
 	public void testReadExpenses() {
 		assertEquals(2, transferDAO.readExpenses().length, "Reading expenses failed");
+		assertEquals(2, economyController.getExpenses().length, "Reading expenses failed (controller)");
 	}
 	
 	@Test
@@ -125,12 +131,13 @@ public class CategoryConnectedDAOTest {
 	public void testReadIncome() {
 		assertEquals(true, transferDAO.createTransfer(transfer3), "Creation of transfer failed");
 		assertEquals(1, transferDAO.readIncome().length, "Reading incomes failed");
+		assertEquals(1, economyController.getIncomes().length, "Reading incomes failed(controller)");
 	}
 	
 	@Test
 	@Order(13)
 	public void testUpdateTransfer() {
-		Transfer updatedTransfer = transferDAO.readTransfer(1);
+		Transfer updatedTransfer = transferDAO.readTransfer(1); 
 		updatedTransfer.setDate(Date.valueOf("2020-02-11"));
 		assertEquals(true, transferDAO.updateTransfer(updatedTransfer), "Updating failed");
 		//assertEquals(Date.valueOf("2020-02-11"), transferDAO.readTransfer(1).getDate(), "Date updating failed");
@@ -148,7 +155,7 @@ public class CategoryConnectedDAOTest {
 	@Test
 	@Order(15)
 	public void testDeleteCategory() {
-		assertEquals(true, categoryDAO.deleteCategory(1), "Deleting 1 failed");
+		assertEquals(true, categoryDAO.deleteCategory(1), "Deleting 1 failed"); 
 		assertEquals(true, categoryDAO.deleteCategory(2), "Deleting 2 failed");
 		assertEquals(true, categoryDAO.deleteCategory(3), "Deleting 3 failed");
 		assertEquals(0, categoryDAO.readIncomeCategories().length, "Deleting all incomes failed");
