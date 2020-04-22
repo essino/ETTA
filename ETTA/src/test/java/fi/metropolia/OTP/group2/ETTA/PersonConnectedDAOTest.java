@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.TimeZone;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -66,8 +67,10 @@ class PersonConnectedDAOTest {
 	
 	@BeforeAll
 	public static void createPerson() {
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 		personDAO.createPerson(tiina);
 		personDAO.createPerson(risto);
+		
 	}
 	
 	@Test
