@@ -67,7 +67,7 @@ class PersonConnectedDAOTest {
 	
 	@BeforeAll
 	public static void createPerson() {
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC+3"));
 		personDAO.createPerson(tiina);
 		personDAO.createPerson(risto);
 		
