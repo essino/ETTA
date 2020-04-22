@@ -202,12 +202,20 @@ public class EconomySavingsGUI {
 	}
 	
 	/** 
-	 * Method that tells controller to delete a saving
+	 * Method that tells economy controller to delete a saving
 	 */
 	@FXML
 	public void deleteSaving() {
 		if(inputCheck.confirmDeleting()) {
 			controller.removeSaving();
+		}
+	}
+	
+	@FXML
+	public void moveSavingToExspence() {
+		if(inputCheck.confirmSavingAchieved()) {
+			Saving achievedSaving = savingToDelete();
+			controller.moveSavingToExpense(achievedSaving);
 		}
 	}
 	

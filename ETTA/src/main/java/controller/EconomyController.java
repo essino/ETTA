@@ -357,15 +357,6 @@ public class EconomyController {
 	}
 	
 	/** 
-	 */ 
-	public void editExpense() {
-
-	}
-	
-
-	
-	
-	/** 
 	 * Method that gets Expenses from TransferDAO and makes a list containing expenses' details 
 	 * @return Transfer [] - list of expenses
 	 */ 
@@ -489,5 +480,44 @@ public class EconomyController {
 	public Saving getSaving(String description) {
 		Saving saving = savingDAO.getSaving(description);
 		return saving;
+	}
+
+	public void moveSavingToExpense(Saving achievedSaving) {
+		savingDAO.deleteSaving(achievedSaving.getSaving_id());
+
+		Category fromSaved = categoryDAO.readCategory("savings");
+		if(fromSaved==null) {
+			fromSaved = new Category();
+			fromSaved.setDescription("savings");
+			fromSaved.setCategory_type(true);
+			categoryDAO.createCategory(fromSaved);
+		}
+		
+		Transfer incomeFromSaved = new Transfer();
+		incomeFromSaved.setDescription(achievedSaving.getDescription());
+		incomeFromSaved.setAmount(achievedSaving.getAmount());
+		incomeFromSaved.setCategory(fromSaved);
+		incomeFromSaved.setIncome(true);
+		incomeFromSaved.setDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
+		
+		transDAO.createTransfer(incomeFromSaved);
+		
+		Category paidFromSaved = categoryDAO.readCategory("achieved saving goal");
+		if(paidFromSaved==null) {
+			paidFromSaved = new Category();
+			paidFromSaved.setDescription("achieved saving goal");
+			paidFromSaved.setCategory_type(true);
+			categoryDAO.createCategory(paidFromSaved);
+		}
+		
+		Transfer expenceFromSaved = new Transfer();
+		expenceFromSaved.setDescription(achievedSaving.getDescription());
+		expenceFromSaved.setAmount(0-achievedSaving.getAmount());
+		expenceFromSaved.setCategory(paidFromSaved);
+		expenceFromSaved.setIncome(false);
+		expenceFromSaved.setDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
+		
+		transDAO.createTransfer(expenceFromSaved);
+		economySavingGUI.removeFromTable(achievedSaving);
 	}
 }

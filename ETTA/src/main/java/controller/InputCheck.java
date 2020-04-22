@@ -151,6 +151,21 @@ public class InputCheck {
 		alert.showAndWait();
 		
 	}
+
+
+
+	public boolean confirmSavingAchieved() {
+		boolean delete = false;
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation");
+		alert.setHeaderText("This can't be undone.");
+		alert.setContentText("Are you sure you want to delete this from savings and move to expenses permanently?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.isPresent() && result.get() == ButtonType.OK) {
+			delete = true;
+		 }
+		return delete;
+	}
 }
 
 

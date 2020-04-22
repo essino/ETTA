@@ -23,6 +23,7 @@
       <ButtonBar layoutX="440.0" layoutY="716.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="300.0" AnchorPane.rightAnchor="28.0">
         <buttons>
           <Button mnemonicParsing="false" onAction="#showAddSavings" text="%buttonAdd" />
+           <Button mnemonicParsing="false" onAction="#moveSavingToExspence" text="%buttonSavingAchieved" />
             <Button mnemonicParsing="false" onAction="#deleteSaving" text="%buttonDelete" />
         </buttons>
       </ButtonBar>
