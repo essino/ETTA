@@ -65,9 +65,9 @@ class PersonConnectedDAOTest {
 	private Event event2 = new Event(2, "lounas", false, eventDate, eventDate, startTime, endTime, false, "", "default");
 	private Event event3 = new Event(3, "bileet", false, today, today, startTime, endTime, false, "", "default");
 	
+	
 	@BeforeAll
 	public static void createPerson() {
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC+3"));
 		personDAO.createPerson(tiina);
 		personDAO.createPerson(risto);
 		
