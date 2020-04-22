@@ -100,16 +100,16 @@ public class EconomyController {
 	 * 
 	 * Method for updating an Exepenses description
 	 */
-	public void updateOutcomeDesc(Transfer editedOutcomeDesc) {
-		transDAO.updateTransfer(editedOutcomeDesc);
+	public boolean updateOutcomeDesc(Transfer editedOutcomeDesc) {
+		return transDAO.updateTransfer(editedOutcomeDesc);
 	}
 	
 	/**
 	 * 
 	 * Method for updating an incomes description
 	 */
-	public void updateIncomeDesc(Transfer editedIncomeDesc) {
-		transDAO.updateTransfer(editedIncomeDesc);
+	public boolean updateIncomeDesc(Transfer editedIncomeDesc) {
+		return transDAO.updateTransfer(editedIncomeDesc);
 	}
 	
 	/**
@@ -146,16 +146,16 @@ public class EconomyController {
 	 * 
 	 * Method for updating an incomes date
 	 */
-	public void updateIncomeDate(Transfer editedIncomeDate) {
-		transDAO.updateTransfer(editedIncomeDate);
+	public boolean updateIncomeDate(Transfer editedIncomeDate) {
+		return transDAO.updateTransfer(editedIncomeDate);
 	}
 	
 	/**
 	 * 
 	 * Method for updating an exepenses date
 	 */
-	public void updateOutcomeDate(Transfer editedOutcomeDate) {
-		transDAO.updateTransfer(editedOutcomeDate);
+	public boolean updateOutcomeDate(Transfer editedOutcomeDate) {
+		return transDAO.updateTransfer(editedOutcomeDate);
 	}
 	
 	public void saveTransfer() {
@@ -232,15 +232,18 @@ public class EconomyController {
 	}
 
 	//constructor used for tests
-	public EconomyController(CategoryDAO categoryDAO2, TransferDAO transferDAO) {
+	public EconomyController(CategoryDAO categoryDAO2, TransferDAO transferDAO, SavingDAO savingDAO2) {
 		this.categoryDAO = categoryDAO2;
 		this.transDAO = transferDAO; 
+		this.savingDAO = savingDAO2;
 	}
 
 	//constructor used for tests
 	public EconomyController(BalanceDAO balanceDAO2) {
 		this.balanceDao = balanceDAO2;
 	}
+
+
 
 	/** 
 	 * Method that gets balance amount from BalanceDAO and gives it forward to BalanceOverviewGUI to display it on the page 
@@ -445,8 +448,8 @@ public class EconomyController {
 	}
 
 
-	public void updateSaving(Saving editedSavingDesc) {
-		savingDAO.updateSaving(editedSavingDesc);
+	public boolean updateSaving(Saving editedSavingDesc) {
+		return savingDAO.updateSaving(editedSavingDesc);
 	}
 	
 	/** 

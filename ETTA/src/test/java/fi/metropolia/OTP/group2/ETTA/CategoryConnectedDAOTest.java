@@ -15,6 +15,8 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 import model.Category;
 import model.CategoryDAO;
+import model.Saving;
+import model.SavingDAO;
 import model.Transfer;
 import model.TransferDAO;
 
@@ -23,8 +25,9 @@ public class CategoryConnectedDAOTest {
 	
 	private static CategoryDAO categoryDAO = new CategoryDAO(true);
 	private static TransferDAO transferDAO = new TransferDAO(true);
+	private static SavingDAO savingDAO = new SavingDAO(true);
 	
-	private EconomyController economyController = new EconomyController(categoryDAO, transferDAO);
+	private EconomyController economyController = new EconomyController(categoryDAO, transferDAO, savingDAO);
 	
 	private static String catDesc = "lottery";
 	private static boolean catIncome = true;
@@ -38,6 +41,12 @@ public class CategoryConnectedDAOTest {
 	private Transfer transfer = new Transfer(desc, cat1, false, date, amount);
 	private Transfer transfer2 = new Transfer("Ice cream", cat1, false, Date.valueOf("2020-03-21"), 3);
 	private Transfer transfer3 = new Transfer("Work", cat2, true, date, 2500);
+	
+	private String desc2 = "Kossin matka";
+	private float amountGoal = 2000f;
+	private float reachedGoal = 5f;
+	private Date date2 = Date.valueOf("2020-10-15");
+	private Saving kossinMatka = new Saving(desc2, amountGoal, reachedGoal, date2);
 
 	@BeforeAll
 	public static void createCategory() {
@@ -141,12 +150,23 @@ public class CategoryConnectedDAOTest {
 		updatedTransfer.setDate(Date.valueOf("2020-02-11"));
 		assertEquals(true, transferDAO.updateTransfer(updatedTransfer), "Updating failed");
 		//assertEquals(Date.valueOf("2020-02-11"), transferDAO.readTransfer(1).getDate(), "Date updating failed");
+		String newDesc = "food";
+		updatedTransfer.setDescription(newDesc);
+		assertEquals(true, economyController.updateOutcomeDesc(updatedTransfer), "Updating failed");
+		updatedTransfer.setDate(date);
+		assertEquals(true, economyController.updateOutcomeDate(updatedTransfer), "Updating failed");
+		Transfer updatedTransfer2 = transferDAO.readTransfer(3);
+		updatedTransfer2.setDescription("salary");
+		assertEquals(true, economyController.updateIncomeDesc(updatedTransfer2));
+		updatedTransfer2.setDate(date);
+		assertEquals(true, economyController.updateIncomeDate(updatedTransfer2), "Updating failed");
+		
 	}
 	
 	@Test
 	@Order(14)
 	public void testDeleteTransfer() {
-		assertEquals(true, transferDAO.deleteTransfer(1), "Deleting 1 failed");
+		assertEquals(true, transferDAO.deleteTransfer(1), "Deleting 1 failed"); 
 		assertEquals(true, transferDAO.deleteTransfer(2), "Deleting 2 failed");
 		assertEquals(true, transferDAO.deleteTransfer(3), "Deleting 3 failed");
 		assertEquals(0, transferDAO.readTransfers().length, "Deleting all failed");
@@ -161,5 +181,16 @@ public class CategoryConnectedDAOTest {
 		assertEquals(0, categoryDAO.readIncomeCategories().length, "Deleting all incomes failed");
 		assertEquals(0, categoryDAO.readExpenseCategories().length, "Deleting all expenses failed");
 	}
-
+	
+	@Test
+	@Order(16)
+	public void readSavings() {
+		assertEquals(true, savingDAO.createSaving(kossinMatka), "Creation of saving failed"); 
+		assertEquals(1, economyController.getSavingss().length, "Reading all failed");
+		assertEquals(1, economyController.getSavingsList().size(), "Reading all failed");
+		//Saving saving = savingDAO.readSaving(1);
+		//saving.setDescription("Prahan matka");
+		//assertEquals(true, economyController.updateSaving(saving), "Updating saving failed");
+		assertEquals(true, savingDAO.deleteSaving(1), "Deleting 1 failed");
+	}
 }

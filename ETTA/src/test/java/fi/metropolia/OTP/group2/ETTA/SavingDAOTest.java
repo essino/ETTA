@@ -7,6 +7,7 @@ import java.sql.Date;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 import model.Saving;
@@ -16,6 +17,7 @@ import model.SavingDAO;
 public class SavingDAOTest {
 
 	private SavingDAO savingDAO = new SavingDAO(true);
+
 	private String desc = "Kossin matka";
 	private float amountGoal = 2000f;
 	private float reachedGoal = 5f;
@@ -25,7 +27,7 @@ public class SavingDAOTest {
 	@Test
 	@Order(1)
 	public void testCreateSaving() {
-		assertEquals(true, savingDAO.createSaving(kossinMatka), "Creation of saving failed");
+		assertEquals(true, savingDAO.createSaving(kossinMatka), "Creation of saving failed"); 
 	}
 	
 	@Test
@@ -58,6 +60,12 @@ public class SavingDAOTest {
 	
 	@Test
 	@Order(5)
+	public void testReadSavingByDescription() {
+		assertEquals(amountGoal, (savingDAO.getSaving(desc).getGoalAmount()), "Reading 1 by description failed");
+	}
+	
+	@Test
+	@Order(6)
 	public void testDeleteSaving() {
 		assertEquals(true, savingDAO.deleteSaving(1), "Deleting 1 failed");
 		assertEquals(true, savingDAO.deleteSaving(2), "Deleting 2 failed");
