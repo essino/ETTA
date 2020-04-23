@@ -209,18 +209,7 @@ public class CalendarController {
 			}
 			//no event before, let's create it
 			else {
-				int lastEvent = eventDAO.readEvents().length; 
-				int lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();
-				birthdayEvent = new Event();
-				birthdayEvent.setTitle(name);
-				birthdayEvent.setEvent_id(lastEventId+1);
-				birthdayEvent.setCalendar("birthdays");
-				birthdayEvent.setStartDate(birthday);
-				birthdayEvent.setEndDate(birthday);
-				birthdayEvent.setFullday(true);
-				birthdayEvent.setRecurring(true);
-				birthdayEvent.setRrule("RRULE:FREQ=YEARLY;");
-				eventDAO.createEvent(birthdayEvent);
+				createBirthday(name, birthday);
 			}
 		}
 
@@ -257,5 +246,24 @@ public class CalendarController {
 				eventDAO.updateEvent(wishlistEvent);
 			}
 			
+		}
+		
+		public boolean createBirthday(String name, Date birthday) {
+			Event birthdayEvent = new Event();
+			int lastEvent = eventDAO.readEvents().length; 
+			int lastEventId =1;
+			if(lastEvent != 0 ) {
+				lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();
+			}
+			birthdayEvent = new Event();
+			birthdayEvent.setTitle(name);
+			birthdayEvent.setEvent_id(lastEventId+1);
+			birthdayEvent.setCalendar("birthdays");
+			birthdayEvent.setStartDate(birthday);
+			birthdayEvent.setEndDate(birthday);
+			birthdayEvent.setFullday(true);
+			birthdayEvent.setRecurring(true);
+			birthdayEvent.setRrule("RRULE:FREQ=YEARLY;");
+			return eventDAO.createEvent(birthdayEvent);
 		}
 }

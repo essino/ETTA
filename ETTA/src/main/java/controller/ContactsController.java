@@ -44,6 +44,8 @@ public class ContactsController {
 	 */
 	private ItemDAO wishlistDAO = new ItemDAO();
 	
+	private CalendarController calendarController = new CalendarController();
+	
 
 	/** 
 	 * Method that gets person details from ContactsGUI, 
@@ -61,19 +63,7 @@ public class ContactsController {
 		Boolean personCreate = perDAO.createPerson(person);
 		//if there's a birthday added to person details, create an yearly event 
 		if(personBirthday != null) {
-			int lastEvent = eventDAO.readEvents().length; 
-			int lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();
-			Event birthday = new Event();
-			birthday.setEvent_id(lastEventId+1);
-			birthday.setTitle(personName);
-			birthday.setLocation(null);
-			birthday.setStartDate(personBirthday);
-			birthday.setEndDate(personBirthday);
-			birthday.setFullday(true);
-			birthday.setRecurring(true);
-			birthday.setRrule("RRULE:FREQ=YEARLY;");
-			birthday.setCalendar("birthdays");
-			eventDAO.createEvent(birthday);
+			calendarController.createBirthday(personName, personBirthday);
 		}
 	}
 	
