@@ -201,60 +201,63 @@ public class CalendarController {
 	 }
 
 	 //update birthday event if name changes
-		public void updateBirthday(String oldName, String newName) {
+		public boolean updateBirthday(String oldName, String newName) {
 			Event birthdayEvent = eventDAO.readBirthday(oldName);
 			birthdayEvent.setTitle(newName);
-			eventDAO.updateEvent(birthdayEvent);
+			return eventDAO.updateEvent(birthdayEvent);
 		}
 		
 		//update birthday event if date changes
-		public void updateBirthday(String name, Date oldDate, Date birthday) {
+		public boolean updateBirthday(String name, Date oldDate, Date birthday) {
 			Event birthdayEvent = eventDAO.readBirthday(name);
 			//there was a birthday event already
 			if(birthdayEvent!=null) {
 				birthdayEvent.setStartDate(birthday);
 				birthdayEvent.setEndDate(birthday);
-				eventDAO.updateEvent(birthdayEvent);
+				return eventDAO.updateEvent(birthdayEvent);
 			}
 			//no event before, let's create it
 			else {
-				createBirthday(name, birthday);
+				return createBirthday(name, birthday);
 			}
 		}
 
 		//update wishlist event if item description changes
-		public void updateWishlistDescription(String oldDescription, Item editedItem) {
+		public boolean updateWishlistDescription(String oldDescription, Item editedItem) {
+			boolean updated = false;
 			String oldEvent = "Buy " + oldDescription + " for " + editedItem.getPerson().getName();
 			System.out.println("old wishlist event" + oldEvent);
 			Event wishlistEvent = eventDAO.readWishlistEvent(oldEvent);
 			if(wishlistEvent != null) {
 				wishlistEvent.setTitle("Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName());
-				eventDAO.updateEvent(wishlistEvent);
+				updated = eventDAO.updateEvent(wishlistEvent);
 			}
-			
+			return updated;
 		}
 
 		//update wishlist event if person changes
-		public void updateWishlistPerson(String oldName, Item editedItem) {
+		public boolean updateWishlistPerson(String oldName, Item editedItem) {
+			boolean updated = false;
 			String oldEvent = "Buy " + editedItem.getDescription() + " for " + oldName;
 			Event wishlistEvent = eventDAO.readWishlistEvent(oldEvent);
 			if(wishlistEvent != null) {
 				wishlistEvent.setTitle("Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName());
-				eventDAO.updateEvent(wishlistEvent);
+				updated = eventDAO.updateEvent(wishlistEvent);
 			}
-			
+			return updated;
 		}
 
 		//update wishlist event if date changes
-		public void updateWishlistDate(Date oldDate, Item editedItem) {
+		public boolean updateWishlistDate(Date oldDate, Item editedItem) {
+			boolean updated = false;
 			String event = "Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName();
 			Event wishlistEvent = eventDAO.readWishlistEvent(event);
 			if(wishlistEvent != null) {
 				wishlistEvent.setStartDate(editedItem.getDateNeeded());
 				wishlistEvent.setEndDate(editedItem.getDateNeeded());
-				eventDAO.updateEvent(wishlistEvent);
+				updated = eventDAO.updateEvent(wishlistEvent);
 			}
-			
+			return updated;
 		}
 		
 		public boolean createBirthday(String name, Date birthday) {

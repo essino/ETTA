@@ -75,6 +75,7 @@ class PersonConnectedDAOTest {
 	private Event event2 = new Event(2, "lounas", false, eventDate, eventDate, startTime, endTime, false, "", "default");
 	private Event event3 = new Event(3, "bileet", false, today, today, startTime, endTime, false, "", "default");
 	
+	private Item updatedItem;
 	
 	@BeforeAll
 	public static void createPerson() {
@@ -149,17 +150,30 @@ class PersonConnectedDAOTest {
 		assertEquals("wishlist", eventDAO.readWishlistEvent(wishlistEvent).getCalendar(), "Reading of wishlist event failed");
 	}
 	
-	
 	@Test
 	@Order(9)
+	public void testUpdateWishlistEvent() {
+		updatedItem = itemDAO.readItem(1);
+		updatedItem.setDateNeeded(returnDate);
+		assertEquals(true, calendarController.updateWishlistDate(dateNeeded, updatedItem), "Updating of wishlist event date failed");
+		updatedItem.setDescription(borrowedDesc);
+		assertEquals(true, calendarController.updateWishlistDescription(itemDesc, updatedItem), "Updating of wishlist event description failed");
+		updatedItem.setPerson(risto);
+		assertEquals(true, calendarController.updateWishlistPerson(tiina.getName(), updatedItem), "Updating of wishlist event name failed");
+		String wishlistEvent = "Buy " + updatedItem.getDescription() + " for " + updatedItem.getPerson().getName();
+		assertEquals(wishlistEvent, eventDAO.readWishlistEvent(wishlistEvent).getTitle(), "Reading of wishlist event failed");
+	}
+	
+	@Test
+	@Order(10)
 	public void testDeleteWishlListEvent() {
-		String wishlistEvent = "Buy " + item.getDescription() + " for " + item.getPerson().getName();
+		String wishlistEvent = "Buy " + borrowedDesc + " for " + risto.getName();
 		Event wlEvent = eventDAO.readWishlistEvent(wishlistEvent);
 		assertEquals(true, eventDAO.deleteEvent(wlEvent.getEvent_id()), "Deleting of wishlist event failed");
 	}
 	
 	@Test
-	@Order(10)
+	@Order(11)
 	public void testReadItem() {
 		assertEquals(itemDesc, itemDAO.readItem(1).getDescription(), "Reading one failed (description)");
 		assertEquals(price, itemDAO.readItem(1).getPrice(), "Reading one failed (price)");
@@ -168,7 +182,7 @@ class PersonConnectedDAOTest {
 	}
 
 	@Test
-	@Order(11)
+	@Order(12)
 	public void testReadItemWithDesc() {
 		assertEquals(price, itemDAO.readItem("Ystävänpäiväkortti").getPrice(), "Reading one with desc failed (price)");
 		//assertEquals(dateNeeded, itemDAO.readItem("Ystävänpäiväkortti").getDateNeeded(),"Reading one with desc failed (date)");
@@ -177,7 +191,7 @@ class PersonConnectedDAOTest {
 	}
 
 	@Test
-	@Order(12)
+	@Order(13)
 	public void testReadItems() {
 		assertEquals(1, itemDAO.readItems().length, "Reading all failed");
 		assertEquals(true, itemDAO.createItem(item2), "Creation of item2 failed");
@@ -186,13 +200,13 @@ class PersonConnectedDAOTest {
 	}
 
 	@Test
-	@Order(13)
+	@Order(14)
 	public void testReadItemsByPerson() {
 		assertEquals(2, itemDAO.readItemsByPerson(1).length, "Reading all Tiina's items failed");
 	}
 
 	@Test
-	@Order(14)
+	@Order(15)
 	public void testReadOwnItems() {
 		assertEquals(0, itemDAO.readOwnItems().length, "Reading all own items failed");
 		assertEquals(true, itemDAO.createItem(item3), "Creation of item failed"); 
@@ -201,7 +215,7 @@ class PersonConnectedDAOTest {
 	}
 
 	@Test
-	@Order(15)
+	@Order(16)
 	public void testReadItemsByBought() {
 		assertEquals(0, itemDAO.readItemsByBought(true).length, "Reading all bought items failed");
 		assertEquals(true, itemDAO.createItem(item4), "Creation of item failed");
@@ -210,7 +224,7 @@ class PersonConnectedDAOTest {
 	}
 
 	@Test
-	@Order(16)
+	@Order(17)
 	public void testUpdateItem() {
 		Item updatedItem = itemDAO.readItem(1);
 		updatedItem.setPrice(2.3);
@@ -219,7 +233,7 @@ class PersonConnectedDAOTest {
 	}
 
 	@Test
-	@Order(17)
+	@Order(18)
 	public void testDeleteItem() {
 		assertEquals(true, itemDAO.deleteItem(1), "Deleting 1 failed");
 		assertEquals(true, itemDAO.deleteItem(2), "Deleting 2 failed");
@@ -229,19 +243,19 @@ class PersonConnectedDAOTest {
 	}
 	
 	@Test
-	@Order(18)
+	@Order(19)
 	public void testCreateBorrowedThing() {
 		assertEquals(true, borrowedThingDAO.createBorrowedThing(borrowedThing), "Creation of borrowed thing failed");
 	}
 	
 	@Test
-	@Order(19)
+	@Order(20)
 	public void testCreateBorrowedEvent() {
 		assertEquals(true, borrowedController.createBorrowedEvent(borrowedThing), "Creation of borrowed event failed");
 	}
 	
 	@Test
-	@Order(20)
+	@Order(21)
 	public void testReadBorrowedEvent() {
 		String eventDesc = borrowedThing.getPerson().getName() + " should return " + borrowedThing.getDescription();
 		assertEquals(eventDesc, eventDAO.readBorrowed(eventDesc).getTitle(), "Reading of borrowed event failed");
@@ -249,7 +263,7 @@ class PersonConnectedDAOTest {
 	}
 	/*
 	@Test
-	@Order(21)
+	@Order(22)
 	public void testUpdateBorrowedEventPerson() {
 		BorrowedThing bt = borrowedThingDAO.readBorrowedThing(borrowedThing.getThing_id());
 		bt.setPerson(risto);
@@ -257,13 +271,13 @@ class PersonConnectedDAOTest {
 	}
 	*/
 	@Test
-	@Order(22)
+	@Order(23)
 	public void testDeleteBorrowedEvent() {
 		assertEquals(true, borrowedController.deleteBorrowedEvent(borrowedThing), "Deleting of borrowed event failed");
 	}
 	
 	@Test
-	@Order(23)
+	@Order(24)
 	public void testReadBorrowedThing() {
 		assertEquals(borrowedDesc, borrowedThingDAO.readBorrowedThing(1).getDescription(), "Reading one failed (description)");
 		//assertEquals(loanDate, borrowedThingDAO.readBorrowedThing(1).getDateBorrowed(), "Reading one failed (loan date)");
@@ -272,7 +286,7 @@ class PersonConnectedDAOTest {
 	}
 	
 	@Test
-	@Order(24)
+	@Order(25)
 	public void testReadBorrowedThings() {
 		assertEquals(1, borrowedThingDAO.readBorrowedThings().length, "Reading all failed");
 		assertEquals(true, borrowedThingDAO.createBorrowedThing(borrowedThing2), "Creation of borrowed thing failed");
@@ -280,7 +294,7 @@ class PersonConnectedDAOTest {
 	}
 	
 	@Test
-	@Order(25)
+	@Order(26)
 	public void testReadBorrowedThingsByPerson() {
 		assertEquals(1, borrowedThingDAO.readBorrowedThingsByPerson(1).length, "Reading Tiina's things failed");
 		assertEquals(1, borrowedThingDAO.readBorrowedThingsByPerson(2).length, "Reading Risto's things failed");
@@ -288,7 +302,7 @@ class PersonConnectedDAOTest {
 	}
 	
 	@Test
-	@Order(26)
+	@Order(27)
 	public void testUpdateBorrowedThing() {
 		BorrowedThing updatedBorrowedThing = borrowedThingDAO.readBorrowedThing(2);
 		updatedBorrowedThing.setDescription("Black cat");
@@ -297,7 +311,7 @@ class PersonConnectedDAOTest {
 	}
 	
 	@Test
-	@Order(27)
+	@Order(28)
 	public void testDeleteBorrowedThing() {
 		assertEquals(true, borrowedThingDAO.deleteBorrowedThing(1), "Deleting failed");
 		assertEquals(true, borrowedThingDAO.deleteBorrowedThing(2), "Deleting failed");
@@ -305,13 +319,13 @@ class PersonConnectedDAOTest {
 	}
 	
 	@Test
-	@Order(28)
+	@Order(29)
 	public void testCreateEvent() {
 		assertEquals(true, eventDAO.createEvent(event), "Creation of event failed");
 	}
 	
 	@Test
-	@Order(29)
+	@Order(30)
 	public void testReadEvent() {
 		assertEquals("teatteri", eventDAO.readEvent(1).getTitle(), "Reading one failed (title)");
 		//assertEquals(eventDate, eventDAO.readEvent(1).getEndDate(), "Reading one failed (date)");
@@ -319,7 +333,7 @@ class PersonConnectedDAOTest {
 	}
 	
 	@Test
-	@Order(30)
+	@Order(31)
 	public void testReadEvents() {
 		assertEquals(1, eventDAO.readEvents().length, "Reading all failed (1)");
 		assertEquals(true, eventDAO.createEvent(event2), "Creation of event failed");
@@ -327,13 +341,13 @@ class PersonConnectedDAOTest {
 	}
 	
 	@Test
-	@Order(31)
+	@Order(32)
 	public void testReadEventsFromOneCalendar() {
 		assertEquals(2, eventDAO.readEventsFromOneCalendar("default", true).length, "Reading from calendar failed");
 	}
 	
 	@Test
-	@Order(32)
+	@Order(33)
 	public void testReadTodaysEvents() {
 		assertEquals(0, eventDAO.readTodaysEvents().length, "Reading today's events failed (0)");
 		assertEquals(true, eventDAO.createEvent(event3), "Creation of event failed");
@@ -341,7 +355,7 @@ class PersonConnectedDAOTest {
 	}
 	
 	@Test
-	@Order(33)
+	@Order(34)
 	public void testUpdate() {
 		Date newDate = Date.valueOf("2020-04-05");
 		Event updatedEvent = eventDAO.readEvent(1);
@@ -352,21 +366,34 @@ class PersonConnectedDAOTest {
 	}
 	
 	@Test
-	@Order(34)
+	@Order(35)
 	public void testCreateBirthday() {
 		assertEquals(true, calendarController.createBirthday(name, bday1), "Creation of birthday failed");
 	}
+	
 	@Test
-	@Order(35)
+	@Order(36)
+	public void testUpdateBirthdayName() {
+		assertEquals(true, calendarController.updateBirthday(name, risto.getName()), "Updating of birthday event name failed");
+	}
+	
+	@Test
+	@Order(37)
+	public void testUpdateBirthdayDate() {
+		assertEquals(true, calendarController.updateBirthday(risto.getName(), risto.getBirthday(), bday1), "Updating of birthday event name failed");
+	}
+	
+	@Test
+	@Order(38)
 	public void testDeleteBirthday() {
 		assertEquals(1, eventDAO.readEventsFromOneCalendar("birthdays", true).length, "Reading from birthday calendar failed");
-		assertEquals(true, eventDAO.deleteBirthday(name), "Deleting birthday failed");
+		assertEquals(true, eventDAO.deleteBirthday(risto.getName()), "Deleting birthday failed");
 		assertEquals(0, eventDAO.readEventsFromOneCalendar("birthdays", true).length, "Birthday not deleted");
 		
 	}
 	
 	@Test
-	@Order(36)
+	@Order(39)
 	public void testDeleteEvent() {
 		assertEquals(true, eventDAO.deleteEvent(1), "Deleting 1 failed");
 		assertEquals(true, eventDAO.deleteEvent(2), "Deleting 2 failed");
@@ -375,7 +402,7 @@ class PersonConnectedDAOTest {
 	}
 	
 	@Test
-	@Order(37)
+	@Order(40)
 	public void testDeletePerson() {
 		assertEquals(true, personDAO.deletePerson(1), "Deleting tiina failed");
 		assertEquals(true, personDAO.deletePerson(2), "Deleting risto failed");
