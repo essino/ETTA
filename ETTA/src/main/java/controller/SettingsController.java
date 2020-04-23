@@ -22,6 +22,9 @@ public class SettingsController {
 	LanguageDAO langDAO = new LanguageDAO();
 	MyTab myTab = MyTab.getMyTab();
 	MyBundle myBundle = new MyBundle();
+	
+	Language english = new Language("English", true);
+	Language finnish = new Language("Finnish", false);
 
 	public SettingsController(SettingsGUI settingsGUI) {
 		this.settingsGUI=settingsGUI;
@@ -37,13 +40,17 @@ public class SettingsController {
 		return names;
 	}
 
-	public void updateChoice(int selectedIndex) {
-		Language oldLang = langDAO.unselectLanguage(true);
-		Language newLang = langDAO.readLanguage(selectedIndex);
+	public void updateChoice(String newLangName) {
+		Language oldLang = langDAO.getSelectedLanguage();
+		oldLang.setChosen(false);
+		langDAO.updateLanguage(oldLang);
+		Language newLang = langDAO.readLanguage(newLangName);
 		newLang.setChosen(true);
-		langDAO.selectLanguage(newLang);
+		langDAO.updateLanguage(newLang);
+		//updating tabs' names
 		myTab.setTabName();
 		
+		//calendarfx uses messages-named file, here we copy the file with the needed language into this file
 		File enFile = new File("./com/calendarfx/view/messages_en");
 		File fiFile = new File("./com/calendarfx/view/messages_fi");
 		File messages = new File("./com/calendarfx/view/messages");
@@ -66,7 +73,22 @@ public class SettingsController {
 	}
 
 	public String getSelectedLanguage() {
+		Language selectedLanguage = langDAO.getSelectedLanguage();
+		//none of the languages is selected
+		if(selectedLanguage == null) {
+			//no languages in the database yet
+			if(langDAO.readLanguages().length==0) {
+				createLanguages();
+			}
+			//english is the default language
+			return english.getDescription();
+		}
 		return langDAO.getSelectedLanguage().getDescription();
+	}
+	
+	private void createLanguages() {
+		langDAO.createLanguage(english);
+		langDAO.createLanguage(finnish);
 	}
 
 }

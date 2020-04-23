@@ -99,36 +99,16 @@ public class LanguageDAO {
 		System.out.println("selected" + language.getDescription());
 		return success;
 	}
-
-	public Language unselectLanguage(boolean b) {
-		Language language = new Language();
-		try {
-			Session session = HibernateUtil.getSessionFactory(test).openSession();
-			session.beginTransaction();
-			List<Language> result;
-			result = session.createQuery( "from Language l where l.chosen=" + b).getResultList();	
-			language = result.get(0);
-			language.setChosen(false);
-			session.update(language);
-			session.getTransaction().commit();
-		} catch(Exception e) {
-			if (transaction!= null) transaction.rollback();
-			throw e;
-		}
-		System.out.println("unselected " + language.getDescription() + " " + language.isChosen());
-		return language;
-		
-	}
 	
 	public Language getSelectedLanguage() {
 		Language language = new Language();
 		try {
 			Session session = HibernateUtil.getSessionFactory(test).openSession();
-			session.beginTransaction();
+			transaction = session.beginTransaction();
 			List<Language> result;
 			result = session.createQuery( "from Language l where l.chosen=true").getResultList();	
 			language = result.get(0);
-			session.getTransaction().commit();
+			transaction.commit();
 		} catch(Exception e) {
 			if (transaction!= null) transaction.rollback();
 			//throw e;
@@ -136,5 +116,49 @@ public class LanguageDAO {
 		}
 		return language;
 		
+	}
+
+	public boolean createLanguage(Language language) {
+		boolean success = false;
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(language);
+			transaction.commit();
+			success = true;
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		return success;
+	}
+	
+	public boolean updateLanguage(Language language) {
+		boolean success = false;
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+			transaction = session.beginTransaction();
+			session.update(language);
+			transaction.commit();
+			success = true;
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		return success;
+	}
+
+	public Language readLanguage(String newLangName) {
+		Language language = new Language();
+		try {
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			transaction = session.beginTransaction();
+			List<Language> result;
+			result = session.createQuery( "from Language l where l.description='" + newLangName +"'").getResultList();	
+			language = result.get(0);
+			transaction.commit();
+		} catch(Exception e) {
+			if (transaction!= null) transaction.rollback();
+			throw e;
+		}
+		return language;
 	}
 }

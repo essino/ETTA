@@ -40,7 +40,7 @@ public class SettingsGUI {
 	
 	@FXML
 	public void saveLanguage() {
-		controller.updateChoice(languageList.getSelectionModel().getSelectedIndex());
+		controller.updateChoice(languageList.getSelectionModel().getSelectedItem());
 		chosenLanguage.setText(controller.getSelectedLanguage());
 		chosenLanguageLabel.setText(myBundle.getBundle().getString("settingsChosenLanguageLabel"));
 		language.setText(myBundle.getBundle().getString("settingsLanguageLabel"));
