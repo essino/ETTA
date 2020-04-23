@@ -72,9 +72,10 @@ public class WishlistController {
 	}
 
 	//constructor used for tests
-	public WishlistController(ItemDAO itemDAO2, PersonDAO personDAO2) {
+	public WishlistController(ItemDAO itemDAO2, PersonDAO personDAO2, EventDAO eventDAO2) {
 		this.itemDAO = itemDAO2;
 		this.personDAO = personDAO2;
+		this.eventDAO = eventDAO2;
 	}
 
 	/**
@@ -142,16 +143,20 @@ public class WishlistController {
 		item.setAdditionalInfo(addGui.getItemAdditional());
 		itemDAO.createItem(item);
 		if(addGui.getItemDate() != null) {
-			Event wishlistEvent = new Event();
-			wishlistEvent.setStartDate(addGui.getItemDate());
-			wishlistEvent.setEndDate(addGui.getItemDate());
-			wishlistEvent.setFullday(true);
-			wishlistEvent.setTitle("Buy " + addGui.getItemDesc() + " for " + addGui.getItemPerson());
-			wishlistEvent.setLocation(null);
-			wishlistEvent.setRecurring(false);
-			wishlistEvent.setCalendar("wishlist");
-			eventDAO.createEvent(wishlistEvent); 
+			createWishlistEvent(item);
 		}
+	}
+	
+	public boolean createWishlistEvent(Item item) {
+		Event wishlistEvent = new Event();
+		wishlistEvent.setStartDate(item.getDateNeeded());
+		wishlistEvent.setEndDate(item.getDateNeeded());
+		wishlistEvent.setFullday(true);
+		wishlistEvent.setTitle("Buy " + item.getDescription() + " for " + item.getPerson().getName());
+		wishlistEvent.setLocation(null);
+		wishlistEvent.setRecurring(false);
+		wishlistEvent.setCalendar("wishlist");
+		return eventDAO.createEvent(wishlistEvent); 
 	}
 	
 	/** 

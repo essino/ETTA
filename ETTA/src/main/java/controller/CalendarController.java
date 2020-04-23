@@ -30,6 +30,15 @@ public class CalendarController {
 	 */
 	EventDAO eventDAO = new EventDAO();
 	
+	//used for tests
+	public CalendarController(EventDAO eventDAO2) {
+		this.eventDAO = eventDAO2;
+	}
+
+	public CalendarController() {
+		
+	}
+
 	/** 
 	 * Method that checks if the event already exists in the database.
 	 * @param id - entry/event id

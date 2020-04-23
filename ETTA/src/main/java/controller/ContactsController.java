@@ -130,7 +130,7 @@ public class ContactsController {
 		}
 	}
 
-	/** 
+	/**  
 	 * Method deletes Borrowed Things and/or Wishlist Items that use a Person that should be deleted
 	 * After deleting data using this Person this method calls deletePerson() method 
 	 */ 

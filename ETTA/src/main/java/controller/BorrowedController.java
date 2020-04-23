@@ -124,6 +124,13 @@ public class BorrowedController {
 		this.searchGUI = searchGUI;
 	}
 	
+	//constructor used for tests
+	public BorrowedController(PersonDAO personDAO2, BorrowedThingDAO borrowedThingDAO2, EventDAO eventDAO2) {
+		this.personDAO = personDAO2;
+		this.borrowedThingDAO = borrowedThingDAO2;
+		this.eventDAO = eventDAO2;
+	}
+
 	/** 
 	 * Method for creating a new borrowed thing and saving it to the database
 	 * return BorrowedThing[] array contains all borrowed things
@@ -147,37 +154,30 @@ public class BorrowedController {
 		borrowedThing.setReturnDate(addGUI.getBorrowedReturnDate());
 		borrowedThing.setReturned(false);
 		borrowedThingDAO.createBorrowedThing(borrowedThing);
-		//create a calendar event
-		//int lastEventId=-1;
-		/*
-		try {
-			int lastEvent = eventDAO.readEvents().length; 
-			lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();}
-		catch(ArrayIndexOutOfBoundsException e){
-			//ei ole vielä tapahtumia, id:ksi tulee 0
-		}
-		*/
+		createBorrowedEvent(borrowedThing);
+	}
+	
+	public boolean createBorrowedEvent(BorrowedThing borrowedThing) {
 		Event borrowed = new Event();
-		//borrowed.setEvent_id(lastEventId+1);
-		borrowed.setTitle(addGUI.getBorrowedPerson() + " should return " +  addGUI.getBorrowedDescription());
+		borrowed.setTitle(borrowedThing.getPerson().getName() + " should return " +  borrowedThing.getDescription());
 		borrowed.setLocation(null);
-		borrowed.setStartDate(addGUI.getBorrowedReturnDate());
-		borrowed.setEndDate(addGUI.getBorrowedReturnDate());
+		borrowed.setStartDate(borrowedThing.getReturnDate());
+		borrowed.setEndDate(borrowedThing.getReturnDate());
 		borrowed.setFullday(true);
 		borrowed.setRecurring(false);
 		borrowed.setCalendar("borrowed");
-		eventDAO.createEvent(borrowed);
+		return eventDAO.createEvent(borrowed);
 	}
 	
 	/** 
 	 * Method for deleting a borrowed thing from the database
 	 */ 
 	public void removeBorrowedThing() {
-			BorrowedThing thing = tableGUI.getSelectedBorrowedThing();
-			String description = tableGUI.getSelectedBorrowedThing().getDescription();
-			deleteBorrowedEvent(description); //deletes the borrowed event 
-			borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
-			//tableGUI.removeFromBorrowedTable(thing); //tätä ei kyllä taideta tarvita, aiheuttaa exceptionin
+		BorrowedThing thing = tableGUI.getSelectedBorrowedThing();
+		String description = tableGUI.getSelectedBorrowedThing().getDescription();
+		deleteBorrowedEvent(thing); //deletes the borrowed event 
+		borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
+		//tableGUI.removeFromBorrowedTable(thing); //tätä ei kyllä taideta tarvita, aiheuttaa exceptionin
 	}
 	
 	//added 3/4/2020 by Essi :)
@@ -201,7 +201,7 @@ public class BorrowedController {
 	public void markReturned() {
 		try {
 			String description = tableGUI.getSelectedBorrowedThing().getDescription();
-			deleteBorrowedEvent(description); //deletes the borrowed event
+			deleteBorrowedEvent(tableGUI.getSelectedBorrowedThing()); //deletes the borrowed event
 			BorrowedThing borrowedThing = borrowedThingDAO.readBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
 			borrowedThing.setReturned(true);
 			borrowedThingDAO.updateBorrowedThing(borrowedThing);
@@ -216,7 +216,9 @@ public class BorrowedController {
 			BorrowedThing returnedThing = borrowedThingDAO.readBorrowedThing(returnedGUI.getSelectedBorrowedThing().getThing_id());
 			returnedThing.setReturned(false);
 			borrowedThingDAO.updateBorrowedThing(returnedThing);
+			createBorrowedEvent(returnedThing);
 			//create a calendar event - DOES IT WORK LIKE THIS?
+			/*
 			int lastEvent = eventDAO.readEvents().length; 
 			int lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();
 			Event borrowed = new Event();
@@ -227,8 +229,9 @@ public class BorrowedController {
 			borrowed.setEndDate(returnedGUI.getSelectedBorrowedThing().getReturnDate());
 			borrowed.setFullday(true);
 			borrowed.setRecurring(false);
-			borrowed.setCalendar("borrowed");
+			borrowed.setCalendar("borrowed"); 
 			eventDAO.createEvent(borrowed);
+			*/
 		} catch (NullPointerException e) {
 			System.out.println("No item selected.");
 		}
@@ -238,15 +241,17 @@ public class BorrowedController {
 	/** 
 	 * Method for deleting the "should return" event from events
 	 */
-	public void deleteBorrowedEvent(String description) {
-		Event event = findRightEvent(description);
+	public boolean deleteBorrowedEvent(BorrowedThing borrowedThing) {
+		boolean deleted = false;
+		Event event = findRightEvent(borrowedThing);
 		try {
 			int eventID = event.getEvent_id();
-			eventDAO.deleteEvent(eventID);
+			deleted = eventDAO.deleteEvent(eventID);
 		//if the borrowed thing has been returned, the event relating to it has been already deleted
 		} catch(NullPointerException e) {
 			System.out.println("No borrowing event to delete");
 		}
+		return deleted;
 	}
 	
 	//updates the return date in the borrowed event
@@ -260,7 +265,7 @@ public class BorrowedController {
 		String description = borrowedThing.getDescription();
 		System.out.println("Description of the borrowed thing" + description);
 		
-		Event updatingEvent = findRightEvent(description);
+		Event updatingEvent = findRightEvent(borrowedThing);
 		try {
 			updatingEvent.setStartDate(returnDate);
 			updatingEvent.setEndDate(returnDate);
@@ -279,7 +284,7 @@ public class BorrowedController {
 	public void updateBorrowedEventTitle(String oldDescription) {
 		//tämä ei toimi palautetteujen päivityksessä
 		String thingDescription = tableGUI.getSelectedBorrowedThing().getDescription();
-		Event updatingEvent = findRightEvent(oldDescription);
+		Event updatingEvent = findRightEvent(tableGUI.getSelectedBorrowedThing());
 		String newTitle = "";	
 		try {
 			String oldTitle = updatingEvent.getTitle();
@@ -314,13 +319,12 @@ public class BorrowedController {
 	//used for updating or deleting the right borrowed event - HARD CODED!
 	/** 
 	 * Method for finding the borrowed event based on the description of the borrowed item
-	 * @param description the description of the borrowed item, the event of which is being searched for
+	 * @param BorrowedThing  borrowed item, the event of which is being searched for
 	 */
-	public Event findRightEvent(String description) {
-		//String loanDescription = tableGUI.getSelectedBorrowedThing().getDescription();
+	public Event findRightEvent(BorrowedThing thing) {
 		//the person who has borrowed the item
-		Person loanPerson = tableGUI.getSelectedBorrowedThing().getPerson();
-		String eventTitle = loanPerson + " should return " + description;
+		Person loanPerson = thing.getPerson();
+		String eventTitle = loanPerson + " should return " + thing.getDescription();
 		Event[] loanEvent = eventDAO.readEvents();
 		for (int i = 0; loanEvent.length > i; i++) {
 			if (loanEvent[i].getTitle().equals(eventTitle)) {
@@ -340,14 +344,15 @@ public class BorrowedController {
 	}
 
 	//updating borrowed event if person changes
-	public void updateBorrowedEventPerson(Person oldPerson, BorrowedThing editedBorrowedThing) {
+	public boolean updateBorrowedEventPerson(Person oldPerson, BorrowedThing editedBorrowedThing) {
+		boolean updated = false;
 		String oldEvent = oldPerson.getName() + " should return " + editedBorrowedThing.getDescription();
 		Event event = findBorrowedEvent(oldEvent);
 		if (event!=null) {
 			event.setTitle(editedBorrowedThing.getPerson().getName() + " should return " + editedBorrowedThing.getDescription());
-			eventDAO.updateEvent(event);
+			updated = eventDAO.updateEvent(event);
 		}
-		
+		return updated;
 	}
 	
 	/** 
