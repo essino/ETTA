@@ -118,75 +118,10 @@ public class BorrowedSearchGUI {
 	public void initialize() {
 		System.out.println("We don't need no education!");
 		borrowedSearchTable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
-		//borrowedSearchTable.setEditable(true);
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
-		/*borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
-		borrowedThingDescr.setOnEditCommit(
-			new EventHandler<CellEditEvent<BorrowedThing, String>>(){
-				@Override
-				public void handle(CellEditEvent<BorrowedThing, String> t) {
-					BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-					String oldDescription = t.getOldValue();
-					//System.out.println("Old description " + oldDescription);
-					editedBorrowedThing.setDescription(t.getNewValue());
-					controller.updateBorrowedThing(editedBorrowedThing);
-					controller.updateBorrowedEventTitle(oldDescription);
-					borrowedSearchTable.refresh();
-				}});*/
 		borrowedBy.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("person"));
-		/*borrowedBy.setCellFactory(ComboBoxTableCell.<BorrowedThing, String>forTableColumn(controller.personsList()));
-		borrowedBy.setOnEditCommit(
-				new EventHandler<CellEditEvent<BorrowedThing, String>>() {
-					@Override
-					public void handle(CellEditEvent<BorrowedThing, String> t) {
-						BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-						String newName = t.getNewValue();
-						Person newPerson = controller.findPerson(newName);
-						editedBorrowedThing.setPerson(newPerson);
-						controller.updateBorrowedThing(editedBorrowedThing);
-						borrowedSearchTable.refresh();
-					}});*/
 		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
-		/*loanDate.setCellFactory(dateCellFactory);
-		loanDate.setOnEditCommit(
-                (TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
-                    BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
-                    .get(t.getTablePosition().getRow()));
-                    java.sql.Date tempLoanDate = t.getNewValue();
-                    java.sql.Date tempRDate = editedBorrowedThing.getReturnDate();
-                    if(inputCheck.dateCheck(tempLoanDate, tempRDate)) {
-                    	editedBorrowedThing.setDateBorrowed(tempLoanDate);
-                    	controller.updateBorrowedThing(editedBorrowedThing);
-                    } else {
-                    	inputCheck.alertDatesWrong();
-    					//sets the loan date as return date
-    					editedBorrowedThing.setDateBorrowed(tempRDate);
-    					controller.updateBorrowedThing(editedBorrowedThing);
-                    }
-                    borrowedSearchTable.refresh();
-                });*/
 		returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
-		/*returnDate.setCellFactory(dateCellFactory);
-		returnDate.setOnEditCommit(
-			(TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
-				BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
-						.get(t.getTablePosition().getRow()));
-				java.sql.Date tempReturnDate = t.getNewValue();
-				java.sql.Date tempLDate = editedBorrowedThing.getDateBorrowed();
-				//System.out.println("This is the rhythm of the loan date " + tempLDate);
-				if(inputCheck.dateCheck(tempLDate, tempReturnDate)) {
-					editedBorrowedThing.setReturnDate(tempReturnDate);
-					controller.updateBorrowedThing(editedBorrowedThing);
-					controller.updateReturnDate(editedBorrowedThing);
-				} else {
-					inputCheck.alertDatesWrong();
-					//sets the loan date as return date
-					editedBorrowedThing.setReturnDate(tempLDate);
-					controller.updateBorrowedThing(editedBorrowedThing);
-					controller.updateReturnDate(editedBorrowedThing);
-				}
-				borrowedSearchTable.refresh();
-			});*/
 		returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
 			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 				if (borrowedThingDescr.getValue().isReturned() == true) {
@@ -206,8 +141,6 @@ public class BorrowedSearchGUI {
 		TextFields.bindAutoCompletion(input, possibleWords);
 		
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(borrowedThings);
-		/*FilteredList<BorrowedThing> filteredData = new FilteredList<>(data,
-	            s -> !s.isReturned());*/
 		borrowedSearchTable.setItems(data);
 	}
 	
@@ -219,43 +152,6 @@ public class BorrowedSearchGUI {
 	public BorrowedThing getSelectedBorrowedThing() {
 		return borrowedSearchTable.getSelectionModel().getSelectedItem();
 	}
-	
-	/**
-	 * Method for deleting the selected borrowed thing from the database
-	 */
-	/*@FXML
-	public void deleteSelectedReturnedThing() {
-		if (inputCheck.confirmDeleting()) {
-			controller.removeReturnedThing();
-			initialize();
-		}
-	}*/
-	
-	/** 
-	 * Method that removes an item from the table
-	 * @param borrowedThing the borrowed item to be removed
-	 */
-	/*public void removeFromBorrowedTable(BorrowedThing borrowedThing) {
-		borrowedReturnedTable.getItems().remove(borrowedThing);
-	}*/
-	
-	/** 
-	 * Method that marks an event as returned
-	 */
-	/*@FXML
-	public void markAsReturned() {
-		controller.markReturned();
-		initialize();
-	}*/
-	
-	/** 
-	 * Method that changes an item's status from returned to borrowed again
-	 */
-	/*@FXML
-	public void makeReturnedBorrowed() {
-		controller.changeReturnedToBorrowed();
-		initialize();
-	}*/
 	
 	public void searchBorrowedThing(ActionEvent event) {
 		String value = input.getText();

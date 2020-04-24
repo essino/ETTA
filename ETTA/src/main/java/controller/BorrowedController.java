@@ -69,12 +69,14 @@ public class BorrowedController {
 	 */ 
 	private BorrowedAddGUI addGUI;
 	
-	//Essi added this reference for RETURNED ITEMS on 03/04/2020
 	/** 
 	 * Reference to BorrowedReturnedTableGUI to introduce the GUI showing returned items
 	 */ 
 	private BorrowedReturnedTableGUI returnedGUI;
 	
+	/** 
+	 * Reference to BorrowedSearchGUI to introduce the GUI for searching borrowed things
+	 */ 
 	private BorrowedSearchGUI searchGUI;
 	
 	/**
@@ -107,7 +109,6 @@ public class BorrowedController {
 		this.addGUI = addGUI;
 	}
 	
-	//Essi added this constructor for RETURNED ITEMS on 03/04/2020
 	/**
 	 * Constructor to create controller for BorrowedThings
 	 *@param returnedGUI the gui for showing returned items
@@ -118,13 +119,19 @@ public class BorrowedController {
 	
 	/**
 	 * Constructor to create controller for BorrowedThings
-	 *@param returnedGUI the gui for showing returned items
+	 *@param searchGUI the gui for showing the search view for borrowed items
 	 */
 	public BorrowedController(BorrowedSearchGUI searchGUI) {
 		this.searchGUI = searchGUI;
 	}
 	
 	//constructor used for tests
+	/**
+	 * Constructor to create controller for BorrowedThings for testing
+	 *@param personDAO2 used for accessing the database
+	 *@param borrowedThingDAO2 used for accessing the database
+	 *@param eventDAO2 used for accessing the database
+	 */
 	public BorrowedController(PersonDAO personDAO2, BorrowedThingDAO borrowedThingDAO2, EventDAO eventDAO2) {
 		this.personDAO = personDAO2;
 		this.borrowedThingDAO = borrowedThingDAO2;
@@ -157,6 +164,11 @@ public class BorrowedController {
 		createBorrowedEvent(borrowedThing);
 	}
 	
+	/** 
+	 * Method for creating a event relating to a borrowed item
+	 * @param borrowedThing the item that the event concerns
+	 * @return eventDAO.createEvent(borrowed) boolean indicating whether or not the event has been successfully created
+	 */ 
 	public boolean createBorrowedEvent(BorrowedThing borrowedThing) {
 		Event borrowed = new Event();
 		borrowed.setTitle(borrowedThing.getPerson().getName() + " should return " +  borrowedThing.getDescription());
@@ -180,7 +192,6 @@ public class BorrowedController {
 		//tableGUI.removeFromBorrowedTable(thing); //tätä ei kyllä taideta tarvita, aiheuttaa exceptionin
 	}
 	
-	//added 3/4/2020 by Essi :)
 	/** 
 	 * Method for deleting a returned thing from the database
 	 */ 
@@ -240,6 +251,7 @@ public class BorrowedController {
 	//deletes borrowed event
 	/** 
 	 * Method for deleting the "should return" event from events
+	 * @return deleted whether or not the event has been successfully deleted
 	 */
 	public boolean deleteBorrowedEvent(BorrowedThing borrowedThing) {
 		boolean deleted = false;
@@ -247,7 +259,7 @@ public class BorrowedController {
 		try {
 			int eventID = event.getEvent_id();
 			deleted = eventDAO.deleteEvent(eventID);
-		//if the borrowed thing has been returned, the event relating to it has been already deleted
+		//if the borrowed thing has been returned, the event relating to it has already been deleted
 		} catch(NullPointerException e) {
 			System.out.println("No borrowing event to delete");
 		}
@@ -260,7 +272,6 @@ public class BorrowedController {
 	 * @param borrowedThing the borrowed thing, the event of which is changed
 	 */
 	public void updateReturnDate(BorrowedThing borrowedThing) {
-		//tämä ei toimi palautettujen kanssa
 		Date returnDate = tableGUI.getSelectedBorrowedThing().getReturnDate();
 		String description = borrowedThing.getDescription();
 		System.out.println("Description of the borrowed thing" + description);
@@ -282,7 +293,6 @@ public class BorrowedController {
 	 * @param oldDescription the description of the borrowed item that is being changed
 	 */
 	public void updateBorrowedEventTitle(String oldDescription) {
-		//tämä ei toimi palautetteujen päivityksessä
 		String thingDescription = tableGUI.getSelectedBorrowedThing().getDescription();
 		Event updatingEvent = findRightEvent(tableGUI.getSelectedBorrowedThing());
 		String newTitle = "";	
@@ -344,6 +354,12 @@ public class BorrowedController {
 	}
 
 	//updating borrowed event if person changes
+	/** 
+	 * Method for updating the event is the person relating to it is changed
+	 * @param oldPerson the person who is changed
+	 * @param editedBorrowedThing the borrowed thing the event and borrower of which are being changed
+	 * @return update whether or not the event has been successfully updated
+	 */
 	public boolean updateBorrowedEventPerson(Person oldPerson, BorrowedThing editedBorrowedThing) {
 		boolean updated = false;
 		String oldEvent = oldPerson.getName() + " should return " + editedBorrowedThing.getDescription();
@@ -358,6 +374,7 @@ public class BorrowedController {
 	/** 
 	 * Method for finding the borrowed event based on the name of the event
 	 * @param description the name of the event, the event of which is being searched for
+	 * @return loanEvent the event that has to do with the borrowing event
 	 */
 	public Event findBorrowedEvent(String description) {
 		Event loanEvent = eventDAO.readBorrowed(description);

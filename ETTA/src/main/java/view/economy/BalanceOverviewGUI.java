@@ -1,6 +1,8 @@
 package view.economy;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.time.LocalDate;
@@ -10,6 +12,7 @@ import controller.EconomyController;
 import controller.InputCheck;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -145,6 +148,7 @@ public class BalanceOverviewGUI {
 		incomeAmount.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Float>("amount"));
 		
+
 		expenseDescription.setCellValueFactory(
                 new PropertyValueFactory<Transfer, String>("description"));
 		expenseDate.setCellValueFactory(
@@ -154,6 +158,7 @@ public class BalanceOverviewGUI {
 		
 	
 		searchWeeksTransfers();	
+
 		
 		incomeTable.setEditable(true);
 		incomeDescription.setCellValueFactory(new PropertyValueFactory<Transfer, String>("description")); 
@@ -196,7 +201,7 @@ public class BalanceOverviewGUI {
 		System.out.println(endDate);
 		//This gets all transfers from this period
 		controller.getSelectedIncomes(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
-		controller.getSelectedExpences(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+
 		//This gets all the incomes
 		//Transfer[] incomes = controller.getIncomesSeletedDays(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
 		//incomeTable.setItems(FXCollections.observableArrayList(incomes));
@@ -223,4 +228,5 @@ public class BalanceOverviewGUI {
 		expenseTable.setItems(FXCollections.observableArrayList(expencesArr));
 
 	}
+	
 }
