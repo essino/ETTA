@@ -29,14 +29,14 @@ import model.Item;
 import model.Person;
 import res.MyBundle;
 
-public class WishlistGiftGUI {
+public class WishlistGiftGUI extends AbstractWishlistGUI {
 
 	MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * Reference to the used WishlistController
 	 */
-	WishlistController controller = new WishlistController();
+	WishlistController controller = new WishlistController(this);
 	
 	/**
 	 * The anchor pane view from where adding, editing and deleting can be started
@@ -94,15 +94,6 @@ public class WishlistGiftGUI {
 	ObservableList<Item> data = FXCollections.observableArrayList();
 	
 	Callback<TableColumn<Item, Date>, TableCell<Item, Date>> dateCellFactory = (TableColumn<Item, Date> param) -> new WishlistDateEditingCell();
-	
-	/**
-	 * Constructor responsible for creating the wishlist controller
-	 */
-	/*
-	public WishlistGiftGUI() {
-		controller = new WishlistController(this);
-	}
-	*/
 
 	/**
 	 * Initialize-method called when the class is created
@@ -120,7 +111,7 @@ public class WishlistGiftGUI {
 					public void handle(CellEditEvent<Item, String> t) {
 						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 						editedItem.setDescription(t.getNewValue());
-						controller.updateItem(editedItem);
+						controller.updateItem(editedItem, WishlistGiftGUI.this);
 						wishlisttable.refresh();
 					}});
 		
@@ -135,7 +126,7 @@ public class WishlistGiftGUI {
 						String newName = t.getNewValue();
 						Person newPerson = controller.findPerson(newName);
 						editedItem.setPerson(newPerson);
-						controller.updateItem(editedItem);
+						controller.updateItem(editedItem, WishlistGiftGUI.this);
 						wishlisttable.refresh();
 					}});
 		
@@ -158,7 +149,7 @@ public class WishlistGiftGUI {
 					public void handle(CellEditEvent<Item, Double> t) {
 						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 						editedItem.setPrice(t.getNewValue());
-						controller.updateItem(editedItem);
+						controller.updateItem(editedItem, WishlistGiftGUI.this);
 						wishlisttable.refresh();
 					}});
 		
@@ -169,7 +160,7 @@ public class WishlistGiftGUI {
 				Item editedItem = ((Item) t.getTableView().getItems()
 	            .get(t.getTablePosition().getRow()));
 				editedItem.setDateNeeded(t.getNewValue());
-				controller.updateItem(editedItem);
+				controller.updateItem(editedItem, WishlistGiftGUI.this);
 				wishlisttable.refresh();
 				}	
 			);	
@@ -182,7 +173,7 @@ public class WishlistGiftGUI {
 					public void handle(CellEditEvent<Item, String> t) {
 						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 						editedItem.setAdditionalInfo(t.getNewValue());
-						controller.updateItem(editedItem);
+						controller.updateItem(editedItem, WishlistGiftGUI.this);
 						wishlisttable.refresh();
 					}});
 		
@@ -196,16 +187,12 @@ public class WishlistGiftGUI {
 	 */
 	@FXML
 	public void showAddWish(ActionEvent event) {
-		AnchorPane showAddWishView = null; 
-		FXMLLoader loaderAddWishView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistAdd.fxml")); 
-		loaderAddWishView.setResources(myBundle.getBundle());
-		try {
-			showAddWishView = loaderAddWishView.load();
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			}
-		wishlistGiftAnchorpane.getChildren().setAll(showAddWishView);
+		AnchorPane showAddWishView = super.loadAddWish();
+		if (showAddWishView != null) {
+			wishlistGiftAnchorpane.getChildren().setAll(showAddWishView);
+		} else {
+			System.out.println("Error loading WishlistAdd.fxml");
+		}
 	}
 	
 	/**
@@ -214,8 +201,7 @@ public class WishlistGiftGUI {
 	 */
 	@FXML
 	public Item getSelectedItem() {
-		System.out.println("selected in tableGUI " + wishlisttable.getSelectionModel().getSelectedItem());
-		return wishlisttable.getSelectionModel().getSelectedItem();
+		return super.getSelectedItem();
 	}
 	
 	/**
@@ -224,7 +210,7 @@ public class WishlistGiftGUI {
 	@FXML
 	public void deleteItem() {
 		if (inputCheck.confirmDeleting()) {
-			controller.removeItem();
+			controller.removeItem(this);
 			initialize();
 		}
 	}

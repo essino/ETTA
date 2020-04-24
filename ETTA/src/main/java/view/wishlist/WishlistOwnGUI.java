@@ -29,14 +29,14 @@ import model.Item;
 import model.Person;
 import res.MyBundle;
 
-public class WishlistOwnGUI {
+public class WishlistOwnGUI extends AbstractWishlistGUI {
 
 	MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * Reference to the used WishlistController
 	 */
-	WishlistController controller = new WishlistController();
+	WishlistController controller = new WishlistController(this);
 	
 	/**
 	 * The anchor pane view from where adding, editing and deleting can be started
@@ -111,7 +111,7 @@ public class WishlistOwnGUI {
 					public void handle(CellEditEvent<Item, String> t) {
 						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 						editedItem.setDescription(t.getNewValue());
-						controller.updateItem(editedItem);
+						controller.updateItem(editedItem, WishlistOwnGUI.this);
 						wishlisttable.refresh();
 					}});
 		
@@ -126,7 +126,7 @@ public class WishlistOwnGUI {
 						String newName = t.getNewValue();
 						Person newPerson = controller.findPerson(newName);
 						editedItem.setPerson(newPerson);
-						controller.updateItem(editedItem);
+						controller.updateItem(editedItem, WishlistOwnGUI.this);
 						wishlisttable.refresh();
 					}});
 		
@@ -149,7 +149,7 @@ public class WishlistOwnGUI {
 					public void handle(CellEditEvent<Item, Double> t) {
 						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 						editedItem.setPrice(t.getNewValue());
-						controller.updateItem(editedItem);
+						controller.updateItem(editedItem, WishlistOwnGUI.this);
 						wishlisttable.refresh();
 					}});
 		
@@ -160,7 +160,7 @@ public class WishlistOwnGUI {
 				Item editedItem = ((Item) t.getTableView().getItems()
 	            .get(t.getTablePosition().getRow()));
 				editedItem.setDateNeeded(t.getNewValue());
-				controller.updateItem(editedItem);
+				controller.updateItem(editedItem, WishlistOwnGUI.this);
 				wishlisttable.refresh();
 				}	
 			);	
@@ -173,7 +173,7 @@ public class WishlistOwnGUI {
 					public void handle(CellEditEvent<Item, String> t) {
 						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 						editedItem.setAdditionalInfo(t.getNewValue());
-						controller.updateItem(editedItem);
+						controller.updateItem(editedItem, WishlistOwnGUI.this);
 						wishlisttable.refresh();
 					}});
 		
@@ -187,16 +187,12 @@ public class WishlistOwnGUI {
 	 */
 	@FXML
 	public void showAddWish(ActionEvent event) {
-		AnchorPane showAddWishView = null; 
-		FXMLLoader loaderAddWishView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistAdd.fxml"));
-		loaderAddWishView.setResources(myBundle.getBundle());
-		try {
-			showAddWishView = loaderAddWishView.load();
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			}
-		wishlistOwnAnchorpane.getChildren().setAll(showAddWishView);
+		AnchorPane showAddWishView = super.loadAddWish();
+		if (showAddWishView != null) {
+			wishlistOwnAnchorpane.getChildren().setAll(showAddWishView);
+		} else {
+			System.out.println("Error loading WishlistAdd.fxml");
+		}
 	}
 	
 	/**
@@ -205,8 +201,7 @@ public class WishlistOwnGUI {
 	 */
 	@FXML
 	public Item getSelectedItem() {
-		System.out.println("selected in tableGUI " + wishlisttable.getSelectionModel().getSelectedItem());
-		return wishlisttable.getSelectionModel().getSelectedItem();
+		return super.getSelectedItem();
 	}
 	
 	/**
@@ -215,7 +210,7 @@ public class WishlistOwnGUI {
 	@FXML
 	public void deleteItem() {
 		if (inputCheck.confirmDeleting()) {
-			controller.removeItem();
+			controller.removeItem(this);
 			initialize();
 		}
 	}

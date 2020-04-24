@@ -10,7 +10,11 @@ import model.Item;
 import model.ItemDAO;
 import model.Person;
 import model.PersonDAO;
+import view.wishlist.AbstractWishlistGUI;
 import view.wishlist.WishlistAddGUI;
+import view.wishlist.WishlistBoughtGUI;
+import view.wishlist.WishlistGiftGUI;
+import view.wishlist.WishlistOwnGUI;
 import view.wishlist.WishlistTableGUI;
 
 
@@ -24,12 +28,27 @@ public class WishlistController {
 	/**
 	 * Reference to the WishlistTableGUI
 	 */
-	private WishlistTableGUI gui;
+	private WishlistTableGUI tableGui;
 	
 	/**
 	 * Reference to the WishlistAddGUI
 	 */
 	private WishlistAddGUI addGui;
+	
+	/**
+	 * Reference to the WishlistBoughtGUI
+	 */
+	private WishlistBoughtGUI boughtGui;
+	
+	/**
+	 * Reference to the WishlistOwnGUI
+	 */
+	private WishlistOwnGUI ownGui;
+	
+	/**
+	 * Reference to the WishlistGiftGUI
+	 */
+	private WishlistGiftGUI giftGui;
 	
 	/**
 	 * PersonDAO used for accessing the database
@@ -53,7 +72,7 @@ public class WishlistController {
 	 * @param gui WishlistTableGUI
 	 */
 	public WishlistController(WishlistTableGUI gui) {
-		this.gui = gui;
+		this.tableGui = gui;
 	}
 	
 	/**
@@ -62,6 +81,30 @@ public class WishlistController {
 	 */
 	public WishlistController(WishlistAddGUI gui) {
 		this.addGui = gui;
+	}
+	
+	/**
+	 * Constructor
+	 * @param gui WishlistBoughtGUI
+	 */
+	public WishlistController(WishlistBoughtGUI gui) {
+		this.boughtGui = gui;
+	}
+	
+	/**
+	 * Constructor
+	 * @param gui WishlistOwnGUI
+	 */
+	public WishlistController(WishlistOwnGUI gui) {
+		this.ownGui = gui;
+	}
+	
+	/**
+	 * Constructor
+	 * @param gui WishlistGiftGUI
+	 */
+	public WishlistController(WishlistGiftGUI gui) {
+		this.giftGui = gui;
 	}
 	
 	/**
@@ -160,32 +203,33 @@ public class WishlistController {
 	}
 	
 	/** 
+	 * Method for getting the item currently selected in a gui
+	 * @param gui AbstractWishlistGUI the gui whose selected item is wanted
+	 */ 
+	public Item getSelectedItem(AbstractWishlistGUI gui) {
+		return gui.getSelectedItem();
+	}
+	
+	/** 
 	 * Method for deleting an item from the database
 	 * Also removes the event connected to the item if there is one
+	 * @param gui AbstractWishlistGUI the gui calling this method
 	 */ 
-	public void removeItem() {
-		Event event = findEvent(gui.getSelectedItem());
+	public void removeItem(AbstractWishlistGUI gui) {
+		Event event = findEvent(getSelectedItem(gui), gui);
 		if (event != null) {
 			eventDAO.deleteEvent(event.getEvent_id());
 		}
-		itemDAO.deleteItem(gui.getSelectedItem().getItem_id());
+		itemDAO.deleteItem(getSelectedItem(gui).getItem_id());
 	}
 	
 	/** 
 	 * Method for marking an item as bought
 	 */ 
 	public void setBought() {
-		Item item = itemDAO.readItem(gui.getSelectedItem().getDescription());
+		Item item = itemDAO.readItem(tableGui.getSelectedItem().getDescription());
 		item.setBought(true);
 		itemDAO.updateItem(item);
-	}
-	
-	/** 
-	 * Method for fetching the selected item from the database
-	 */ 
-	public Item getItem() {
-		System.out.println("selected wishlist item " + gui.getSelectedItem().getDescription());
-		return itemDAO.readItem(gui.getSelectedItem().getDescription());
 	}
 
 	/** 
@@ -193,8 +237,8 @@ public class WishlistController {
 	 * Also updates the event connected to the item if there is one
 	 * @param editedItem the item with the updated information
 	 */ 
-	public void updateItem(Item editedItem) {
-		Event event = findEvent(editedItem);
+	public void updateItem(Item editedItem, AbstractWishlistGUI gui) {
+		Event event = findEvent(editedItem, gui);
 		System.out.println(event);
 		if (event != null) {
 			event.setStartDate(editedItem.getDateNeeded());
@@ -216,10 +260,10 @@ public class WishlistController {
 	 * Method for finding the event connected to the selected item from the database
 	 * @param item the Item the event is connected to
 	 */ 
-	public Event findEvent(Item item) {
-		String description = gui.getSelectedItem().getDescription();
+	public Event findEvent(Item item, AbstractWishlistGUI gui) {
+		String description = getSelectedItem(gui).getDescription();
 		//the person who has borrowed the item
-		Person person = gui.getSelectedItem().getPerson();
+		Person person = getSelectedItem(gui).getPerson();
 		String eventTitle = "Buy " + description + " for " + person;
 		Event[] events = eventDAO.readEvents();
 		for (int i = 0; events.length > i; i++) {
