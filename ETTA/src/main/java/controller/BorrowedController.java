@@ -228,21 +228,6 @@ public class BorrowedController {
 			returnedThing.setReturned(false);
 			borrowedThingDAO.updateBorrowedThing(returnedThing);
 			createBorrowedEvent(returnedThing);
-			//create a calendar event - DOES IT WORK LIKE THIS?
-			/*
-			int lastEvent = eventDAO.readEvents().length; 
-			int lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();
-			Event borrowed = new Event();
-			borrowed.setEvent_id(lastEventId+1);
-			borrowed.setTitle(returnedGUI.getSelectedBorrowedThing().getPerson() + " should return " +  returnedGUI.getSelectedBorrowedThing().getDescription());
-			borrowed.setLocation(null);
-			borrowed.setStartDate(returnedGUI.getSelectedBorrowedThing().getReturnDate());
-			borrowed.setEndDate(returnedGUI.getSelectedBorrowedThing().getReturnDate());
-			borrowed.setFullday(true);
-			borrowed.setRecurring(false);
-			borrowed.setCalendar("borrowed"); 
-			eventDAO.createEvent(borrowed);
-			*/
 		} catch (NullPointerException e) {
 			System.out.println("No item selected.");
 		}

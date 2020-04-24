@@ -197,6 +197,7 @@ class PersonConnectedDAOTest {
 		assertEquals(true, itemDAO.createItem(item2), "Creation of item2 failed");
 		assertEquals(2, itemDAO.readItems().length, "Reading all failed");
 		assertEquals(2, wishlistController.getItems().length, "Reading all failed(controller)");
+		assertEquals(2, wishlistController.getItemsForOthers().length, "Reading all for others failed(controller)");
 	}
 
 	@Test
