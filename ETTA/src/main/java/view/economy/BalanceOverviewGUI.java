@@ -1,14 +1,26 @@
 package view.economy;
 
+import java.sql.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import controller.EconomyController;
 import controller.InputCheck;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.Pane;
+import javafx.util.converter.FloatStringConverter;
+import model.Category;
+import model.Transfer;
 
 /**
  * GUI class relating to the Balance main page section
@@ -33,12 +45,39 @@ public class BalanceOverviewGUI {
 	
 	InputCheck inputCheck = new InputCheck();
 	
+	/**
+	 * The reference of TableView (incomes) will be injected by the FXML loader
+	 */
+	@FXML
+    private TableView<Transfer> incomeTable;
+	/**
+	 * The reference of TableColumn (income's description) will be injected by the FXML loader
+	 */
+    @FXML
+    private TableColumn<Transfer, String> incomeDescription;
+    
+    
+    /**
+	 * The reference of TableColumn (income's amount) will be injected by the FXML loader
+	 */
+    @FXML
+    private TableColumn<Transfer, Float> incomeAmount;
+    
+    /**
+  	 * The reference of TableColumn (income's date) will be injected by the FXML loader
+  	 */
+      @FXML
+      private TableColumn<Transfer, Date> incomeDate;
+      
 	/** 
 	 * Constructor 
 	 */
 	public BalanceOverviewGUI() { 
 		controller = new EconomyController(this);
 	} 
+	
+	
+
 	
 	/** 
 	 * Method that gets balance amount and displays it on the page 
@@ -71,7 +110,25 @@ public class BalanceOverviewGUI {
 	@FXML 
 	public void initialize() { 
 		controller.getBalance(); 
+		
+		incomeDescription.setCellValueFactory(
+                new PropertyValueFactory<Transfer, String>("description"));
+		incomeDate.setCellValueFactory(
+                new PropertyValueFactory<Transfer, Date>("date"));
+		incomeAmount.setCellValueFactory(
+                new PropertyValueFactory<Transfer, Float>("amount"));
+	
+		ObservableList<Transfer> incomes =  FXCollections.observableArrayList(controller.getIncomes());
+		incomeTable.setItems(incomes);
+		
+		incomeTable.setEditable(true);
+		incomeDescription.setCellValueFactory(new PropertyValueFactory<Transfer, String>("description")); 
+		incomeAmount.setCellValueFactory(new PropertyValueFactory<Transfer, Float>("amount"));
+		
+		
 	}
+	
+	
 	
 	/** 
 	 * Method that saves the start balance amount inputed by the user. 

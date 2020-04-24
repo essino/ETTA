@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.economy.BalanceOverviewGUI">
+<AnchorPane prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.economy.BalanceOverviewGUI">
    
                <children>
                   <Label layoutX="47.0" layoutY="282.0" text="%labelBalance" />
@@ -17,9 +17,25 @@
          <children>
             <Label layoutX="37.0" layoutY="87.0" text="%labelSetBalance" />
             <TextField fx:id="newBalance" layoutX="151.0" layoutY="75.0" />
-             <Button layoutX="434.0" layoutY="81.0" mnemonicParsing="false"  onAction="#saveBalance"  text="Save" />
+             <Button layoutX="434.0" layoutY="81.0" mnemonicParsing="false" onAction="#saveBalance" text="Save" />
          </children>
       </Pane>
+      <TableView fx:id="incomeTable" layoutX="76.0" layoutY="366.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="incomeDescription" prefWidth="75.0" text="Reason" />
+          <TableColumn fx:id="incomeAmount" prefWidth="75.0" text="Income" />
+            <TableColumn fx:id="incomeDate" prefWidth="75.0" text="Date" />
+        </columns>
+      </TableView>
+      <TableView layoutX="488.0" layoutY="375.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Description" />
+          <TableColumn prefWidth="75.0" text="Amount" />
+            <TableColumn prefWidth="75.0" text="Column X" />
+        </columns>
+      </TableView>
+      <Label layoutX="85.0" layoutY="334.0" text="Incomes from last seven days" />
+      <Label layoutX="500.0" layoutY="334.0" text="Expences from last seven days" />
                </children>
      
 </AnchorPane>

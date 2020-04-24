@@ -153,8 +153,7 @@ public class EconomyIncomeGUI {
                 new PropertyValueFactory<Transfer, Date>("date"));
 		incomeAmount.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Float>("amount"));
-		incomeCategory.setCellValueFactory(
-                new PropertyValueFactory<Category, String>("category"));
+		
 		ObservableList<Transfer> incomes =  FXCollections.observableArrayList(controller.getIncomes());
 		incomeTable.setItems(incomes);
 		
@@ -238,7 +237,9 @@ public class EconomyIncomeGUI {
 	}
 	
 	
-	
+	/** 
+	 * Method set to data controller
+	 */
 	@FXML
 	public void setData(Transfer[] readSeletedTransfers) {
 		incomeTable.setItems(FXCollections.observableArrayList(readSeletedTransfers));

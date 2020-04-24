@@ -232,6 +232,9 @@ public class EconomyOutcomeGUI {
 		return expenseTable.getSelectionModel().getSelectedItem();
 	}
 	
+	/** 
+	 * Method set to data controller
+	 */
 	public void setData(Transfer[] readSeletedTransfers) {
 		expenseTable.setItems(FXCollections.observableArrayList(readSeletedTransfers));
 
