@@ -17,25 +17,25 @@
          <children>
             <Label layoutX="37.0" layoutY="87.0" text="%labelSetBalance" />
             <TextField fx:id="newBalance" layoutX="151.0" layoutY="75.0" />
-             <Button layoutX="434.0" layoutY="81.0" mnemonicParsing="false" onAction="#saveBalance" text="Save" />
+             <Button layoutX="434.0" layoutY="81.0" mnemonicParsing="false" onAction="#saveBalance" text="%buttonSave" />
          </children>
       </Pane>
       <TableView fx:id="incomeTable" layoutX="76.0" layoutY="366.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="incomeDescription" prefWidth="75.0" text="Reason" />
-          <TableColumn fx:id="incomeAmount" prefWidth="75.0" text="Income" />
-            <TableColumn fx:id="incomeDate" prefWidth="75.0" text="Date" />
+          <TableColumn fx:id="incomeDescription" prefWidth="75.0" text="%columnDescription" />
+          <TableColumn fx:id="incomeAmount" prefWidth="75.0" text="%columnAmount" />
+            <TableColumn fx:id="incomeDate" prefWidth="75.0" text="%columnDate" />
         </columns>
       </TableView>
       <TableView fx:id="expenseTable" layoutX="488.0" layoutY="375.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="expenseDescription" prefWidth="75.0" text="Description" />
-          <TableColumn fx:id="expenseAmount" prefWidth="75.0" text="Amount" />
-            <TableColumn fx:id="expenseDate" prefWidth="75.0" text="Column X" />
+          <TableColumn fx:id="expenseDescription" prefWidth="75.0" text="%columnDescription" />
+          <TableColumn fx:id="expenseAmount" prefWidth="75.0" text="%columnAmount" />
+            <TableColumn fx:id="expenseDate" prefWidth="75.0" text="%columnDate" />
         </columns>
       </TableView>
-      <Label layoutX="85.0" layoutY="334.0" text="Incomes from last seven days" />
-      <Label layoutX="500.0" layoutY="334.0" text="Expences from last seven days" />
+      <Label layoutX="85.0" layoutY="334.0" text="%Incomes7" />
+      <Label layoutX="500.0" layoutY="334.0" text="%Expences7" />
                </children>
      
 </AnchorPane>

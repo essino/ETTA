@@ -26,12 +26,14 @@ import javafx.scene.layout.Pane;
 import javafx.util.converter.FloatStringConverter;
 import model.Category;
 import model.Transfer;
+import res.MyBundle;
 
 /**
  * GUI class relating to the Balance main page section
  */
 public class BalanceOverviewGUI {
 	EconomyController controller;
+	MyBundle myBundle = new MyBundle();
 	/**
 	 * The reference of pane where user can input the start balance amount
 	 */
@@ -135,7 +137,7 @@ public class BalanceOverviewGUI {
 	}
 	
 	/** 
-	 * Method that initializes the view and gets the balance amount  from the controller
+	 * Method that initializes the view and gets the balance amount, incomes and expences from last seven days  from the controller
 	 */
 	@FXML 
 	public void initialize() { 
@@ -193,20 +195,28 @@ public class BalanceOverviewGUI {
 		}
 	}
 	
+	/** 
+	 * Method search information of transfers from database. 
+	 * endDate is today and startDate is week a go.
+	 * 
+	 */ 
+	
 	public void searchWeeksTransfers() {
 		LocalDate endDate = LocalDate.now();
 		LocalDate startDate = endDate.minusDays(6);
-		//LocalDate startDate = endDate.minus(7);
 		System.out.println(startDate);
 		System.out.println(endDate);
 		//This gets all transfers from this period
 		controller.getSelectedIncomes(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
 
-		//This gets all the incomes
-		//Transfer[] incomes = controller.getIncomesSeletedDays(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
-		//incomeTable.setItems(FXCollections.observableArrayList(incomes));
+	
 	}
 
+	/** 
+	 * Method sets data of incomes and expenses to own tables. 
+	 * 
+	 * 
+	 */ 
 	@FXML
 	public void setData(Transfer[] readSeletedTransfers) {
 		//chooses only incomes from the list
