@@ -37,8 +37,6 @@ public class InputCheck {
 	    return b;
 	}
 	
-	
-
 	/** 
 	 * Method that alerts that user input can not be transformed into float
 	 */
@@ -89,6 +87,9 @@ public class InputCheck {
 	    return b;
 	}
 	
+	/** 
+	 * Method that alerts that the loan date is after the return date
+	 */
 	public void alertDatesWrong() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(myBundle.getBundle().getString("checkErrorTitle"));
@@ -98,10 +99,9 @@ public class InputCheck {
 	}
 	
 	/** 
-	 * Method that checks if loan date and return dates are ok
-	 * @param loanDate when the item is borrowed
-	 * @param returnDate when the item is returned
-	 * @return b boolean showing if the dates are ok
+	 * Method that checks if a date is empty
+	 * @param date date in question
+	 * @return b boolean showing if the date is empty
 	 */ 
 	public boolean isDateEmpty(LocalDate date) {
 	    Boolean b = false;
@@ -111,6 +111,10 @@ public class InputCheck {
 	    return b;
 	}
 	
+	/** 
+	 * Method that asks the user to confirm deletion of data
+	 * @return delete boolean indicating it's okay to delete something
+	 */
 	public boolean confirmDeleting() {
 		boolean delete = false;
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -129,6 +133,10 @@ public class InputCheck {
 		return delete;
 	}
 	
+	/** 
+	 * Method that asks the user to confirm that they want to mark an item as returned
+	 * @return wantReturn boolean indicating it's okay (or not) to mark an item as returned
+	 */
 	public boolean confirmReturn() {
 		boolean wantReturn = false;
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -150,6 +158,9 @@ public class InputCheck {
 		return wantReturn;
 	}
 	
+	/** 
+	 * Method that alerts that there is not enough balance
+	 */
 	public void alertNotEnoughBalance() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(myBundle.getBundle().getString("checkErrorTitle"));
@@ -158,19 +169,21 @@ public class InputCheck {
 		alert.showAndWait();
 	}
 
-
-
+	/** 
+	 * Method that alerts in case the user is about to add a person who is already on the contact list
+	 */
 	public void alertPersonExists() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(myBundle.getBundle().getString("checkErrorTitle"));
 		alert.setHeaderText(myBundle.getBundle().getString("checkPersonHeader"));
 		alert.setContentText(myBundle.getBundle().getString("checkPersonContent"));
 		alert.showAndWait();
-		
 	}
 
-
-
+	/** 
+	 * Method that asks the user to confirm that the saving goal has been achieved
+	 * @return delete boolean indicating it's okay (or not) to delete the saving goal from the list
+	 */
 	public boolean confirmSavingAchieved() {
 		boolean delete = false;
 		Alert alert = new Alert(AlertType.CONFIRMATION);
