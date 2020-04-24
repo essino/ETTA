@@ -96,12 +96,12 @@ public class EconomyGUI {
 	
 		
 		//Method searching information of the last seven days on incomes items section
-		LocalDate endDate = LocalDate.now();
+		/*LocalDate endDate = LocalDate.now();
 		LocalDate startDate = endDate.minusDays(6);
 		//LocalDate startDate = endDate.minus(7);
 		System.out.println(startDate);
 		System.out.println(endDate);
-		controller.getSeletedIncomes(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+		controller.getSeletedIncomes(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));*/
 		try {
 			showBalanceView = loaderBalanceView.load();
 			} catch (IOException e) {

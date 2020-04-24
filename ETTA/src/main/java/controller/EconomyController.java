@@ -354,6 +354,10 @@ public class EconomyController {
 		expenceGUI.setData(transDAO.readSeletedTransfers(expenceStartDate, expenceEndDate));
 	}
 	
+	public void getSelectedIncomes(Date incomeStartDate, Date incomeEndDate) {
+		balanceOverviewGUI.setData(transDAO.readSeletedTransfers(incomeStartDate, incomeEndDate));
+	}
+	
 	
 	/** 
 	 * Method that gets the selected expense from expenceGUI, 
