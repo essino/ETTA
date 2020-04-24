@@ -152,7 +152,6 @@ public class BorrowedAddGUI {
 		if (this.loanDate.getValue() == null) {
 			return Date.valueOf(LocalDate.now());
 		} else {
-			
 			return Date.valueOf(this.loanDate.getValue());
 		}
 	}

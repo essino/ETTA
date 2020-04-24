@@ -6,14 +6,18 @@ import java.util.Optional;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import model.Person;
+import res.MyBundle;
 
 /** 
  * Class for the checking the input of the user.  
  * 
  */
 public class InputCheck {
+	
+	MyBundle myBundle = new MyBundle();
 	
 	/** 
 	 * Method that checks if user input can be transformed into float
@@ -40,9 +44,9 @@ public class InputCheck {
 	 */
 	public void alertInputNotFloat() {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("Wrong input type");
-		alert.setContentText("Give the amount in numbers");
+		alert.setTitle(myBundle.getBundle().getString("checkErrorTitle"));
+		alert.setHeaderText(myBundle.getBundle().getString("checkInputTypeHeader"));
+		alert.setContentText(myBundle.getBundle().getString("checkInputTypeContent"));
 		alert.showAndWait();
 	}
 	
@@ -64,9 +68,9 @@ public class InputCheck {
 	 */
 	public void alertInputEmpty() {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("Input can't be empty");
-		alert.setContentText("Give the needed information");
+		alert.setTitle(myBundle.getBundle().getString("checkErrorTitle"));
+		alert.setHeaderText(myBundle.getBundle().getString("checkInputEmptyHeader"));
+		alert.setContentText(myBundle.getBundle().getString("checkInputEmptyContent"));
 		alert.showAndWait();
 	}
 	//TODO: add checking for Min and MAx values for integers and Floats
@@ -87,9 +91,9 @@ public class InputCheck {
 	
 	public void alertDatesWrong() {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("The return date is before the loan date.");
-		alert.setContentText("Change the dates.");
+		alert.setTitle(myBundle.getBundle().getString("checkErrorTitle"));
+		alert.setHeaderText(myBundle.getBundle().getString("checkDatesHeader"));
+		alert.setContentText(myBundle.getBundle().getString("checkDatesContent"));
 		alert.showAndWait();
 	}
 	
@@ -110,11 +114,16 @@ public class InputCheck {
 	public boolean confirmDeleting() {
 		boolean delete = false;
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Confirmation");
-		alert.setHeaderText("Deleting can't be undone.");
-		alert.setContentText("Are you sure you want to delete this data permanently?");
+		alert.setTitle(myBundle.getBundle().getString("checkConfirmationTitle"));
+		alert.setHeaderText(myBundle.getBundle().getString("checkDeletionHeader"));
+		alert.setContentText(myBundle.getBundle().getString("checkDeletionContent"));
+		
+		ButtonType buttonOK = new ButtonType("OK", ButtonData.YES);
+		ButtonType buttonTypeCancel = new ButtonType(myBundle.getBundle().getString("buttonCancel"), ButtonData.CANCEL_CLOSE);
+		alert.getButtonTypes().setAll(buttonOK, buttonTypeCancel);
+		
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.isPresent() && result.get() == ButtonType.OK) {
+		if (result.isPresent() && result.get() == buttonOK) {
 			delete = true;
 		 }
 		return delete;
@@ -123,21 +132,29 @@ public class InputCheck {
 	public boolean confirmReturn() {
 		boolean wantReturn = false;
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Confirmation");
-		alert.setHeaderText("You're about to mark the item as returned.");
-		alert.setContentText("Are you sure you want to mark this item as returned?");
+		
+		alert.setTitle(myBundle.getBundle().getString("checkConfirmationTitle"));
+		alert.setHeaderText(myBundle.getBundle().getString("checkReturnHeader"));
+		alert.setContentText(myBundle.getBundle().getString("checkReturnContent"));
+		
+		ButtonType buttonOK = new ButtonType("OK", ButtonData.YES);
+		ButtonType buttonTypeCancel = new ButtonType(myBundle.getBundle().getString("buttonCancel"), ButtonData.CANCEL_CLOSE);
+		alert.getButtonTypes().setAll(buttonOK, buttonTypeCancel);
+		
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.isPresent() && result.get() == ButtonType.OK) {
+		if (result.isPresent() && result.get() == buttonOK) {
 			wantReturn = true;
+		 } else {
+			wantReturn = false; 
 		 }
 		return wantReturn;
 	}
 	
 	public void alertNotEnoughBalance() {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("The balance is not enough for this action.");
-		alert.setContentText("Check the new data and the balance.");
+		alert.setTitle(myBundle.getBundle().getString("checkErrorTitle"));
+		alert.setHeaderText(myBundle.getBundle().getString("checkBalanceHeader"));
+		alert.setContentText(myBundle.getBundle().getString("checkBalanceContent"));
 		alert.showAndWait();
 	}
 
@@ -145,9 +162,9 @@ public class InputCheck {
 
 	public void alertPersonExists() {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Error");
-		alert.setHeaderText("There is already a contact with this name.");
-		alert.setContentText("Check the name or add something to it.");
+		alert.setTitle(myBundle.getBundle().getString("checkErrorTitle"));
+		alert.setHeaderText(myBundle.getBundle().getString("checkPersonHeader"));
+		alert.setContentText(myBundle.getBundle().getString("checkPersonContent"));
 		alert.showAndWait();
 		
 	}
@@ -157,11 +174,16 @@ public class InputCheck {
 	public boolean confirmSavingAchieved() {
 		boolean delete = false;
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("Confirmation");
-		alert.setHeaderText("This can't be undone.");
-		alert.setContentText("Are you sure you want to delete this from savings and move to expenses permanently?");
+		alert.setTitle(myBundle.getBundle().getString("checkConfirmationTitle"));
+		alert.setHeaderText(myBundle.getBundle().getString("checkSavingHeader"));
+		alert.setContentText(myBundle.getBundle().getString("checkSavingContent"));
+		
+		ButtonType buttonOK = new ButtonType("OK", ButtonData.YES);
+		ButtonType buttonTypeCancel = new ButtonType(myBundle.getBundle().getString("buttonCancel"), ButtonData.CANCEL_CLOSE);
+		alert.getButtonTypes().setAll(buttonOK, buttonTypeCancel);
+		
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.isPresent() && result.get() == ButtonType.OK) {
+		if (result.isPresent() && result.get() == buttonOK) {
 			delete = true;
 		 }
 		return delete;
