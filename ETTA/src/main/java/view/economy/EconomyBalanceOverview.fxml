@@ -27,11 +27,11 @@
             <TableColumn fx:id="incomeDate" prefWidth="75.0" text="Date" />
         </columns>
       </TableView>
-      <TableView layoutX="488.0" layoutY="375.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="expenseTable" layoutX="488.0" layoutY="375.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Description" />
-          <TableColumn prefWidth="75.0" text="Amount" />
-            <TableColumn prefWidth="75.0" text="Column X" />
+          <TableColumn fx:id="expenseDescription" prefWidth="75.0" text="Description" />
+          <TableColumn fx:id="expenseAmount" prefWidth="75.0" text="Amount" />
+            <TableColumn fx:id="expenseDate" prefWidth="75.0" text="Column X" />
         </columns>
       </TableView>
       <Label layoutX="85.0" layoutY="334.0" text="Incomes from last seven days" />

@@ -3,7 +3,9 @@ package view.economy;
 import java.sql.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
+import java.time.LocalDate;
+import java.util.ArrayList;
+import javafx.event.ActionEvent;
 import controller.EconomyController;
 import controller.InputCheck;
 import javafx.collections.FXCollections;
@@ -69,6 +71,30 @@ public class BalanceOverviewGUI {
       @FXML
       private TableColumn<Transfer, Date> incomeDate;
       
+      /**
+  	 * The reference of TableView (expenses) will be injected by the FXML loader
+  	 */
+  	@FXML
+      private TableView<Transfer> expenseTable;
+  	
+  	/**
+  	 * The reference of TableColumn (expense's description) will be injected by the FXML loader
+  	 */
+      @FXML
+      private TableColumn<Transfer, String> expenseDescription;
+      
+      /**
+  	 * The reference of TableColumn (expense's date) will be injected by the FXML loader
+  	 */
+      @FXML
+      private TableColumn<Transfer, Date> expenseDate;
+      
+      /**
+  	 * The reference of TableColumn (expense's amount) will be injected by the FXML loader
+  	 */
+      @FXML
+      private TableColumn<Transfer, Float> expenseAmount;
+      
 	/** 
 	 * Constructor 
 	 */
@@ -93,6 +119,7 @@ public class BalanceOverviewGUI {
 	 */ 
 	@FXML
 	public void showSetBalance() {
+		
 		setBalancePane.setVisible(true);
 	}
 	
@@ -117,16 +144,32 @@ public class BalanceOverviewGUI {
                 new PropertyValueFactory<Transfer, Date>("date"));
 		incomeAmount.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Float>("amount"));
+		
+		expenseDescription.setCellValueFactory(
+                new PropertyValueFactory<Transfer, String>("description"));
+		expenseDate.setCellValueFactory(
+                new PropertyValueFactory<Transfer, Date>("date"));
+		expenseAmount.setCellValueFactory(
+                new PropertyValueFactory<Transfer, Float>("amount"));
+		
 	
-		ObservableList<Transfer> incomes =  FXCollections.observableArrayList(controller.getIncomes());
-		incomeTable.setItems(incomes);
+		searchWeeksTransfers();	
 		
 		incomeTable.setEditable(true);
 		incomeDescription.setCellValueFactory(new PropertyValueFactory<Transfer, String>("description")); 
 		incomeAmount.setCellValueFactory(new PropertyValueFactory<Transfer, Float>("amount"));
 		
+		expenseTable.setEditable(true);
+		expenseDescription.setCellValueFactory(new PropertyValueFactory<Transfer, String>("description")); 
+		
+		expenseAmount.setCellValueFactory(new PropertyValueFactory<Transfer, Float>("amount"));
+		
+		expenseDate.setCellValueFactory(new PropertyValueFactory<Transfer, Date>("date"));
+		
 		
 	}
+	
+	
 	
 	
 	
@@ -143,5 +186,41 @@ public class BalanceOverviewGUI {
 		else {
 			inputCheck.alertInputNotFloat();
 		}
+	}
+	
+	public void searchWeeksTransfers() {
+		LocalDate endDate = LocalDate.now();
+		LocalDate startDate = endDate.minusDays(6);
+		//LocalDate startDate = endDate.minus(7);
+		System.out.println(startDate);
+		System.out.println(endDate);
+		//This gets all transfers from this period
+		controller.getSelectedIncomes(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+		controller.getSelectedExpences(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+		//This gets all the incomes
+		//Transfer[] incomes = controller.getIncomesSeletedDays(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+		//incomeTable.setItems(FXCollections.observableArrayList(incomes));
+	}
+
+	@FXML
+	public void setData(Transfer[] readSeletedTransfers) {
+		//chooses only incomes from the list
+		ArrayList<Transfer> incomes = new ArrayList<Transfer>();
+		ArrayList<Transfer> expences = new ArrayList<Transfer>();
+		for (Transfer t: readSeletedTransfers) {
+			if (t.isIncome() == true) {
+				incomes.add(t);
+			} else {
+				expences.add(t);
+			}
+		}
+		Transfer[] incomesArr = new Transfer[incomes.size()];
+		incomes.toArray(incomesArr);
+		Transfer[] expencesArr = new Transfer[expences.size()];
+		expences.toArray(expencesArr);
+		
+		incomeTable.setItems(FXCollections.observableArrayList(incomesArr));
+		expenseTable.setItems(FXCollections.observableArrayList(expencesArr));
+
 	}
 }

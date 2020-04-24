@@ -129,7 +129,7 @@ public class EconomyOutcomeGUI {
 	public void searchExpence(ActionEvent event) {
 		LocalDate startDate = expenceStartDate.getValue();
 		LocalDate endDate = expenceEndDate.getValue();
-		controller.getSeletedExpences(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+		controller.getSelectedExpences(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
 	}
 	
 	/** 

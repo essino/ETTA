@@ -350,8 +350,12 @@ public class EconomyController {
 	/** 
 	 * Method fetching all expences from selected days from database
 	 */ 
-	public void getSeletedExpences(Date expenceStartDate, Date expenceEndDate) {
-		expenceGUI.setData(transDAO.readSeletedTransfers(expenceStartDate, expenceEndDate));
+	public void getSelectedExpences(Date expenceStartDate, Date expenceEndDate) {
+		balanceOverviewGUI.setData(transDAO.readSeletedTransfers(expenceStartDate, expenceEndDate));
+	}
+	
+	public void getSelectedIncomes(Date incomeStartDate, Date incomeEndDate) {
+		balanceOverviewGUI.setData(transDAO.readSeletedTransfers(incomeStartDate, incomeEndDate));
 	}
 	
 	
