@@ -23,7 +23,6 @@
 		<mapping class="model.Saving" />
 		<mapping class="model.Transfer" />
 		<mapping class="model.BorrowedThing" />
-		<mapping class="model.Calendar" />
 		<mapping class="model.Event" />
 		<mapping class="model.Category" />
 		<mapping class="model.Person" />
