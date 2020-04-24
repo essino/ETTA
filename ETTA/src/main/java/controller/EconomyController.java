@@ -244,6 +244,10 @@ public class EconomyController {
 	}
 
 
+	//constructor used for tests
+	public EconomyController(SavingDAO savingDAO2) {
+		this.savingDAO = savingDAO2;
+	}
 
 	/** 
 	 * Method that gets balance amount from BalanceDAO and gives it forward to BalanceOverviewGUI to display it on the page 
@@ -505,6 +509,14 @@ public class EconomyController {
 	public void moveSavingToExpense(Saving achievedSaving) {
 		savingDAO.deleteSaving(achievedSaving.getSaving_id());
 
+		fromSavingToIncome(achievedSaving);
+
+		fromSavingToExpense(achievedSaving); 
+
+		economySavingGUI.removeFromTable(achievedSaving);
+	} 
+	
+	public boolean fromSavingToIncome(Saving achievedSaving) {
 		Category fromSaved = categoryDAO.readCategory("savings");
 		if(fromSaved==null) {
 			fromSaved = new Category();
@@ -520,8 +532,10 @@ public class EconomyController {
 		incomeFromSaved.setIncome(true);
 		incomeFromSaved.setDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
 		
-		transDAO.createTransfer(incomeFromSaved);
-		
+		return transDAO.createTransfer(incomeFromSaved);
+	}
+	
+	public boolean fromSavingToExpense(Saving achievedSaving) {
 		Category paidFromSaved = categoryDAO.readCategory("achieved saving goal");
 		if(paidFromSaved==null) {
 			paidFromSaved = new Category();
@@ -537,7 +551,6 @@ public class EconomyController {
 		expenceFromSaved.setIncome(false);
 		expenceFromSaved.setDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
 		
-		transDAO.createTransfer(expenceFromSaved);
-		economySavingGUI.removeFromTable(achievedSaving);
+		return transDAO.createTransfer(expenceFromSaved);
 	}
 }

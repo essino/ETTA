@@ -48,9 +48,9 @@ public class MainViewController {
 	/** 
 	 * Method that tells BalanceDAO to create the balance to the database.  
 	 */
-	public void createBalance() { 
+	public boolean createBalance() { 
 		System.out.println("creating balance");
-			Balance balance = new Balance(0); 
-			balanceDao.createBalance(balance);
+		Balance balance = new Balance(0); 
+		return balanceDao.createBalance(balance);
 	}
 }

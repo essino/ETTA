@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import controller.EconomyController;
+
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 import model.Saving;
@@ -17,6 +19,7 @@ import model.SavingDAO;
 public class SavingDAOTest {
 
 	private SavingDAO savingDAO = new SavingDAO(true);
+	private EconomyController controller = new EconomyController(savingDAO);
 
 	private String desc = "Kossin matka";
 	private float amountGoal = 2000f;
@@ -46,6 +49,8 @@ public class SavingDAOTest {
 		Saving saving = new Saving("Auto", 10000, 0, Date.valueOf("2021-01-01"));
 		assertEquals(true, savingDAO.createSaving(saving), "Creation of saving failed");
 		assertEquals(2, savingDAO.readSavings().length, "Reading all failed");
+		assertEquals(2, controller.getSavingsList().size(), "Reading all failed (controller");
+		assertEquals(2, controller.getSavingss().length, "Reading all failed (controller");
 	}
 	
 	@Test
@@ -56,12 +61,14 @@ public class SavingDAOTest {
 		updatedSaving.setGoalDate(newDate);
 		assertEquals(true, savingDAO.updateSaving(updatedSaving), "Updating failed");
 		//assertEquals(newDate, savingDAO.readSaving(1).getGoalDate(), "Goalday updating failed");
+		assertEquals(true, controller.updateSaving(updatedSaving), "Updating failed (controller)");
 	}
 	
 	@Test
 	@Order(5)
 	public void testReadSavingByDescription() {
 		assertEquals(amountGoal, (savingDAO.getSaving(desc).getGoalAmount()), "Reading 1 by description failed");
+		assertEquals(amountGoal, controller.getSaving(desc).getGoalAmount(), "Reading one failed (controller)");
 	}
 	
 	@Test

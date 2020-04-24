@@ -291,6 +291,7 @@ class PersonConnectedDAOTest {
 		assertEquals(1, borrowedThingDAO.readBorrowedThings().length, "Reading all failed");
 		assertEquals(true, borrowedThingDAO.createBorrowedThing(borrowedThing2), "Creation of borrowed thing failed");
 		assertEquals(2, borrowedThingDAO.readBorrowedThings().length, "Reading all failed");
+		assertEquals(2, borrowedController.getBorrowedThings().length, "Reading all failed");
 	}
 	
 	@Test
