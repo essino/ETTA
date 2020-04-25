@@ -10,7 +10,6 @@ import javax.persistence.Table;
 @Table(name="Language")
 public class Language {
 	@Id
-	@GeneratedValue
 	@Column
 	private int language_id;
 	
@@ -36,7 +35,8 @@ public class Language {
 		return description;
 	}
 
-	public Language(String description, boolean chosen) {
+	public Language(int id, String description, boolean chosen) {
+		this.language_id=id;
 		this.description = description;
 		this.chosen = chosen;
 	}

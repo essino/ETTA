@@ -23,8 +23,8 @@ public class SettingsController {
 	MyTab myTab = MyTab.getMyTab();
 	MyBundle myBundle = new MyBundle();
 	
-	Language english = new Language("English", true);
-	Language finnish = new Language("Finnish", false);
+	Language english = new Language(1,"English", true);
+	Language finnish = new Language(2, "Finnish", false);
 
 	public SettingsController(SettingsGUI settingsGUI) {
 		this.settingsGUI=settingsGUI;

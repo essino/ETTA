@@ -85,6 +85,7 @@ public class LanguageDAO {
 	 * @param language Language the updated Language object
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
+	/*
 	public boolean selectLanguage(Language language) {
 		boolean success = false;
 		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
@@ -99,6 +100,7 @@ public class LanguageDAO {
 		System.out.println("selected" + language.getDescription());
 		return success;
 	}
+	*/
 	
 	public Language getSelectedLanguage() {
 		Language language = new Language();
@@ -160,5 +162,19 @@ public class LanguageDAO {
 			throw e;
 		}
 		return language;
+	}
+	
+	public boolean deleteLanguage(Language language) {
+		boolean success = false;
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+			transaction = session.beginTransaction();
+			session.delete(language);
+			transaction.commit();
+			success = true;
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		return success;
 	}
 }
