@@ -17,6 +17,9 @@ import res.MyBundle;
  */
 public class InputCheck {
 	
+	/**
+	 * The used resource bundle
+	 */
 	MyBundle myBundle = new MyBundle();
 	
 	/** 
@@ -200,6 +203,14 @@ public class InputCheck {
 			delete = true;
 		 }
 		return delete;
+	}
+	
+	public void alertNothingSelected() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(myBundle.getBundle().getString("checkErrorTitle"));
+		alert.setHeaderText(myBundle.getBundle().getString("checkNothingSelectedHeader"));
+		alert.setContentText(myBundle.getBundle().getString("checkNothingSelectedContent"));
+		alert.showAndWait();
 	}
 }
 
