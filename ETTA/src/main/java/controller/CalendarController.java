@@ -18,13 +18,27 @@ import com.calendarfx.model.Calendar.Style;
 
 import model.Event;
 import model.EventDAO;
+import model.Item;
 
+/** 
+ * Controller class for the calendar.  
+ * 
+ */
 public class CalendarController {
 	/**
 	 * EventDAO used for accessing the database
 	 */
 	EventDAO eventDAO = new EventDAO();
 	
+	//used for tests
+	public CalendarController(EventDAO eventDAO2) {
+		this.eventDAO = eventDAO2;
+	}
+
+	public CalendarController() {
+		
+	}
+
 	/** 
 	 * Method that checks if the event already exists in the database.
 	 * @param id - entry/event id
@@ -49,11 +63,11 @@ public class CalendarController {
 		calendar3.setStyle(Style.STYLE3);
 		Calendar calendar4 = new Calendar("work");
 		calendar4.setStyle(Style.STYLE4);
-		Calendar calendar5 = new Calendar("wishlist");
+		Calendar calendar5 = new Calendar("borrowed");
 		calendar5.setStyle(Style.STYLE5);
-		Calendar calendar6 = new Calendar("free time");
+		Calendar calendar6 = new Calendar("wishlist");
 		calendar6.setStyle(Style.STYLE6);
-		Calendar calendar7 = new Calendar("borrowed");
+		Calendar calendar7 = new Calendar("free time");
 		calendar7.setStyle(Style.STYLE7);
 		
 		CalendarSource myCalendarSource = new CalendarSource("My Calendars"); 
@@ -61,7 +75,7 @@ public class CalendarController {
 		ObservableList<Calendar> calendars = myCalendarSource.getCalendars();
 		EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
 		for(Calendar calendar : calendars) {
-			Event [] events = eventDAO.readEventsFromOneCalendar("'" + calendar.getName() + "'");
+			Event [] events = eventDAO.readEventsFromOneCalendar("'" + calendar.getName() + "'", false);
 			for (Event event : events) {
 				Entry entry = fromEventToEntry(event);
 				calendar.addEntry(entry);
@@ -76,34 +90,24 @@ public class CalendarController {
 	 * @param event - Event that was created, edited or deleted
 	 */
 	public void handleCalendarEvent(CalendarEvent evt) {
-		System.out.println("entryId 79 " + evt.getEntry().getId());
-		//Entry entry = evt.getEntry();
-		//Event newEvent = fromEntryToEvent(entry);
-		//System.out.println("entryId 82 " + entry.getId());
-		//System.out.println("eventId 83 " + newEvent.getEvent_id());
 		if(evt.isEntryRemoved()) {
-			System.out.println("entryId 85 " + evt.getEntry().getId());
 			Entry entry = evt.getEntry();
 			Event newEvent = fromEntryToEvent(entry);
 			eventDAO.deleteEvent(newEvent.getEvent_id());
 		}
-		
 		else if(checkIfEventExist(Integer.parseInt(evt.getEntry().getId()))==false) {
-			System.out.println("entryId 92 " + evt.getEntry().getId());
 			Entry entry = evt.getEntry();
-			Event newEvent = fromEntryToNewEvent(entry);
+			Event newEvent = fromEntryToEvent(entry);
 			eventDAO.createEvent(newEvent);
 		}
 		else if(evt.isEntryAdded()) {
-		
+			
 		}
 		else {
-			System.out.println("entryId 101 " + evt.getEntry().getId());
-				Entry entry = evt.getEntry();
-				Event newEvent = fromEntryToEvent(entry);
-				eventDAO.updateEvent(newEvent);
-			}
-
+			Entry entry = evt.getEntry();
+			Event newEvent = fromEntryToEvent(entry);
+			eventDAO.updateEvent(newEvent);
+		}
 	}
 	
 	/** 
@@ -140,8 +144,10 @@ public class CalendarController {
 		}
 		entry.setId(String.valueOf(event.getEvent_id()));
 		entry.setRecurrenceRule(event.getRrule());
-		System.out.println("eventId 136 " + event.getEvent_id());
-		System.out.println("entryId 137 " + entry.getId());
+		Calendar calendar = new Calendar(event.getCalendar());
+		System.out.println(" calendar rivi 135 " + event.getCalendar());
+		entry.setCalendar(calendar);
+		System.out.println(" calendar rivi 137 " + entry.getCalendar().getName());
 		return entry;
 	 }
 	  
@@ -166,39 +172,14 @@ public class CalendarController {
 		event.setRecurring(entry.isRecurring());
 		event.setRrule(entry.getRecurrenceRule());
 		event.setEvent_id(Integer.parseInt(entry.getId()));
-		if(event.getCalendar()==null) {
-			event.setCalendar("Default");
+		try {
+		event.setCalendar(entry.getCalendar().getName());
 		}
-		else {
-			event.setCalendar(entry.getCalendar().getName());
+		catch (NullPointerException e) {
+			event.setCalendar("Default");
 		}
 		return event;
 	  }
-	 
-	 public Event fromEntryToNewEvent(Entry entry) {
-			Event event = new Event();
-			Date startDate = convertToDateViaSqlDate(entry.getStartDate());
-			Date endDate = convertToDateViaSqlDate(entry.getEndDate());
-			Time startTime = toSqlTime(entry.getStartTime());
-			Time endTime = toSqlTime(entry.getEndTime());
-			event.setTitle(entry.getTitle());
-			event.setLocation(entry.getLocation());
-			event.setEndDate(endDate);
-			event.setStartDate(startDate);
-			event.setEndTime(endTime);
-			event.setStartTime(startTime);
-			event.setFullday(entry.isFullDay());
-			event.setRecurring(entry.isRecurring());
-			event.setRrule(entry.getRecurrenceRule());
-			//event.setEvent_id(Integer.parseInt(entry.getId()));
-			if(event.getCalendar()==null) {
-				event.setCalendar("Default");
-			}
-			else {
-				event.setCalendar(entry.getCalendar().getName());
-			}
-			return event;
-		  }
 	 
 		/** 
 		 * Method that returns default CalendarsSource with the default calendar
@@ -209,7 +190,7 @@ public class CalendarController {
 	        Calendar defaultCalendar = calendarSource.getCalendars().get(0);
 	        EventHandler<CalendarEvent> handler = evt -> handleCalendarEvent(evt);
 	        defaultCalendar.addEventHandler(handler);
-			Event [] events = eventDAO.readEventsFromOneCalendar("'" + defaultCalendar.getName() + "'");
+			Event [] events = eventDAO.readEventsFromOneCalendar("'" + defaultCalendar.getName() + "'", false);
 			for (Event event2 : events) {
 				Entry entry = fromEventToEntry(event2);
 				entry.setCalendar(defaultCalendar);
@@ -218,4 +199,83 @@ public class CalendarController {
 			
 		 return calendarSource;
 	 }
+
+	 //update birthday event if name changes
+		public boolean updateBirthday(String oldName, String newName) {
+			Event birthdayEvent = eventDAO.readBirthday(oldName);
+			birthdayEvent.setTitle(newName);
+			return eventDAO.updateEvent(birthdayEvent);
+		}
+		
+		//update birthday event if date changes
+		public boolean updateBirthday(String name, Date oldDate, Date birthday) {
+			Event birthdayEvent = eventDAO.readBirthday(name);
+			//there was a birthday event already
+			if(birthdayEvent!=null) {
+				birthdayEvent.setStartDate(birthday);
+				birthdayEvent.setEndDate(birthday);
+				return eventDAO.updateEvent(birthdayEvent);
+			}
+			//no event before, let's create it
+			else {
+				return createBirthday(name, birthday);
+			}
+		}
+
+		//update wishlist event if item description changes
+		public boolean updateWishlistDescription(String oldDescription, Item editedItem) {
+			boolean updated = false;
+			String oldEvent = "Buy " + oldDescription + " for " + editedItem.getPerson().getName();
+			System.out.println("old wishlist event" + oldEvent);
+			Event wishlistEvent = eventDAO.readWishlistEvent(oldEvent);
+			if(wishlistEvent != null) {
+				wishlistEvent.setTitle("Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName());
+				updated = eventDAO.updateEvent(wishlistEvent);
+			}
+			return updated;
+		}
+
+		//update wishlist event if person changes
+		public boolean updateWishlistPerson(String oldName, Item editedItem) {
+			boolean updated = false;
+			String oldEvent = "Buy " + editedItem.getDescription() + " for " + oldName;
+			Event wishlistEvent = eventDAO.readWishlistEvent(oldEvent);
+			if(wishlistEvent != null) {
+				wishlistEvent.setTitle("Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName());
+				updated = eventDAO.updateEvent(wishlistEvent);
+			}
+			return updated;
+		}
+
+		//update wishlist event if date changes
+		public boolean updateWishlistDate(Date oldDate, Item editedItem) {
+			boolean updated = false;
+			String event = "Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName();
+			Event wishlistEvent = eventDAO.readWishlistEvent(event);
+			if(wishlistEvent != null) {
+				wishlistEvent.setStartDate(editedItem.getDateNeeded());
+				wishlistEvent.setEndDate(editedItem.getDateNeeded());
+				updated = eventDAO.updateEvent(wishlistEvent);
+			}
+			return updated;
+		}
+		
+		public boolean createBirthday(String name, Date birthday) {
+			Event birthdayEvent = new Event();
+			int lastEvent = eventDAO.readEvents().length; 
+			int lastEventId =1;
+			if(lastEvent != 0 ) {
+				lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();
+			}
+			birthdayEvent = new Event();
+			birthdayEvent.setTitle(name);
+			birthdayEvent.setEvent_id(lastEventId+1);
+			birthdayEvent.setCalendar("birthdays");
+			birthdayEvent.setStartDate(birthday);
+			birthdayEvent.setEndDate(birthday);
+			birthdayEvent.setFullday(true);
+			birthdayEvent.setRecurring(true);
+			birthdayEvent.setRrule("RRULE:FREQ=YEARLY;");
+			return eventDAO.createEvent(birthdayEvent);
+		}
 }

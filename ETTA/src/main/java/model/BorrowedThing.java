@@ -11,24 +11,42 @@ import javax.persistence.*;
 @Table(name="BorrowedThing")
 public class BorrowedThing {
 	
+	/**
+	 * a unique integer for identifying the specific borrowed item
+	 */
 	@Id
 	@GeneratedValue
 	@Column(name="thing_id") 
 	private int thing_id;
 	
+	/**
+	 * the name of the borrowed item
+	 */
 	@Column(name="description", length=50)
 	private String description;
 	
+	/**
+	 * a Date variable for when the item has been lent to someone
+	 */
 	@Column(name="dateBorrowed")
 	private Date dateBorrowed;
 	
+	/**
+	 * a Date variable for wen the item is to be returned
+	 */
 	@Column(name="returnDate", nullable=true)
 	private Date returnDate;
 	
+	/**
+	 * the person to whom the item has been lent
+	 */
 	@ManyToOne
 	@JoinColumn(name="person")
 	private Person person;
 	
+	/**
+	 * a boolean indicating whether or not the borrowed item has been returned
+	 */
 	@Column(name="returned")
 	private boolean returned = false;
 

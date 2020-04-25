@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.economy.BalanceOverviewGUI">
+   
+               <children>
+                  <Label layoutX="47.0" layoutY="282.0" text="%labelBalance" />
+                  <Label fx:id="amountBalance" layoutX="124.0" layoutY="282.0" text="Bad" />
+      <Pane fx:id="setBalancePane" layoutX="62.0" layoutY="42.0" prefHeight="200.0" prefWidth="526.0">
+         <children>
+            <Label layoutX="37.0" layoutY="87.0" text="%labelSetBalance" />
+            <TextField fx:id="newBalance" layoutX="151.0" layoutY="75.0" />
+             <Button layoutX="434.0" layoutY="81.0" mnemonicParsing="false" onAction="#saveBalance" text="%buttonSave" />
+         </children>
+      </Pane>
+      <TableView fx:id="incomeTable" layoutX="76.0" layoutY="366.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="incomeDescription" prefWidth="75.0" text="%columnDescription" />
+          <TableColumn fx:id="incomeAmount" prefWidth="75.0" text="%columnAmount" />
+            <TableColumn fx:id="incomeDate" prefWidth="75.0" text="%columnDate" />
+        </columns>
+      </TableView>
+      <TableView fx:id="expenseTable" layoutX="488.0" layoutY="375.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="expenseDescription" prefWidth="75.0" text="%columnDescription" />
+          <TableColumn fx:id="expenseAmount" prefWidth="75.0" text="%columnAmount" />
+            <TableColumn fx:id="expenseDate" prefWidth="75.0" text="%columnDate" />
+        </columns>
+      </TableView>
+      <Label layoutX="85.0" layoutY="334.0" text="%Incomes7" />
+      <Label layoutX="500.0" layoutY="334.0" text="%Expences7" />
+               </children>
+     
+</AnchorPane>

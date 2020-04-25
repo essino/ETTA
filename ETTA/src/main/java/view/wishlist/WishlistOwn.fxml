@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="wishlistOwnAnchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.wishlist.WishlistOwnGUI">
+   <children>
+      <TableView fx:id="wishlisttable" layoutX="212.0" layoutY="61.0" prefHeight="478.0" prefWidth="508.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
+        <columns>
+          <TableColumn fx:id="item" prefWidth="75.0" text="%wishlistItem" />
+          <TableColumn fx:id="person" prefWidth="75.0" text="%person" />
+            <TableColumn fx:id="price" prefWidth="75.0" text="%price" />
+            <TableColumn fx:id="date" prefWidth="99.99998474121094" text="%wishlistDateNeeded" />
+            <TableColumn fx:id="addinfo" prefWidth="146.4000244140625" text="%wishlistAdditionalInfo" />
+            <TableColumn fx:id="bought" minWidth="0.0" prefWidth="61.5999755859375" text="%wishlistBought" />
+        </columns>
+      </TableView>
+      <ButtonBar layoutX="127.0" layoutY="597.0" prefHeight="40.0" prefWidth="652.0" AnchorPane.bottomAnchor="113.0" AnchorPane.leftAnchor="127.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="597.0">
+        <buttons>
+            <Button mnemonicParsing="false" onAction="#showAddWish" prefHeight="39.0" prefWidth="134.0" text="%wishlistAddItem">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#deleteItem" text="%buttonDelete">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

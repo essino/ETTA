@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Person {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private int person_id;
 	
@@ -43,6 +43,10 @@ public class Person {
 		this.name = name;
 		this.birthday = birthday;
 		this.email = email;
+	}
+
+	public Person(String name) {
+		this.name = name;
 	}
 
 	/**

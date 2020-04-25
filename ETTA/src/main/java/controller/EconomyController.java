@@ -5,22 +5,32 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Callback;
 
 import java.sql.Date;
 
 import model.Balance;
-import view.EconomyGUI;
-import view.EconomyIncomeGUI;
-import view.EconomyOutcomeGUI;
+import view.economy.BalanceOverviewGUI;
+import view.economy.EconomyAddIncomeGUI;
+import view.economy.EconomyAddOutcomeGUI;
+import view.economy.EconomyAddSavingGUI;
+import view.economy.EconomyGUI;
+import view.economy.EconomyIncomeGUI;
+import view.economy.EconomyOutcomeGUI;
+import view.economy.EconomySavingsGUI;
 import model.BalanceDAO;
 import model.Category;
 import model.CategoryDAO;
-import view.BalanceOverviewGUI;
-import view.EconomyAddOutcomeGUI;
+import model.Item;
+import model.Saving;
+import model.SavingDAO;
 import model.TransferDAO;
 import model.Transfer;
-import view.EconomyAddIncomeGUI;
 
+/** 
+ * Controller class for the Economy part.  
+ * 
+ */
 public class EconomyController {
 	/**
 	 * Reference to the BalanceOverviewGUI
@@ -31,12 +41,10 @@ public class EconomyController {
 	 */
 	private EconomyGUI ecoGUI;
 	
-	
 	/**
 	 * Reference to the EconomyAddOutcomeGUI
 	 */
 	private EconomyAddOutcomeGUI addExpenceGUI;
-	
 	
 	/**
 	 * Reference to the EconomyOutcomeGUI
@@ -49,46 +57,133 @@ public class EconomyController {
 	/**
 	 * TransferDAO used for accessing the database
 	 */
-	private TransferDAO transDAO = new TransferDAO();
+	private TransferDAO transDAO = new TransferDAO(); 
 	/**
 	 * CategoryDAO used for accessing the database
 	 */
 	private CategoryDAO categoryDAO = new CategoryDAO();
+	
+	/**
+	 * SavingDAO used for accessing the database
+	 */
+	private SavingDAO savingDAO = new SavingDAO();
+	
 	/**
 	 * Reference to the EconomyAddIncomeGUI
 	 */
 	private EconomyAddIncomeGUI economyAddIncomeGUI;
 	
+	/**
+	 * Reference to the EconomyIncomeGUI
+	 */
 	private EconomyIncomeGUI incomeGUI;
 	
+	/**
+	 * Reference to the EconomyAddSavingGUI
+	 */
+	private EconomyAddSavingGUI economyAddSavingGUI;
+	
+	/**
+	 * Reference to the EconomySavingGUI
+	 */
+	private EconomySavingsGUI economySavingGUI;
 	
 	
+	
+	public Item selectedIncomeDesc = new Item();
+	
+	public Item selectedOutcomeDesc = new Item();
+	
+
+	
+	/**
+	 * 
+	 * Method for updating an Exepenses description
+	 */
+	public boolean updateOutcomeDesc(Transfer editedOutcomeDesc) {
+		return transDAO.updateTransfer(editedOutcomeDesc);
+	}
+	
+	/**
+	 * 
+	 * Method for updating an incomes description
+	 */
+	public boolean updateIncomeDesc(Transfer editedIncomeDesc) {
+		return transDAO.updateTransfer(editedIncomeDesc);
+	}
+	
+	/**
+	 * 
+	 * Method for updating an incomes amount
+	 */
+	public void updateIncomeAmount(Transfer editedIncomeAmount) {
+		float oldAmount = (transDAO.readTransfer(editedIncomeAmount.getTransfer_id())).getAmount();
+		float newAmount = editedIncomeAmount.getAmount();
+		float diff = newAmount-oldAmount;
+		transDAO.updateTransfer(editedIncomeAmount);
+		//Balance balance = balanceDao.readBalance(1);
+		//balance.setBalance(balance.getBalance() + diff);
+		//balanceDao.updateBalance(balance);
+		updateBalanceAmount(diff);
+	}
+	
+	/**
+	 * 
+	 * Method for updating an Exepenses amount
+	 */
+	public void updateOutcomeAmount(Transfer editedOutcomeAmount) {
+		float oldAmount = (transDAO.readTransfer(editedOutcomeAmount.getTransfer_id())).getAmount();
+		float newAmount = editedOutcomeAmount.getAmount();
+		float diff = oldAmount-newAmount;
+		transDAO.updateTransfer(editedOutcomeAmount);
+		//Balance balance = balanceDao.readBalance(1);
+		//balance.setBalance(balance.getBalance() - diff);
+		//balanceDao.updateBalance(balance);
+		updateBalanceAmount(diff);
+	}
+	
+	/**
+	 * 
+	 * Method for updating an incomes date
+	 */
+	public boolean updateIncomeDate(Transfer editedIncomeDate) {
+		return transDAO.updateTransfer(editedIncomeDate);
+	}
+	
+	/**
+	 * 
+	 * Method for updating an exepenses date
+	 */
+	public boolean updateOutcomeDate(Transfer editedOutcomeDate) {
+		return transDAO.updateTransfer(editedOutcomeDate);
+	}
 	
 	public void saveTransfer() {
-
-
 		String description = ecoGUI.getDescription();
 		float incomeAmount = ecoGUI.getIncomeAmount();
 		Date incomeDate = ecoGUI.getIncomeDate();
 		Category category = null;
 		Boolean income = true;
 		Transfer transfer = new Transfer(description, category, income, incomeDate, incomeAmount);
-
 		Boolean Transfer = transDAO.createTransfer(transfer);
 	}
-
 	
 	/** 
 	 * Constructor 
 	 * @param balanceOverviewGUI 
 	 */ 
-
 	public EconomyController(BalanceOverviewGUI balanceOverviewGUI) { 
-
 		this.balanceOverviewGUI= balanceOverviewGUI; 
-	
 	} 
 
+	/** 
+	 * Constructor 
+	 * @param economyAddSavingGUI 
+	 */ 
+	public EconomyController(EconomyAddSavingGUI economyAddSavingGUI) { 
+		this.economyAddSavingGUI= economyAddSavingGUI; 
+	} 
+	
 	/** 
 	 * Constructor 
 	 */ 
@@ -103,16 +198,15 @@ public class EconomyController {
 	public EconomyController(EconomyAddOutcomeGUI economyAddOutcomeGUI) {
 		this.addExpenceGUI = economyAddOutcomeGUI;
 	}
-	
 
-	
+	/** 
+	 * Constructor 
+	 * @param economyIncomeGUI 
+	 */ 
 	public EconomyController(EconomyIncomeGUI economyIncomeGUI) {
 		this.incomeGUI = economyIncomeGUI;
 	}
 	
-
-	
-
 	/** 
 	 * Constructor 
 	 * @param economyOutcomeGUI 
@@ -121,8 +215,38 @@ public class EconomyController {
 		this.expenceGUI = economyOutcomeGUI;
 	}
 
+	/** 
+	 * Constructor 
+	 * @param economyAddIncomeGUI 
+	 */ 
 	public EconomyController(EconomyAddIncomeGUI economyAddIncomeGUI) {
 		this.economyAddIncomeGUI = economyAddIncomeGUI;
+	}
+
+	/** 
+	 * Constructor 
+	 * @param economySavingGUI 
+	 */ 
+	public EconomyController(EconomySavingsGUI economySavingsGUI) {
+		this.economySavingGUI = economySavingsGUI;
+	}
+
+	//constructor used for tests
+	public EconomyController(CategoryDAO categoryDAO2, TransferDAO transferDAO, SavingDAO savingDAO2) {
+		this.categoryDAO = categoryDAO2;
+		this.transDAO = transferDAO; 
+		this.savingDAO = savingDAO2;
+	}
+
+	//constructor used for tests
+	public EconomyController(BalanceDAO balanceDAO2) {
+		this.balanceDao = balanceDAO2;
+	}
+
+
+	//constructor used for tests
+	public EconomyController(SavingDAO savingDAO2) {
+		this.savingDAO = savingDAO2;
 	}
 
 	/** 
@@ -140,7 +264,7 @@ public class EconomyController {
 	
 	/** 
 	 * Method that gets balance amount from BalanceOverviewGUI  and gives it forward to BalanceDAO  to update in the database. 
-	 * @param amount float amount of the new balance
+	 * @param amount float amount of the new balance 
 	 */
 	public void updateBalance(float amount) {
 		Balance balance = new Balance(1, amount);
@@ -192,15 +316,16 @@ public class EconomyController {
 		income.setIncome(true);
 		income.setDate(economyAddIncomeGUI.getIncomeDay());
 		transDAO.createTransfer(income);
-		Balance balance = balanceDao.readBalance(1);
-		float newAmount = balance.getBalance() + income.getAmount();
-		balance.setBalance(newAmount);
-		balanceDao.updateBalance(balance);
+		//Balance balance = balanceDao.readBalance(1);
+		//float newAmount = balance.getBalance() + income.getAmount();
+		//balance.setBalance(newAmount);
+		//balanceDao.updateBalance(balance);
+		updateBalanceAmount(income.getAmount());
 	}
 	
 	
 	/** 
-	 * Method that gets new expense's detail from addExpenceGUI and gives the expense to TransferDAO
+	 * Method that gets new expense's detail from addOutcomeGUI and gives the expense to TransferDAO
 	 */ 
 	public void saveExpense() {
 		Transfer expense = new Transfer();
@@ -211,11 +336,34 @@ public class EconomyController {
 		expense.setIncome(false);
 		expense.setDate(addExpenceGUI.getExpenseDay());
 		transDAO.createTransfer(expense);
-		Balance balance = balanceDao.readBalance(1);
-		float newAmount = balance.getBalance() + expense.getAmount();
-		balance.setBalance(newAmount);
-		balanceDao.updateBalance(balance);
+		//Balance balance = balanceDao.readBalance(1);
+		//float newAmount = balance.getBalance() + expense.getAmount();
+		//balance.setBalance(newAmount);
+		//balanceDao.updateBalance(balance);
+		updateBalanceAmount(expense.getAmount());
 	}
+	
+	
+	/** 
+	 * Method fetching all incomes from selected days from database
+	 */ 
+	public void getSeletedIncomes(Date incomeStartDate, Date incomeEndDate) {
+		incomeGUI.setData(transDAO.readSeletedTransfers(incomeStartDate, incomeEndDate));
+	}
+	
+	/** 
+	 * Method fetching all expences from selected days from database
+	 */ 
+	public void getSelectedExpences(Date expenceStartDate, Date expenceEndDate) {
+		balanceOverviewGUI.setData(transDAO.readSeletedTransfers(expenceStartDate, expenceEndDate));
+	}
+	
+	public void getSelectedIncomes(Date incomeStartDate, Date incomeEndDate) {
+		balanceOverviewGUI.setData(transDAO.readSeletedTransfers(incomeStartDate, incomeEndDate));
+	}
+	
+	
+	
 	
 	/** 
 	 * Method that gets the selected expense from expenceGUI, 
@@ -224,28 +372,17 @@ public class EconomyController {
 	 */ 
 	public void removeExpense() {
 		transDAO.deleteTransfer(expenceGUI.transferToDelete().getTransfer_id());
-		Balance balance = balanceDao.readBalance(1);
-		float newAmount = balance.getBalance() - expenceGUI.transferToDelete().getAmount();
-		balance.setBalance(newAmount);
-		balanceDao.updateBalance(balance);
+		//Balance balance = balanceDao.readBalance(1);
+		//float newAmount = balance.getBalance() - expenceGUI.transferToDelete().getAmount();
+		//balance.setBalance(newAmount);
+		//balanceDao.updateBalance(balance);
+		updateBalanceAmount(0-expenceGUI.transferToDelete().getAmount());
 		expenceGUI.removeFromTable(expenceGUI.transferToDelete());
 	}
 	
 	/** 
-	 * Method that gets the selected expense from expenceGUI, 
-	 * tells TransferDAO to edit the expense in the database 
-	 * and expenceGUI to display it from the tableView.
-	 */ 
-	public void editExpense() {
-
-	}
-	
-
-	
-	
-	/** 
 	 * Method that gets Expenses from TransferDAO and makes a list containing expenses' details 
-	 * @return ObservableList<String> names - list of expenses
+	 * @return Transfer [] - list of expenses
 	 */ 
 	public Transfer[] getExpenses() {
 		return transDAO.readExpenses();
@@ -254,9 +391,19 @@ public class EconomyController {
 	
 	/** 
 	 * Method that gets Incomes from TransferDAO and makes a list containing incomes details 
-	 * @return ObservableList<String> names - list of incomes
+	 * @return Transfer[] - list of incomes
 	 */ 
 	public Transfer[] getIncomes() {
+		return transDAO.readIncome();
+	}
+	
+	
+	
+	/** 
+	 * Method that gets seleted Incomes from TransferDAO and makes a list containing incomes details 
+	 * @return Transfer[] - list of incomes
+	 */ 
+	public Transfer[] getIncomesSeletedDays(Date dateStart, Date dateEnd) {
 		return transDAO.readIncome();
 	}
 	
@@ -267,12 +414,143 @@ public class EconomyController {
 	 */ 
 	public void removeIncome() {
 		transDAO.deleteTransfer(incomeGUI.transferToDelete().getTransfer_id());
-		Balance balance = balanceDao.readBalance(1);
-		float newAmount = balance.getBalance() - incomeGUI.transferToDelete().getAmount();
-		balance.setBalance(newAmount);
-		balanceDao.updateBalance(balance);
+		//Balance balance = balanceDao.readBalance(1);
+		//float newAmount = balance.getBalance() - incomeGUI.transferToDelete().getAmount();
+		//balance.setBalance(newAmount);
+		//balanceDao.updateBalance(balance);
+		updateBalanceAmount(0-incomeGUI.transferToDelete().getAmount());
 		incomeGUI.removeFromTable(incomeGUI.transferToDelete());
 	}
 
+	/** 
+	 * Method that gets new saving's detail from economyAddSavingGUI and gives the saving to SavingDAO
+	 */
+	public void saveNewSaving() {
+		Saving saving = new Saving();
+		saving.setGoal_amount(economyAddSavingGUI.getSavingAmount());
+		saving.setDescription(economyAddSavingGUI.getDescription());
+		saving.setGoalDate(economyAddSavingGUI.getSavingDay());
+		saving.setProgress(0);
+		savingDAO.createSaving(saving);
+	}
 
+	/** 
+	 * Method that gets Savings from SavingDAO and makes a list containing savings' details 
+	 * @return Savings[]  list of savings
+	 */ 
+	public Saving[] getSavingss() {
+		return savingDAO.readSavings();
+	}
+
+	/** 
+	 * Method that gets the selected saving from SavingGUI, 
+	 * tells SavingDAO to delete the saving goal from the database 
+	 * and SavingGUI to delete it from the tableView.
+	 */ 
+	public void removeSaving() {
+		savingDAO.deleteSaving(economySavingGUI.savingToDelete().getSaving_id());
+		//Balance balance = balanceDao.readBalance(1);
+		//float newAmount = balance.getBalance() + economySavingGUI.savingToDelete().getAmount();
+		//balance.setBalance(newAmount);
+		//balanceDao.updateBalance(balance);
+		updateBalanceAmount(economySavingGUI.savingToDelete().getAmount());
+		economySavingGUI.removeFromTable(economySavingGUI.savingToDelete());
+	}
+
+
+	public boolean updateSaving(Saving editedSavingDesc) {
+		return savingDAO.updateSaving(editedSavingDesc);
+	}
+	
+	/** 
+	 * Method that gets balance amount from BalanceDAO and gives it forward to BalanceOverviewGUI to display it on the page 
+	 */ 
+	public float getBalanceAmount() { 
+		return balanceDao.readBalance(1).getBalance(); 
+	}
+
+	public boolean updateBalanceAmount(float amount) {
+		if(enoughBalance(amount)) {
+			Balance balance = balanceDao.readBalance(1);
+			float newAmount = balance.getBalance() + amount;
+			balance.setBalance(newAmount);
+			balanceDao.updateBalance(balance);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean enoughBalance(float amount) {
+		Balance balance = balanceDao.readBalance(1);
+		float newAmount = balance.getBalance() + amount;
+		if(newAmount>=0) {
+			return true;
+		}
+		return false;
+	}
+
+	public ObservableList<String> getSavingsList() {
+		Saving[] savings = savingDAO.readSavings();
+		ArrayList<String> savingNames = new ArrayList<String>();
+		for (Saving s : savings){
+			savingNames.add(s.getDescription());
+		}
+		ObservableList<String> names =  FXCollections.observableArrayList(savingNames);
+		return names;
+	}
+
+	public Saving getSaving(String description) {
+		Saving saving = savingDAO.getSaving(description);
+		return saving;
+	}
+
+	public void moveSavingToExpense(Saving achievedSaving) {
+		savingDAO.deleteSaving(achievedSaving.getSaving_id());
+
+		fromSavingToIncome(achievedSaving);
+
+		fromSavingToExpense(achievedSaving); 
+
+		economySavingGUI.removeFromTable(achievedSaving);
+	} 
+	
+	public boolean fromSavingToIncome(Saving achievedSaving) {
+		Category fromSaved = categoryDAO.readCategory("savings");
+		if(fromSaved==null) {
+			fromSaved = new Category();
+			fromSaved.setDescription("savings");
+			fromSaved.setCategory_type(true);
+			categoryDAO.createCategory(fromSaved);
+		}
+		
+		Transfer incomeFromSaved = new Transfer();
+		incomeFromSaved.setDescription(achievedSaving.getDescription());
+		incomeFromSaved.setAmount(achievedSaving.getAmount());
+		incomeFromSaved.setCategory(fromSaved);
+		incomeFromSaved.setIncome(true);
+		incomeFromSaved.setDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
+		
+		return transDAO.createTransfer(incomeFromSaved);
+	}
+	
+	public boolean fromSavingToExpense(Saving achievedSaving) {
+		Category paidFromSaved = categoryDAO.readCategory("achieved saving goal");
+		if(paidFromSaved==null) {
+			paidFromSaved = new Category();
+			paidFromSaved.setDescription("achieved saving goal");
+			paidFromSaved.setCategory_type(true);
+			categoryDAO.createCategory(paidFromSaved);
+		}
+		
+		Transfer expenceFromSaved = new Transfer();
+		expenceFromSaved.setDescription(achievedSaving.getDescription());
+		expenceFromSaved.setAmount(0-achievedSaving.getAmount());
+		expenceFromSaved.setCategory(paidFromSaved);
+		expenceFromSaved.setIncome(false);
+		expenceFromSaved.setDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
+		
+		return transDAO.createTransfer(expenceFromSaved);
+	}
 }

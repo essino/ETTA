@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name="Balance")
 public class Balance {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private int id;
 	@Column

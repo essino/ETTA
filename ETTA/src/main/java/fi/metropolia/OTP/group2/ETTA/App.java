@@ -8,31 +8,39 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import view.MainPageGUI;
-import view.MainViewGUI;
+import res.MyBundle;
+import res.MyTab;
+import view.mainPage.MainPageGUI;
+import view.mainPage.MainViewGUI;
 
 
 public class App extends Application
 {
+	//MyBundle myBundle = MyBundle.getInstance();
+	MyTab myTab = MyTab.getMyTab();
 	
     public static void main( String[] args )
     {
     	launch(args);
+    	
     }
     
     public void start(Stage primaryStage) {
-    	MainViewGUI mainViewGUI = new MainViewGUI();
+
+    	MainViewGUI mainViewGUI = new MainViewGUI(MyBundle.getInstance());
     	MainPageGUI mainPageGUI = new MainPageGUI();
     	MainViewController controller = new MainViewController(mainPageGUI);
     	
+    	
         TabPane tabPane = new TabPane();
 
-        Tab tab1 = new Tab("Main Page");
-        Tab tab2 = new Tab("Economy");
-        Tab tab3 = new Tab("Calendar");
-        Tab tab4 = new Tab("Wishlists");
-        Tab tab5 = new Tab("Borrowed things");
-        Tab tab6 = new Tab("Contacts");
+        Tab tab1 = myTab.mainPageTab;
+        Tab tab2 = myTab.economyTab;
+        Tab tab3 = myTab.calendarTab;
+        Tab tab4 = myTab.wishlistTab;
+        Tab tab5 = myTab.borrowedTab;
+        Tab tab6 = myTab.contactsTab;
+        Tab tab7 = myTab.settingsTab;
 
         //main page view
         tab1.setContent(mainViewGUI.mainPageView());
@@ -79,22 +87,32 @@ public class App extends Application
 	            }
 	        });
 		
+		//settings main view
+		tab7.setOnSelectionChanged(event -> {
+	        if (tab7.isSelected()) {
+	        	tab7.setContent(mainViewGUI.SettingsView());
+	            }
+	        });
+		
         tabPane.getTabs().add(tab1);
         tabPane.getTabs().add(tab2);
         tabPane.getTabs().add(tab3);
         tabPane.getTabs().add(tab4);
         tabPane.getTabs().add(tab5);
         tabPane.getTabs().add(tab6);
+        tabPane.getTabs().add(tab7);
         
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         VBox vBox = new VBox(tabPane);
         Scene scene = new Scene(vBox);
-
+        
         primaryStage.setScene(scene);
         primaryStage.setTitle("ETTA");
 
         primaryStage.show();
+        
+        
     }
-    
+
 }
 

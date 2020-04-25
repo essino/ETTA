@@ -6,6 +6,7 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 public class Saving {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="saving_id")
 	private int saving_id;
 	
@@ -31,12 +32,12 @@ public class Saving {
 	private Date goalDate;
 	
 	@Column(name="progress")
-	private float progress = 0;
+	private double progress = 0;
 
 	public Saving(String desc, float amountGoal, float reachedGoal, Date date) {
 		this.description = desc;
 		this.goalAmount = amountGoal;
-		this.progress = reachedGoal;
+		this.amount = reachedGoal;
 		this.goalDate = date;
 	}
 
@@ -84,11 +85,11 @@ public class Saving {
 		this.goalDate = goalDate;
 	}
 
-	public float getProgress() {
+	public double getProgress() {
 		return progress;
 	}
 
-	public void setProgress(float progress) {
+	public void setProgress(double progress) {
 		this.progress = progress;
 	}
 	

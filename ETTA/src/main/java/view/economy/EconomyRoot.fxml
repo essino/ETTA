@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<BorderPane fx:id="economyrootborderpane" prefHeight="750.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="view.economy.EconomyGUI">
+   <left>
+                  <VBox layoutX="64.0" layoutY="223.0" prefHeight="750.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#showBalance" prefHeight="150.0" prefWidth="200.0" text="%rootBalance" />
+                        <Button mnemonicParsing="false" onAction="#showIncome" prefHeight="150.0" prefWidth="200.0" text="%rootIncome" />
+                        <Button mnemonicParsing="false" onAction ="#showExpenses" prefHeight="150.0" prefWidth="200.0" text="%rootExpenses" />
+                        <Button mnemonicParsing="false" onAction = "#showSavings" prefHeight="150.0" prefWidth="200.0" text="%rootSavings" />
+                     </children>
+                  </VBox>
+              </left>
+         
+
+</BorderPane>

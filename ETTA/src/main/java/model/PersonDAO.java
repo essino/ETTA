@@ -16,33 +16,31 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class PersonDAO {
 	
 	/**
-	 * SessionFactory object needed to open session with the database
-	 */
-	SessionFactory factory = null;
-	/**
 	 * Transaction object to carry out database transactions
 	 */
 	Transaction transaction = null;
 	
 	/**
-	 * Constructor for PersonDAO
+	 * Boolean indicating whether the DAO should connect to the test database or not
+	 * Default value false
+	 */
+	boolean test = false;
+	
+	/**
+	 * Construction without parameters
 	 */
 	public PersonDAO() {
-		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-		try {
-			factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-		} catch (Exception e) {
-			System.out.println("Creation of session factory failed");
-			StandardServiceRegistryBuilder.destroy(registry);
-			e.printStackTrace();
-			System.exit(-1);}
+		
 	}
 	
 	/**
-	 * Method for closing the database connection
+	 * Constructor
+	 * @param test boolean indicating whether the DAO is used for testing or not
 	 */
-	protected void finalize() {
-		factory.close();
+	public PersonDAO(boolean test) {
+		if (test) {
+			this.test = true;
+		}
 	}
 	
 	 /**
@@ -52,13 +50,15 @@ public class PersonDAO {
 	 */
 	public boolean createPerson(Person person) {
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
+			System.out.println(session);
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(person);
 			transaction.commit();
 			success = true;
 			System.out.println("creating: " + person.getPerson_id());
 			System.out.println("creating: " + person.getName());
+			System.out.println("creating: " + person.getBirthday());
 		} catch (Exception e) {
 			if (transaction != null) transaction.rollback();
 			throw e;
@@ -74,7 +74,7 @@ public class PersonDAO {
 	public Person readPerson(int person_id) {
 		Person person = new Person();
 		try {
-			Session session = factory.openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			person = (Person)session.get(Person.class, person_id);		
 			transaction.commit();
@@ -91,7 +91,7 @@ public class PersonDAO {
 		//System.out.println("id in reading one " + id);
 		Person person = new Person();
 		try {
-			Session session = factory.openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			List<Person>  result = session.createQuery( "from Person where name='" + name + "'" ).list();
 			if (result.size() != 0) {
@@ -116,7 +116,7 @@ public class PersonDAO {
 	 */
 	public Person[] readPeople() {
 		ArrayList<Person> list = new ArrayList<>();
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Person> result = session.createQuery("from Person").getResultList();
@@ -140,7 +140,7 @@ public class PersonDAO {
 	 */
 	public boolean updatePerson(Person person) {
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
 			transaction = session.beginTransaction();
 			session.update(person);
 			transaction.commit();
@@ -160,7 +160,7 @@ public class PersonDAO {
 	public boolean deletePerson(int person_id) {
 		boolean success = false;
 		try {
-			Session session = factory.openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			Person person = (Person)session.get(Person.class, person_id);
 			session.delete(person);
@@ -172,4 +172,5 @@ public class PersonDAO {
 		}
 		return success;
 	}
+
 }

@@ -16,33 +16,31 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class SavingDAO {
 	
 	/**
-	 * SessionFactory object needed to open session with the database
-	 */
-	SessionFactory factory = null;
-	/**
 	 * Transaction object to carry out database transactions
 	 */
 	Transaction transaction = null;
 	
 	/**
-	 * Constructor for SavingDAO
+	 * Boolean indicating whether the DAO should connect to the test database or not
+	 * Default value false
+	 */
+	boolean test = false;
+	
+	/**
+	 * Construction without parameters
 	 */
 	public SavingDAO() {
-		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-		try {
-			factory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-		} catch (Exception e) {
-			System.out.println("Creation of session factory failed");
-			StandardServiceRegistryBuilder.destroy(registry);
-			e.printStackTrace();
-			System.exit(-1);}
+		
 	}
 	
 	/**
-	 * Method for closing the database connection
+	 * Constructor
+	 * @param test boolean indicating whether the DAO is used for testing or not
 	 */
-	protected void finalize() {
-		factory.close();
+	public SavingDAO(boolean test) {
+		if (test) {
+			this.test = true;
+		}
 	}
 	
 	 /**
@@ -53,7 +51,7 @@ public class SavingDAO {
 	public boolean createSaving(Saving saving) {
 		boolean success = false;
 		try {
-			Session session = factory.openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(saving);
 			transaction.commit();
@@ -76,11 +74,12 @@ public class SavingDAO {
 		ArrayList<Saving> list = new ArrayList<>();
 		
 		try  {
-			Session session = factory.openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Saving> result = session.createQuery("from Saving").getResultList();
 			for(Saving saving : result) {
+				saving.setProgress(saving.getAmount()/saving.getGoalAmount());
 				list.add(saving);
 
 			}
@@ -101,7 +100,7 @@ public class SavingDAO {
 	public Saving readSaving(int saving_id) {
 		Saving saving = new Saving();
 		try {
-			Session session = factory.openSession();
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			saving = (Saving)session.get(Saving.class, saving_id);		
 			transaction.commit();
@@ -120,8 +119,9 @@ public class SavingDAO {
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean updateSaving(Saving saving) {
+		saving.setProgress((saving.getAmount()/saving.getGoalAmount())*100);
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
 			transaction = session.beginTransaction();
 			session.update(saving);
 			transaction.commit();
@@ -140,7 +140,7 @@ public class SavingDAO {
 	 */
 	public boolean deleteSaving(int saving_id) {
 		boolean success = false;
-		try (Session session = factory.openSession()) {
+		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
 			transaction = session.beginTransaction();
 			Saving saving = (Saving)session.get(Saving.class, saving_id);
 			session.delete(saving);
@@ -151,6 +151,22 @@ public class SavingDAO {
 			throw e;
 		}
 		return success;
+	}
+
+	public Saving getSaving(String description) {
+		Saving saving = new Saving();
+		try  {
+			Session session = HibernateUtil.getSessionFactory(test).openSession();
+			transaction = session.beginTransaction();
+			@SuppressWarnings("unchecked")
+			List<Saving> result = session.createQuery("from Saving where description='"+description + "'").getResultList();
+			saving = result.get(0);
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) transaction.rollback();
+			throw e;
+		}
+		return saving;
 	}
 
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -8,27 +9,39 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.joda.time.LocalDate;
 
 /**
  * Data access object class for Events. Used in the communication with the database table for Events through Hibernate.
  */
 public class EventDAO {
-	/**
-	 * SessionFactory object needed to open session with the database
-	 */
-	SessionFactory sessionFactory= null;
+
 	Session session;
 	/**
 	 * Transaction object to carry out database transaction
 	 */
 	Transaction transaction = null;
 	
-	public EventDAO(){
+	/**
+	 * Boolean indicating whether the DAO should connect to the test database or not
+	 * Default value false
+	 */
+	boolean test = false;
+	
+	/**
+	 * Construction without parameters
+	 */
+	public EventDAO() {
 		
-		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-		
-		sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+	}
+	
+	/**
+	 * Constructor
+	 * @param test boolean indicating whether the DAO is used for testing or not
+	 */
+	public EventDAO(boolean test) {
+		if (test) {
+			this.test = true;
+		}
 	}
 	
 	/**
@@ -40,7 +53,7 @@ public class EventDAO {
 		List<Event> result;
 		Event[] returnArray;
 		try {
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			session.beginTransaction();
 			result = session.createQuery( "from Event order by event_id" ).list();
 			for ( Event e : (List<Event>) result ) {
@@ -68,37 +81,9 @@ public class EventDAO {
 		Transaction transaction = null;
 		Event event = new Event();
 		try {
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			event = (Event)session.get(Event.class, event_id);	
-			
-			transaction.commit();
-			if(event == null) {
-				return null;
-			}
-			//System.out.println("reading one:" + event.getTitle() + " startTime " + event.getStartTime());
-		}
-		catch(Exception e){
-			if (transaction!=null) transaction.rollback();
-			throw e;
-		}
-		finally{
-			session.close();
-		}
-		return event;
-	}
-	/**
-	 * method for reading one event by Entry_id from the Calendar from the database
-	 * @param entry_id the entry_id of the entry
-	 * @return event object read from the database
-	 */
-	public Event readEvent(String entry_id) {
-		Transaction transaction = null;
-		Event event = new Event();
-		try {
-			session = sessionFactory.openSession();
-			transaction = session.beginTransaction();
-			event = (Event)session.get(Event.class, entry_id);	
 			
 			transaction.commit();
 			if(event == null) {
@@ -128,10 +113,9 @@ public class EventDAO {
 		Transaction transaction = null;
 
 		try{
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();
 			session.saveOrUpdate(event);
-			//System.out.println("entryId " + event.getEvent_id());
 			transaction.commit();
 			created = true;
 		}
@@ -153,11 +137,10 @@ public class EventDAO {
 	public boolean updateEvent(Event event) {
 		boolean updated =false;
 		try {
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			transaction = session.beginTransaction();	
 			session.update(event);
 			transaction.commit();
-			//System.out.println("changed" + event.getEvent_id());
 			updated = true;
 		}
 		catch(Exception e){
@@ -171,7 +154,38 @@ public class EventDAO {
 	}
 	
 	/**
-	 * method for deleting one Category from the database
+	 * method for updating an event in the database
+	 * @param description String the title of the event
+	 * @return updated Boolean indicating the success or failure of the database transaction
+	 */
+	/*
+	public boolean updateEvent(String description) {
+		boolean updated =false;
+		try {
+			session = HibernateUtil.getSessionFactory(test).openSession();
+			session.beginTransaction();
+			List<Event> result;
+			result = session.createQuery( "from Event  e where e.title='" + description).getResultList();
+			System.out.println("result " + result.toString());
+			Event e = result.get(0);
+			System.out.println("event_id found " + e.getEvent_id());
+			session.update(e);
+			System.out.println(e.getEvent_id() + " updated.");
+			session.getTransaction().commit();
+			updated = true;
+		}
+		catch(Exception e){
+			if (transaction!=null) transaction.rollback();
+			throw e;
+		}
+		finally{
+			session.close();
+		}
+		return updated;
+	}*/
+	
+	/**
+	 * method for deleting one Event from the database
 	 * @param id the id of the event
 	 * @return deleted Boolean indicating the success or failure of the database transaction
 	 */
@@ -179,7 +193,7 @@ public class EventDAO {
 		boolean deleted = false;
 		// Tiedon haku Session.get-metodilla + poisto jos löytyi
 		try {
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			session.beginTransaction();
 
 			Event e = (Event)session.get(Event.class, event_id);
@@ -207,16 +221,21 @@ public class EventDAO {
 	 * method for reading events only belonging to the calendar recieved as parameter from the database
 	 * @return Event[]  list of  event objects read from the database
 	 */
-	public Event[] readEventsFromOneCalendar(String calendar) {
+	public Event[] readEventsFromOneCalendar(String calendar, boolean test) {
 		List<Event> result;
 		Event[] returnArray;
 		try {
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			session.beginTransaction();
-			result = session.createQuery( "from Event where calendar="+ calendar).list();
-			for ( Event e : (List<Event>) result ) {
-				//System.out.println( "Event (" + e.getTitle() + ") : " + e.getStartDate() + ", " + e.getStartTime());
+			if (test) {
+				result = session.createQuery( "from Event where calendar='"+ calendar + "'").list();
+			} else {
+				result = session.createQuery( "from Event where calendar="+ calendar).list();
 			}
+			
+			/*for ( Event e : (List<Event>) result ) {
+				//System.out.println( "Event (" + e.getTitle() + ") : " + e.getStartDate() + ", " + e.getStartTime());
+			}*/
 			session.getTransaction().commit();
 			returnArray = new Event[result.size()];
 		}
@@ -240,7 +259,7 @@ public class EventDAO {
 		List<Event> result;
 		Event[] returnArray;
 		try {
-			session = sessionFactory.openSession();
+			session = HibernateUtil.getSessionFactory(test).openSession();
 			session.beginTransaction();
 			result = session.createQuery( "from Event where startDate=current_date()").list();
 			session.getTransaction().commit();
@@ -255,18 +274,116 @@ public class EventDAO {
 		}	
 		return result.toArray(returnArray);
 	}
-	
-	/**
-	 * method for closing the database session
-	 */
-	public void finalize() { // destruktori 
-		try { 
-			// oli sama yhteys koko sovelluksen ajan 
-			if (sessionFactory != null) {// vapauttaa muutkin resurssit 
-				sessionFactory.close(); 
+
+	public boolean deleteBirthday(String name) {
+		boolean deleted = false;
+		try {
+			session = HibernateUtil.getSessionFactory(test).openSession();
+			session.beginTransaction();
+			List<Event> result;
+			result = session.createQuery( "from Event  e where e.title='" + name + "' and calendar='birthdays'").getResultList();
+			System.out.println("result " + result.toString());
+			try  {
+				Event e = result.get(0);
+				session.delete(e);
+				System.out.println(e.getEvent_id() + " deleted.");
+				deleted = true;
 			}
-		}catch (Exception e) { 
-				e.printStackTrace();  
-		} 
+			catch(IndexOutOfBoundsException e) {
+				System.out.println("Ei löydy listalta.");
+			}
+			session.getTransaction().commit();
+			
+		}
+		catch(Exception e){
+			if (transaction!=null) transaction.rollback();
+			throw e;
+		}
+		finally {
+			session.close();
+		}
+		return deleted;
 	}
+	
+	public Event readBirthday(String name) {
+		Event event =null;
+		try {
+			session = HibernateUtil.getSessionFactory(test).openSession();
+			session.beginTransaction();
+			List<Event> result;
+			result = session.createQuery( "from Event  e where e.title='" + name + "' and calendar='birthdays'").getResultList();
+			System.out.println("result " + result.toString());
+			try  {
+				event = result.get(0);
+			}
+			catch(IndexOutOfBoundsException e) {
+				System.out.println("Ei löydy listalta.");
+			}
+			session.getTransaction().commit();
+			
+		}
+		catch(Exception e){
+			if (transaction!=null) transaction.rollback();
+			throw e;
+		}
+		finally {
+			session.close();
+		}
+		return event;
+	}
+	
+	public Event readBorrowed(String description) {
+		Event event =null;
+		try {
+			session = HibernateUtil.getSessionFactory(test).openSession();
+			session.beginTransaction();
+			List<Event> result;
+			result = session.createQuery( "from Event  e where e.title='" + description + "' and calendar='borrowed'").getResultList();
+			System.out.println("result " + result.toString());
+			try  {
+				event = result.get(0);
+			}
+			catch(IndexOutOfBoundsException e) {
+				System.out.println("Ei löydy listalta.");
+			}
+			session.getTransaction().commit();
+			
+		}
+		catch(Exception e){
+			if (transaction!=null) transaction.rollback();
+			throw e;
+		}
+		finally {
+			session.close();
+		}
+		return event;
+	}
+
+	public Event readWishlistEvent(String oldEvent) {
+		Event event =null;
+		try {
+			session = HibernateUtil.getSessionFactory(test).openSession();
+			session.beginTransaction();
+			List<Event> result;
+			result = session.createQuery( "from Event  e where e.title='" + oldEvent + "' and calendar='wishlist'").getResultList();
+			System.out.println("result " + result.toString());
+			try  {
+				event = result.get(0);
+			}
+			catch(IndexOutOfBoundsException e) {
+				System.out.println("Ei löydy listalta.");
+			}
+			session.getTransaction().commit();
+			
+		}
+		catch(Exception e){
+			if (transaction!=null) transaction.rollback();
+			throw e;
+		}
+		finally {
+			session.close();
+		}
+		return event;
+	}
+	
 }

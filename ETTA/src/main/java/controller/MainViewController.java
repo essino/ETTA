@@ -2,7 +2,7 @@ package controller;
 
 import model.Balance;
 import model.BalanceDAO;
-import view.MainPageGUI;
+import view.mainPage.MainPageGUI;
 /** 
  * Controller class for the main page.  
  * 
@@ -34,7 +34,7 @@ public class MainViewController {
 	}
 
 	/** 
-	 * Method that checks if the balance is already set in the database 
+	 * Method that checks if the balance is already set in the database, if not - a new balance is created 
 	 * @return true if balance is already set or after it is set 
 	 */
 	public boolean checkIfBalanceExist() { 
@@ -48,9 +48,9 @@ public class MainViewController {
 	/** 
 	 * Method that tells BalanceDAO to create the balance to the database.  
 	 */
-	public void createBalance() { 
+	public boolean createBalance() { 
 		System.out.println("creating balance");
-			Balance balance = new Balance(0); 
-			balanceDao.createBalance(balance);
+		Balance balance = new Balance(0); 
+		return balanceDao.createBalance(balance);
 	}
 }
