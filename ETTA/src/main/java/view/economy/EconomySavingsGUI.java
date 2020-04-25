@@ -2,6 +2,9 @@ package view.economy;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
 
 import controller.EconomyController;
 import controller.InputCheck;
@@ -29,15 +32,18 @@ import javafx.util.converter.FloatStringConverter;
 import model.Saving;
 import res.MyBundle;
 
-public class EconomySavingsGUI {
+public class EconomySavingsGUI implements Observer{
 	EconomyController controller = new EconomyController(this);
 	
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundleInst = MyBundle.getInstance();
+	MyBundle myBundle;
+	
+	ResourceBundle bundle;
 	
 	/**
 	 * The reference of InputCheck class used for checking user's input
 	 */
-	InputCheck inputCheck = new InputCheck();
+	InputCheck inputCheck = InputCheck.getInstance();
 	
 	/**
 	 * The list view from where adding, editing and deleting can be started in savings
@@ -91,6 +97,21 @@ public class EconomySavingsGUI {
     private TextField savingAddedAmount;
     
     Callback<TableColumn<Saving, Date>, TableCell<Saving, Date>> dateCellFactory = (TableColumn<Saving, Date> param) -> new SavingDateEditingCell();
+    
+    public EconomySavingsGUI() {
+		this.myBundle = myBundleInst;
+		this.bundle=myBundle.getBundle();
+		this.myBundle.addObserver(this);
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("observer informed");
+		if(o instanceof MyBundle) {
+			this.bundle=myBundle.getBundle();
+		}
+		
+	}
     
 	/** 
 	 * Method that initializes the view and gets the savings  from the controller to display them on the page

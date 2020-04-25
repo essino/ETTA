@@ -31,7 +31,7 @@ public class SettingsGUI {
 	
 	SettingsController controller = new SettingsController(this);
 	
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundle = MyBundle.getInstance();
 	
 	@FXML
 	public void cancel() {

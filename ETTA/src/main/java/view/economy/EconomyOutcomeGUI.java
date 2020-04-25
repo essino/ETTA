@@ -3,6 +3,9 @@ package view.economy;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
 
 import controller.EconomyController;
 import controller.InputCheck;
@@ -28,11 +31,13 @@ import res.MyBundle;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn.CellEditEvent;
 
-public class EconomyOutcomeGUI {
+public class EconomyOutcomeGUI implements Observer{
 	
 	EconomyController controller = new EconomyController(this);
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundleInst = MyBundle.getInstance();
+	MyBundle myBundle;
 	
+	ResourceBundle bundle;
 	/**
 	 * The list view from where adding, editing and deleting can be started in expencies
 	 */
@@ -78,11 +83,22 @@ public class EconomyOutcomeGUI {
       /**
     	 * The reference of InputCheck class used for checking user's input
     	 */
-    	InputCheck inputCheck = new InputCheck();
+    	InputCheck inputCheck = InputCheck.getInstance();
       
     	Callback<TableColumn<Transfer, Date>, TableCell<Transfer, Date>> dateCellFactory = (TableColumn<Transfer, Date> param) -> new DateEditingCell(); 
       
       public EconomyOutcomeGUI() {
+    	  this.myBundle = myBundleInst;
+  		this.bundle=myBundle.getBundle();
+  		this.myBundle.addObserver(this);
+  	}
+  	
+  	@Override
+  	public void update(Observable o, Object arg) {
+  		System.out.println("observer informed");
+  		if(o instanceof MyBundle) {
+  			this.bundle=myBundle.getBundle();
+  		}
   		
   	}
 	
@@ -110,7 +126,7 @@ public class EconomyOutcomeGUI {
 	public void showEditOutcome(ActionEvent event) {
 		AnchorPane showAddOutcomeView = null;
 		FXMLLoader loaderAddOutcomeView = new FXMLLoader(getClass().getResource("/view/economy/EconomyEditOutcome.fxml"));
-		loaderAddOutcomeView .setResources(myBundle.getBundle());
+		loaderAddOutcomeView .setResources(bundle);
 		try {
 			showAddOutcomeView = loaderAddOutcomeView.load();
 			} catch (IOException e) {

@@ -2,6 +2,9 @@ package view.economy;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
 
 import controller.EconomyController;
 import controller.InputCheck;
@@ -20,14 +23,15 @@ import model.CategoryDAO;
 import model.Transfer;
 import res.MyBundle;
 
-public class EconomyAddIncomeGUI {
-	
-	MyBundle myBundle = new MyBundle();
+public class EconomyAddIncomeGUI implements Observer{
+	MyBundle myBundleInst = MyBundle.getInstance();
+	MyBundle myBundle;
+	ResourceBundle bundle;
 	
 	/**
 	 * The reference of InputCheck class used for checking user's input
 	 */
-	InputCheck inputCheck = new InputCheck();
+	InputCheck inputCheck = InputCheck.getInstance();
 	
 	/**
 	 * CategoryDAO used for accessing the database
@@ -60,9 +64,19 @@ public class EconomyAddIncomeGUI {
 	
 	
 	public EconomyAddIncomeGUI() {
-		
+		this.myBundle = myBundleInst;
+		this.bundle=myBundle.getBundle();
+		this.myBundle.addObserver(this);
 	}
 	
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("observer informed");
+		if(o instanceof MyBundle) {
+			this.bundle=myBundle.getBundle();
+		}
+		
+	}
 	/**
 	 * The reference of DatePicker (incomes) will be injected by the FXML loader
 	 */
@@ -172,7 +186,7 @@ public class EconomyAddIncomeGUI {
 			controller.saveIncome();
 			AnchorPane incomeView = null; 
 			FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyIncome.fxml"));
-			loaderIncomeView .setResources(myBundle.getBundle());
+			loaderIncomeView .setResources(bundle);
 			try {
 				incomeView = loaderIncomeView.load();
 				} catch (IOException e) {
@@ -201,7 +215,7 @@ public class EconomyAddIncomeGUI {
 		AnchorPane incomeView = null; 
 
 		FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyIncome.fxml")); 
-		loaderIncomeView .setResources(myBundle.getBundle());
+		loaderIncomeView .setResources(bundle);
 
 		try {
 			incomeView = loaderIncomeView.load();

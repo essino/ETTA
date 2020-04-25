@@ -11,7 +11,7 @@ import res.MyBundle;
 
 public abstract class AbstractWishlistGUI {
 	
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundle = MyBundle.getInstance();
 	
 	@FXML
 	TableView<Item> wishlisttable;

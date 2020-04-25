@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import controller.InputCheck;
 
 public class InputCheckTest {
-	private InputCheck check = new InputCheck();
+	private InputCheck check = InputCheck.getInstance();
 	private Date date1 = Date.valueOf("1980-11-04");
 	private Date date2 = Date.valueOf("1980-07-23");
 	private LocalDate date3;

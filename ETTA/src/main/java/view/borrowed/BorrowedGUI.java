@@ -2,6 +2,8 @@ package view.borrowed;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
 import controller.BorrowedController;
@@ -27,12 +29,15 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 /**
  * GUI class relating to the Borrowed items section
  */
-public class BorrowedGUI {
-
+public class BorrowedGUI implements Observer{
+	public static final BorrowedGUI single = new BorrowedGUI();
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundleInst = MyBundle.getInstance();
+	//MyBundle myBundle;
+	
+	ResourceBundle bundle;
 	
 	/**
 	 * The menu view to which the alternative views in the Borrowed items section are added
@@ -54,7 +59,21 @@ public class BorrowedGUI {
 	/**
 	 * an empty construtor for BorrowedGUI
 	 */
-	public BorrowedGUI() {
+	private BorrowedGUI() {
+		//this.myBundle = myBundleInst;
+		this.bundle=myBundleInst.getBundle();
+		this.myBundleInst.addObserver(this);
+	}
+	public static BorrowedGUI getInstance() {
+		return single;
+	}
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("observer informed");
+		if(o instanceof MyBundle) {
+			this.bundle=myBundleInst.getBundle();
+		}
+		
 	}
 	
 	/**
@@ -65,7 +84,8 @@ public class BorrowedGUI {
 	public void showBorrowedSearch(ActionEvent event) {
 		AnchorPane borrowedSearch = null;
 		FXMLLoader loaderBorrowedSearch  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedSearch.fxml"));
-		loaderBorrowedSearch.setResources(myBundle.getBundle());
+		loaderBorrowedSearch.setController(BorrowedSearchGUI.getInstance());
+		loaderBorrowedSearch.setResources(bundle);
 		try {
 			System.out.println("Ra-ra-rasputin!");
 			borrowedSearch = loaderBorrowedSearch.load();
@@ -83,7 +103,8 @@ public class BorrowedGUI {
 	public void showBorrowedView(ActionEvent event) {
 		AnchorPane borrowedView = null;
 		FXMLLoader loaderBorrowedView = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml"));
-		loaderBorrowedView.setResources(myBundle.getBundle());
+		loaderBorrowedView.setController(BorrowedTableGUI.getInstance());
+		loaderBorrowedView.setResources(bundle);
 		try {
 			borrowedView = loaderBorrowedView.load();
 			} catch (IOException e) {
@@ -100,7 +121,8 @@ public class BorrowedGUI {
 	public void showBorrowedAdd(ActionEvent event) {
 		AnchorPane borrowedAdd = null;
 		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedAdd.fxml"));
-		loaderBorrowedAdd.setResources(myBundle.getBundle());
+		loaderBorrowedAdd.setController(BorrowedAddGUI.getInstance());
+		loaderBorrowedAdd.setResources(bundle);
 		try {
 				borrowedAdd = loaderBorrowedAdd.load();
 			} catch (IOException e) { 
@@ -118,7 +140,8 @@ public class BorrowedGUI {
 	public void showReturned(ActionEvent event) {
 		AnchorPane borrowedReturned = null;
 		FXMLLoader loaderBorrowedReturned = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedReturnedView.fxml"));
-		loaderBorrowedReturned.setResources(myBundle.getBundle());
+		loaderBorrowedReturned.setController(BorrowedReturnedTableGUI.getInstance());
+		loaderBorrowedReturned.setResources(bundle);
 		try {
 			borrowedReturned = loaderBorrowedReturned.load();
 			} catch (IOException e) {

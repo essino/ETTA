@@ -20,8 +20,8 @@ import view.settings.SettingsGUI;
 public class SettingsController {
 	SettingsGUI settingsGUI;
 	LanguageDAO langDAO = new LanguageDAO();
-	MyTab myTab = MyTab.getMyTab();
-	MyBundle myBundle = new MyBundle();
+	MyTab myTab = MyTab.getMyTab(); 
+	MyBundle myBundle = MyBundle.getInstance();
 	
 	Language english = new Language(1,"English", true);
 	Language finnish = new Language(2, "Finnish", false);
@@ -47,6 +47,7 @@ public class SettingsController {
 		Language newLang = langDAO.readLanguage(newLangName);
 		newLang.setChosen(true);
 		langDAO.updateLanguage(newLang);
+		myBundle.langChanged();
 		//updating tabs' names
 		myTab.setTabName();
 		

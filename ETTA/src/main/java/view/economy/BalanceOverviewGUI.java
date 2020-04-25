@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,9 +33,9 @@ import res.MyBundle;
 /**
  * GUI class relating to the Balance main page section
  */
-public class BalanceOverviewGUI {
+public class BalanceOverviewGUI{
 	EconomyController controller;
-	MyBundle myBundle = new MyBundle();
+
 	/**
 	 * The reference of pane where user can input the start balance amount
 	 */
@@ -50,7 +52,7 @@ public class BalanceOverviewGUI {
 	@FXML 
 	private Label amountBalance; 
 	
-	InputCheck inputCheck = new InputCheck();
+	InputCheck inputCheck = InputCheck.getInstance();
 	
 	/**
 	 * The reference of TableView (incomes) will be injected by the FXML loader
@@ -106,9 +108,6 @@ public class BalanceOverviewGUI {
 	public BalanceOverviewGUI() { 
 		controller = new EconomyController(this);
 	} 
-	
-	
-
 	
 	/** 
 	 * Method that gets balance amount and displays it on the page 

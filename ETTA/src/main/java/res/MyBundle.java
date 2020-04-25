@@ -1,27 +1,24 @@
 package res;
 
-import java.util.Enumeration;
 import java.util.Locale;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import model.Language;
 import model.LanguageDAO;
 
-public class MyBundle extends ResourceBundle{
+public class MyBundle extends Observable{
+	public static final MyBundle single = new MyBundle();
 	LanguageDAO langDao = new LanguageDAO();
 	Locale locale;
 	ResourceBundle bundle;
 	
-	@Override
-	protected Object handleGetObject(String key) {
-		// TODO Auto-generated method stub
-		return null;
+	private MyBundle() {
+		
 	}
 
-	@Override
-	public Enumeration<String> getKeys() {
-		// TODO Auto-generated method stub
-		return null;
+	public static MyBundle getInstance() {
+		return single;
 	}
 	
     public ResourceBundle getBundle() {
@@ -48,5 +45,14 @@ public class MyBundle extends ResourceBundle{
 		}
 		return bundle;
 	}
+
+    public void langChanged() {
+    	//System.out.println("lang change");
+    	//this.langChanged=change;
+    	this.setChanged();
+		this.notifyObservers();
+		System.out.println("observers "+ this.countObservers());
+		//langChanged = false;
+    }
 
 }

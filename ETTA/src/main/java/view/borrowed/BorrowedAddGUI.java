@@ -1,22 +1,19 @@
 package view.borrowed;
 
-
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
 import controller.InputCheck;
 import controller.BorrowedController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Person;
@@ -28,12 +25,15 @@ import javafx.scene.control.TextField;
 /**
  * GUI class in charge of the view used for adding borrowed items
  */
-public class BorrowedAddGUI {
-	
+public class BorrowedAddGUI implements Observer{
+	public static final BorrowedAddGUI single = new BorrowedAddGUI();
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundleInst = MyBundle.getInstance();
+	MyBundle myBundle;
+	
+	ResourceBundle bundle;
 	
 	/**
 	 * PersonDAO used for accessing the database
@@ -73,15 +73,36 @@ public class BorrowedAddGUI {
 	/**
 	 * Reference to the used BorrowedController
 	 */
-	BorrowedController controller = new BorrowedController(this);
+	BorrowedController controller; 
 	
-	InputCheck inputCheck = new InputCheck();
+	InputCheck inputCheck =InputCheck.getInstance();
 	
 	/*@FXML
 	public void addBorrowed(ActionEvent event) {
 		System.out.println("found");  
 	}*/
 	
+
+	
+	public static BorrowedAddGUI getInstance() {
+		return single;
+	}
+	private BorrowedAddGUI() {
+		controller = new BorrowedController();
+		this.myBundle = myBundleInst;
+		this.bundle=myBundle.getBundle();
+		this.myBundle.addObserver(this);
+		System.out.println("observers in gui " + myBundle.countObservers());
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("observer informed");
+		if(o instanceof MyBundle) {
+			this.bundle=myBundle.getBundle();
+		}
+		
+	}
 	/**
 	 * Initialize-method called when the class is created
 	 * Fetches the list of people in the database to whom items can be given

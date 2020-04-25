@@ -1,6 +1,9 @@
 package view.wishlist;
 
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
 
 import controller.WishlistController;
 import javafx.event.ActionEvent;
@@ -13,9 +16,12 @@ import res.MyBundle;
 /**
  * GUI class relating to the Wish section
  */
-public class WishlistGUI {
+public class WishlistGUI implements Observer{
 	
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundleInst = MyBundle.getInstance();
+	MyBundle myBundle;
+	
+	ResourceBundle bundle;
 	
 	/**
 	 * The menu view to which the alternative views in the Wish section are added
@@ -25,6 +31,21 @@ public class WishlistGUI {
 	
 	WishlistController controller = new WishlistController();
 	
+	public WishlistGUI() {
+		this.myBundle = myBundleInst;
+		this.bundle=myBundle.getBundle();
+		this.myBundle.addObserver(this);
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("observer informed");
+		if(o instanceof MyBundle) {
+			this.bundle=myBundle.getBundle();
+		}
+		
+	}
+	
 	/**
 	 * Method showing the Wishlist view in the Wish section
 	 * @param event ActionEvent that is handled
@@ -33,7 +54,7 @@ public class WishlistGUI {
 	public void showAll(ActionEvent event) {
 		AnchorPane allView = null;
 		FXMLLoader loaderWishlistAll  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistView.fxml"));
-		loaderWishlistAll.setResources(myBundle.getBundle());
+		loaderWishlistAll.setResources(bundle);
 		try {
 			allView = loaderWishlistAll.load();
 			} catch (IOException e) {
@@ -47,7 +68,7 @@ public class WishlistGUI {
 	public void showBought(ActionEvent event) {
 		AnchorPane boughtView = null;
 		FXMLLoader loaderWishlistBought  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistBought.fxml"));
-		loaderWishlistBought.setResources(myBundle.getBundle());
+		loaderWishlistBought.setResources(bundle);
 		try {
 			boughtView = loaderWishlistBought.load();
 			} catch (IOException e) {
@@ -61,7 +82,7 @@ public class WishlistGUI {
 	public void showGifts(ActionEvent event) {
 		AnchorPane giftView = null;
 		FXMLLoader loaderWishlistGifts  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistGifts.fxml"));
-		loaderWishlistGifts.setResources(myBundle.getBundle());
+		loaderWishlistGifts.setResources(bundle);
 		try {
 			giftView = loaderWishlistGifts.load();
 			} catch (IOException e) {
@@ -75,7 +96,7 @@ public class WishlistGUI {
 	public void showOwn(ActionEvent event) {
 		AnchorPane ownView = null;
 		FXMLLoader loaderWishlistOwn = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistOwn.fxml"));
-		loaderWishlistOwn.setResources(myBundle.getBundle());
+		loaderWishlistOwn.setResources(bundle);
 		try {
 			ownView = loaderWishlistOwn.load();
 			} catch (IOException e) {

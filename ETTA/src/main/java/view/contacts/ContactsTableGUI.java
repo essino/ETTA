@@ -2,7 +2,10 @@ package view.contacts;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import controller.CalendarController;
 import controller.ContactsController;
@@ -27,7 +30,7 @@ import javafx.util.Callback;
 import model.Person;
 import res.MyBundle;
 
-public class ContactsTableGUI {
+public class ContactsTableGUI implements Observer{
 	
 	/**
 	 * The list view from where adding, editing and deleting can be started
@@ -70,12 +73,33 @@ public class ContactsTableGUI {
  	/**
  	 * The reference of InputCheck class used for checking user's input
  	 */
- 	InputCheck inputCheck = new InputCheck();
+ 	InputCheck inputCheck = InputCheck.getInstance();
  	
- 	MyBundle myBundle = new MyBundle();
+ 	MyBundle myBundleInst = MyBundle.getInstance();
+ 	
+ 	MyBundle myBundle;
+ 	
+	ResourceBundle bundle;
   	
  	Callback<TableColumn<Person, Date>, TableCell<Person, Date>> dateCellFactory = (TableColumn<Person, Date> param) -> new ContactsDateEditingCell();
-  	/** 
+  	
+ 	public ContactsTableGUI() {
+		this.myBundle = myBundleInst;
+		this.bundle=myBundle.getBundle();
+		this.myBundle.addObserver(this);
+		System.out.println("observers in gui " + myBundle.countObservers());
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("observer informed");
+		if(o instanceof MyBundle) {
+			this.bundle=myBundle.getBundle();
+		}
+		
+	}
+ 	
+ 	/** 
   	 * Method that initializes the view and gets the contacts  from the controller to display them on the page
   	 */
   	@FXML 
@@ -137,7 +161,7 @@ public class ContactsTableGUI {
 	public void showAddContact(ActionEvent event) {
 		AnchorPane showAddContactView = null; 
 		FXMLLoader loaderAddContactView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsAdd.fxml")); 
-		loaderAddContactView.setResources(myBundle.getBundle());
+		loaderAddContactView.setResources(bundle);
 		try {
 			showAddContactView = loaderAddContactView.load();
 			} catch (IOException e) {

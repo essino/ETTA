@@ -3,6 +3,8 @@ package view.borrowed;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 import controller.BorrowedController;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -33,12 +35,15 @@ import controller.InputCheck;
 /**
  * GUI class in charge of the view showing the list of borrowed items
  */
-public class BorrowedTableGUI {
-	
+public class BorrowedTableGUI implements Observer{
+	public static final BorrowedTableGUI single = new BorrowedTableGUI();
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundleInst = MyBundle.getInstance();
+	MyBundle myBundle;
+	
+	ResourceBundle bundle;
 	
 	/**
 	 * the controller for Borrowed things
@@ -91,14 +96,29 @@ public class BorrowedTableGUI {
 	/**
 	 * A constructor for BorrowedTableGUI in which the controller object is created
 	 */
-	public BorrowedTableGUI() {
-		controller = new BorrowedController(this);
+	private BorrowedTableGUI() {
+		controller = new BorrowedController();
+		this.myBundle = myBundleInst;
+		this.bundle=myBundle.getBundle();
+		this.myBundle.addObserver(this);
 	}
-
+	public static BorrowedTableGUI getInstance() {
+		return single;
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("observer informed");
+		if(o instanceof MyBundle) {
+			this.bundle=myBundle.getBundle();
+		}
+		
+	}
+	
 	/**
 	 * The reference of InputCheck class used for checking user's input
 	 */
-	InputCheck inputCheck = new InputCheck(); 
+	InputCheck inputCheck = InputCheck.getInstance();
 	
 	/**
 	 * Default cell factory for inline editing of cells containing dates
@@ -113,7 +133,7 @@ public class BorrowedTableGUI {
 	public void showBorrowedAdd(ActionEvent event) {
 		AnchorPane showBorrowedAdd = null;
 		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedAdd.fxml"));
-		loaderBorrowedAdd.setResources(myBundle.getBundle());
+		loaderBorrowedAdd.setResources(bundle);
 		try {
 			showBorrowedAdd = loaderBorrowedAdd.load();
 			} catch (IOException e) {
@@ -131,7 +151,7 @@ public class BorrowedTableGUI {
 	@FXML
 	public void initialize() {
 		borrowedTable.setEditable(true);
-		borrowedTable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
+		borrowedTable.setPlaceholder(new Text(bundle.getString("wishlistEmpty")));
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
 		borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
 		borrowedThingDescr.setOnEditCommit(
@@ -205,10 +225,10 @@ public class BorrowedTableGUI {
 		returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
 			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 				if (borrowedThingDescr.getValue().isReturned() == true) {
-					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("yesYes"));
+					return new ReadOnlyObjectWrapper<>(bundle.getString("yesYes"));
 					//return new ReadOnlyObjectWrapper<>("Yes");
 				} else {
-					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
+					return new ReadOnlyObjectWrapper<>(bundle.getString("noNo"));
 					//return new ReadOnlyObjectWrapper<>("No");
 				}
 			}});

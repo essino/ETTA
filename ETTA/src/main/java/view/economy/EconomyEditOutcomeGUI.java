@@ -26,7 +26,7 @@ public class EconomyEditOutcomeGUI {
 		/**
 		 * The reference of InputCheck class used for checking user's input
 		 */
-		InputCheck inputCheck = new InputCheck();
+		InputCheck inputCheck = InputCheck.getInstance();
 		
 		/**
 		 * CategoryDAO used for accessing the database

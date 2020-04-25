@@ -2,7 +2,10 @@ package controller;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -15,9 +18,30 @@ import res.MyBundle;
  * Class for the checking the input of the user.  
  * 
  */
-public class InputCheck {
+public class InputCheck implements Observer{
+	MyBundle myBundle;
+	ResourceBundle bundle;
 	
-	MyBundle myBundle = new MyBundle();
+	public static final InputCheck single = new InputCheck(MyBundle.getInstance());
+	
+	private InputCheck(MyBundle myBundle) {
+		this.myBundle = myBundle;
+		this.bundle=myBundle.getBundle();
+		this.myBundle.addObserver(this);
+	}
+	
+	public static InputCheck getInstance() {
+		return single;
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("observer informed");
+		if(o instanceof MyBundle) {
+			this.bundle=myBundle.getBundle();
+		}
+		
+	}
 	
 	/** 
 	 * Method that checks if user input can be transformed into float

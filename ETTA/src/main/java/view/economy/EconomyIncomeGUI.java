@@ -3,6 +3,9 @@ package view.economy;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
 
 import controller.EconomyController;
 import controller.InputCheck;
@@ -28,10 +31,12 @@ import model.Item;
 import model.Transfer;
 import res.MyBundle;
 
-public class EconomyIncomeGUI {
+public class EconomyIncomeGUI implements Observer{
 
 	EconomyController controller = new EconomyController(this);
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundleInst = MyBundle.getInstance();
+	MyBundle myBundle;
+	ResourceBundle bundle;
 	
 	/**
 	 * The list view from where adding, editing and deleting can be started in incomes
@@ -82,10 +87,24 @@ public class EconomyIncomeGUI {
       /**
   	 * The reference of InputCheck class used for checking user's input
   	 */
-  	InputCheck inputCheck = new InputCheck();
+  	InputCheck inputCheck = InputCheck.getInstance();
   	
   	Callback<TableColumn<Transfer, Date>, TableCell<Transfer, Date>> dateCellFactory = (TableColumn<Transfer, Date> param) -> new DateEditingCell(); 
 	
+	public EconomyIncomeGUI(MyBundle myBundle) {
+		this.myBundle = myBundleInst;
+		this.bundle=myBundle.getBundle();
+		this.myBundle.addObserver(this);
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("observer informed");
+		if(o instanceof MyBundle) {
+			this.bundle=myBundle.getBundle();
+		}
+		
+	}
 	
     /**
 	 * Method showing the view of the Add Income in the Incomes items section

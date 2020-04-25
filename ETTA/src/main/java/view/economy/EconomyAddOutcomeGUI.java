@@ -2,6 +2,9 @@ package view.economy;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
 
 import controller.EconomyController;
 import controller.InputCheck;
@@ -22,14 +25,15 @@ import res.MyBundle;
 /**
  * GUI class relating to the Expense adding section of economy page
  */
-public class EconomyAddOutcomeGUI {
-	
-	MyBundle myBundle = new MyBundle();
+public class EconomyAddOutcomeGUI implements Observer{
+	MyBundle myBundleInst = MyBundle.getInstance();
+	MyBundle myBundle;
+	ResourceBundle bundle;
 	
 	/**
 	 * The reference of InputCheck class used for checking user's input
 	 */
-	InputCheck inputCheck = new InputCheck();
+	InputCheck inputCheck = InputCheck.getInstance();
 	
 	/**
 	 * CategoryDAO used for accessing the database
@@ -69,6 +73,17 @@ public class EconomyAddOutcomeGUI {
 	EconomyController controller = new EconomyController(this);
 	
 	public EconomyAddOutcomeGUI() {
+		this.myBundle = myBundleInst;
+		this.bundle=myBundle.getBundle();
+		this.myBundle.addObserver(this);
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("observer informed");
+		if(o instanceof MyBundle) {
+			this.bundle=myBundle.getBundle();
+		}
 		
 	}
 	
@@ -171,7 +186,7 @@ public class EconomyAddOutcomeGUI {
 			controller.saveExpense();
 			AnchorPane outcomeView = null; 
 			FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyOutcome.fxml")); 
-			loaderOutcomeView .setResources(myBundle.getBundle());
+			loaderOutcomeView .setResources(bundle);
 			try {
 				outcomeView = loaderOutcomeView.load();
 				} catch (IOException e) {
@@ -196,7 +211,7 @@ public class EconomyAddOutcomeGUI {
 	public void cancelAdding() {
 		AnchorPane outcomeView = null; 
 		FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyOutcome.fxml"));
-		loaderOutcomeView .setResources(myBundle.getBundle());
+		loaderOutcomeView .setResources(bundle);
 		try {
 			outcomeView = loaderOutcomeView.load();
 		} catch (IOException e) {

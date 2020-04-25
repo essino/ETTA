@@ -16,16 +16,16 @@ import view.mainPage.MainViewGUI;
 
 public class App extends Application
 {
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundle = MyBundle.getInstance();
 	MyTab myTab = MyTab.getMyTab();
 	
     public static void main( String[] args )
     {
     	launch(args);
     }
-    
+     
     public void start(Stage primaryStage) {
-    	MainViewGUI mainViewGUI = new MainViewGUI();
+    	MainViewGUI mainViewGUI = new MainViewGUI(myBundle);
     	MainPageGUI mainPageGUI = new MainPageGUI();
     	MainViewController controller = new MainViewController(mainPageGUI);
     	

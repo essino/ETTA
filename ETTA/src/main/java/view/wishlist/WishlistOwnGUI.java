@@ -2,6 +2,9 @@ package view.wishlist;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
 
 import controller.InputCheck;
 import controller.WishlistController;
@@ -29,9 +32,12 @@ import model.Item;
 import model.Person;
 import res.MyBundle;
 
-public class WishlistOwnGUI extends AbstractWishlistGUI {
+public class WishlistOwnGUI extends AbstractWishlistGUI implements Observer{
 
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundleInst = MyBundle.getInstance();
+	MyBundle myBundle;
+	
+	ResourceBundle bundle;
 	
 	/**
 	 * Reference to the used WishlistController
@@ -89,12 +95,28 @@ public class WishlistOwnGUI extends AbstractWishlistGUI {
 	/**
 	 * The input check class used for validating user input
 	 */
-	InputCheck inputCheck = new InputCheck();
+	InputCheck inputCheck = InputCheck.getInstance();
 	
 	ObservableList<Item> data = FXCollections.observableArrayList();
 	
 	Callback<TableColumn<Item, Date>, TableCell<Item, Date>> dateCellFactory = (TableColumn<Item, Date> param) -> new WishlistDateEditingCell();
 
+	public WishlistOwnGUI() {
+		this.myBundle = myBundleInst;
+		this.bundle=myBundle.getBundle();
+		this.myBundle.addObserver(this);
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("observer informed");
+		if(o instanceof MyBundle) {
+			this.bundle=myBundle.getBundle();
+		}
+		
+	}
+	
+	
 	/**
 	 * Initialize-method called when the class is created
 	 * Fetches the wishlist items from the database and displays them in the table view
@@ -102,7 +124,7 @@ public class WishlistOwnGUI extends AbstractWishlistGUI {
 	@FXML
 	public void initialize() {
 		wishlisttable.setEditable(true);
-		wishlisttable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
+		wishlisttable.setPlaceholder(new Text(bundle.getString("wishlistEmpty")));
 		item.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
 		item.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
 		item.setOnEditCommit(
@@ -133,9 +155,9 @@ public class WishlistOwnGUI extends AbstractWishlistGUI {
 		bought.setCellValueFactory(new Callback<CellDataFeatures<Item, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Item, String> item) {
 				if (item.getValue().isBought() == true) {
-					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("yesYes"));
+					return new ReadOnlyObjectWrapper<>(bundle.getString("yesYes"));
 				} else {
-					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
+					return new ReadOnlyObjectWrapper<>(bundle.getString("noNo"));
 				}
 					
 			}

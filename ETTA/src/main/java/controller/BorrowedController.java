@@ -57,12 +57,12 @@ public class BorrowedController {
 	/** 
 	 * Reference to BorrowedGUI to introduce the overall GUI to the controller
 	 */ 
-	private BorrowedGUI gui;
+	private BorrowedGUI gui = BorrowedGUI.getInstance();
 	
 	/** 
 	 * Reference to BorrowedTableGUI to introduce the GUI in charge of the list of borrowed things to the controller
 	 */ 
-	private BorrowedTableGUI tableGUI;
+	private BorrowedTableGUI tableGUI = BorrowedTableGUI.getInstance();
 	
 	/** 
 	 * Reference to BorrowedAddGUI to introduce the GUI in charge of adding borrowed items
@@ -72,20 +72,14 @@ public class BorrowedController {
 	/** 
 	 * Reference to BorrowedReturnedTableGUI to introduce the GUI showing returned items
 	 */ 
-	private BorrowedReturnedTableGUI returnedGUI;
+	private BorrowedReturnedTableGUI returnedGUI = BorrowedReturnedTableGUI.getInstance();
 	
 	/** 
 	 * Reference to BorrowedSearchGUI to introduce the GUI for searching borrowed things
 	 */ 
-	private BorrowedSearchGUI searchGUI;
+	private BorrowedSearchGUI searchGUI = BorrowedSearchGUI.getInstance();
 	
-	/**
-	 * Constructor to create controller for BorrowedThings
-	 *@param gui the general gui for BorrowedThing
-	 */
-	public BorrowedController(BorrowedGUI gui) {
-		this.gui = gui;
-	}
+	
 	
 	/**
 	 * Constructor to create controller for BorrowedThings
@@ -93,37 +87,6 @@ public class BorrowedController {
 	public BorrowedController() {
 	}
 	
-	/**
-	 * Constructor to create controller for BorrowedThings
-	 *@param tableGUI the gui for the BorrowedThing view
-	 */
-	public BorrowedController(BorrowedTableGUI tableGUI) {
-		this.tableGUI = tableGUI;
-	}
-	
-	/**
-	 * Constructor to create controller for BorrowedThings
-	 *@param addGUI the gui for adding borrowed things
-	 */
-	public BorrowedController(BorrowedAddGUI addGUI) {
-		this.addGUI = addGUI;
-	}
-	
-	/**
-	 * Constructor to create controller for BorrowedThings
-	 *@param returnedGUI the gui for showing returned items
-	 */
-	public BorrowedController(BorrowedReturnedTableGUI returnedGUI) {
-		this.returnedGUI = returnedGUI;
-	}
-	
-	/**
-	 * Constructor to create controller for BorrowedThings
-	 *@param searchGUI the gui for showing the search view for borrowed items
-	 */
-	public BorrowedController(BorrowedSearchGUI searchGUI) {
-		this.searchGUI = searchGUI;
-	}
 	
 	//constructor used for tests
 	/**

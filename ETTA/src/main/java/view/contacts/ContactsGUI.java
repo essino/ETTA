@@ -2,6 +2,9 @@ package view.contacts;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
 
 import controller.ContactsController;
 import controller.InputCheck;
@@ -17,7 +20,7 @@ import res.MyBundle;
 /**
  * GUI class relating to the Contacts items section
  */
-public class ContactsGUI {
+public class ContactsGUI implements Observer{
 	
 	ContactsController controller;
 	
@@ -49,20 +52,35 @@ public class ContactsGUI {
 	@FXML
 	DatePicker personBirthday;
 	
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundleInst = MyBundle.getInstance();
+	
+	MyBundle myBundle;
+	
+	ResourceBundle bundle;
 	
 	/**
 	 * The reference of InputCheck class used for checking user's input
 	 */
-	InputCheck inputCheck = new InputCheck();
+	InputCheck inputCheck = InputCheck.getInstance();
 	
 	/** 
 	 * Constructor  
 	 */ 
 	public ContactsGUI () {
 		controller = new ContactsController(this);
+		this.myBundle = myBundleInst;
+		this.bundle=myBundle.getBundle();
+		this.myBundle.addObserver(this);
 	}
 	
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("observer informed");
+		if(o instanceof MyBundle) {
+			this.bundle=myBundle.getBundle();
+		}
+		
+	}
 	
 	/**
 	 * Method showing the search view in the Contacts section
@@ -72,7 +90,7 @@ public class ContactsGUI {
 	public void showSearchView(ActionEvent event) {
 		AnchorPane contactsSearchView = null;
 		FXMLLoader loaderContactsSearchView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsSearch.fxml"));
-		loaderContactsSearchView.setResources(myBundle.getBundle());
+		loaderContactsSearchView.setResources(bundle);
 		try {
 			contactsSearchView = loaderContactsSearchView.load();
 			} catch (IOException e) {
@@ -90,7 +108,7 @@ public class ContactsGUI {
 	public void showContactsView(ActionEvent event) {
 		AnchorPane contactsView = null;
 		FXMLLoader loaderContactsView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsView.fxml"));
-		loaderContactsView.setResources(myBundle.getBundle());
+		loaderContactsView.setResources(bundle);
 		try {
 			contactsView = loaderContactsView.load();
 			} catch (IOException e) {
@@ -116,7 +134,7 @@ public class ContactsGUI {
 				controller.savePerson();
 				AnchorPane contactsView = null; 
 				FXMLLoader loaderContactsView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsView.fxml")); 
-				loaderContactsView.setResources(myBundle.getBundle());
+				loaderContactsView.setResources(bundle);
 				try {
 					contactsView = loaderContactsView.load();
 				} catch (IOException e) {
@@ -162,7 +180,7 @@ public class ContactsGUI {
 	public void cancelAdding() {
 		AnchorPane contactsView = null; 
 		FXMLLoader loaderContactsView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsView.fxml")); 
-		loaderContactsView.setResources(myBundle.getBundle());
+		loaderContactsView.setResources(bundle);
 		try {
 			contactsView = loaderContactsView.load();
 		} catch (IOException e) {

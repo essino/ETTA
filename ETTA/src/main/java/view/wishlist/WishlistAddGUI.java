@@ -3,6 +3,9 @@ package view.wishlist;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
 
 import controller.InputCheck;
 import controller.WishlistController;
@@ -22,10 +25,12 @@ import res.MyBundle;
 /**
  * GUI class relating to the wishlist add section
  */
-public class WishlistAddGUI {
+public class WishlistAddGUI implements Observer{
 	
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundleInst = MyBundle.getInstance();
+	MyBundle myBundle;
 	
+	ResourceBundle bundle;
 	/**
 	 * Text field for the name of the item to be added
 	 */
@@ -70,13 +75,24 @@ public class WishlistAddGUI {
 	/**
 	 * The input check class used for validating user input
 	 */
-	InputCheck inputCheck = new InputCheck();
+	InputCheck inputCheck = InputCheck.getInstance();
 	/**
 	 * PersonDAO used for accessing the database
 	 */
 	PersonDAO personDAO = new PersonDAO();
 	
 	public WishlistAddGUI() {
+		this.myBundle = myBundleInst;
+		this.bundle=myBundle.getBundle();
+		this.myBundle.addObserver(this);
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("observer informed");
+		if(o instanceof MyBundle) {
+			this.bundle=myBundle.getBundle();
+		}
 		
 	}
 	
@@ -98,7 +114,7 @@ public class WishlistAddGUI {
 	                        setText(null);
 	                    } else {
 	                        if (item.isEmpty()) {
-	                            setText(myBundle.getBundle().getString("addPerson"));
+	                            setText(bundle.getString("addPerson"));
 	                        } else {
 	                            setText(item);
 	                        }
@@ -187,7 +203,7 @@ public class WishlistAddGUI {
 				controller.saveItem();
 				AnchorPane wishlistView = null; 
 				FXMLLoader loaderWishlistView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistView.fxml")); 
-				loaderWishlistView.setResources(myBundle.getBundle());
+				loaderWishlistView.setResources(bundle);
 				try {
 					wishlistView = loaderWishlistView.load();
 				} catch (IOException e) {
@@ -210,7 +226,7 @@ public class WishlistAddGUI {
 	public void cancelAdd() {
 		AnchorPane wishlistView = null; 
 		FXMLLoader loaderWishlistView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistView.fxml")); 
-		loaderWishlistView.setResources(myBundle.getBundle());
+		loaderWishlistView.setResources(bundle);
 		try {
 			wishlistView = loaderWishlistView.load();
 		} catch (IOException e) {

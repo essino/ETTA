@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.util.Locale;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 import controller.BorrowedController;
@@ -32,7 +35,11 @@ import model.BorrowedThing;
 import model.Person;
 import res.MyBundle;
 
-public class BorrowedReturnedTableGUI {
+public class BorrowedReturnedTableGUI implements Observer{
+	public static final BorrowedReturnedTableGUI single = new BorrowedReturnedTableGUI();
+	MyBundle myBundleInst = MyBundle.getInstance();
+	MyBundle myBundle;
+	ResourceBundle bundle;
 		
 		/**
 		 * the controller for Borrowed things
@@ -85,14 +92,31 @@ public class BorrowedReturnedTableGUI {
 		/**
 		 * A constructor for BorrowedTableGUI in which the controller object is created
 		 */
-		public BorrowedReturnedTableGUI() {
-			controller = new BorrowedController(this);
+		private BorrowedReturnedTableGUI() {
+			controller = new BorrowedController();
+			this.myBundle = myBundleInst;
+			this.bundle=myBundle.getBundle();
+			this.myBundle.addObserver(this);
+			System.out.println("observers in gui " + myBundle.countObservers());
+		}
+		
+		public static BorrowedReturnedTableGUI getInstance() {
+			return single;
+		}
+		
+		@Override
+		public void update(Observable o, Object arg) {
+			System.out.println("observer informed");
+			if(o instanceof MyBundle) {
+				this.bundle=myBundle.getBundle();
+			}
+			
 		}
 
 		/**
 		 * The reference of InputCheck class used for checking user's input
 		 */
-		InputCheck inputCheck = new InputCheck(); 
+		InputCheck inputCheck = InputCheck.getInstance();
 		
 		//not needed because returned items are not editable
 		//Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
@@ -104,14 +128,11 @@ public class BorrowedReturnedTableGUI {
 		 */
 		@FXML
 		public void initialize() {
-			
-			System.out.println("Aputulostus");
-			MyBundle myBundle = new MyBundle();
-			
+	
 			//for setting the right formatting for dates in table cells
 			Locale locale = Locale.getDefault();
     	    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-    	    borrowedReturnedTable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
+    	    borrowedReturnedTable.setPlaceholder(new Text(bundle.getString("wishlistEmpty")));
 			borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
 			borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
 			borrowedBy.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("person"));
@@ -158,10 +179,10 @@ public class BorrowedReturnedTableGUI {
 			returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
 				public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 					if (borrowedThingDescr.getValue().isReturned() == true) {
-						return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("yesYes")); 
+						return new ReadOnlyObjectWrapper<>(bundle.getString("yesYes")); 
 						//return new ReadOnlyObjectWrapper<>("Yes");
 					} else {
-						return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
+						return new ReadOnlyObjectWrapper<>(bundle.getString("noNo"));
 						//return new ReadOnlyObjectWrapper<>("No");
 					}
 				}});

@@ -2,6 +2,9 @@ package view.economy;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.ResourceBundle;
 
 import controller.EconomyController;
 import controller.InputCheck;
@@ -12,14 +15,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import res.MyBundle;
 
-public class EconomyAddSavingGUI {
+public class EconomyAddSavingGUI implements Observer{
 	
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundleInst = MyBundle.getInstance();
+	MyBundle myBundle;
+	
+	ResourceBundle bundle;
 
 	/**
 	 * The reference of InputCheck class used for checking user's input
 	 */
-	InputCheck inputCheck = new InputCheck();
+	InputCheck inputCheck = InputCheck.getInstance();
 	
 	/**
 	 * The list view from where adding, editing and deleting can be started
@@ -46,6 +52,21 @@ public class EconomyAddSavingGUI {
 	private DatePicker savingDate;
 	
 	EconomyController controller = new EconomyController(this);
+	
+	public EconomyAddSavingGUI() {
+		this.myBundle = myBundleInst;
+		this.bundle=myBundle.getBundle();
+		this.myBundle.addObserver(this);
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("observer informed");
+		if(o instanceof MyBundle) {
+			this.bundle=myBundle.getBundle();
+		}
+		
+	}
 	
 	/** 
 	 * Method that initializes the view 
@@ -99,7 +120,7 @@ public class EconomyAddSavingGUI {
 			controller.saveNewSaving();
 			AnchorPane savingsView = null; 
 			FXMLLoader loaderSavingsView  = new FXMLLoader(getClass().getResource("/view/economy/EconomySavings.fxml")); 
-			loaderSavingsView .setResources(myBundle.getBundle());
+			loaderSavingsView .setResources(bundle);
 			try {
 				savingsView = loaderSavingsView.load();
 				} catch (IOException e) {
@@ -123,7 +144,7 @@ public class EconomyAddSavingGUI {
 	public void cancelAdding() {
 		AnchorPane savingView = null; 
 		FXMLLoader loaderSavingsView  = new FXMLLoader(getClass().getResource("/view/economy/EconomySavings.fxml")); 
-		loaderSavingsView .setResources(myBundle.getBundle());
+		loaderSavingsView .setResources(bundle);
 		try {
 			savingView = loaderSavingsView.load();
 		} catch (IOException e) {

@@ -63,7 +63,7 @@ public class WishlistController {
 	/**
 	 * The input check class used for validating user input
 	 */
-	InputCheck inputCheck = new InputCheck();
+	InputCheck inputCheck = InputCheck.getInstance();
 
 	public Item selectedItem = new Item();
 
