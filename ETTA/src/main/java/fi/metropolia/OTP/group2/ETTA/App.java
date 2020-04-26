@@ -103,7 +103,7 @@ public class App extends Application
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         VBox vBox = new VBox(tabPane);
         Scene scene = new Scene(vBox);
-
+        scene.getStylesheets().add(getClass().getResource("/res/newstyle.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("ETTA");
 
