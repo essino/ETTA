@@ -26,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import model.BorrowedThing;
+import model.Item;
 import model.Person;
 import res.MyBundle;
 import controller.InputCheck;
@@ -228,16 +229,28 @@ public class BorrowedTableGUI {
 	}
 	
 	/**
+	 * Method for checking that an item is currently selected in the table
+	 */
+	public boolean checkItemIsSelected() {
+		BorrowedThing thing = getSelectedBorrowedThing();
+		return thing != null;
+	}
+	
+	/**
 	 * Method for deleting the selected borrowed thing from the database
 	 */
 	@FXML
 	public void deleteSelectedBorrowedThing() {
-		if (inputCheck.confirmDeleting()) {
-			controller.removeBorrowedThing();
-			initialize();
+		if (checkItemIsSelected()) {
+			if (inputCheck.confirmDeleting()) {
+				controller.removeBorrowedThing();
+				initialize();
+			}
+		} else {
+			inputCheck.alertNothingSelected();
 		}
 	}
-	
+
 	/** 
 	 * Method that removes an item from the table
 	 * @param borrowedThing the borrowed item to be removed
@@ -255,9 +268,13 @@ public class BorrowedTableGUI {
 	 */
 	@FXML
 	public void markAsReturned() {
-		if (inputCheck.confirmReturn()) {
-			controller.markReturned();
-			initialize();
+		if (checkItemIsSelected()) {
+			if (inputCheck.confirmReturn()) {
+				controller.markReturned();
+				initialize();
+			}
+		} else {
+			inputCheck.alertNothingSelected();
 		}
 	}
 	
