@@ -39,7 +39,7 @@ public class BorrowedTableGUI {
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundle = MyBundle.getInstance();
 	
 	/**
 	 * the controller for Borrowed things

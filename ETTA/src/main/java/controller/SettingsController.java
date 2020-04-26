@@ -2,32 +2,34 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import org.apache.commons.io.FileUtils;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Category;
 import model.Language;
 import model.LanguageDAO;
-import res.MyBundle;
 import res.MyTab;
 import view.settings.SettingsGUI;
 
-public class SettingsController {
+public class SettingsController extends Observable{
+	public static final SettingsController single = new SettingsController();
 	SettingsGUI settingsGUI;
 	LanguageDAO langDAO = new LanguageDAO();
-	MyTab myTab = MyTab.getMyTab();
-	MyBundle myBundle = new MyBundle();
+
+	//MyBundle myBundle = new MyBundle();
 	
 	Language english = new Language(1,"English", true);
 	Language finnish = new Language(2, "Finnish", false);
 
-	public SettingsController(SettingsGUI settingsGUI) {
-		this.settingsGUI=settingsGUI;
+	private SettingsController() {
+		
+	}
+	
+	public static SettingsController getInstance() {
+		return single;
 	}
 
 	public ObservableList<String> languageList() {
@@ -46,9 +48,11 @@ public class SettingsController {
 		langDAO.updateLanguage(oldLang);
 		Language newLang = langDAO.readLanguage(newLangName);
 		newLang.setChosen(true);
-		langDAO.updateLanguage(newLang);
+		langDAO.updateLanguage(newLang); 
+		this.setChanged();
+		this.notifyObservers();
 		//updating tabs' names
-		myTab.setTabName();
+		MyTab.getMyTab().setTabName();
 		
 		//calendarfx uses messages-named file, here we copy the file with the needed language into this file
 		File enFile = new File("./com/calendarfx/view/messages_en");

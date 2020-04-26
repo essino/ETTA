@@ -106,7 +106,7 @@ public class BorrowedReturnedTableGUI {
 		public void initialize() {
 			
 			System.out.println("Aputulostus");
-			MyBundle myBundle = new MyBundle();
+			MyBundle myBundle = MyBundle.getInstance();
 			
 			//for setting the right formatting for dates in table cells
 			Locale locale = Locale.getDefault();

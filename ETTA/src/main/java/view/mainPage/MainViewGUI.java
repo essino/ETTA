@@ -22,7 +22,7 @@ public class MainViewGUI {
 	CalendarController calendarController = new CalendarController();
 	LanguageDAO langDao = new LanguageDAO();
 	Locale locale;
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundle = MyBundle.getInstance();
 	FXMLLoader loader;
 	
 	public BorderPane mainPageView() {

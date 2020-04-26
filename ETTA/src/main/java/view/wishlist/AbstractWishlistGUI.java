@@ -36,7 +36,7 @@ public abstract class AbstractWishlistGUI {
 	/**
 	 * The used resource bundle
 	 */
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundle = MyBundle.getInstance();
 	
 	/**
 	 * Reference to the used WishlistController

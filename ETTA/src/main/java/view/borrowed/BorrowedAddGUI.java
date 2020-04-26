@@ -33,7 +33,7 @@ public class BorrowedAddGUI {
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundle = MyBundle.getInstance();
 	
 	/**
 	 * PersonDAO used for accessing the database

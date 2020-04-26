@@ -72,7 +72,7 @@ public class ContactsTableGUI {
  	 */
  	InputCheck inputCheck = new InputCheck();
  	
- 	MyBundle myBundle = new MyBundle();
+ 	MyBundle myBundle = MyBundle.getInstance();
   	
  	Callback<TableColumn<Person, Date>, TableCell<Person, Date>> dateCellFactory = (TableColumn<Person, Date> param) -> new ContactsDateEditingCell();
   	/** 

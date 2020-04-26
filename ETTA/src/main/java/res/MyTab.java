@@ -4,7 +4,7 @@ import javafx.scene.control.Tab;
 
 public class MyTab extends Tab{
 
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundle = MyBundle.getInstance();
 	public static final MyTab singleMyTab = new MyTab(); 
 	public Tab mainPageTab;
 	public Tab economyTab;

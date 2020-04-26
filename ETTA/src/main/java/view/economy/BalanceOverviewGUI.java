@@ -33,7 +33,7 @@ import res.MyBundle;
  */
 public class BalanceOverviewGUI {
 	EconomyController controller;
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundle = MyBundle.getInstance();;
 	/**
 	 * The reference of pane where user can input the start balance amount
 	 */

@@ -14,7 +14,7 @@ import res.MyBundle;
 
 public class EconomyAddSavingGUI {
 	
-	MyBundle myBundle = new MyBundle();
+	MyBundle myBundle = MyBundle.getInstance();
 
 	/**
 	 * The reference of InputCheck class used for checking user's input
