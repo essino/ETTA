@@ -1,11 +1,9 @@
 package controller;
 
-
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.util.Callback;
 
 import java.sql.Date;
 
@@ -208,16 +206,6 @@ public class EconomyController {
 	public boolean updateTransfer(Transfer editedTransfer) {
 		return transDAO.updateTransfer(editedTransfer);
 	}
-	
-	public void saveTransfer() {
-		String description = ecoGUI.getDescription();
-		float incomeAmount = ecoGUI.getIncomeAmount();
-		Date incomeDate = ecoGUI.getIncomeDate();
-		Category category = null;
-		Boolean income = true;
-		Transfer transfer = new Transfer(description, category, income, incomeDate, incomeAmount);
-		Boolean Transfer = transDAO.createTransfer(transfer);
-	}
 
 	/** 
 	 * Method that gets balance amount from BalanceDAO and gives it forward to BalanceOverviewGUI to display it on the page 
@@ -305,14 +293,14 @@ public class EconomyController {
 	}
 
 	/** 
-	 * Method that gets the selected expense from expenceGUI, 
-	 * tells TransferDAO to delete the expense from the database 
-	 * and expenceGUI to delete it from the tableView.
+	 * Method that gets the selected transfer from economyGUI, 
+	 * tells TransferDAO to delete the transfer from the database 
+	 * and economyGUI to delete it from the tableView.
 	 */ 
-	public void removeExpense() {
-		transDAO.deleteTransfer(expenceGUI.transferToDelete().getTransfer_id());
-		updateBalanceAmount(0-expenceGUI.transferToDelete().getAmount());
-		expenceGUI.removeFromTable(expenceGUI.transferToDelete());
+	public void removeTransfer(AbstractEconomyGUI gui) {
+		transDAO.deleteTransfer(gui.transferToDelete().getTransfer_id());
+		updateBalanceAmount(0-gui.transferToDelete().getAmount());
+		gui.removeFromTable(gui.transferToDelete());
 	}
 	
 	/** 
@@ -323,7 +311,6 @@ public class EconomyController {
 		return transDAO.readExpenses();
 	}
 	
-	
 	/** 
 	 * Method that gets Incomes from TransferDAO and makes a list containing incomes details 
 	 * @return Transfer[] - list of incomes
@@ -332,17 +319,6 @@ public class EconomyController {
 		return transDAO.readIncome();
 	}
 		
-	/** 
-	 * Method that gets the selected income from economyIncomeGUI, 
-	 * tells TransferDAO to delete the income from the database 
-	 * and economyIncomeGUI to delete it from the tableView.
-	 */ 
-	public void removeIncome() {
-		transDAO.deleteTransfer(incomeGUI.transferToDelete().getTransfer_id());
-		updateBalanceAmount(0-incomeGUI.transferToDelete().getAmount());
-		incomeGUI.removeFromTable(incomeGUI.transferToDelete());
-	}
-
 	/** 
 	 * Method that gets new saving's detail from economyAddSavingGUI and gives the saving to SavingDAO
 	 */

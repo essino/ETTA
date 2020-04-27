@@ -26,8 +26,6 @@ import javafx.util.converter.FloatStringConverter;
 import model.Category;
 import model.Transfer;
 import res.MyBundle;
-import javafx.event.EventHandler;
-import javafx.scene.control.TableColumn.CellEditEvent;
 
 public class EconomyOutcomeGUI extends AbstractEconomyGUI{
 	
@@ -199,7 +197,8 @@ public class EconomyOutcomeGUI extends AbstractEconomyGUI{
 	@FXML
 	public void deleteOutcome() {
 		if (inputCheck.confirmDeleting()) {
-			controller.removeExpense();
+			controller.removeTransfer(this);
+			//controller.removeExpense();
 			initialize();
 		}
 	}
@@ -218,15 +217,6 @@ public class EconomyOutcomeGUI extends AbstractEconomyGUI{
 	 */
 	public void removeFromTable(Transfer transfer) {
 		expenseTable.getItems().remove(transfer);
-	}
-	
-	/** 
-	 * Method that tells controller to edit an expense 
-	 */
-	@FXML
-	public void editOutcome() {
-		//expenseTable.setEditable(true);
-		//controller.editExpense();
 	}
 	
 	@FXML

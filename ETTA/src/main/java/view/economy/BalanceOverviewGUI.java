@@ -64,7 +64,6 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
     @FXML
     private TableColumn<Transfer, String> incomeDescription;
     
-    
     /**
 	 * The reference of TableColumn (income's amount) will be injected by the FXML loader
 	 */
@@ -108,9 +107,6 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 		controller = new EconomyController(this);
 	} 
 	
-	
-
-	
 	/** 
 	 * Method that gets balance amount and displays it on the page 
 	 * @param amount double the balance amount
@@ -151,18 +147,15 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 		incomeAmount.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Float>("amount"));
 		
-
 		expenseDescription.setCellValueFactory(
                 new PropertyValueFactory<Transfer, String>("description"));
 		expenseDate.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Date>("date"));
 		expenseAmount.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Float>("amount"));
-		
 	
 		searchWeeksTransfers();	
 
-		
 		incomeTable.setEditable(true);
 		incomeDescription.setCellValueFactory(new PropertyValueFactory<Transfer, String>("description")); 
 		incomeAmount.setCellValueFactory(new PropertyValueFactory<Transfer, Float>("amount"));
@@ -173,13 +166,7 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 		expenseAmount.setCellValueFactory(new PropertyValueFactory<Transfer, Float>("amount"));
 		
 		expenseDate.setCellValueFactory(new PropertyValueFactory<Transfer, Date>("date"));
-		
-		
 	}
-	
-	
-	
-	
 	
 	/** 
 	 * Method that saves the start balance amount inputed by the user. 
@@ -209,8 +196,6 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 		System.out.println(endDate);
 		//This gets all transfers from this period
 		controller.getSelectedTransfers(this, java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
-
-	
 	}
 
 	/** 
@@ -237,7 +222,15 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 		
 		incomeTable.setItems(FXCollections.observableArrayList(incomesArr));
 		expenseTable.setItems(FXCollections.observableArrayList(expencesArr));
+	}
 
+	@Override
+	public Transfer transferToDelete() {
+		return null;
+	}
+
+	@Override
+	public void removeFromTable(Transfer transferToDelete) {
 	}
 	
 }

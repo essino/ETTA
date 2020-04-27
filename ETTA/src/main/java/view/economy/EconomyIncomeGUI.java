@@ -214,7 +214,8 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI{
 	@FXML
 	public void deleteIncome() {
 		if (inputCheck.confirmDeleting()) {
-			controller.removeIncome();
+			controller.removeTransfer(this);
+			//controller.removeIncome();
 			initialize();
 		}
 	}
