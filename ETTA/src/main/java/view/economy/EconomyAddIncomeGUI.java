@@ -14,13 +14,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import model.Balance;
 import model.Category;
 import model.CategoryDAO;
-import model.Transfer;
 import res.MyBundle;
 
-public class EconomyAddIncomeGUI {
+public class EconomyAddIncomeGUI implements ITransferAddGUI{
 	
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
@@ -72,7 +70,7 @@ public class EconomyAddIncomeGUI {
 	@FXML
 	private DatePicker incomeDate;
 	
-	EconomyController controller = new EconomyController(this);
+	EconomyController controller = new EconomyController();
 	
 
 	
@@ -144,7 +142,7 @@ public class EconomyAddIncomeGUI {
 	
 	 */
 	@FXML
-	public Date getIncomeDay() {
+	public Date getTransferDate() {
 		try {
 		return java.sql.Date.valueOf(incomeDate.getValue());
 		}
@@ -158,7 +156,7 @@ public class EconomyAddIncomeGUI {
 	 * @return Float amount of the income
 	 */
 	@FXML
-	public float getIncomeAmount() {
+	public float getTransferAmount() {
 		return Math.abs(Float.parseFloat(incomeAmount.getText()));
 	}
 
@@ -171,7 +169,7 @@ public class EconomyAddIncomeGUI {
 		if(inputCheck.isInputFloat(incomeAmount.getText())){
 			
 			if(!inputCheck.isInputEmpty(incomeDescription.getText())) {
-			controller.saveIncome();
+			controller.saveTransfer(this);
 			AnchorPane incomeView = null; 
 			FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyIncome.fxml"));
 			loaderIncomeView .setResources(myBundle.getBundle());

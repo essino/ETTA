@@ -10,12 +10,9 @@ import java.sql.Date;
 import model.Balance;
 import view.economy.BalanceOverviewGUI;
 import view.economy.EconomyAddIncomeGUI;
-import view.economy.EconomyAddOutcomeGUI;
 import view.economy.EconomyAddSavingGUI;
-import view.economy.EconomyGUI;
-import view.economy.EconomyIncomeGUI;
-import view.economy.EconomyOutcomeGUI;
 import view.economy.EconomySavingsGUI;
+import view.economy.ITransferAddGUI;
 import view.economy.ITransferGUI;
 import view.economy.AbstractEconomyGUI;
 import model.BalanceDAO;
@@ -36,20 +33,7 @@ public class EconomyController {
 	 * Reference to the BalanceOverviewGUI
 	 */
 	private BalanceOverviewGUI balanceOverviewGUI;
-	/**
-	 * Reference to the EconomyGUI
-	 */
-	private EconomyGUI ecoGUI;
-	
-	/**
-	 * Reference to the EconomyAddOutcomeGUI
-	 */
-	private EconomyAddOutcomeGUI addExpenceGUI;
-	
-	/**
-	 * Reference to the EconomyOutcomeGUI
-	 */
-	private EconomyOutcomeGUI expenceGUI;
+
 	/**
 	 * BalanceDAO used for accessing the database
 	 */
@@ -67,16 +51,6 @@ public class EconomyController {
 	 * SavingDAO used for accessing the database
 	 */
 	private SavingDAO savingDAO = new SavingDAO();
-	
-	/**
-	 * Reference to the EconomyAddIncomeGUI
-	 */
-	private EconomyAddIncomeGUI economyAddIncomeGUI;
-	
-	/**
-	 * Reference to the EconomyIncomeGUI
-	 */
-	private EconomyIncomeGUI incomeGUI;
 	
 	/**
 	 * Reference to the EconomyAddSavingGUI
@@ -115,39 +89,6 @@ public class EconomyController {
 	 */ 
 	public EconomyController() {
 		// TODO Auto-generated constructor stub
-	}
-
-	/** 
-	 * Constructor 
-	 * @param  economyAddOutcomeGUI 
-	 */ 
-	public EconomyController(EconomyAddOutcomeGUI economyAddOutcomeGUI) {
-		this.addExpenceGUI = economyAddOutcomeGUI;
-	}
-
-	/** 
-	 * Constructor 
-	 * @param economyIncomeGUI 
-	 */ 
-	
-	public EconomyController(EconomyIncomeGUI economyIncomeGUI) {
-		this.incomeGUI = economyIncomeGUI;
-	}
-	
-	/** 
-	 * Constructor 
-	 * @param economyOutcomeGUI 
-	 */ 
-	public EconomyController(EconomyOutcomeGUI economyOutcomeGUI) {
-		this.expenceGUI = economyOutcomeGUI;
-	}
-
-	/** 
-	 * Constructor 
-	 * @param economyAddIncomeGUI 
-	 */ 
-	public EconomyController(EconomyAddIncomeGUI economyAddIncomeGUI) {
-		this.economyAddIncomeGUI = economyAddIncomeGUI;
 	}
 
 	/** 
@@ -247,34 +188,26 @@ public class EconomyController {
 		return names;
 	}
 	
+
 	/** 
-	 * Method that gets new income's detail from addIncomeGUI and gives the incomes to TransferDAO
+	 * Method that gets new transfer's detail from addTransferGUI and gives the transfer to TransferDAO
 	 */ 
-	public void saveIncome() {
-		Transfer income = new Transfer();
-		income.setAmount(economyAddIncomeGUI.getIncomeAmount());
-		Category category = categoryDAO.readCategory(economyAddIncomeGUI.getCategoryName());
-		income.setCategory(category);
-		income.setDescription(economyAddIncomeGUI.getDescription());
-		income.setIncome(true);
-		income.setDate(economyAddIncomeGUI.getIncomeDay());
-		transDAO.createTransfer(income);
-		updateBalanceAmount(income.getAmount());
-	}
-	
-	/** 
-	 * Method that gets new expense's detail from addOutcomeGUI and gives the expense to TransferDAO
-	 */ 
-	public void saveExpense() {
-		Transfer expense = new Transfer();
-		expense.setAmount(0-addExpenceGUI.getExpenseAmount());
-		Category category = categoryDAO.readCategory(addExpenceGUI.getCategoryName());
-		expense.setCategory(category);
-		expense.setDescription(addExpenceGUI.getDescription());
-		expense.setIncome(false);
-		expense.setDate(addExpenceGUI.getExpenseDay());
-		transDAO.createTransfer(expense);
-		updateBalanceAmount(expense.getAmount());
+	public void saveTransfer(ITransferAddGUI gui) {
+		Transfer transfer = new Transfer();
+		if (gui.getClass()==EconomyAddIncomeGUI.class) {
+			transfer.setAmount(gui.getTransferAmount());
+			transfer.setIncome(true);
+		}
+		else {
+			transfer.setAmount(0-Math.abs(gui.getTransferAmount()));
+			transfer.setIncome(false);
+		}
+		Category category = categoryDAO.readCategory(gui.getCategoryName());
+		transfer.setCategory(category);
+		transfer.setDescription(gui.getDescription());
+		transfer.setDate(gui.getTransferDate());
+		transDAO.createTransfer(transfer);
+		updateBalanceAmount(transfer.getAmount());
 	}
 	
 	public void getSelectedTransfers(AbstractEconomyGUI gui, Date start, Date end) {

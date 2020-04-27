@@ -23,15 +23,13 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import javafx.util.converter.FloatStringConverter;
-import model.Balance;
 import model.Category;
-import model.Item;
 import model.Transfer;
 import res.MyBundle;
 
 public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI{
 
-	EconomyController controller = new EconomyController(this);
+	EconomyController controller = new EconomyController();
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
@@ -98,22 +96,6 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI
 	public void showAddIncome(ActionEvent event) {
 		AnchorPane showAddIncomeView = null;
 		FXMLLoader loaderAddIncomeView = new FXMLLoader(getClass().getResource("/view/economy/EconomyAddIncome2.fxml"));
-		loaderAddIncomeView .setResources(myBundle.getBundle());
-		try {
-			showAddIncomeView = loaderAddIncomeView.load();
-			} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			}
-		
-		economyincomeanchorpane.getChildren().setAll(showAddIncomeView);
-	
-	}
-	
-	@FXML
-	public void showEditIncome(ActionEvent event) {
-		AnchorPane showAddIncomeView = null;
-		FXMLLoader loaderAddIncomeView = new FXMLLoader(getClass().getResource("/view/economy/EconomyEditIncome.fxml"));
 		loaderAddIncomeView .setResources(myBundle.getBundle());
 		try {
 			showAddIncomeView = loaderAddIncomeView.load();

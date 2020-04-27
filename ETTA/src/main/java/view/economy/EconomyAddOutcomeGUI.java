@@ -7,7 +7,6 @@ import controller.EconomyController;
 import controller.InputCheck;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
@@ -22,7 +21,7 @@ import res.MyBundle;
 /**
  * GUI class relating to the Expense adding section of economy page
  */
-public class EconomyAddOutcomeGUI {
+public class EconomyAddOutcomeGUI implements ITransferAddGUI{
 	
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
@@ -68,7 +67,7 @@ public class EconomyAddOutcomeGUI {
 	@FXML
 	private DatePicker outcomeDate;
 	
-	EconomyController controller = new EconomyController(this);
+	EconomyController controller = new EconomyController();
 	
 	public EconomyAddOutcomeGUI() {
 		
@@ -142,7 +141,7 @@ public class EconomyAddOutcomeGUI {
 	 * @return null if date is not selected ---??? onko edes mahdollista?
 	 */
 	@FXML
-	public Date getExpenseDay() {
+	public Date getTransferDate() {
 		try {
 		return java.sql.Date.valueOf(outcomeDate.getValue());
 		}
@@ -156,7 +155,7 @@ public class EconomyAddOutcomeGUI {
 	 * @return 	Float amount of the expense
 	 */
 	@FXML
-	public float getExpenseAmount() {
+	public float getTransferAmount() {
 		return Math.abs(Float.parseFloat(outcomeAmount.getText()));
 	}
 	
@@ -170,7 +169,7 @@ public class EconomyAddOutcomeGUI {
 			
 		
 			if(!inputCheck.isInputEmpty(outcomeDescription.getText())) {
-			controller.saveExpense();
+			controller.saveTransfer(this);
 			AnchorPane outcomeView = null; 
 			FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyOutcome.fxml")); 
 			loaderOutcomeView .setResources(myBundle.getBundle());
