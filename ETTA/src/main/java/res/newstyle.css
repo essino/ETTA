@@ -9,7 +9,7 @@
 	 -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
 }*/
 
-.root {
+ .root {
 	-fx-base: lavender;
 	/*-fx-background-color:ghostwhite;*/
 	

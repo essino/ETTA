@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="addSavingPane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.economy.EconomyAddSavingGUI">
    <children>
-      <GridPane layoutX="210.0" layoutY="213.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="28.0">
+      <GridPane layoutX="210.0" layoutY="213.0" prefHeight="321.0" prefWidth="718.0" AnchorPane.bottomAnchor="401.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="28.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -33,11 +33,11 @@
             <DatePicker fx:id="savingDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <ButtonBar layoutX="435.0" layoutY="686.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="28.0">
+      <ButtonBar layoutX="546.0" layoutY="393.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="317.0" AnchorPane.rightAnchor="54.0">
         <buttons>
-          <Button onAction="#saveSaving" mnemonicParsing="false" text="%buttonSave" />
+          <Button mnemonicParsing="false" onAction="#saveSaving" text="%buttonSave" />
 
-            <Button onAction="#cancelAdding" mnemonicParsing="false" text="%buttonCancel" />
+            <Button mnemonicParsing="false" onAction="#cancelAdding" text="%buttonCancel" />
         </buttons>
       </ButtonBar>
    </children>
