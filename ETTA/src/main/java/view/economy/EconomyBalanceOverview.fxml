@@ -12,30 +12,30 @@
    
                <children>
                   <Label layoutX="76.0" layoutY="282.0" text="%labelBalance" />
-                  <Label fx:id="amountBalance" layoutX="124.0" layoutY="282.0" text="Bad" />
+                  <Label fx:id="amountBalance" layoutX="190.0" layoutY="282.0" text="Bad" />
       <Pane fx:id="setBalancePane" layoutX="62.0" layoutY="42.0" prefHeight="200.0" prefWidth="526.0">
          <children>
-            <Label layoutX="38.0" layoutY="79.0" text="%labelSetBalance" />
-            <TextField fx:id="newBalance" layoutX="151.0" layoutY="75.0" />
-             <Button layoutX="433.0" layoutY="75.0" mnemonicParsing="false" onAction="#saveBalance" text="%buttonSave" />
+            <Label layoutX="14.0" layoutY="79.0" text="%labelSetBalance" />
+            <TextField fx:id="newBalance" layoutX="125.0" layoutY="75.0" />
+             <Button layoutX="314.0" layoutY="75.0" mnemonicParsing="false" onAction="#saveBalance" text="%buttonSave" />
          </children>
       </Pane>
-      <TableView fx:id="incomeTable" layoutX="76.0" layoutY="366.0" prefHeight="200.0" prefWidth="227.0">
+      <TableView fx:id="incomeTable" layoutX="76.0" layoutY="366.0" prefHeight="200.0" prefWidth="302.0">
         <columns>
-          <TableColumn fx:id="incomeDescription" prefWidth="75.0" text="%columnDescription" />
-          <TableColumn fx:id="incomeAmount" prefWidth="75.0" text="%columnAmount" />
-            <TableColumn fx:id="incomeDate" prefWidth="75.0" text="%columnDate" />
+          <TableColumn fx:id="incomeDescription" minWidth="100.0" prefWidth="100.0" text="%columnDescription" />
+          <TableColumn fx:id="incomeAmount" minWidth="100.0" prefWidth="100.0" text="%columnAmount" />
+            <TableColumn fx:id="incomeDate" minWidth="100.0" prefWidth="100.0" text="%columnDate" />
         </columns>
       </TableView>
-      <TableView fx:id="expenseTable" layoutX="488.0" layoutY="366.0" prefHeight="200.0" prefWidth="227.0">
+      <TableView fx:id="expenseTable" layoutX="417.0" layoutY="366.0" prefHeight="200.0" prefWidth="302.0">
         <columns>
-          <TableColumn fx:id="expenseDescription" prefWidth="75.0" text="%columnDescription" />
-          <TableColumn fx:id="expenseAmount" prefWidth="75.0" text="%columnAmount" />
-            <TableColumn fx:id="expenseDate" prefWidth="75.0" text="%columnDate" />
+          <TableColumn fx:id="expenseDescription" minWidth="100.0" prefWidth="100.0" text="%columnDescription" />
+          <TableColumn fx:id="expenseAmount" minWidth="100.0" prefWidth="100.0" text="%columnAmount" />
+            <TableColumn fx:id="expenseDate" minWidth="100.0" prefWidth="100.0" text="%columnDate" />
         </columns>
       </TableView>
       <Label layoutX="76.0" layoutY="334.0" text="%Incomes7" />
-      <Label layoutX="488.0" layoutY="334.0" text="%Expences7" />
+      <Label layoutX="417.0" layoutY="334.0" text="%Expences7" />
                </children>
      
 </AnchorPane>
