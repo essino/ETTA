@@ -20,7 +20,7 @@ public class InputCheck {
 	/**
 	 * The used resource bundle
 	 */
-	MyBundle myBundle = MyBundle.getInstance();
+	MyBundle myBundle;
 	
 	public InputCheck() {
 		myBundle = MyBundle.getInstance();
