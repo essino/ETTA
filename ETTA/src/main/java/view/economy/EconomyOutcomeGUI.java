@@ -3,6 +3,7 @@ package view.economy;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import controller.EconomyController;
 import controller.InputCheck;
@@ -130,7 +131,7 @@ public class EconomyOutcomeGUI {
 	public void searchExpence(ActionEvent event) {
 		LocalDate startDate = expenceStartDate.getValue();
 		LocalDate endDate = expenceEndDate.getValue();
-		controller.getSelectedExpences(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+		controller.getSeletedExpences(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
 	}
 	
 	/** 
@@ -164,7 +165,7 @@ public class EconomyOutcomeGUI {
 				public void handle(CellEditEvent<Transfer, String> t) {
 					Transfer editedOutcomeDesc = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 					editedOutcomeDesc.setDescription(t.getNewValue());
-					controller.updateOutcomeDesc(editedOutcomeDesc);
+					controller.updateTransfer(editedOutcomeDesc);
 					expenseTable.refresh();
 					}});
 		
@@ -186,7 +187,7 @@ public class EconomyOutcomeGUI {
 				public void handle(CellEditEvent<Transfer, Date> t) {			
 					Transfer editedOutcomeDate = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 					editedOutcomeDate.setDate(t.getNewValue());
-					controller.updateOutcomeDate(editedOutcomeDate);
+					controller.updateTransfer(editedOutcomeDate);
 					expenseTable.refresh();
 					}});
 		
@@ -237,7 +238,14 @@ public class EconomyOutcomeGUI {
 	 * Method set to data controller
 	 */
 	public void setData(Transfer[] readSeletedTransfers) {
-		expenseTable.setItems(FXCollections.observableArrayList(readSeletedTransfers));
-
+		ArrayList<Transfer> expences = new ArrayList<Transfer>();
+		for (Transfer t: readSeletedTransfers) {
+			if (t.isIncome() != true) {
+				expences.add(t);
+			}
+		}
+		Transfer[] expencesArr = new Transfer[expences.size()];
+		expences.toArray(expencesArr);
+		expenseTable.setItems(FXCollections.observableArrayList(expencesArr));
 	}
 }
