@@ -18,17 +18,17 @@
             <TableColumn fx:id="incomeDate" prefWidth="121.0" text="%columnDate" />
         </columns>
       </TableView>
-      <ButtonBar layoutX="429.0" layoutY="696.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="28.0">
+      <ButtonBar layoutX="489.0" layoutY="645.0" prefHeight="40.0" prefWidth="277.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="489.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="645.0">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#showAddIncome" text="%buttonAdd" />
-            <Button mnemonicParsing="false" onAction="#showEditIncome" text="%buttonEdit" />
-            <Button mnemonicParsing="false" onAction="#deleteIncome" text="%buttonDelete" />
+          <Button mnemonicParsing="false" onAction="#showAddIncome" prefHeight="25.0" prefWidth="100.0" text="%buttonAdd" />
+            <Button mnemonicParsing="false" onAction="#showEditIncome" prefHeight="25.0" prefWidth="100.0" text="%buttonEdit" />
+            <Button mnemonicParsing="false" onAction="#deleteIncome" prefHeight="25.0" prefWidth="100.0" text="%buttonDelete" />
         </buttons>
       </ButtonBar>
-      <Label layoutX="108.0" layoutY="587.0" text="%labelSearch" AnchorPane.leftAnchor="108.0" AnchorPane.topAnchor="587.0" />
-      <DatePicker fx:id="incomeStartDate" layoutX="101.0" layoutY="613.0" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="613.0" />
-      <DatePicker fx:id="incomeEndDate" layoutX="320.0" layoutY="613.0" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="613.0" />
-      <Label layoutX="290.0" layoutY="617.0" text="-" AnchorPane.bottomAnchor="116.0" AnchorPane.leftAnchor="290.0" />
-      <Button layoutX="527.0" layoutY="613.0" mnemonicParsing="false" onAction="#searchIncomes" text="%buttonSearch" AnchorPane.leftAnchor="527.0" AnchorPane.topAnchor="613.0" />
+      <Label layoutX="101.0" layoutY="590.0" text="%labelSearch" AnchorPane.bottomAnchor="143.0" AnchorPane.leftAnchor="101.0" AnchorPane.rightAnchor="628.0" AnchorPane.topAnchor="590.0" />
+      <DatePicker fx:id="incomeStartDate" layoutX="101.0" layoutY="613.0" maxWidth="163.0" prefHeight="25.0" prefWidth="163.0" />
+      <DatePicker fx:id="incomeEndDate" layoutX="307.0" layoutY="613.0" maxWidth="163.0" prefHeight="25.0" prefWidth="163.0" />
+      <Label layoutX="290.0" layoutY="617.0" maxWidth="5.0" prefWidth="5.0" text="-" />
+      <Button layoutX="501.0" layoutY="613.0" maxWidth="95.0" mnemonicParsing="false" onAction="#searchIncomes" prefHeight="25.0" prefWidth="95.0" text="%buttonSearch" />
    </children>
 </AnchorPane>
