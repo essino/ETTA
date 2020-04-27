@@ -14,11 +14,9 @@ import res.MyBundle;
 public class WishlistGiftGUI extends AbstractWishlistGUI {
 
 	/**
-	 * The used resource bundle
+	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	//MyBundle myBundle = new MyBundle();
-		MyBundle myBundle =MyBundle.getInstance();
-	
+	MyBundle myBundle = new MyBundle();
 	/**
 	 * Reference to the used WishlistController
 	 */

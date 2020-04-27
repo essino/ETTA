@@ -16,9 +16,10 @@ import view.mainPage.MainViewGUI;
 
 public class App extends Application
 {
-	MyBundle myBundle = MyBundle.getInstance();
-			//new MyBundle();
-			//
+	/**
+	 * The used resource bundle
+	 */
+	MyBundle myBundle = new MyBundle();
 	MyTab myTab = MyTab.getMyTab();
 	
     public static void main( String[] args )
@@ -28,10 +29,7 @@ public class App extends Application
     
     public void start(Stage primaryStage) {
     	MainViewGUI mainViewGUI = new MainViewGUI();
-    	MainPageGUI mainPageGUI = new MainPageGUI();
-    	MainViewController controller = new MainViewController(mainPageGUI);
-    	
-    	
+    	 	
         TabPane tabPane = new TabPane();
 
         Tab tab1 = myTab.mainPageTab;

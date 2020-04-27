@@ -24,9 +24,10 @@ import res.MyBundle;
  */
 public class EconomyAddOutcomeGUI {
 	
-	//MyBundle myBundle = new MyBundle();
-		MyBundle myBundle =MyBundle.getInstance();
-	
+	/**
+	 * MyBundle object for setting the right resource bundle to localize the application
+	 */
+	MyBundle myBundle = new MyBundle();
 	/**
 	 * The reference of InputCheck class used for checking user's input
 	 */

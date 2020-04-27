@@ -30,9 +30,10 @@ import res.MyBundle;
 public class EconomyOutcomeGUI extends AbstractEconomyGUI{
 	
 	EconomyController controller = new EconomyController(this);
-	//MyBundle myBundle = new MyBundle();
-		MyBundle myBundle =MyBundle.getInstance();
-	
+	/**
+	 * MyBundle object for setting the right resource bundle to localize the application
+	 */
+	MyBundle myBundle = new MyBundle();
 	/**
 	 * The list view from where adding, editing and deleting can be started in expencies
 	 */

@@ -32,8 +32,7 @@ public class BorrowedGUI {
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	//MyBundle myBundle = new MyBundle();
-	MyBundle myBundle =MyBundle.getInstance();
+	MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * The menu view to which the alternative views in the Borrowed items section are added

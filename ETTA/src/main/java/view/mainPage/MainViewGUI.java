@@ -22,8 +22,10 @@ public class MainViewGUI {
 	CalendarController calendarController = new CalendarController();
 	LanguageDAO langDao = new LanguageDAO();
 	Locale locale;
-	//MyBundle myBundle = new MyBundle();
-		MyBundle myBundle =MyBundle.getInstance();
+	/**
+	 * MyBundle object for setting the right resource bundle to localize the application
+	 */
+	MyBundle myBundle = new MyBundle();
 	FXMLLoader loader;
 	
 	public BorderPane mainPageView() {

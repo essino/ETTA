@@ -30,9 +30,10 @@ public class EconomyGUI {
 	
 	EconomyController controller;
 	
-	//MyBundle myBundle = new MyBundle();
-		MyBundle myBundle =MyBundle.getInstance();
-	
+	/**
+	 * MyBundle object for setting the right resource bundle to localize the application
+	 */
+	MyBundle myBundle = new MyBundle();
 	/**
 	 * The menu view to which the alternative views in the Economy section are added
 	 */

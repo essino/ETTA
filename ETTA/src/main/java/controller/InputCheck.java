@@ -20,8 +20,7 @@ public class InputCheck {
 	/**
 	 * The used resource bundle
 	 */
-	MyBundle myBundle = MyBundle.getInstance();
-	//MyBundle myBundle = new MyBundle();
+	MyBundle myBundle = new MyBundle();
 	
 	/** 
 	 * Method that checks if user input can be transformed into float

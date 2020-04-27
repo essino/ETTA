@@ -3,7 +3,6 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Observable;
 
 import org.apache.commons.io.FileUtils;
 
@@ -12,14 +11,12 @@ import javafx.collections.ObservableList;
 import model.Language;
 import model.LanguageDAO;
 import res.MyTab;
-import view.settings.SettingsGUI;
 
-public class SettingsController extends Observable{
+public class SettingsController {
 	public static final SettingsController single = new SettingsController();
-	SettingsGUI settingsGUI;
-	LanguageDAO langDAO = new LanguageDAO();
 
-	//MyBundle myBundle = new MyBundle();
+	private LanguageDAO langDAO = new LanguageDAO();
+
 	
 	Language english = new Language(1,"English", true);
 	Language finnish = new Language(2, "Finnish", false);
@@ -49,8 +46,11 @@ public class SettingsController extends Observable{
 		Language newLang = langDAO.readLanguage(newLangName);
 		newLang.setChosen(true);
 		langDAO.updateLanguage(newLang); 
-		this.setChanged();
-		this.notifyObservers();
+		
+		//observable version
+		//this.setChanged();
+		//this.notifyObservers();
+		
 		//updating tabs' names
 		MyTab.getMyTab().setTabName();
 		

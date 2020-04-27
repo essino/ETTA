@@ -15,9 +15,10 @@ import res.MyBundle;
  */
 public class WishlistGUI {
 	
-	//MyBundle myBundle = new MyBundle();
-		MyBundle myBundle =MyBundle.getInstance();
-	
+	/**
+	 * MyBundle object for setting the right resource bundle to localize the application
+	 */
+	MyBundle myBundle = new MyBundle();
 	/**
 	 * The menu view to which the alternative views in the Wish section are added
 	 */

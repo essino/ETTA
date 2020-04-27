@@ -1,15 +1,46 @@
 package res;
 
 import java.util.Locale;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.ResourceBundle;
 
-import controller.SettingsController;
 import model.Language;
 import model.LanguageDAO;
 
-public class MyBundle implements Observer{
+public class MyBundle{
+	private LanguageDAO langDao = new LanguageDAO();
+	private Locale locale;
+
+	public MyBundle() {
+	}
+
+    public ResourceBundle getBundle() {
+    	ResourceBundle bundleNow;
+    	String chosenLocale="";
+    	Language language = langDao.getSelectedLanguage();
+    	if(language==null) {
+    		chosenLocale="English";
+    	}
+    	else {
+    		chosenLocale = language.getDescription();
+    	}
+		System.out.println("chosenlocale " + chosenLocale);
+		if(chosenLocale.equals("Finnish")) {
+			System.out.println("chosenlocale in finnish " + chosenLocale);
+			locale  =new Locale("fi", "FI");
+			Locale.setDefault(locale);
+			bundleNow = ResourceBundle.getBundle("res.TextResources_fi_FI", locale);
+			}
+		else {
+			System.out.println("chosenlocale in english " + chosenLocale);
+			locale  = new Locale("en", "GB");
+			Locale.setDefault(locale);
+			bundleNow = ResourceBundle.getBundle("res.TextResources_en_GB", locale);
+		}
+		return bundleNow;
+    }
+    
+	//Singleton version
+	/*
 	public static final MyBundle single = new MyBundle();
 	LanguageDAO langDao = new LanguageDAO();
 	Locale locale;
@@ -35,11 +66,10 @@ public class MyBundle implements Observer{
 		}
 	}
 	
-    public ResourceBundle getBundle() {
-		return bundle;
-	}
-
-    private ResourceBundle getLanguage() {
+	 public ResourceBundle getBundle() {
+	 	return bundle;
+	 }
+	    public ResourceBundle getLanguage() {
     	ResourceBundle bundleNow;
     	String chosenLocale="";
     	if(langDao.getSelectedLanguage()==null) {
@@ -54,14 +84,16 @@ public class MyBundle implements Observer{
 			System.out.println("chosenlocale in finnish " + chosenLocale);
 			locale  =new Locale("fi", "FI");
 			Locale.setDefault(locale);
-			bundleNow = ResourceBundle.getBundle("resources.TextResources_fi_FI", locale);
+			bundleNow = ResourceBundle.getBundle("res.TextResources_fi_FI", locale);
 			}
 		else {
 			System.out.println("chosenlocale in english " + chosenLocale);
 			locale  = new Locale("en", "GB");
 			Locale.setDefault(locale);
-			bundleNow = ResourceBundle.getBundle("resources.TextResources_en_GB", locale);
+			bundleNow = ResourceBundle.getBundle("res.TextResources_en_GB", locale);
 		}
 		return bundleNow;
     }
+	*/
+
 }

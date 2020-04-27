@@ -10,9 +10,11 @@ import res.MyBundle;
 public class MyCalendarView extends CalendarView{
 	
 	CalendarController calendarController = new CalendarController();
-	//MyBundle myBundle = new MyBundle();
-		MyBundle myBundle =MyBundle.getInstance();
-
+	/**
+	 * MyBundle object for setting the right resource bundle to localize the application
+	 */
+	MyBundle myBundle = new MyBundle();
+	
 	public CalendarView getMyCalendarView() {
 		CalendarView calendarView  = new CalendarView();
 		System.out.println("new calendar");

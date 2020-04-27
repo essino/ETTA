@@ -30,8 +30,10 @@ public class SettingsGUI {
 	private Label language;
 	
 	SettingsController controller = SettingsController.getInstance();
-	//MyBundle myBundle = new MyBundle();
-		MyBundle myBundle =MyBundle.getInstance();
+	/**
+	 * MyBundle object for setting the right resource bundle to localize the application
+	 */
+	MyBundle myBundle = new MyBundle();
 	
 	@FXML
 	public void cancel() {

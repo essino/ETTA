@@ -33,8 +33,10 @@ import res.MyBundle;
  */
 public class BalanceOverviewGUI extends AbstractEconomyGUI{
 	EconomyController controller;
-	//MyBundle myBundle = new MyBundle();
-		MyBundle myBundle =MyBundle.getInstance();
+	/**
+	 * MyBundle object for setting the right resource bundle to localize the application
+	 */
+	MyBundle myBundle = new MyBundle();
 	/**
 	 * The reference of pane where user can input the start balance amount
 	 */

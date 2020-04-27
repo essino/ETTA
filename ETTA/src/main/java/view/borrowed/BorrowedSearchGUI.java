@@ -37,9 +37,7 @@ public class BorrowedSearchGUI {
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	//MyBundle myBundle = new MyBundle();
-		MyBundle myBundle =MyBundle.getInstance();
-	
+	MyBundle myBundle = new MyBundle();
 	/**
 	 * the controller for Borrowed things
 	 */

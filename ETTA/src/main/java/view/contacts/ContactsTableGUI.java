@@ -72,9 +72,11 @@ public class ContactsTableGUI {
  	 */
  	InputCheck inputCheck = new InputCheck();
  	
- 	//MyBundle myBundle = new MyBundle();
- 		MyBundle myBundle =MyBundle.getInstance();
-  	
+ 	/**
+	 * MyBundle object for setting the right resource bundle to localize the application
+	 */
+	MyBundle myBundle = new MyBundle();
+	
  	Callback<TableColumn<Person, Date>, TableCell<Person, Date>> dateCellFactory = (TableColumn<Person, Date> param) -> new ContactsDateEditingCell();
   	/** 
   	 * Method that initializes the view and gets the contacts  from the controller to display them on the page
