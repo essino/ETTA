@@ -226,13 +226,5 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 		expenseTable.setItems(FXCollections.observableArrayList(expencesArr));
 	}
 
-	@Override
-	public Transfer transferToDelete() {
-		return null;
-	}
-
-	@Override
-	public void removeFromTable(Transfer transferToDelete) {
-	}
 	
 }

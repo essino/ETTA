@@ -27,7 +27,7 @@ import model.Category;
 import model.Transfer;
 import res.MyBundle;
 
-public class EconomyOutcomeGUI extends AbstractEconomyGUI{
+public class EconomyOutcomeGUI extends AbstractEconomyGUI implements ITransferGUI{
 	
 	EconomyController controller = new EconomyController(this);
 	/**
@@ -174,8 +174,8 @@ public class EconomyOutcomeGUI extends AbstractEconomyGUI{
 				@Override
 				public void handle(CellEditEvent<Transfer, Float> t) {			
 					Transfer editedOutcomeAmount = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-					editedOutcomeAmount.setAmount(t.getNewValue());
-					controller.updateOutcomeAmount(editedOutcomeAmount);
+					editedOutcomeAmount.setAmount(0-Math.abs(t.getNewValue()));
+					controller.updateTransferAmount(editedOutcomeAmount);
 					expenseTable.refresh();
 					}});
 		

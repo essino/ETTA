@@ -16,6 +16,7 @@ import view.economy.EconomyGUI;
 import view.economy.EconomyIncomeGUI;
 import view.economy.EconomyOutcomeGUI;
 import view.economy.EconomySavingsGUI;
+import view.economy.ITransferGUI;
 import view.economy.AbstractEconomyGUI;
 import model.BalanceDAO;
 import model.Category;
@@ -177,25 +178,13 @@ public class EconomyController {
 	
 	/**
 	 * 
-	 * Method for updating an incomes amount
+	 * Method for updating a transfer's amount
 	 */
-	public void updateIncomeAmount(Transfer editedIncomeAmount) {
-		float oldAmount = (transDAO.readTransfer(editedIncomeAmount.getTransfer_id())).getAmount();
-		float newAmount = editedIncomeAmount.getAmount();
+	public void updateTransferAmount(Transfer editedTransfer) {
+		float oldAmount = (transDAO.readTransfer(editedTransfer.getTransfer_id())).getAmount();
+		float newAmount = editedTransfer.getAmount();
 		float diff = newAmount-oldAmount;
-		transDAO.updateTransfer(editedIncomeAmount);
-		updateBalanceAmount(diff);
-	}
-	
-	/**
-	 * 
-	 * Method for updating an Exepenses amount
-	 */
-	public void updateOutcomeAmount(Transfer editedOutcomeAmount) {
-		float oldAmount = (transDAO.readTransfer(editedOutcomeAmount.getTransfer_id())).getAmount();
-		float newAmount = editedOutcomeAmount.getAmount();
-		float diff = oldAmount-newAmount;
-		transDAO.updateTransfer(editedOutcomeAmount);
+		transDAO.updateTransfer(editedTransfer);
 		updateBalanceAmount(diff);
 	}
 	
@@ -297,7 +286,7 @@ public class EconomyController {
 	 * tells TransferDAO to delete the transfer from the database 
 	 * and economyGUI to delete it from the tableView.
 	 */ 
-	public void removeTransfer(AbstractEconomyGUI gui) {
+	public void removeTransfer(ITransferGUI gui) {
 		transDAO.deleteTransfer(gui.transferToDelete().getTransfer_id());
 		updateBalanceAmount(0-gui.transferToDelete().getAmount());
 		gui.removeFromTable(gui.transferToDelete());

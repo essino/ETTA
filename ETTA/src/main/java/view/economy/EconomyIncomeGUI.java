@@ -29,7 +29,7 @@ import model.Item;
 import model.Transfer;
 import res.MyBundle;
 
-public class EconomyIncomeGUI extends AbstractEconomyGUI{
+public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI{
 
 	EconomyController controller = new EconomyController(this);
 	/**
@@ -188,7 +188,7 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI{
 				public void handle(CellEditEvent<Transfer, Float> t) {			
 					Transfer editedIncomeAmount = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 					editedIncomeAmount.setAmount(t.getNewValue());
-					controller.updateIncomeAmount(editedIncomeAmount);
+					controller.updateTransferAmount(editedIncomeAmount);
 					incomeTable.refresh();
 					}});
 		
