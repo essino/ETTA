@@ -16,16 +16,11 @@ import res.MyBundle;
  * 
  */
 public class InputCheck {
-	MyBundle myBundle;
-	
-	public InputCheck() {
-		myBundle = MyBundle.getInstance();
-	}
 	
 	/**
 	 * The used resource bundle
 	 */
-	//MyBundle myBundle = MyBundle.getInstance();
+	MyBundle myBundle = MyBundle.getInstance();
 	//MyBundle myBundle = new MyBundle();
 	
 	/** 

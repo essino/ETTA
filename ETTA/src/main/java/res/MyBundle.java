@@ -55,13 +55,13 @@ public class MyBundle implements Observer{
 			System.out.println("chosenlocale in finnish " + chosenLocale);
 			locale  =new Locale("fi", "FI");
 			Locale.setDefault(locale);
-			bundleNow = ResourceBundle.getBundle("res.TextResources_fi_FI", locale);
+			bundleNow = ResourceBundle.getBundle("resources.TextResources_fi_FI", locale);
 			}
 		else {
 			System.out.println("chosenlocale in english " + chosenLocale);
 			locale  = new Locale("en", "GB");
 			Locale.setDefault(locale);
-			bundleNow = ResourceBundle.getBundle("res.TextResources_en_GB", locale);
+			bundleNow = ResourceBundle.getBundle("resources.TextResources_en_GB", locale);
 		}
 		return bundleNow;
     }
