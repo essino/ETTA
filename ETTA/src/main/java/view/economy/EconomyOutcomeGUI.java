@@ -29,7 +29,7 @@ import res.MyBundle;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn.CellEditEvent;
 
-public class EconomyOutcomeGUI {
+public class EconomyOutcomeGUI extends AbstractEconomyGUI{
 	
 	EconomyController controller = new EconomyController(this);
 	//MyBundle myBundle = new MyBundle();
@@ -131,7 +131,7 @@ public class EconomyOutcomeGUI {
 	public void searchExpence(ActionEvent event) {
 		LocalDate startDate = expenceStartDate.getValue();
 		LocalDate endDate = expenceEndDate.getValue();
-		controller.getSeletedExpences(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+		controller.getSelectedTransfers(this, java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
 	}
 	
 	/** 

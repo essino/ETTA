@@ -31,7 +31,7 @@ import res.MyBundle;
 /**
  * GUI class relating to the Balance main page section
  */
-public class BalanceOverviewGUI {
+public class BalanceOverviewGUI extends AbstractEconomyGUI{
 	EconomyController controller;
 	//MyBundle myBundle = new MyBundle();
 		MyBundle myBundle =MyBundle.getInstance();
@@ -208,7 +208,7 @@ public class BalanceOverviewGUI {
 		System.out.println(startDate);
 		System.out.println(endDate);
 		//This gets all transfers from this period
-		controller.getSelectedIncomes(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+		controller.getSelectedTransfers(this, java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
 
 	
 	}

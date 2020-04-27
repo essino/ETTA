@@ -29,7 +29,7 @@ import model.Item;
 import model.Transfer;
 import res.MyBundle;
 
-public class EconomyIncomeGUI {
+public class EconomyIncomeGUI extends AbstractEconomyGUI{
 
 	EconomyController controller = new EconomyController(this);
 	//MyBundle myBundle = new MyBundle();
@@ -133,7 +133,8 @@ public class EconomyIncomeGUI {
 	public void searchIncomes(ActionEvent event) {
 		LocalDate startDate = incomeStartDate.getValue();
 		LocalDate endDate = incomeEndDate.getValue();
-		controller.getSeletedIncomes(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+		controller.getSelectedTransfers(this, java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+		//controller.getSeletedIncomes(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
 		
 	}
 	

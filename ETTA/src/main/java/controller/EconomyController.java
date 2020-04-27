@@ -18,6 +18,7 @@ import view.economy.EconomyGUI;
 import view.economy.EconomyIncomeGUI;
 import view.economy.EconomyOutcomeGUI;
 import view.economy.EconomySavingsGUI;
+import view.economy.AbstractEconomyGUI;
 import model.BalanceDAO;
 import model.Category;
 import model.CategoryDAO;
@@ -253,9 +254,7 @@ public class EconomyController {
 		}
 		ObservableList<String> names =  FXCollections.observableArrayList(categoryNames);
 		return names;
-		
 	}
-	
 	
 	/** 
 	 * Method that gets expense Categories from CategoryDAO and makes a list containing categories' names only 
@@ -269,9 +268,7 @@ public class EconomyController {
 		}
 		ObservableList<String> names =  FXCollections.observableArrayList(categoryNames);
 		return names;
-		
 	}
-	
 	
 	/** 
 	 * Method that gets new income's detail from addIncomeGUI and gives the incomes to TransferDAO
@@ -288,7 +285,6 @@ public class EconomyController {
 		updateBalanceAmount(income.getAmount());
 	}
 	
-	
 	/** 
 	 * Method that gets new expense's detail from addOutcomeGUI and gives the expense to TransferDAO
 	 */ 
@@ -304,33 +300,10 @@ public class EconomyController {
 		updateBalanceAmount(expense.getAmount());
 	}
 	
-	
-	/** 
-	 * Method fetching all incomes from selected days from database
-	 */ 
-	public void getSeletedIncomes(Date incomeStartDate, Date incomeEndDate) {
-		incomeGUI.setData(transDAO.readSeletedTransfers(incomeStartDate, incomeEndDate));
+	public void getSelectedTransfers(AbstractEconomyGUI gui, Date start, Date end) {
+		gui.setData(transDAO.readSeletedTransfers(start, end));
 	}
-	
-	/** 
-	 * Method fetching all incomes from selected days from database
-	 */ 
-	public void getSeletedExpences(Date incomeStartDate, Date incomeEndDate) {
-		expenceGUI.setData(transDAO.readSeletedTransfers(incomeStartDate, incomeEndDate));
-	}
-	
-	/** 
-	 * Method fetching all expences from selected days from database
-	 */ 
 
-	public void getSelectedExpences(Date expenceStartDate, Date expenceEndDate) {
-		balanceOverviewGUI.setData(transDAO.readSeletedTransfers(expenceStartDate, expenceEndDate));
-	}
-	
-	public void getSelectedIncomes(Date incomeStartDate, Date incomeEndDate) {
-		balanceOverviewGUI.setData(transDAO.readSeletedTransfers(incomeStartDate, incomeEndDate));
-	}
-	
 	/** 
 	 * Method that gets the selected expense from expenceGUI, 
 	 * tells TransferDAO to delete the expense from the database 
@@ -359,15 +332,6 @@ public class EconomyController {
 		return transDAO.readIncome();
 	}
 		
-	/** 
-	 * Method that gets seleted Incomes from TransferDAO and makes a list containing incomes details 
-	 * @return Transfer[] - list of incomes
-	 */ 
-	
-	public Transfer[] getIncomesSeletedDays(Date dateStart, Date dateEnd) {
-		return transDAO.readIncome();
-	}
-	
 	/** 
 	 * Method that gets the selected income from economyIncomeGUI, 
 	 * tells TransferDAO to delete the income from the database 
