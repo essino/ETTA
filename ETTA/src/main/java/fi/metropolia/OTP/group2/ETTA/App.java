@@ -17,6 +17,8 @@ import view.mainPage.MainViewGUI;
 public class App extends Application
 {
 	MyBundle myBundle = MyBundle.getInstance();
+			//new MyBundle();
+			//
 	MyTab myTab = MyTab.getMyTab();
 	
     public static void main( String[] args )

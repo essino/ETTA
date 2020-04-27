@@ -14,16 +14,15 @@ public class MyBundle implements Observer{
 	LanguageDAO langDao = new LanguageDAO();
 	Locale locale;
 	ResourceBundle bundle;
-	SettingsController settingsController = SettingsController.getInstance();
 	SettingsController controller;
 	
 	private MyBundle() {
 		this.bundle = getLanguage();
-		this.controller = settingsController;
+		this.controller = SettingsController.getInstance();
 		System.out.println(this.controller.getSelectedLanguage());
 		this.controller.addObserver(this);
 	}
-	
+
 	public static MyBundle getInstance() {
 		return single;
 	}

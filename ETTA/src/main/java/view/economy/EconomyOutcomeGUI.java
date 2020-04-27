@@ -31,7 +31,8 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 public class EconomyOutcomeGUI {
 	
 	EconomyController controller = new EconomyController(this);
-	MyBundle myBundle = MyBundle.getInstance();
+	//MyBundle myBundle = new MyBundle();
+		MyBundle myBundle =MyBundle.getInstance();
 	
 	/**
 	 * The list view from where adding, editing and deleting can be started in expencies

@@ -30,8 +30,8 @@ public class SettingsGUI {
 	private Label language;
 	
 	SettingsController controller = SettingsController.getInstance();
-	
-	MyBundle myBundle = MyBundle.getInstance();
+	//MyBundle myBundle = new MyBundle();
+		MyBundle myBundle =MyBundle.getInstance();
 	
 	@FXML
 	public void cancel() {

@@ -31,7 +31,8 @@ import res.MyBundle;
 public class EconomyIncomeGUI {
 
 	EconomyController controller = new EconomyController(this);
-	MyBundle myBundle = MyBundle.getInstance();
+	//MyBundle myBundle = new MyBundle();
+		MyBundle myBundle =MyBundle.getInstance();
 	
 	/**
 	 * The list view from where adding, editing and deleting can be started in incomes

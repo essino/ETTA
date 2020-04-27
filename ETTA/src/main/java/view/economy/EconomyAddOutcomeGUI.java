@@ -24,7 +24,8 @@ import res.MyBundle;
  */
 public class EconomyAddOutcomeGUI {
 	
-	MyBundle myBundle = MyBundle.getInstance();
+	//MyBundle myBundle = new MyBundle();
+		MyBundle myBundle =MyBundle.getInstance();
 	
 	/**
 	 * The reference of InputCheck class used for checking user's input

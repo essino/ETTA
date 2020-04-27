@@ -16,7 +16,8 @@ public class WishlistBoughtGUI extends AbstractWishlistGUI {
 	/**
 	 * The used resource bundle
 	 */
-	MyBundle myBundle = MyBundle.getInstance();
+	//MyBundle myBundle = new MyBundle();
+		MyBundle myBundle =MyBundle.getInstance();
 	
 	/**
 	 * Reference to the used WishlistController
