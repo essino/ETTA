@@ -22,6 +22,10 @@ public class InputCheck {
 	 */
 	MyBundle myBundle = MyBundle.getInstance();
 	
+	public InputCheck() {
+		myBundle = MyBundle.getInstance();
+	}
+	
 	/** 
 	 * Method that checks if user input can be transformed into float
 	 * @param input string inputed by the user
