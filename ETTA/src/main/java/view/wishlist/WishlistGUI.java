@@ -15,7 +15,8 @@ import res.MyBundle;
  */
 public class WishlistGUI {
 	
-	MyBundle myBundle = new MyBundle();
+	//MyBundle myBundle = new MyBundle();
+		MyBundle myBundle =MyBundle.getInstance();
 	
 	/**
 	 * The menu view to which the alternative views in the Wish section are added

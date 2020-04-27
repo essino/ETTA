@@ -18,7 +18,7 @@ import javafx.scene.layout.BorderPane;
 import model.Event;
 import model.EventDAO;
 
-public class MainPageGUI {
+public class MainPageGUI  {
 
 	MainViewController controller;
 	EventDAO eventDAO = new EventDAO();

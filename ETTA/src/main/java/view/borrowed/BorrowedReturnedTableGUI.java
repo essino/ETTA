@@ -106,7 +106,8 @@ public class BorrowedReturnedTableGUI {
 		public void initialize() {
 			
 			System.out.println("Aputulostus");
-			MyBundle myBundle = new MyBundle();
+			//MyBundle myBundle = new MyBundle();
+			MyBundle myBundle =MyBundle.getInstance();
 			
 			//for setting the right formatting for dates in table cells
 			Locale locale = Locale.getDefault();
@@ -180,14 +181,23 @@ public class BorrowedReturnedTableGUI {
 			return borrowedReturnedTable.getSelectionModel().getSelectedItem();
 		}
 		
+		public boolean checkItemIsSelected() {
+			BorrowedThing thing = getSelectedBorrowedThing();
+			return thing != null;
+		}
+		
 		/**
 		 * Method for deleting the selected borrowed thing from the database
 		 */
 		@FXML
 		public void deleteSelectedReturnedThing() {
-			if (inputCheck.confirmDeleting()) {
-				controller.removeReturnedThing();
-				initialize();
+			if (checkItemIsSelected()) {
+				if (inputCheck.confirmDeleting()) {
+					controller.removeReturnedThing();
+					initialize();
+				}
+			} else {
+				inputCheck.alertNothingSelected();
 			}
 		}
 		
@@ -202,19 +212,25 @@ public class BorrowedReturnedTableGUI {
 		/** 
 		 * Method that marks an event as returned
 		 */
-		@FXML
+		/*@FXML
 		public void markAsReturned() {
 			controller.markReturned();
 			initialize();
-		}
+		}*/
 		
 		/** 
 		 * Method that changes an item's status from returned to borrowed again
 		 */
 		@FXML
 		public void makeReturnedBorrowed() {
-			controller.changeReturnedToBorrowed();
-			initialize();
+			if (checkItemIsSelected()) {
+				controller.changeReturnedToBorrowed();
+				initialize();
+				
+			} else {
+				inputCheck.alertNothingSelected();
+			}
+			
 		}
-		
+	
 }

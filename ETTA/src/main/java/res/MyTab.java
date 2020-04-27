@@ -1,10 +1,17 @@
 package res;
 
+import java.io.FileInputStream;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import javafx.scene.control.Tab;
 
 public class MyTab extends Tab{
 
-	MyBundle myBundle = new MyBundle();
+	//MyBundle myBundle = new MyBundle();
+	//MyBundle myBundle =MyBundle.getInstance();
+	ResourceBundle bundle = MyBundle.getInstance().getBundle();
 	public static final MyTab singleMyTab = new MyTab(); 
 	public Tab mainPageTab;
 	public Tab economyTab;
@@ -15,13 +22,13 @@ public class MyTab extends Tab{
 	public Tab settingsTab;
 	
 	private MyTab() {
-		this.mainPageTab=new Tab(myBundle.getBundle().getString("pageMain"));
-		this.economyTab = new Tab(myBundle.getBundle().getString("pageEconomy"));
-		this.calendarTab = new Tab(myBundle.getBundle().getString("pageCalendar"));
-		this.wishlistTab = new Tab(myBundle.getBundle().getString("pageWishlist"));
-		this.borrowedTab = new Tab(myBundle.getBundle().getString("pageBorrowed"));
-		this.contactsTab = new Tab(myBundle.getBundle().getString("pageContacts"));
-		this.settingsTab = new Tab(myBundle.getBundle().getString("pageSettings"));
+		this.mainPageTab=new Tab(bundle.getString("pageMain"));
+		this.economyTab = new Tab(bundle.getString("pageEconomy"));
+		this.calendarTab = new Tab(bundle.getString("pageCalendar"));
+		this.wishlistTab = new Tab(bundle.getString("pageWishlist"));
+		this.borrowedTab = new Tab(bundle.getString("pageBorrowed"));
+		this.contactsTab = new Tab(bundle.getString("pageContacts"));
+		this.settingsTab = new Tab(bundle.getString("pageSettings"));
 	}
 	
 	public static MyTab getMyTab() {
@@ -29,12 +36,12 @@ public class MyTab extends Tab{
 	}
 	
 	public void setTabName() {
-		this.mainPageTab.setText(myBundle.getBundle().getString("pageMain"));
-		this.economyTab.setText(myBundle.getBundle().getString("pageEconomy"));
-		this.calendarTab.setText(myBundle.getBundle().getString("pageCalendar"));
-		this.wishlistTab.setText(myBundle.getBundle().getString("pageWishlist"));
-		this.borrowedTab.setText(myBundle.getBundle().getString("pageBorrowed"));
-		this.contactsTab.setText(myBundle.getBundle().getString("pageContacts"));
-		this.settingsTab.setText(myBundle.getBundle().getString("pageSettings"));
+		this.mainPageTab.setText(bundle.getString("pageMain"));
+		this.economyTab.setText(bundle.getString("pageEconomy"));
+		this.calendarTab.setText(bundle.getString("pageCalendar"));
+		this.wishlistTab.setText(bundle.getString("pageWishlist"));
+		this.borrowedTab.setText(bundle.getString("pageBorrowed"));
+		this.contactsTab.setText(bundle.getString("pageContacts"));
+		this.settingsTab.setText(bundle.getString("pageSettings"));
 	}
 }

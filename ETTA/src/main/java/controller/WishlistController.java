@@ -26,29 +26,9 @@ public class WishlistController {
 	private ItemDAO itemDAO = new ItemDAO();
 	
 	/**
-	 * Reference to the WishlistTableGUI
-	 */
-	private WishlistTableGUI tableGui;
-	
-	/**
 	 * Reference to the WishlistAddGUI
 	 */
 	private WishlistAddGUI addGui;
-	
-	/**
-	 * Reference to the WishlistBoughtGUI
-	 */
-	private WishlistBoughtGUI boughtGui;
-	
-	/**
-	 * Reference to the WishlistOwnGUI
-	 */
-	private WishlistOwnGUI ownGui;
-	
-	/**
-	 * Reference to the WishlistGiftGUI
-	 */
-	private WishlistGiftGUI giftGui;
 	
 	/**
 	 * PersonDAO used for accessing the database
@@ -65,46 +45,12 @@ public class WishlistController {
 	 */
 	InputCheck inputCheck = new InputCheck();
 
-	public Item selectedItem = new Item();
-
-	/**
-	 * Constructor
-	 * @param gui WishlistTableGUI
-	 */
-	public WishlistController(WishlistTableGUI gui) {
-		this.tableGui = gui;
-	}
-	
 	/**
 	 * Constructor
 	 * @param gui WishlistAddGUI
 	 */
 	public WishlistController(WishlistAddGUI gui) {
 		this.addGui = gui;
-	}
-	
-	/**
-	 * Constructor
-	 * @param gui WishlistBoughtGUI
-	 */
-	public WishlistController(WishlistBoughtGUI gui) {
-		this.boughtGui = gui;
-	}
-	
-	/**
-	 * Constructor
-	 * @param gui WishlistOwnGUI
-	 */
-	public WishlistController(WishlistOwnGUI gui) {
-		this.ownGui = gui;
-	}
-	
-	/**
-	 * Constructor
-	 * @param gui WishlistGiftGUI
-	 */
-	public WishlistController(WishlistGiftGUI gui) {
-		this.giftGui = gui;
 	}
 	
 	/**
@@ -216,7 +162,7 @@ public class WishlistController {
 	 * @param gui AbstractWishlistGUI the gui calling this method
 	 */ 
 	public void removeItem(AbstractWishlistGUI gui) {
-		Event event = findEvent(getSelectedItem(gui), gui);
+		Event event = findEvent(getSelectedItem(gui));
 		if (event != null) {
 			eventDAO.deleteEvent(event.getEvent_id());
 		}
@@ -226,8 +172,8 @@ public class WishlistController {
 	/** 
 	 * Method for marking an item as bought
 	 */ 
-	public void setBought() {
-		Item item = itemDAO.readItem(tableGui.getSelectedItem().getDescription());
+	public void setBought(AbstractWishlistGUI gui) {
+		Item item = itemDAO.readItem(getSelectedItem(gui).getDescription());
 		item.setBought(true);
 		itemDAO.updateItem(item);
 	}
@@ -237,8 +183,8 @@ public class WishlistController {
 	 * Also updates the event connected to the item if there is one
 	 * @param editedItem the item with the updated information
 	 */ 
-	public void updateItem(Item editedItem, AbstractWishlistGUI gui) {
-		Event event = findEvent(editedItem, gui);
+	public void updateItem(Item editedItem) {
+		Event event = findEvent(editedItem);
 		System.out.println(event);
 		if (event != null) {
 			event.setStartDate(editedItem.getDateNeeded());
@@ -260,10 +206,10 @@ public class WishlistController {
 	 * Method for finding the event connected to the selected item from the database
 	 * @param item the Item the event is connected to
 	 */ 
-	public Event findEvent(Item item, AbstractWishlistGUI gui) {
-		String description = getSelectedItem(gui).getDescription();
+	public Event findEvent(Item item) {
+		String description = item.getDescription();
 		//the person who has borrowed the item
-		Person person = getSelectedItem(gui).getPerson();
+		Person person = item.getPerson();
 		String eventTitle = "Buy " + description + " for " + person;
 		Event[] events = eventDAO.readEvents();
 		for (int i = 0; events.length > i; i++) {

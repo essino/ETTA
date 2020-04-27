@@ -1,5 +1,10 @@
 package fi.metropolia.OTP.group2.ETTA;
 
+import java.io.FileInputStream;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import controller.MainViewController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -16,18 +21,20 @@ import view.mainPage.MainViewGUI;
 
 public class App extends Application
 {
-	//MyBundle myBundle = MyBundle.getInstance();
+	MyBundle myBundle = MyBundle.getInstance();
+			//new MyBundle();
+			//
 	MyTab myTab = MyTab.getMyTab();
 	
     public static void main( String[] args )
     {
     	launch(args);
-    	
     }
-    
+
     public void start(Stage primaryStage) {
 
-    	MainViewGUI mainViewGUI = new MainViewGUI(MyBundle.getInstance());
+    	
+    	MainViewGUI mainViewGUI = new MainViewGUI();
     	MainPageGUI mainPageGUI = new MainPageGUI();
     	MainViewController controller = new MainViewController(mainPageGUI);
     	
@@ -105,13 +112,11 @@ public class App extends Application
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         VBox vBox = new VBox(tabPane);
         Scene scene = new Scene(vBox);
-        
+        scene.getStylesheets().add(getClass().getResource("/res/newstyle.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("ETTA");
 
         primaryStage.show();
-        
-        
     }
 
 }

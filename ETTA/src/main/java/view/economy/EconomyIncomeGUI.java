@@ -3,6 +3,7 @@ package view.economy;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import controller.EconomyController;
 import controller.InputCheck;
@@ -28,10 +29,11 @@ import model.Item;
 import model.Transfer;
 import res.MyBundle;
 
-public class EconomyIncomeGUI {
+public class EconomyIncomeGUI extends AbstractEconomyGUI{
 
 	EconomyController controller = new EconomyController(this);
-	MyBundle myBundle = new MyBundle();
+	//MyBundle myBundle = new MyBundle();
+		MyBundle myBundle =MyBundle.getInstance();
 	
 	/**
 	 * The list view from where adding, editing and deleting can be started in incomes
@@ -131,7 +133,8 @@ public class EconomyIncomeGUI {
 	public void searchIncomes(ActionEvent event) {
 		LocalDate startDate = incomeStartDate.getValue();
 		LocalDate endDate = incomeEndDate.getValue();
-		controller.getSeletedIncomes(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+		controller.getSelectedTransfers(this, java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+		//controller.getSeletedIncomes(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
 		
 	}
 	
@@ -172,7 +175,7 @@ public class EconomyIncomeGUI {
 				public void handle(CellEditEvent<Transfer, String> t) {
 					Transfer editedIncomeDesc = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));	
 					editedIncomeDesc.setDescription(t.getNewValue());
-					controller.updateIncomeDesc(editedIncomeDesc);					
+					controller.updateTransfer(editedIncomeDesc);					
 					incomeTable.refresh();
 					}});
 		
@@ -195,7 +198,7 @@ public class EconomyIncomeGUI {
 				public void handle(CellEditEvent<Transfer, Date> t) {			
 					Transfer editedIncomeDate = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 					editedIncomeDate.setDate(t.getNewValue());
-					controller.updateIncomeDate(editedIncomeDate);
+					controller.updateTransfer(editedIncomeDate);
 					incomeTable.refresh();
 					}});
 		
@@ -211,7 +214,8 @@ public class EconomyIncomeGUI {
 	@FXML
 	public void deleteIncome() {
 		if (inputCheck.confirmDeleting()) {
-			controller.removeIncome();
+			controller.removeTransfer(this);
+			//controller.removeIncome();
 			initialize();
 		}
 	}
@@ -244,8 +248,16 @@ public class EconomyIncomeGUI {
 	 */
 	@FXML
 	public void setData(Transfer[] readSeletedTransfers) {
-		incomeTable.setItems(FXCollections.observableArrayList(readSeletedTransfers));
-		
+		//chooses only incomes from the list
+		ArrayList<Transfer> incomes = new ArrayList<Transfer>();
+		for (Transfer t: readSeletedTransfers) {
+			if (t.isIncome() == true) {
+				incomes.add(t);
+			}
+		}
+		Transfer[] incomesArr = new Transfer[incomes.size()];
+		incomes.toArray(incomesArr);	
+		incomeTable.setItems(FXCollections.observableArrayList(incomesArr));
 	}
 	
 	

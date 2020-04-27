@@ -3,6 +3,7 @@ package view.economy;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import controller.EconomyController;
 import controller.InputCheck;
@@ -25,13 +26,12 @@ import javafx.util.converter.FloatStringConverter;
 import model.Category;
 import model.Transfer;
 import res.MyBundle;
-import javafx.event.EventHandler;
-import javafx.scene.control.TableColumn.CellEditEvent;
 
-public class EconomyOutcomeGUI {
+public class EconomyOutcomeGUI extends AbstractEconomyGUI{
 	
 	EconomyController controller = new EconomyController(this);
-	MyBundle myBundle = new MyBundle();
+	//MyBundle myBundle = new MyBundle();
+		MyBundle myBundle =MyBundle.getInstance();
 	
 	/**
 	 * The list view from where adding, editing and deleting can be started in expencies
@@ -129,7 +129,7 @@ public class EconomyOutcomeGUI {
 	public void searchExpence(ActionEvent event) {
 		LocalDate startDate = expenceStartDate.getValue();
 		LocalDate endDate = expenceEndDate.getValue();
-		controller.getSelectedExpences(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
+		controller.getSelectedTransfers(this, java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
 	}
 	
 	/** 
@@ -163,7 +163,7 @@ public class EconomyOutcomeGUI {
 				public void handle(CellEditEvent<Transfer, String> t) {
 					Transfer editedOutcomeDesc = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 					editedOutcomeDesc.setDescription(t.getNewValue());
-					controller.updateOutcomeDesc(editedOutcomeDesc);
+					controller.updateTransfer(editedOutcomeDesc);
 					expenseTable.refresh();
 					}});
 		
@@ -185,7 +185,7 @@ public class EconomyOutcomeGUI {
 				public void handle(CellEditEvent<Transfer, Date> t) {			
 					Transfer editedOutcomeDate = ((Transfer) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 					editedOutcomeDate.setDate(t.getNewValue());
-					controller.updateOutcomeDate(editedOutcomeDate);
+					controller.updateTransfer(editedOutcomeDate);
 					expenseTable.refresh();
 					}});
 		
@@ -197,7 +197,8 @@ public class EconomyOutcomeGUI {
 	@FXML
 	public void deleteOutcome() {
 		if (inputCheck.confirmDeleting()) {
-			controller.removeExpense();
+			controller.removeTransfer(this);
+			//controller.removeExpense();
 			initialize();
 		}
 	}
@@ -218,15 +219,6 @@ public class EconomyOutcomeGUI {
 		expenseTable.getItems().remove(transfer);
 	}
 	
-	/** 
-	 * Method that tells controller to edit an expense 
-	 */
-	@FXML
-	public void editOutcome() {
-		//expenseTable.setEditable(true);
-		//controller.editExpense();
-	}
-	
 	@FXML
 	public Transfer getSelectedItem() {
 		return expenseTable.getSelectionModel().getSelectedItem();
@@ -236,7 +228,14 @@ public class EconomyOutcomeGUI {
 	 * Method set to data controller
 	 */
 	public void setData(Transfer[] readSeletedTransfers) {
-		expenseTable.setItems(FXCollections.observableArrayList(readSeletedTransfers));
-
+		ArrayList<Transfer> expences = new ArrayList<Transfer>();
+		for (Transfer t: readSeletedTransfers) {
+			if (t.isIncome() != true) {
+				expences.add(t);
+			}
+		}
+		Transfer[] expencesArr = new Transfer[expences.size()];
+		expences.toArray(expencesArr);
+		expenseTable.setItems(FXCollections.observableArrayList(expencesArr));
 	}
 }

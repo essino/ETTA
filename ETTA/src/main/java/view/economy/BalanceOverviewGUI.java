@@ -31,9 +31,10 @@ import res.MyBundle;
 /**
  * GUI class relating to the Balance main page section
  */
-public class BalanceOverviewGUI {
+public class BalanceOverviewGUI extends AbstractEconomyGUI{
 	EconomyController controller;
-	MyBundle myBundle = new MyBundle();
+	//MyBundle myBundle = new MyBundle();
+		MyBundle myBundle =MyBundle.getInstance();
 	/**
 	 * The reference of pane where user can input the start balance amount
 	 */
@@ -62,7 +63,6 @@ public class BalanceOverviewGUI {
 	 */
     @FXML
     private TableColumn<Transfer, String> incomeDescription;
-    
     
     /**
 	 * The reference of TableColumn (income's amount) will be injected by the FXML loader
@@ -107,9 +107,6 @@ public class BalanceOverviewGUI {
 		controller = new EconomyController(this);
 	} 
 	
-	
-
-	
 	/** 
 	 * Method that gets balance amount and displays it on the page 
 	 * @param amount double the balance amount
@@ -150,18 +147,15 @@ public class BalanceOverviewGUI {
 		incomeAmount.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Float>("amount"));
 		
-
 		expenseDescription.setCellValueFactory(
                 new PropertyValueFactory<Transfer, String>("description"));
 		expenseDate.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Date>("date"));
 		expenseAmount.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Float>("amount"));
-		
 	
 		searchWeeksTransfers();	
 
-		
 		incomeTable.setEditable(true);
 		incomeDescription.setCellValueFactory(new PropertyValueFactory<Transfer, String>("description")); 
 		incomeAmount.setCellValueFactory(new PropertyValueFactory<Transfer, Float>("amount"));
@@ -172,13 +166,7 @@ public class BalanceOverviewGUI {
 		expenseAmount.setCellValueFactory(new PropertyValueFactory<Transfer, Float>("amount"));
 		
 		expenseDate.setCellValueFactory(new PropertyValueFactory<Transfer, Date>("date"));
-		
-		
 	}
-	
-	
-	
-	
 	
 	/** 
 	 * Method that saves the start balance amount inputed by the user. 
@@ -207,9 +195,7 @@ public class BalanceOverviewGUI {
 		System.out.println(startDate);
 		System.out.println(endDate);
 		//This gets all transfers from this period
-		controller.getSelectedIncomes(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
-
-	
+		controller.getSelectedTransfers(this, java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
 	}
 
 	/** 
@@ -236,7 +222,15 @@ public class BalanceOverviewGUI {
 		
 		incomeTable.setItems(FXCollections.observableArrayList(incomesArr));
 		expenseTable.setItems(FXCollections.observableArrayList(expencesArr));
+	}
 
+	@Override
+	public Transfer transferToDelete() {
+		return null;
+	}
+
+	@Override
+	public void removeFromTable(Transfer transferToDelete) {
 	}
 	
 }

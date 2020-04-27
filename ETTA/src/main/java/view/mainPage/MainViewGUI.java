@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.ResourceBundle;
 
 import com.calendarfx.view.CalendarView;
 
@@ -20,36 +17,20 @@ import view.calendar.MyCalendarView;
 /**
  * GUI class relating to the main views of the pages
  */
-public class MainViewGUI implements Observer{
+public class MainViewGUI {
 	
 	CalendarController calendarController = new CalendarController();
 	LanguageDAO langDao = new LanguageDAO();
 	Locale locale;
-	MyBundle myBundle;
-	ResourceBundle bundle;
+	//MyBundle myBundle = new MyBundle();
+		MyBundle myBundle =MyBundle.getInstance();
 	FXMLLoader loader;
-	
-	public MainViewGUI(MyBundle myBundle) {
-		this.myBundle = myBundle;
-		this.bundle=myBundle.getBundle();
-		this.myBundle.addObserver(this);
-		System.out.println("observers in gui " + myBundle.countObservers());
-	}
-	
-	@Override
-	public void update(Observable o, Object arg) {
-		System.out.println("observer informed");
-		if(o instanceof MyBundle) {
-			this.bundle=myBundle.getBundle();
-		}
-		
-	}
 	
 	public BorderPane mainPageView() {
 		BorderPane borderPane = new BorderPane();
 		loader = new FXMLLoader(getClass().getResource("/view/mainPage/MainMainView.fxml"));
 		AnchorPane content = null;
-		loader.setResources(bundle);
+		loader.setResources(myBundle.getBundle());
 		try {
 			content = loader.load();
 			
@@ -66,7 +47,7 @@ public class MainViewGUI implements Observer{
 	public BorderPane EconomyView() {
 		BorderPane borderPaneEconomy = new BorderPane();
 		loader  = new FXMLLoader(getClass().getResource("/view/economy/EconomyRoot.fxml"));
-		loader.setResources(bundle);
+		loader.setResources(myBundle.getBundle());
 		try {
 			borderPaneEconomy = loader.load();
 		} catch (IOException e) {
@@ -75,7 +56,7 @@ public class MainViewGUI implements Observer{
 		}
 		loader  = new FXMLLoader(getClass().getResource("/view/economy/EconomyBalanceOverview.fxml"));
 		AnchorPane balanceOverview = null;
-		loader.setResources(bundle);
+		loader.setResources(myBundle.getBundle());
 		//loaderBalance.setResources(bundle);
 		try {
 			balanceOverview = loader.load();
@@ -94,7 +75,7 @@ public class MainViewGUI implements Observer{
 	public BorderPane WishlistView() {
 		BorderPane borderPaneWishlist = new BorderPane();
 		loader = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistRoot.fxml"));
-		loader.setResources(bundle);
+		loader.setResources(myBundle.getBundle());
 		try {
 			borderPaneWishlist = loader.load();
 			} catch (IOException e) {
@@ -103,7 +84,7 @@ public class MainViewGUI implements Observer{
 			}
 		AnchorPane wishlistView = null;
 		loader = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistView.fxml"));
-		loader.setResources(bundle);
+		loader.setResources(myBundle.getBundle());
 		try {
 			wishlistView = loader.load();
 			} catch (IOException e) {
@@ -121,7 +102,7 @@ public class MainViewGUI implements Observer{
 	public BorderPane BorrowedView() {
 		BorderPane borderPaneBorrowed = new BorderPane();
 		loader = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedRoot.fxml"));
-		loader.setResources(bundle);
+		loader.setResources(myBundle.getBundle());
 		try {
 			borderPaneBorrowed = loader.load();
 			} catch (IOException e) {
@@ -130,7 +111,7 @@ public class MainViewGUI implements Observer{
 			}
 		AnchorPane borrowedView = null;
 		loader  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml"));
-		loader.setResources(bundle);
+		loader.setResources(myBundle.getBundle());
 		try {
 			borrowedView = loader.load();
 			} catch (IOException e) {
@@ -147,7 +128,7 @@ public class MainViewGUI implements Observer{
 	public BorderPane ContactsView() {
 		BorderPane borderPaneContacts = new BorderPane();
 		loader  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsRoot.fxml"));
-		loader.setResources(bundle);
+		loader.setResources(myBundle.getBundle());
 		try {
 			borderPaneContacts = loader.load();
 			} catch (IOException e) {
@@ -156,7 +137,7 @@ public class MainViewGUI implements Observer{
 			}
 		AnchorPane contactsView = null;
 		loader  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsView.fxml"));
-		loader.setResources(bundle);
+		loader.setResources(myBundle.getBundle());
 		try {
 			contactsView = loader.load();
 			} catch (IOException e) {
@@ -204,7 +185,7 @@ public class MainViewGUI implements Observer{
 	public BorderPane SettingsView() {
 		BorderPane borderPaneSettings = new BorderPane();
 		FXMLLoader loaderSettings  = new FXMLLoader(getClass().getResource("/view/settings/Settings.fxml"));
-		loaderSettings.setResources(bundle);
+		loaderSettings.setResources(myBundle.getBundle());
 		try {
 			borderPaneSettings = loaderSettings.load();
 			} catch (IOException e) {

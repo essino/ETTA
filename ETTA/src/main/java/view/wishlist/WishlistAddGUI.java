@@ -24,7 +24,8 @@ import res.MyBundle;
  */
 public class WishlistAddGUI {
 	
-	MyBundle myBundle = new MyBundle();
+	//MyBundle myBundle = new MyBundle();
+		MyBundle myBundle =MyBundle.getInstance();
 	
 	/**
 	 * Text field for the name of the item to be added

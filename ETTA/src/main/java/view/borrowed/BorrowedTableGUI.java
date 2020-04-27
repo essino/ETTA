@@ -3,8 +3,6 @@ package view.borrowed;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.ResourceBundle;
 import controller.BorrowedController;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -28,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import model.BorrowedThing;
+import model.Item;
 import model.Person;
 import res.MyBundle;
 import controller.InputCheck;
@@ -35,22 +34,13 @@ import controller.InputCheck;
 /**
  * GUI class in charge of the view showing the list of borrowed items
  */
-public class BorrowedTableGUI implements Observer{
+public class BorrowedTableGUI {
 	
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	MyBundle myBundle = new MyBundle();
-	
-	ResourceBundle bundle = myBundle.getBundle();
-	
-	@Override
-	public void update(Observable o, Object arg) {
-		if(o instanceof MyBundle) {
-			this.bundle=myBundle.getBundle();
-		}
-		
-	}
+	//MyBundle myBundle = new MyBundle();
+		MyBundle myBundle =MyBundle.getInstance();
 	
 	/**
 	 * the controller for Borrowed things
@@ -105,7 +95,6 @@ public class BorrowedTableGUI implements Observer{
 	 */
 	public BorrowedTableGUI() {
 		controller = new BorrowedController(this);
-		myBundle.addObserver(this);
 	}
 
 	/**
@@ -126,7 +115,7 @@ public class BorrowedTableGUI implements Observer{
 	public void showBorrowedAdd(ActionEvent event) {
 		AnchorPane showBorrowedAdd = null;
 		FXMLLoader loaderBorrowedAdd = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedAdd.fxml"));
-		loaderBorrowedAdd.setResources(bundle);
+		loaderBorrowedAdd.setResources(myBundle.getBundle());
 		try {
 			showBorrowedAdd = loaderBorrowedAdd.load();
 			} catch (IOException e) {
@@ -241,16 +230,28 @@ public class BorrowedTableGUI implements Observer{
 	}
 	
 	/**
+	 * Method for checking that an item is currently selected in the table
+	 */
+	public boolean checkItemIsSelected() {
+		BorrowedThing thing = getSelectedBorrowedThing();
+		return thing != null;
+	}
+	
+	/**
 	 * Method for deleting the selected borrowed thing from the database
 	 */
 	@FXML
 	public void deleteSelectedBorrowedThing() {
-		if (inputCheck.confirmDeleting()) {
-			controller.removeBorrowedThing();
-			initialize();
+		if (checkItemIsSelected()) {
+			if (inputCheck.confirmDeleting()) {
+				controller.removeBorrowedThing();
+				initialize();
+			}
+		} else {
+			inputCheck.alertNothingSelected();
 		}
 	}
-	
+
 	/** 
 	 * Method that removes an item from the table
 	 * @param borrowedThing the borrowed item to be removed
@@ -268,9 +269,13 @@ public class BorrowedTableGUI implements Observer{
 	 */
 	@FXML
 	public void markAsReturned() {
-		if (inputCheck.confirmReturn()) {
-			controller.markReturned();
-			initialize();
+		if (checkItemIsSelected()) {
+			if (inputCheck.confirmReturn()) {
+				controller.markReturned();
+				initialize();
+			}
+		} else {
+			inputCheck.alertNothingSelected();
 		}
 	}
 	

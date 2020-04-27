@@ -3,9 +3,6 @@ package view.economy;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.ResourceBundle;
 
 import org.hibernate.mapping.Value;
 
@@ -29,12 +26,12 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
-public class EconomyGUI implements Observer{
+public class EconomyGUI {
 	
 	EconomyController controller;
 	
-	MyBundle myBundle;
-	ResourceBundle bundle;
+	//MyBundle myBundle = new MyBundle();
+		MyBundle myBundle =MyBundle.getInstance();
 	
 	/**
 	 * The menu view to which the alternative views in the Economy section are added
@@ -88,19 +85,10 @@ public class EconomyGUI implements Observer{
 	DatePicker incomeDate;
 	
 	public EconomyGUI() {
-		this.myBundle = MyBundle.getInstance();
-		this.bundle=myBundle.getBundle();
-		myBundle.addObserver(this);
 	}
 	
 	
-	@Override
-	public void update(Observable o, Object arg) {
-		if(o instanceof MyBundle) {
-			this.bundle=myBundle.getBundle();
-		}
-		
-	}
+	
 	
 	/**
 	 * Method showing the balance view in the Economy items section
@@ -110,7 +98,7 @@ public class EconomyGUI implements Observer{
 	public void showBalance(ActionEvent event) {
 		AnchorPane showBalanceView = null; //Luon anchorpanin showBalanceView
 		FXMLLoader loaderBalanceView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyBalanceOverview.fxml")); //haen tiedot anchorpaniin
-		loaderBalanceView .setResources(bundle);
+		loaderBalanceView .setResources(myBundle.getBundle());
 		
 	
 		
@@ -141,7 +129,7 @@ public class EconomyGUI implements Observer{
 		AnchorPane showIncomeView = null; 
 	
 		FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyIncome.fxml")); 
-		loaderIncomeView .setResources(bundle);
+		loaderIncomeView .setResources(myBundle.getBundle());
 		try {
 			showIncomeView = loaderIncomeView.load();
 			} catch (IOException e) {
@@ -163,7 +151,7 @@ public class EconomyGUI implements Observer{
 	public void showExpenses(ActionEvent event) {
 		AnchorPane showExpensesView = null; 
 		FXMLLoader loaderExpensesView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyOutcome.fxml")); 
-		loaderExpensesView .setResources(bundle);
+		loaderExpensesView .setResources(myBundle.getBundle());
 		try {
 			showExpensesView = loaderExpensesView.load();
 			} catch (IOException e) {
@@ -181,7 +169,7 @@ public class EconomyGUI implements Observer{
 	public void showSavings(ActionEvent event) {
 		AnchorPane showSavingsView = null; 
 		FXMLLoader loaderSavingsView  = new FXMLLoader(getClass().getResource("/view/economy/EconomySavings.fxml")); 
-		loaderSavingsView .setResources(bundle);
+		loaderSavingsView .setResources(myBundle.getBundle());
 		try {
 			showSavingsView = loaderSavingsView.load();
 			} catch (IOException e) {

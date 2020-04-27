@@ -29,9 +29,9 @@ public class SettingsGUI {
 	@FXML
 	private Label language;
 	
-	SettingsController controller = new SettingsController(this);
-	
-	MyBundle myBundle = new MyBundle();
+	SettingsController controller = SettingsController.getInstance();
+	//MyBundle myBundle = new MyBundle();
+		MyBundle myBundle =MyBundle.getInstance();
 	
 	@FXML
 	public void cancel() {

@@ -152,14 +152,14 @@ public class CategoryConnectedDAOTest {
 		//assertEquals(Date.valueOf("2020-02-11"), transferDAO.readTransfer(1).getDate(), "Date updating failed");
 		String newDesc = "food";
 		updatedTransfer.setDescription(newDesc);
-		assertEquals(true, economyController.updateOutcomeDesc(updatedTransfer), "Updating failed");
+		assertEquals(true, economyController.updateTransfer(updatedTransfer), "Updating failed");
 		updatedTransfer.setDate(date);
-		assertEquals(true, economyController.updateOutcomeDate(updatedTransfer), "Updating failed");
+		assertEquals(true, economyController.updateTransfer(updatedTransfer), "Updating failed");
 		Transfer updatedTransfer2 = transferDAO.readTransfer(3);
 		updatedTransfer2.setDescription("salary");
-		assertEquals(true, economyController.updateIncomeDesc(updatedTransfer2));
+		assertEquals(true, economyController.updateTransfer(updatedTransfer2));
 		updatedTransfer2.setDate(date);
-		assertEquals(true, economyController.updateIncomeDate(updatedTransfer2), "Updating failed");
+		assertEquals(true, economyController.updateTransfer(updatedTransfer2), "Updating failed");
 		
 	}
 	
