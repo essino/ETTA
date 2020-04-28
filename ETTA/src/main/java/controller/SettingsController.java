@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.apache.commons.io.FileUtils;
 
@@ -17,16 +18,22 @@ public class SettingsController {
 
 	private LanguageDAO langDAO = new LanguageDAO();
 
+	private Locale locale = new Locale("en", "GB");
+	private Locale currentLocale;
 	
 	Language english = new Language(1,"English", true);
 	Language finnish = new Language(2, "Finnish", false);
 
 	private SettingsController() {
-		
+		this.currentLocale= locale;
 	}
 	
 	public static SettingsController getInstance() {
 		return single;
+	}
+	
+	public Locale getCurrentLocale() {
+		return this.currentLocale;
 	}
 
 	public ObservableList<String> languageList() {
@@ -46,10 +53,13 @@ public class SettingsController {
 		Language newLang = langDAO.readLanguage(newLangName);
 		newLang.setChosen(true);
 		langDAO.updateLanguage(newLang); 
-		
-		//observable version
-		//this.setChanged();
-		//this.notifyObservers();
+		if(newLangName.equals("Finnish")) {
+			this.currentLocale  = new Locale("fi", "FI");
+			Locale.setDefault(locale);
+			}
+		else {
+			this.currentLocale = new Locale("en", "GB");
+		}
 		
 		//updating tabs' names
 		MyTab.getMyTab().setTabName();
