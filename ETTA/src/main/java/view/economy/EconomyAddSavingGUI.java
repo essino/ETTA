@@ -12,6 +12,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import res.MyBundle;
 
+/**
+ * GUI class relating to the economy's saving's add section
+ */
 public class EconomyAddSavingGUI {
 	
 	/**
@@ -51,14 +54,7 @@ public class EconomyAddSavingGUI {
 	 * Reference to the used EconomyController that gets this EconomyAddSavingsGUI as a parameter
 	 */
 	private EconomyController controller = new EconomyController(this);
-	
-	/** 
-	 * Method that initializes the view 
-	 */
-	@FXML
-	public void init() {
-		
-	}
+
 	/** 
 	 * Method that gets input from savingDescription TextField and returns it
 	 * @return String description of the saving
@@ -67,7 +63,6 @@ public class EconomyAddSavingGUI {
 	public String getDescription(){
 		return this.savingDescription.getText();
 		}
-	
 	
 	/** 
 	 * Method that gets the chosen date from savingDate DatePicker and returns it
@@ -99,19 +94,23 @@ public class EconomyAddSavingGUI {
 	 */
 	@FXML
 	public void saveSaving() {
+		//check if user has given a number as the amount
 		if(inputCheck.isInputFloat(savingAmount.getText())) {
+			//check if there is a name of the saving's goal given
 			if(!inputCheck.isInputEmpty(savingDescription.getText())) {
-			controller.saveNewSaving();
-			AnchorPane savingsView = null; 
-			FXMLLoader loaderSavingsView  = new FXMLLoader(getClass().getResource("/view/economy/EconomySavings.fxml")); 
-			loaderSavingsView .setResources(myBundle.getBundle());
-			try {
-				savingsView = loaderSavingsView.load();
+				//save new saving goal
+				controller.saveNewSaving();
+				//show tableview with the saving goals
+				AnchorPane savingsView = null; 
+				FXMLLoader loaderSavingsView  = new FXMLLoader(getClass().getResource("/view/economy/EconomySavings.fxml")); 
+				loaderSavingsView .setResources(myBundle.getBundle());
+				try {
+					savingsView = loaderSavingsView.load();
 				} catch (IOException e) {
-				e.printStackTrace();
+					e.printStackTrace();
 				}
-			addSavingPane.getChildren().setAll(savingsView);
-		}
+				addSavingPane.getChildren().setAll(savingsView);
+			}
 			else {
 				inputCheck.alertInputEmpty();
 			}

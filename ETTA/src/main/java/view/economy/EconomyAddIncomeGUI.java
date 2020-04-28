@@ -18,6 +18,9 @@ import model.Category;
 import model.CategoryDAO;
 import res.MyBundle;
 
+/**
+ * GUI class relating to the economy's income add section
+ */
 public class EconomyAddIncomeGUI implements ITransferAddGUI{
 	
 	/**
@@ -65,7 +68,7 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
 	private DatePicker incomeDate;
 	
 	/**
-	 * Reference to the used EconomyController that gets this EconomyAddSavingsGUI as a parameter
+	 * Reference to the used EconomyController 
 	 */
 	EconomyController controller = new EconomyController();
 	
@@ -112,7 +115,6 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
                     evt.consume();
                 }
             });
-
             return cell ;
         });
 	}
@@ -128,7 +130,7 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
 	
 	/** 
 	 * Method that gets the chosen option from incomeCategoryList ChoiceBox and returns it
-	 * @return String category of the incomes
+	 * @return String category of the income
 	 */
 	@FXML
 	public String getCategoryName(){
@@ -138,7 +140,7 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
 	/** 
 	 * Method that gets the chosen date from incomeDate DatePicker and returns it
 	 * @return Date date of the income
-	
+	 * @return null if no date is chosen
 	 */
 	@FXML
 	public Date getTransferDate() {
@@ -156,6 +158,7 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
 	 */
 	@FXML
 	public float getTransferAmount() {
+		//if the user gave a negative amount it will be transfered into positive, becouse income can't be less then zero
 		return Math.abs(Float.parseFloat(incomeAmount.getText()));
 	}
 
@@ -165,30 +168,30 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
 	 */
 	@FXML
 	public void AddNewIncome() {
+		//check if user has given a number as the amount
 		if(inputCheck.isInputFloat(incomeAmount.getText())){
-			
+			//check if there is a name of the transfer given
 			if(!inputCheck.isInputEmpty(incomeDescription.getText())) {
-			controller.saveTransfer(this);
-			AnchorPane incomeView = null; 
-			FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyIncome.fxml"));
-			loaderIncomeView .setResources(myBundle.getBundle());
-			try {
-				incomeView = loaderIncomeView.load();
+				//save new income transfer
+				controller.saveTransfer(this);
+				//show tableview with the incomes
+				AnchorPane incomeView = null; 
+				FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyIncome.fxml"));
+				loaderIncomeView .setResources(myBundle.getBundle());
+				try {
+					incomeView = loaderIncomeView.load();
 				} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			economyincomeaddanchorpane.getChildren().setAll(incomeView);
-		}
+				economyincomeaddanchorpane.getChildren().setAll(incomeView);
+			}
 			else {
 				inputCheck.alertInputEmpty();
-			}
-			
+			}	
 		}
-		
 		else {
 			inputCheck.alertInputNotFloat();
-			
 		}	
 	}
 	
@@ -198,10 +201,8 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
 	@FXML
 	public void cancelAdding() {
 		AnchorPane incomeView = null; 
-
 		FXMLLoader loaderIncomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyIncome.fxml")); 
 		loaderIncomeView .setResources(myBundle.getBundle());
-
 		try {
 			incomeView = loaderIncomeView.load();
 

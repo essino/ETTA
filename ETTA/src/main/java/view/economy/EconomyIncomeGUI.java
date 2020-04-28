@@ -29,18 +29,19 @@ import res.MyBundle;
 
 public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI{
 
+	/**
+	 * Reference to the used EconomyController
+	 */
 	EconomyController controller = new EconomyController();
+	
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
 	MyBundle myBundle = new MyBundle();
+
 	/**
 	 * The list view from where adding, editing and deleting can be started in incomes
 	 */
-	@FXML	
-	AnchorPane economyincomeaddanchorpane;
-
-	
 	@FXML
 	AnchorPane economyincomeanchorpane;
 	
