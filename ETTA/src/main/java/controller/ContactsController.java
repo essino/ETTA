@@ -43,7 +43,9 @@ public class ContactsController {
 	 * ItemDAO used for accessing the database
 	 */
 	private ItemDAO wishlistDAO = new ItemDAO();
-	
+	/**
+	 * Reference to the used CalendarController
+	 */
 	private CalendarController calendarController = new CalendarController();
 	
 
@@ -53,7 +55,6 @@ public class ContactsController {
 	 * If there's a birthday added to person details, creates an yearly event 
 	 * and gives it forward to EventDAO to add to the database
 	 */ 
-
 	public void savePerson() {
 		String personName = conGUI.getPersonName();
 		String personAddress = conGUI.getPersonAddress();
@@ -111,6 +112,10 @@ public class ContactsController {
 		this.conTableGUI = contactsTableGUI;
 	}
 	
+	/** 
+	 * Constructor 
+	 * @param PersonDAO 
+	 */
 	public ContactsController(PersonDAO personDAO) {
 		this.perDAO= personDAO;
 	}
@@ -131,7 +136,7 @@ public class ContactsController {
 	}
 
 	/**  
-	 * Method deletes Borrowed Things and/or Wishlist Items that use a Person that should be deleted
+	 * Method deletes Borrowed Things and/or Wishlist Items and calendar events connected to them that use a Person that should be deleted
 	 * After deleting data using this Person this method calls deletePerson() method 
 	 */ 
 	public void deletePersonAndEvents() {
@@ -152,12 +157,24 @@ public class ContactsController {
 		}
 		deletePerson();
 	}
-
-	public void updatePerson(Person editedPerson) {
-		perDAO.updatePerson(editedPerson);
-		
+	
+	/** 
+	 * Boolean method that gets a Person that was updated in the application as a parameter and tells PersonDAO to update it.
+	 * and creates a database  birthday Event. 
+	 * @param Person editedPrreson - the Person that needs to be updated
+	 * @return true - if person was successfully updated
+	 * @return false - if updating a person didn't succeed 
+	 */ 
+	public boolean updatePerson(Person editedPerson) {
+		return perDAO.updatePerson(editedPerson);	
 	}
 	
+	/** 
+	 * Boolean method that gets a Person's name as a parameter and tells PersonDAO to read the Person with this name from the database.
+	 * @param String name - the name of the Person that needs to be found
+	 * @return true - if person was successfully found
+	 * @return false - if finding a person didn't succeed 
+	 */ 
 	public boolean checkIfPersonexists(String name) {
 		if(perDAO.readPerson(name)==null) {
 			return false;

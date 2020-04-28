@@ -19,6 +19,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -33,7 +34,8 @@ public class ContactsTableGUI {
 	 * The list view from where adding, editing and deleting can be started
 	 */
 	@FXML
-	AnchorPane contactsViewAnchorpane;
+	private AnchorPane contactsViewAnchorpane;
+	
 	/**
 	 * The reference of TableView (contacts) will be injected by the FXML loader
 	 */
@@ -61,28 +63,37 @@ public class ContactsTableGUI {
     /**
   	 * The reference of TableColumn (person's address) will be injected by the FXML loader
   	 */
-      @FXML
-      private TableColumn<Person, String> contactsAddress;
-      
-     ContactsController controller = new ContactsController(this); 
-     
-     CalendarController calendarController = new CalendarController();
+    @FXML
+    private TableColumn<Person, String> contactsAddress;
+    
+    /**
+	 * Reference to the used ContactsController
+	 */
+    private ContactsController controller = new ContactsController(this); 
+    
+    /**
+	 * Reference to the used CalendarController
+	 */
+    private CalendarController calendarController = new CalendarController();
+    
  	/**
  	 * The reference of InputCheck class used for checking user's input
  	 */
- 	InputCheck inputCheck = new InputCheck();
+ 	private InputCheck inputCheck = new InputCheck();
  	
  	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	MyBundle myBundle = new MyBundle();
+	private MyBundle myBundle = new MyBundle();
 	
  	Callback<TableColumn<Person, Date>, TableCell<Person, Date>> dateCellFactory = (TableColumn<Person, Date> param) -> new ContactsDateEditingCell();
-  	/** 
-  	 * Method that initializes the view and gets the contacts  from the controller to display them on the page
+  	
+ 	/** 
+  	 * Method that initializes the view and gets the contacts from the controller to display them on the page
   	 */
   	@FXML 
   	public void initialize() { 
+  		
   		contactsName.setCellValueFactory(
                   new PropertyValueFactory<Person, String>("name"));
   		contactsEmail.setCellValueFactory(
@@ -96,6 +107,7 @@ public class ContactsTableGUI {
   		contactsName.setCellFactory(TextFieldTableCell.<Person>forTableColumn());
   		contactsName.setOnEditCommit(
 				new EventHandler<CellEditEvent<Person, String>>() {
+					//person's name edited in the table
 					@Override
 					public void handle(CellEditEvent<Person, String> t) {
 						Person editedPerson = ((Person) t.getTableView().getItems().get(t.getTablePosition().getRow()));
@@ -112,26 +124,30 @@ public class ContactsTableGUI {
   		contactsBirthday.setCellFactory(dateCellFactory);
   		contactsBirthday.setOnEditCommit(
 				(TableColumn.CellEditEvent<Person, Date> t) -> {
-				Person editedPerson = ((Person) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-				Date oldDate = editedPerson.getBirthday();
-				editedPerson.setBirthday(t.getNewValue());
-				controller.updatePerson(editedPerson);
-				calendarController.updateBirthday(editedPerson.getName(), oldDate, editedPerson.getBirthday());
-				contactsTable.refresh();
-				}	
-			);	
+					//person's birthday edited in the table
+					Person editedPerson = ((Person) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+					Date oldDate = editedPerson.getBirthday();
+					editedPerson.setBirthday(t.getNewValue());
+					controller.updatePerson(editedPerson);
+					//updating birthday event
+					calendarController.updateBirthday(editedPerson.getName(), oldDate, editedPerson.getBirthday());
+					contactsTable.refresh();
+					}	
+  				);	
   		
   		contactsEmail.setCellFactory(TextFieldTableCell.<Person>forTableColumn());
   		contactsEmail.setOnEditCommit(
 				new EventHandler<CellEditEvent<Person, String>>() {
 					@Override
 					public void handle(CellEditEvent<Person, String> t) {
+						//person's email edited in the table
 						Person editedPerson = ((Person) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 						editedPerson.setEmail(t.getNewValue());
 						controller.updatePerson(editedPerson);
 						contactsTable.refresh();
 					}});
   	} 
+  	
 	/**
 	 * Method showing the view of the Add contacts in the Contacts section
 	 * @param event ActionEvent that is handled
@@ -155,17 +171,24 @@ public class ContactsTableGUI {
 	 */
 	@FXML
 	public void deleteContact() {
+		//user confirmed deleting
 		if(inputCheck.confirmDeleting()) {
+			//Contacts controller checks if contact is used in other apllication´s parts
 			if(!controller.checkIfContactUsed()) {
+				//contact is not used otherwise, controller deletes the person
 				controller.deletePerson();
 			}
 			else {
+				//contact is used somewhere
 				Alert alert = new Alert(AlertType.CONFIRMATION);
-				alert.setTitle("Confirmation");
-				alert.setHeaderText("This contact is used in other parts.");
-				alert.setContentText("Are you sure you want to delete this data permanently? "
-						+ "All the data where the contact is used will be also deleted.");
+				alert.setTitle(myBundle.getBundle().getString("checkConfirmationTitle"));
+				alert.setHeaderText(myBundle.getBundle().getString("personUsed"));
+				alert.setContentText(myBundle.getBundle().getString("personUsedDeleteConfirmation"));
+				ButtonType buttonOK = new ButtonType("OK", ButtonData.YES);
+				ButtonType buttonTypeCancel = new ButtonType(myBundle.getBundle().getString("buttonCancel"), ButtonData.CANCEL_CLOSE);
+				alert.getButtonTypes().setAll(buttonOK, buttonTypeCancel);
 				Optional<ButtonType> result = alert.showAndWait();
+				//user confirmed deleting person and all data for this contact, controller deletes person and all data
 				if (result.isPresent() && result.get() == ButtonType.OK) {
 					controller.deletePersonAndEvents();
 				 }
