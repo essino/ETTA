@@ -53,26 +53,25 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
 	private TextField incomeAmount;
 	
 	/**
-	 * The reference of ChoiceBox (incomes's categories list) will be injected by the FXML loader
+	 * The reference of ComboBox (incomes's categories list) will be injected by the FXML loader
 	 */
 	@FXML
 	private ComboBox<String> incomeCategoryList;
+		
+	/**
+	 * The reference of DatePicker (incomes) will be injected by the FXML loader
+	 */
+	@FXML
+	private DatePicker incomeDate;
 	
+	/**
+	 * Reference to the used EconomyController that gets this EconomyAddSavingsGUI as a parameter
+	 */
+	EconomyController controller = new EconomyController();
 	
 	public EconomyAddIncomeGUI() {
 		
 	}
-	
-	/**
-	 * The reference of DatePicker (incomes) will be injected by the FXML loader
-	 */
-
-	@FXML
-	private DatePicker incomeDate;
-	
-	EconomyController controller = new EconomyController();
-	
-
 	
 	/** 
 	 * Method that initializes the view - gets the categories from the EconomyController and displays them in the drop down list

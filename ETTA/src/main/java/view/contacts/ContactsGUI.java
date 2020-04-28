@@ -18,6 +18,7 @@ import res.MyBundle;
  * GUI class relating to the Contacts items section
  */
 public class ContactsGUI {
+	
 	/**
 	 * Reference to the used ContactsController
 	 */

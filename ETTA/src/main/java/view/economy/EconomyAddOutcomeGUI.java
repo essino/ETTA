@@ -67,6 +67,9 @@ public class EconomyAddOutcomeGUI implements ITransferAddGUI{
 	@FXML
 	private DatePicker outcomeDate;
 	
+	/**
+	 * Reference to the used EconomyController
+	 */
 	EconomyController controller = new EconomyController();
 	
 	public EconomyAddOutcomeGUI() {

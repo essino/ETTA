@@ -29,6 +29,9 @@ import res.MyBundle;
 
 public class EconomyOutcomeGUI extends AbstractEconomyGUI implements ITransferGUI{
 	
+	/**
+	 * Reference to the used EconomyController
+	 */
 	EconomyController controller = new EconomyController();
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application

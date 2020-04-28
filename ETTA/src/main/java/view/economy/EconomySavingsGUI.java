@@ -30,32 +30,40 @@ import model.Saving;
 import res.MyBundle;
 
 public class EconomySavingsGUI {
-	EconomyController controller = new EconomyController(this);
+	
+	/**
+	 * Reference to the used EconomyController that gets this EconomySavingsGUI as a parameter
+	 */
+	private EconomyController controller = new EconomyController(this);
 	
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	MyBundle myBundle = new MyBundle();
+	private MyBundle myBundle = new MyBundle();
+	
 	/**
 	 * The reference of InputCheck class used for checking user's input
 	 */
-	InputCheck inputCheck = new InputCheck();
+	private InputCheck inputCheck = new InputCheck();
 	
 	/**
 	 * The list view from where adding, editing and deleting can be started in savings
 	 */
 	@FXML
-	AnchorPane economysavingsanchorpane;
+	private AnchorPane economysavingsanchorpane;
+	
 	/**
 	 * The reference of TableView (savings) will be injected by the FXML loader
 	 */
 	@FXML
     private TableView<Saving> savingsTable;
+	
 	/**
 	 * The reference of TableColumn (savings's description) will be injected by the FXML loader
 	 */
     @FXML
     private TableColumn<Saving, String> savingsDescription;
+    
 	/**
 	 * The reference of TableColumn (savings's goal amount) will be injected by the FXML loader
 	 */
@@ -79,9 +87,12 @@ public class EconomySavingsGUI {
     @FXML
     private TableColumn<Saving, Date> savingsGoalDate;
     
-    
+    /**
+	 * The reference of ComboBox (savings' descriptions list) will be injected by the FXML loader
+	 */
     @FXML
     private ComboBox<String> savingGoalList;
+    
     
     @FXML
     private Label savingGoalAmount;
@@ -89,6 +100,9 @@ public class EconomySavingsGUI {
     @FXML
     private Label savingSavedAmount;
 
+    /**
+	 * Text field the amount added to a saving
+	 */
     @FXML
     private TextField savingAddedAmount;
     

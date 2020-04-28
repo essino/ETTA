@@ -17,17 +17,17 @@ public class EconomyAddSavingGUI {
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	MyBundle myBundle = new MyBundle();
+	private MyBundle myBundle = new MyBundle();
 	/**
 	 * The reference of InputCheck class used for checking user's input
 	 */
-	InputCheck inputCheck = new InputCheck();
+	private InputCheck inputCheck = new InputCheck();
 	
 	/**
 	 * The list view from where adding, editing and deleting can be started
 	 */
 	@FXML
-	AnchorPane addSavingPane;
+	private AnchorPane addSavingPane;
 	
 	/**
 	 * The reference of TextField (saving's description) will be injected by the FXML loader
@@ -47,7 +47,10 @@ public class EconomyAddSavingGUI {
 	@FXML
 	private DatePicker savingDate;
 	
-	EconomyController controller = new EconomyController(this);
+	/**
+	 * Reference to the used EconomyController that gets this EconomyAddSavingsGUI as a parameter
+	 */
+	private EconomyController controller = new EconomyController(this);
 	
 	/** 
 	 * Method that initializes the view 
