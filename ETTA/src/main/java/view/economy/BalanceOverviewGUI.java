@@ -1,19 +1,23 @@
 package view.economy;
 
 import java.sql.Date;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import controller.EconomyController;
 import controller.InputCheck;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import model.BorrowedThing;
 import model.Transfer;
 import res.MyBundle;
 
@@ -135,10 +139,29 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 	public void initialize() { 
 		controller.getBalance(); 
 		
+		Locale locale = Locale.getDefault();
+	    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+		
 		incomeDescription.setCellValueFactory(
                 new PropertyValueFactory<Transfer, String>("description"));
 		incomeDate.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Date>("date"));
+		incomeDate.setCellFactory(column -> {
+	        TableCell<Transfer, Date> cell = new TableCell<Transfer, Date>() {
+	            @Override
+	            protected void updateItem(Date item, boolean empty) {
+	                super.updateItem(item, empty);
+	                if(empty) {
+	                    setText(null);
+	                }
+	                else {
+	                    //this.setText(format.format(item));
+	                	setText(df.format(item));
+	                }
+	            }
+	        };
+	        return cell;
+	    });
 		incomeAmount.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Float>("amount"));
 		
@@ -146,6 +169,22 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
                 new PropertyValueFactory<Transfer, String>("description"));
 		expenseDate.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Date>("date"));
+		expenseDate.setCellFactory(column -> {
+	        TableCell<Transfer, Date> cell = new TableCell<Transfer, Date>() {
+	            @Override
+	            protected void updateItem(Date item, boolean empty) {
+	                super.updateItem(item, empty);
+	                if(empty) {
+	                    setText(null);
+	                }
+	                else {
+	                    //this.setText(format.format(item));
+	                	setText(df.format(item));
+	                }
+	            }
+	        };
+	        return cell;
+	    });
 		expenseAmount.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Float>("amount"));
 	

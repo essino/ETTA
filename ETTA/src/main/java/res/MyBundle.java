@@ -14,6 +14,7 @@ public class MyBundle{
     	Locale currentLocale = SettingsController.getInstance().getCurrentLocale();
     	String fileName = "res.TextResources_"+currentLocale;
     	ResourceBundle bundleNow = ResourceBundle.getBundle(fileName, currentLocale);
+    	Locale.setDefault(currentLocale);
 		return bundleNow;
     }
 }

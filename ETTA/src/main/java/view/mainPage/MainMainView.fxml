@@ -14,10 +14,10 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label fx:id="amountBalance" layoutX="104.0" layoutY="122.0" text="Sad" />
-                  <Label layoutX="27.0" layoutY="122.0" text="Balance:" />
+                  <Label fx:id="amountBalance" layoutX="104.0" layoutY="122.0" text="----" />
+                  <Label layoutX="27.0" layoutY="122.0" text="%labelBalance" />
                   <Label layoutX="114.0" layoutY="46.0" />
-                  <Label layoutX="226.0" layoutY="122.0" text="Date:" />
+                  <Label layoutX="226.0" layoutY="122.0" text="%mainpDate" />
                   <Label fx:id="todaysDate" layoutX="294.0" layoutY="122.0" text="--------" />
                   <Label layoutX="499.0" layoutY="24.0" prefHeight="17.0" prefWidth="0.0" />
                   <ImageView fitHeight="161.0" fitWidth="335.0" layoutX="492.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
@@ -32,11 +32,11 @@
                <children>
                   <TableView fx:id="eventTable" prefHeight="545.0" prefWidth="998.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="title" prefWidth="150.0" text="Event" />
-                      <TableColumn fx:id="location" prefWidth="150.0" text="Location" />
-                      <TableColumn fx:id="startDate" prefWidth="150.0" text="Start Date" />
-                      <TableColumn fx:id="startTime" prefWidth="150.0" text="Start time" />
-                      <TableColumn fx:id="endTime" prefWidth="150.0" text="End time" />
+                      <TableColumn fx:id="title" prefWidth="150.0" text="%event" />
+                      <TableColumn fx:id="location" prefWidth="150.0" text="%location" />
+                      <TableColumn fx:id="startDate" prefWidth="150.0" text="%date" />
+                      <TableColumn fx:id="startTime" prefWidth="150.0" text="%startTime" />
+                      <TableColumn fx:id="endTime" prefWidth="150.0" text="%endTime" />
                     </columns>
                   </TableView>
                </children>

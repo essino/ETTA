@@ -4,6 +4,7 @@ package view.economy;
 
 import java.util.Locale;
 import java.sql.Date;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
@@ -21,6 +22,16 @@ public class DateEditingCell extends TableCell<Transfer, java.sql.Date> {
     public DateEditingCell() {
     }
 
+    /**
+	 * Default locale
+	 */
+    Locale locale = Locale.getDefault();
+    
+    /**
+	 * DateFormat for localizing the dates
+	 */
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+    
     @Override
     public void startEdit() {
         if (!isEmpty()) {
@@ -54,8 +65,9 @@ public class DateEditingCell extends TableCell<Transfer, java.sql.Date> {
                 setText(null);
                 setGraphic(datePicker);
             } else {
-                setText(getDate().toString());
-                setGraphic(null);
+            	//formats the date
+            	setText(df.format(getDate()));
+            	setGraphic(null);
             }
         }
     }

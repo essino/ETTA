@@ -1,6 +1,7 @@
 package view.contacts;
 
 import java.sql.Date;
+import java.text.DateFormat;
 import java.util.Locale;
 
 import javafx.scene.control.DatePicker;
@@ -11,11 +12,18 @@ import model.Person;
 public class ContactsDateEditingCell extends TableCell<Person, java.sql.Date> {
 private DatePicker datePicker;
     
-    //changes language into English
-    //private final Locale myLocale = Locale.getDefault(Locale.Category.FORMAT);
-    
     public ContactsDateEditingCell() {
     }
+    
+    /**
+	 * Default locale
+	 */
+    Locale locale = Locale.getDefault();
+    
+    /**
+	 * DateFormat for localizing the dates
+	 */
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
 
     @Override
     public void startEdit() {
@@ -54,7 +62,7 @@ private DatePicker datePicker;
             		setText("");
             	}
             	else {
-            		setText(getDate().toString());
+            		setText(df.format(getDate()));
             	}
                 setGraphic(null);
             }
