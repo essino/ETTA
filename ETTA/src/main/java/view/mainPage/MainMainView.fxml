@@ -14,11 +14,11 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label fx:id="amountBalance" layoutX="104.0" layoutY="122.0" text="----" />
-                  <Label layoutX="27.0" layoutY="122.0" text="%labelBalance" />
+                  <Label fx:id="amountBalance" layoutX="144.0" layoutY="122.0" text="----" />
+                  <Label layoutX="38.0" layoutY="122.0" text="%labelBalance" />
                   <Label layoutX="114.0" layoutY="46.0" />
-                  <Label layoutX="226.0" layoutY="122.0" text="%mainpDate" />
-                  <Label fx:id="todaysDate" layoutX="294.0" layoutY="122.0" text="--------" />
+                  <Label layoutX="237.0" layoutY="122.0" text="%mainpDate" />
+                  <Label fx:id="todaysDate" layoutX="314.0" layoutY="122.0" text="--------" />
                   <Label layoutX="499.0" layoutY="24.0" prefHeight="17.0" prefWidth="0.0" />
                   <ImageView fitHeight="161.0" fitWidth="335.0" layoutX="492.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                      <image>

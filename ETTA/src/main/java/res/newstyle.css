@@ -1,38 +1,9 @@
-/* .button, .toggle-button {
-	-fx-background-color:linear-gradient(Azure, Honeydew);
-    
-	-fx-background-radius: 5;
-
-	-fx-border-radius: 5;
-	-fx-border-width:0.5px;
-	-fx-border-color: slategray;
-	 -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
-}*/
 
  .root {
 	-fx-base: lavender;
-	/*-fx-background-color:ghostwhite;*/
-	
 }
 
-/* .tab-pane .tab
-{
-    -fx-background-color:#F0F8FF;
-
-	
-}*/
-/* 
- .tab-pane .tab {
-    -fx-background-insets: 0 1 1 0, 1 2 1 1, 2 3 1 2;
-    -fx-background-radius: 3 3 0 0, 2 2 0 0, 1 1 0 0;
-    -fx-padding: 0.083333em 0.5em 0.0769em 0.5em;
-    -fx-background-color: ;
-} 
-
-.tab-pane > .tab-header-area > .tab-header-background {
-
-    -fx-background-color:
-        -fx-outer-border,
-        -fx-text-box-border,
-        linear-gradient(Lavender, Azure);
-}*/
+#myLine {
+	-fx-stroke: grey;
+	-fx-stroke-width: 1 px;
+}

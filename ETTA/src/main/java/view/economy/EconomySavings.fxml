@@ -11,9 +11,16 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
 
 <AnchorPane fx:id="economysavingsanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.economy.EconomySavingsGUI">
    <children>
+		<ButtonBar layoutX="478.0" layoutY="591.0" prefHeight="40.0" prefWidth="50.0">
+  		<buttons>
+      		<Button mnemonicParsing="false" text="%buttonCancel" />
+    			<Button mnemonicParsing="false" onAction="#updateSavingAmount" text="%buttonSave" />
+  		</buttons>
+		</ButtonBar>
       <TableView fx:id="savingsTable" layoutX="141.0" layoutY="92.0" prefHeight="420.0" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="21.0">
         <columns>
             <TableColumn fx:id="savingsDescription" prefWidth="149.0" text="%savingsLabelDescription" />
@@ -23,7 +30,7 @@
             <TableColumn fx:id="savingsGoalDate" prefWidth="148.0" text="%savingsLabelDate" />
         </columns>
       </TableView>
-      <ButtonBar layoutX="365.0" layoutY="384.0" prefHeight="37.0" prefWidth="401.0" AnchorPane.bottomAnchor="346.0" AnchorPane.rightAnchor="34.0">
+      <ButtonBar layoutX="365.0" layoutY="384.0" prefHeight="37.0" prefWidth="401.0" AnchorPane.bottomAnchor="346.0">
         <buttons>
           <Button mnemonicParsing="false" onAction="#showAddSavings" prefHeight="25.0" text="%buttonAdd" />
            <Button mnemonicParsing="false" onAction="#moveSavingToExspence" text="%buttonSavingAchieved" />
@@ -31,35 +38,33 @@
         </buttons>
       </ButtonBar>
 
-      <GridPane layoutX="23.0" layoutY="441.0" prefHeight="250.0" prefWidth="437.0" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="340.0" AnchorPane.topAnchor="441.0">
+      <GridPane layoutX="21.0" layoutY="438.0" maxHeight="236.0" maxWidth="437.0" prefHeight="236.0" prefWidth="437.0" AnchorPane.bottomAnchor="62.0" AnchorPane.topAnchor="438.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints />
+          <RowConstraints />
+          <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="%savingsLabelDescription" />
-            <Label text="%savingsLabelAmount" GridPane.rowIndex="1" />
-            <Label text="%savingsSavedAmount" GridPane.rowIndex="2" />
-            <Label text="%savingAddToSavingAmount" GridPane.rowIndex="3" />
-             <ComboBox fx:id="savingGoalList" prefHeight="25.0" prefWidth="153.0" GridPane.columnIndex="1" />
-            <Label fx:id="savingGoalAmount" text="%emptyString" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="savingSavedAmount" text="%emptyString" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="savingAddedAmount" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      		<ButtonBar prefHeight="40.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-        		<buttons>
-          			<Button mnemonicParsing="false" onAction="#updateSavingAmount" text="%buttonSave" />
-            		<Button mnemonicParsing="false" text="%buttonCancel" />
-        		</buttons>
-      		</ButtonBar>
+            <Label text="%savingsLabelDescription" GridPane.rowIndex="2" />
+            <Label text="%savingsLabelAmount" GridPane.rowIndex="3" />
+            <Label text="%savingsSavedAmount" GridPane.rowIndex="4" />
+            <Label text="%savingAddToSavingAmount" GridPane.rowIndex="5" />
+             <ComboBox fx:id="savingGoalList" prefHeight="25.0" prefWidth="153.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="savingGoalAmount" text="%emptyString" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="savingSavedAmount" text="%emptyString" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="savingAddedAmount" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
+      <Line fx:id="myLine" endX="27.0" endY="411.0" startX="760.0" startY="411.0" />
+      <Label layoutX="21.0" layoutY="421.0" prefHeight="17.0" prefWidth="199.0" text="Add money to your saving goal" />
 
    </children>
 </AnchorPane>

@@ -11,10 +11,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane  fx:id="economyincomeaddanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="view.economy.EconomyAddIncomeGUI">
+<AnchorPane fx:id="economyincomeaddanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.economy.EconomyAddIncomeGUI">
    <children>
-      <GridPane layoutX="235.0" layoutY="173.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="28.0">
+      <GridPane layoutX="235.0" layoutY="173.0" prefHeight="360.0" prefWidth="718.0" AnchorPane.bottomAnchor="362.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="28.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -36,11 +35,11 @@
             <DatePicker fx:id="incomeDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <ButtonBar layoutX="467.0" layoutY="696.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="54.0">
+      <ButtonBar layoutX="481.0" layoutY="637.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="73.0" AnchorPane.rightAnchor="54.0">
         <buttons>
           <Button mnemonicParsing="false" onAction="#AddNewIncome" text="%buttonAdd" />
             <Button mnemonicParsing="false" text="%buttonRemove" />
-            <Button mnemonicParsing="false"  onAction="#cancelAdding" text="%buttonCancel" />
+            <Button mnemonicParsing="false" onAction="#cancelAdding" text="%buttonCancel" />
         </buttons>
       </ButtonBar>
    </children>

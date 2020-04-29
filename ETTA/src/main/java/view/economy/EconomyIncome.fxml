@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="economyincomeanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.economy.EconomyIncomeGUI">
    <children>
-      <TableView fx:id="incomeTable" layoutX="107.0" layoutY="90.0" prefHeight="560.0" prefWidth="745.0" AnchorPane.bottomAnchor="169.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="21.0">
+      <TableView fx:id="incomeTable" layoutX="107.0" layoutY="90.0" prefHeight="527.0" prefWidth="745.0" AnchorPane.bottomAnchor="202.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="21.0">
         <columns>
           <TableColumn fx:id="incomeCategory" prefWidth="247.0" text="%columnCategory" />
           <TableColumn fx:id="incomeDescription" prefWidth="261.0" text="%columnDescription" />
@@ -18,16 +18,16 @@
             <TableColumn fx:id="incomeDate" prefWidth="121.0" text="%columnDate" />
         </columns>
       </TableView>
-      <ButtonBar layoutX="489.0" layoutY="645.0" prefHeight="40.0" prefWidth="277.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="489.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="645.0">
+      <ButtonBar layoutX="483.0" layoutY="642.0" prefHeight="40.0" prefWidth="277.0" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="483.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="642.0">
         <buttons>
           <Button mnemonicParsing="false" onAction="#showAddIncome" prefHeight="25.0" prefWidth="100.0" text="%buttonAdd" />
             <Button mnemonicParsing="false" onAction="#deleteIncome" prefHeight="25.0" prefWidth="100.0" text="%buttonDelete" />
         </buttons>
       </ButtonBar>
-      <Label layoutX="101.0" layoutY="590.0" text="%labelSearch" AnchorPane.bottomAnchor="143.0" AnchorPane.leftAnchor="101.0" AnchorPane.rightAnchor="628.0" AnchorPane.topAnchor="590.0" />
-      <DatePicker fx:id="incomeStartDate" layoutX="101.0" layoutY="613.0" maxWidth="163.0" prefHeight="25.0" prefWidth="163.0" />
-      <DatePicker fx:id="incomeEndDate" layoutX="307.0" layoutY="613.0" maxWidth="163.0" prefHeight="25.0" prefWidth="163.0" />
-      <Label layoutX="290.0" layoutY="617.0" maxWidth="5.0" prefWidth="5.0" text="-" />
-      <Button layoutX="501.0" layoutY="613.0" maxWidth="95.0" mnemonicParsing="false" onAction="#searchIncomes" prefHeight="25.0" prefWidth="95.0" text="%buttonSearch" />
+      <Label layoutX="30.0" layoutY="556.0" text="%labelSearch" />
+      <DatePicker fx:id="incomeStartDate" layoutX="30.0" layoutY="574.0" maxWidth="163.0" prefHeight="25.0" prefWidth="163.0" />
+      <DatePicker fx:id="incomeEndDate" layoutX="231.0" layoutY="574.0" maxWidth="163.0" prefHeight="25.0" prefWidth="163.0" />
+      <Label layoutX="210.0" layoutY="578.0" maxWidth="5.0" prefWidth="5.0" text="-" />
+      <Button layoutX="415.0" layoutY="574.0" maxWidth="95.0" mnemonicParsing="false" onAction="#searchIncomes" prefHeight="25.0" prefWidth="95.0" text="%buttonSearch" />
    </children>
 </AnchorPane>
