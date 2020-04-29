@@ -109,10 +109,11 @@ public class EconomySavingsGUI {
     Callback<TableColumn<Saving, Date>, TableCell<Saving, Date>> dateCellFactory = (TableColumn<Saving, Date> param) -> new SavingDateEditingCell();
     
 	/** 
-	 * Method that initializes the view and gets the savings  from the controller to display them on the page
+	 * Method that initializes the view and gets the savings from the controller to display them on the page.
 	 */
 	@FXML 
 	public void initialize() { 
+		//getting the savings' data to put into the table
 		savingsDescription.setCellValueFactory(
                 new PropertyValueFactory<Saving, String>("description"));
 		savingsGoalDate.setCellValueFactory(
@@ -127,8 +128,10 @@ public class EconomySavingsGUI {
 		ObservableList<Saving> savings =  FXCollections.observableArrayList(controller.getSavingss());
 		savingsTable.setItems(savings);
 		
+		//making the savings table editable
 		savingsTable.setEditable(true);
 		
+		//enable editing of the description and updating the data
 		savingsDescription.setCellValueFactory(new PropertyValueFactory<Saving, String>("description")); 
 		savingsDescription.setCellFactory(TextFieldTableCell.<Saving>forTableColumn());
 		savingsDescription.setOnEditCommit(
@@ -136,11 +139,17 @@ public class EconomySavingsGUI {
 				@Override
 				public void handle(CellEditEvent<Saving, String> t) {
 					Saving editedSavingDesc = ((Saving) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-					editedSavingDesc.setDescription(t.getNewValue());
-					controller.updateSaving(editedSavingDesc);
-					savingsTable.refresh();
+					//if the new description is given, update the data
+					if(!inputCheck.isInputEmpty(t.getNewValue())) {
+						editedSavingDesc.setDescription(t.getNewValue());
+						controller.updateSaving(editedSavingDesc);
+						savingsTable.refresh();
+					} else {
+						inputCheck.alertInputEmpty();
+					}
 					}});
 		
+		//enable editing of the amount and updating the data
 		savingsSavedAmount.setCellValueFactory(new PropertyValueFactory<Saving, Float>("amount"));
 		savingsSavedAmount.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
 		savingsSavedAmount.setOnEditCommit(
@@ -151,7 +160,9 @@ public class EconomySavingsGUI {
 					Float oldAmount = editedSaving.getAmount();
 					Float newAmount = t.getNewValue();
 					Float difference = oldAmount-newAmount;
-					if(controller.updateBalanceAmount(difference)) {
+					//check if there's enough money to make this change
+					if(controller.enoughBalance(difference)){
+						controller.updateBalanceAmount(difference);
 						editedSaving.setAmount(newAmount);
 						controller.updateSaving(editedSaving);
 					}
@@ -161,6 +172,7 @@ public class EconomySavingsGUI {
 					initialize();
 					}});
 		
+		//enable editing of the goal amount and updating the data
 		savingsGoalAmount.setCellValueFactory(new PropertyValueFactory<Saving, Float>("goalAmount"));
 		savingsGoalAmount.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
 		savingsGoalAmount.setOnEditCommit(
@@ -173,6 +185,7 @@ public class EconomySavingsGUI {
 					initialize();
 					}});
 		
+		//enable editing of the goal date and updating the data
 		savingsGoalDate.setCellFactory(dateCellFactory);
 		savingsGoalDate.setOnEditCommit(
 			(TableColumn.CellEditEvent<Saving, Date> t) -> {
