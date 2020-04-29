@@ -8,21 +8,20 @@
 
 <AnchorPane fx:id="borrowedviewanchorpane" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.borrowed.BorrowedTableGUI">
    <children>
-      <ButtonBar layoutY="643.0" prefHeight="40.0" prefWidth="600.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="643.0">
+      <ButtonBar layoutX="-23.0" layoutY="642.0" prefHeight="40.0" prefWidth="600.0" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="-23.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="642.0">
         <buttons>
             <Button mnemonicParsing="false" onAction="#showBorrowedAdd" text="%buttonAdd" />
-            <Button mnemonicParsing="false" text="%buttonEmail" />
             <Button mnemonicParsing="false" onAction="#markAsReturned" text="%borrowMarkReturned" />
           <Button mnemonicParsing="false" onAction="#deleteSelectedBorrowedThing" text="%buttonDelete" />
         </buttons>
       </ButtonBar>
-      <TableView fx:id="borrowedTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="28.0">
+      <TableView fx:id="borrowedTable" prefHeight="568.0" prefWidth="718.0" AnchorPane.bottomAnchor="174.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="50.0">
         <columns>
           <TableColumn fx:id="borrowedThingDescr" minWidth="-Infinity" prefWidth="150.0" text="%item" />
           <TableColumn fx:id="loanDate" minWidth="-Infinity" prefWidth="150.0" text="%borrowLoanDate" />
             <TableColumn fx:id="returnDate" prefWidth="150.0" text="%borrowReturnDate" />
             <TableColumn fx:id="borrowedBy" prefWidth="150.0" text="%borrower" />
-            <TableColumn fx:id="returned" prefWidth="113.0" text="%borrowIfReturned" />
+            <TableColumn fx:id="returned" prefWidth="114.0" text="%borrowIfReturned" />
         </columns>
       </TableView>
    </children>
