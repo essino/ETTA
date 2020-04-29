@@ -29,10 +29,10 @@
             <Label text="%incomeLabelCategory" />
             <Label text="%incomeLabelIncome" GridPane.rowIndex="2" />
             <Label text="%labelDate" GridPane.rowIndex="3" />
-            <TextField fx:id="incomeDescription" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="incomeAmount" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox fx:id="incomeCategoryList" prefWidth="150.0" GridPane.columnIndex="1" />
-            <DatePicker fx:id="incomeDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="incomeDescription" maxWidth="313.0" prefWidth="313.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="incomeAmount" maxWidth="313.0" prefWidth="313.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="incomeCategoryList" prefHeight="25.0" prefWidth="313.0" GridPane.columnIndex="1" />
+            <DatePicker fx:id="incomeDate" prefWidth="313.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <ButtonBar layoutX="481.0" layoutY="637.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="73.0" AnchorPane.rightAnchor="54.0">

@@ -28,11 +28,11 @@
             <Label text="%expenceLabelDescription" GridPane.rowIndex="1" />
             <Label text="%expenceLabelAmount" GridPane.rowIndex="2" />
             <Label text="%expenceLabelDate" GridPane.rowIndex="3" />
-            <TextField fx:id="outcomeDescription" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="outcomeAmount" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="outcomeDescription" maxWidth="313.0" prefHeight="25.0" prefWidth="313.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="outcomeAmount" maxWidth="313.0" prefWidth="313.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="%expenceLabelCategory" />
-            <DatePicker fx:id="outcomeDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox fx:id="outcomeCategoryList" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" />
+            <DatePicker fx:id="outcomeDate" prefHeight="25.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="outcomeCategoryList" prefHeight="25.0" prefWidth="313.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <ButtonBar layoutX="481.0" layoutY="637.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="73.0" AnchorPane.rightAnchor="52.0">
