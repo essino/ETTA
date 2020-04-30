@@ -11,6 +11,7 @@ import model.ItemDAO;
 import model.Person;
 import model.PersonDAO;
 import view.contacts.ContactsGUI;
+import view.contacts.ContactsSearchGUI;
 import view.contacts.ContactsTableGUI;
 
 /** 
@@ -27,6 +28,10 @@ public class ContactsController {
 	 * Reference to the ContactsTableGUI
 	 */
 	private ContactsTableGUI conTableGUI;
+	/**
+	 * Reference to the ContactsSearchGUI
+	 */
+	private ContactsSearchGUI conSearchGUI;
 	/**
 	 * PersonDAO used for accessing the database
 	 */
@@ -57,7 +62,6 @@ public class ContactsController {
 	 */ 
 	public void savePerson() {
 		String personName = conGUI.getPersonName();
-		String personAddress = conGUI.getPersonAddress();
 		String personEmail = conGUI.getPersonEmail();
 		Date personBirthday = conGUI.getPersonBirthday();
 		Person person = new Person (personName, personBirthday, personEmail);
@@ -118,6 +122,10 @@ public class ContactsController {
 	 */
 	public ContactsController(PersonDAO personDAO) {
 		this.perDAO= personDAO;
+	}
+
+	public ContactsController(ContactsSearchGUI contactsSearchGUI) {
+		this.conSearchGUI = contactsSearchGUI;
 	}
 
 	/** 

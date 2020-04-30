@@ -36,11 +36,6 @@ public class ContactsGUI {
 	@FXML
 	private AnchorPane contactsaddanchorpane;
 	/**
-	 * Text field for the address of the person to be added
-	 */
-	@FXML
-	private TextField personAddress;
-	/**
 	 * Text field for the email of the person to be added
 	 */
 	@FXML
@@ -79,7 +74,7 @@ public class ContactsGUI {
 	@FXML
 	public void showSearchView(ActionEvent event) {
 		AnchorPane contactsSearchView = null;
-		FXMLLoader loaderContactsSearchView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsSearch.fxml"));
+		FXMLLoader loaderContactsSearchView  = new FXMLLoader(getClass().getResource("/view/contacts/ContactsSearch1.fxml"));
 		loaderContactsSearchView.setResources(myBundle.getBundle());
 		try {
 			contactsSearchView = loaderContactsSearchView.load();
@@ -139,15 +134,6 @@ public class ContactsGUI {
 			}
 		}
 	}
-	
-	/**
-	 * Method for getting the value of the Person's address text field
-	 * @return String the Person's address
-	 */
-	@FXML
-	public String getPersonAddress(){
-		return this.personAddress.getText();
-		}
 	
 	/**
 	 * Method for getting the value of the Person's email text field
