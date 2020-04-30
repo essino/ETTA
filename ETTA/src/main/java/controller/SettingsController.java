@@ -25,11 +25,20 @@ public class SettingsController {
 	Language finnish = new Language(2, "Finnish", false);
 
 	private SettingsController() {
-		this.currentLocale= locale;
+		this.currentLocale= getLocaleFromDatabase();
 	}
 	
 	public static SettingsController getInstance() {
 		return single;
+	}
+	
+	private Locale getLocaleFromDatabase() {
+		if(getSelectedLanguage().equals("Finnish")) {
+			return new Locale("fi", "FI");
+			}
+		else {
+			return new Locale("en", "GB");
+		}
 	}
 	
 	public Locale getCurrentLocale() {
@@ -55,7 +64,6 @@ public class SettingsController {
 		langDAO.updateLanguage(newLang); 
 		if(newLangName.equals("Finnish")) {
 			this.currentLocale  = new Locale("fi", "FI");
-			Locale.setDefault(locale);
 			}
 		else {
 			this.currentLocale = new Locale("en", "GB");
