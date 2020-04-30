@@ -16,13 +16,14 @@ import javafx.event.EventHandler;
 
 import com.calendarfx.model.Calendar.Style;
 
+import model.BorrowedThing;
 import model.Event;
 import model.EventDAO;
 import model.Item;
 
 /** 
  * Controller class for the calendar.  
- * 
+ * @author Lena
  */
 public class CalendarController {
 	/**
@@ -335,4 +336,50 @@ public class CalendarController {
 			birthdayEvent.setRrule("RRULE:FREQ=YEARLY;");
 			return eventDAO.createEvent(birthdayEvent);
 		}
+
+		/** 
+		 * Boolean method that gets a Date containing old date when a borrowed thing should be returned
+		 * and the borrowed thing that was updated as parameters and updates a database borrowed Event.
+		 * Method first checks if there was a borrowed event already.
+		 * @param Date oldDate - the old date when when a borrowed thing should be returned
+		 * @param BorrowedThing the borrowed thing that was updated
+		 * @return true - if borrowed event was successfully updated
+		 * @return false - if updating borrowed event didn't succeed 
+		 */
+		//update borrowed event if date changes
+		public boolean updateBorrowedDate(BorrowedThing thing) {
+			boolean updated = false;
+			String eventTitle = thing.getPerson().getName() + " should return " + thing.getDescription();
+			Event borrowedEvent = eventDAO.readBorrowed(eventTitle);
+			if(borrowedEvent != null) {
+				borrowedEvent.setStartDate(thing.getReturnDate());
+				borrowedEvent.setEndDate(thing.getReturnDate());
+				updated = eventDAO.updateEvent(borrowedEvent);
+			}
+			return updated;
+		}
+		
+		/** 
+		 * Boolean method that gets a Date containing old date when a borrowed thing should be returned
+		 * and the borrowed thing that was updated as parameters and updates a database borrowed Event.
+		 * Method first checks if there was a borrowed event already.
+		 * @param Date oldDate - the old date when when a borrowed thing should be returned
+		 * @param BorrowedThing the borrowed thing that was updated
+		 * @return true - if borrowed event was successfully updated
+		 * @return false - if updating borrowed event didn't succeed 
+		 */
+		//update borrowed event if date changes
+		
+	/*
+		public boolean updateBorrowedTitle(BorrowedThing thing) {
+			boolean updated = false;
+			String eventTitle = thing.getPerson().getName() + " should return " + thing.getDescription();
+			Event borrowedEvent = eventDAO.readBorrowed(eventTitle);
+			if(borrowedEvent != null) {
+				borrowedEvent.setStartDate(thing.getReturnDate());
+				borrowedEvent.setEndDate(thing.getReturnDate());
+				updated = eventDAO.updateEvent(borrowedEvent);
+			}
+			return updated;
+		}*/
 }

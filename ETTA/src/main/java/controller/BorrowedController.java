@@ -79,6 +79,7 @@ public class BorrowedController {
 	 */ 
 	private BorrowedSearchGUI searchGUI;
 	
+	private CalendarController calendarController = new CalendarController();
 	/**
 	 * Constructor to create controller for BorrowedThings
 	 *@param gui the general gui for BorrowedThing
@@ -257,19 +258,7 @@ public class BorrowedController {
 	 * @param borrowedThing the borrowed thing, the event of which is changed
 	 */
 	public void updateReturnDate(BorrowedThing borrowedThing) {
-		Date returnDate = tableGUI.getSelectedBorrowedThing().getReturnDate();
-		String description = borrowedThing.getDescription();
-		System.out.println("Description of the borrowed thing" + description);
-		
-		Event updatingEvent = findRightEvent(borrowedThing);
-		try {
-			updatingEvent.setStartDate(returnDate);
-			updatingEvent.setEndDate(returnDate);
-			eventDAO.updateEvent(updatingEvent);
-		//if the borrowed thing has been returned, the event relating to it has been already deleted
-		} catch(NullPointerException e) {
-			System.out.println("No borrowing event to delete");
-		}
+		calendarController.updateBorrowedDate(borrowedThing);
 	}
 	
 	//updates the title of the borrowed event - HARD CODED!
