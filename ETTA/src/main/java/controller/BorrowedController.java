@@ -1,6 +1,5 @@
 package controller;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -34,20 +33,6 @@ public class BorrowedController {
 	 * EventDAO used for accessing the database
 	 */
 	private EventDAO eventDAO = new EventDAO();
-	
-	/** 
-	 * Method that gets Persons from PersonDAO and makes a list containing names only 
-	 * @return ObservableList<String> names - list of persons' names
-	 */ 
-	public ObservableList<String> personsList() {
-		Person[] people = personDAO.readPeople();
-		ArrayList peopleNames = new ArrayList();
-		for (Person person : people){
-			peopleNames.add(person.getName());
-		}
-		ObservableList<String> names =  FXCollections.observableArrayList(peopleNames);
-		return names;
-	}
 	
 	/** 
 	 * BorrowedThingDAo used for accessing the database
@@ -139,6 +124,20 @@ public class BorrowedController {
 		this.eventDAO = eventDAO2;
 	}
 
+	/** 
+	 * Method that gets Persons from PersonDAO and makes a list containing names only 
+	 * @return ObservableList<String> names - list of persons' names
+	 */ 
+	public ObservableList<String> personsList() {
+		Person[] people = personDAO.readPeople();
+		ArrayList peopleNames = new ArrayList();
+		for (Person person : people){
+			peopleNames.add(person.getName());
+		}
+		ObservableList<String> names =  FXCollections.observableArrayList(peopleNames);
+		return names;
+	}
+	
 	/** 
 	 * Method for creating a new borrowed thing and saving it to the database
 	 * return BorrowedThing[] array contains all borrowed things
@@ -261,35 +260,14 @@ public class BorrowedController {
 		calendarController.updateBorrowedDate(borrowedThing);
 	}
 	
-	//updates the title of the borrowed event - HARD CODED!
+	//updates the title of the borrowed event 
 	/** 
 	 * Method for updating the title of the borrowed event 
-	 * @param oldDescription the description of the borrowed item that is being changed
+	 * @param String oldDescription the description of the borrowed item that is being changed
+	 * @param BorrowedThing editedBorrowedThing  the borrowed thing that is being updated
 	 */
-	public void updateBorrowedEventTitle(String oldDescription) {
-		String thingDescription = tableGUI.getSelectedBorrowedThing().getDescription();
-		Event updatingEvent = findRightEvent(tableGUI.getSelectedBorrowedThing());
-		String newTitle = "";	
-		try {
-			String oldTitle = updatingEvent.getTitle();
-			String[] titleParts = oldTitle.split(" ");
-			int i = 0;
-			while (!titleParts[i].equals("return")) {
-				System.out.println("Titlepart " + i + " is " + titleParts[i]);
-				i++;
-			}
-			for (int j = 0; j <= i; j++) {
-				newTitle = newTitle + " " + titleParts[j];
-			}
-			newTitle = newTitle + " " + thingDescription;
-			newTitle = newTitle.replaceFirst("^ *", "");
-			
-			updatingEvent.setTitle(newTitle);
-			eventDAO.updateEvent(updatingEvent);
-		//if the borrowed thing has been returned, the event relating to it has been already deleted
-		} catch(NullPointerException e) {
-			System.out.println("No borrowing event to delete");
-		}
+	public void updateBorrowedEventTitle(String oldDescription, BorrowedThing editedBorrowedThing) {
+		calendarController.updateBorrowedTitle(oldDescription, editedBorrowedThing);
 	}
 	
 	/** 

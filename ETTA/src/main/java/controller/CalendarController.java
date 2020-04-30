@@ -367,26 +367,24 @@ public class CalendarController {
 		}
 		
 		/** 
-		 * Boolean method that gets a Date containing old date when a borrowed thing should be returned
+		 * Boolean method that gets a String containing old borrowed thing's description 
 		 * and the borrowed thing that was updated as parameters and updates a database borrowed Event.
 		 * Method first checks if there was a borrowed event already.
-		 * @param Date oldDate - the old date when when a borrowed thing should be returned
+		 * @param String  - the old description of the updated borrowed thing 
 		 * @param BorrowedThing the borrowed thing that was updated
 		 * @return true - if borrowed event was successfully updated
 		 * @return false - if updating borrowed event didn't succeed 
 		 */
-		//update borrowed event if date changes
-		
-	/*
-		public boolean updateBorrowedTitle(BorrowedThing thing) {
+		//update borrowed event if borrowed thing's description changes
+		public boolean updateBorrowedTitle(String oldTitle, BorrowedThing thing) {
 			boolean updated = false;
-			String eventTitle = thing.getPerson().getName() + " should return " + thing.getDescription();
+			String eventTitle = thing.getPerson().getName() + " should return " + oldTitle;
 			Event borrowedEvent = eventDAO.readBorrowed(eventTitle);
 			if(borrowedEvent != null) {
-				borrowedEvent.setStartDate(thing.getReturnDate());
-				borrowedEvent.setEndDate(thing.getReturnDate());
+				String newEvent = thing.getPerson().getName() + " should return " + thing.getDescription();
+				borrowedEvent.setTitle(newEvent);
 				updated = eventDAO.updateEvent(borrowedEvent);
 			}
 			return updated;
-		}*/
+		}
 }
