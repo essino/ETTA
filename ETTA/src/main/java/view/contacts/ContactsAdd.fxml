@@ -10,11 +10,10 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="contactsaddanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.contacts.ContactsGUI">
    <children>
-      <GridPane layoutX="333.0" layoutY="189.0" AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="28.0">
+      <GridPane layoutX="333.0" layoutY="189.0" prefHeight="454.0" prefWidth="584.0" AnchorPane.bottomAnchor="268.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="188.0" AnchorPane.topAnchor="28.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="465.60003662109375" minWidth="10.0" prefWidth="376.33330688476565" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="609.6000061035156" minWidth="10.0" prefWidth="542.4666931152344" />
@@ -36,39 +35,25 @@
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
             </Label>
-            <Label text="%contactsAddress" GridPane.rowIndex="2">
+            <Label text="%contactsBirthday" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
                </GridPane.margin>
             </Label>
-            <Label text="%contactsBirthday" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets bottom="28.0" left="28.0" right="28.0" top="28.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="personName" prefHeight="66.0" prefWidth="555.0" GridPane.columnIndex="1">
+            <TextField fx:id="personName" maxWidth="313.0" prefHeight="0.0" prefWidth="313.0" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </TextField>
-            <DatePicker fx:id="personBirthday" prefHeight="65.0" prefWidth="442.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="personAddress" prefHeight="65.0" prefWidth="442.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="personEmail" prefHeight="65.0" prefWidth="442.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="personBirthday" prefHeight="25.0" prefWidth="313.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="personEmail" maxWidth="313.0" prefHeight="0.0" prefWidth="313.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <buttons>
+                <Button mnemonicParsing="false" onAction="#saveNewPerson" prefHeight="0.0" text="%buttonAdd" />
+                  <Button mnemonicParsing="false" onAction="#cancelAdding" text="%buttonCancel" />
+              </buttons>
+            </ButtonBar>
          </children>
       </GridPane>
-      <ButtonBar layoutX="697.0" layoutY="672.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="42.0" AnchorPane.rightAnchor="54.0">
-        <buttons>
-          <Button mnemonicParsing="false" onAction="#saveNewPerson" text="%buttonAdd">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#cancelAdding" text="%buttonCancel">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-        </buttons>
-      </ButtonBar>
    </children>
 </AnchorPane>
