@@ -85,7 +85,7 @@ public class WishlistDateEditingCell extends TableCell<Item, java.sql.Date> {
 
     private Date getDate() {
     	if (getItem() == null) {
-    		return Date.valueOf(LocalDate.now());
+    		return null;
     	} else {
     		return getItem();
     	}
