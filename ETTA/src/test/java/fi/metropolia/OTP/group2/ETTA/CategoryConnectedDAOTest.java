@@ -16,7 +16,6 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import model.Category;
 import model.CategoryDAO;
 import model.Saving;
-import model.SavingDAO;
 import model.Transfer;
 import model.TransferDAO;
 
@@ -25,10 +24,9 @@ public class CategoryConnectedDAOTest {
 	
 	private static CategoryDAO categoryDAO = new CategoryDAO(true);
 	private static TransferDAO transferDAO = new TransferDAO(true);
-	private static SavingDAO savingDAO = new SavingDAO(true);
 	
-	private EconomyController economyController = new EconomyController(categoryDAO, transferDAO, savingDAO);
-	
+	private EconomyController economyController = new EconomyController(categoryDAO, transferDAO);
+
 	private static String catDesc = "lottery";
 	private static boolean catIncome = true;
 	private static Category category = new Category(catDesc, catIncome);
@@ -46,7 +44,7 @@ public class CategoryConnectedDAOTest {
 	private float amountGoal = 2000f;
 	private float reachedGoal = 5f;
 	private Date date2 = Date.valueOf("2020-10-15");
-	private Saving kossinMatka = new Saving(desc2, amountGoal, reachedGoal, date2);
+	private Saving kossinMatka = new Saving(desc, amountGoal, reachedGoal, date);
 
 	@BeforeAll
 	public static void createCategory() {
@@ -160,37 +158,43 @@ public class CategoryConnectedDAOTest {
 		assertEquals(true, economyController.updateTransfer(updatedTransfer2));
 		updatedTransfer2.setDate(date);
 		assertEquals(true, economyController.updateTransfer(updatedTransfer2), "Updating failed");
-		
 	}
 	
 	@Test
 	@Order(14)
-	public void testDeleteTransfer() {
-		assertEquals(true, transferDAO.deleteTransfer(1), "Deleting 1 failed"); 
-		assertEquals(true, transferDAO.deleteTransfer(2), "Deleting 2 failed");
-		assertEquals(true, transferDAO.deleteTransfer(3), "Deleting 3 failed");
-		assertEquals(0, transferDAO.readTransfers().length, "Deleting all failed");
+	public void testFromSavingToIncome() {
+		assertEquals(true, economyController.fromSavingToIncome(kossinMatka), "From saving to income failed");
+		assertEquals(4, transferDAO.readTransfers().length, "adding transfer failed failed");
 	}
 	
 	@Test
 	@Order(15)
+	public void testFromSavingToExpense() {
+		assertEquals(true, economyController.fromSavingToExpense(kossinMatka), "From saving to income failed");
+		assertEquals(5, transferDAO.readTransfers().length, "adding transfer failed failed");
+	}
+	
+	@Test
+	@Order(16)
+	public void testDeleteTransfer() {
+		assertEquals(true, transferDAO.deleteTransfer(1), "Deleting 1 failed"); 
+		assertEquals(true, transferDAO.deleteTransfer(2), "Deleting 2 failed");
+		assertEquals(true, transferDAO.deleteTransfer(3), "Deleting 3 failed");
+		assertEquals(true, transferDAO.deleteTransfer(4), "Deleting 3 failed");
+		assertEquals(true, transferDAO.deleteTransfer(5), "Deleting 3 failed");
+		assertEquals(0, transferDAO.readTransfers().length, "Deleting all failed");
+	}
+	
+	@Test
+	@Order(17)
 	public void testDeleteCategory() {
 		assertEquals(true, categoryDAO.deleteCategory(1), "Deleting 1 failed"); 
 		assertEquals(true, categoryDAO.deleteCategory(2), "Deleting 2 failed");
 		assertEquals(true, categoryDAO.deleteCategory(3), "Deleting 3 failed");
+		assertEquals(true, categoryDAO.deleteCategory(4), "Deleting 3 failed");
+		assertEquals(true, categoryDAO.deleteCategory(5), "Deleting 3 failed");
 		assertEquals(0, categoryDAO.readIncomeCategories().length, "Deleting all incomes failed");
 		assertEquals(0, categoryDAO.readExpenseCategories().length, "Deleting all expenses failed");
 	}
-	/*
-	@Test
-	@Order(16)
-	public void readSavings() {
-		assertEquals(true, savingDAO.createSaving(kossinMatka), "Creation of saving failed"); 
-		assertEquals(1, economyController.getSavingss().length, "Reading all failed");
-		assertEquals(1, economyController.getSavingsList().size(), "Reading all failed");
-		//Saving saving = savingDAO.readSaving(1);
-		//saving.setDescription("Prahan matka");
-		//assertEquals(true, economyController.updateSaving(saving), "Updating saving failed");
-		assertEquals(true, savingDAO.deleteSaving(1), "Deleting 1 failed");
-	}*/
+	
 }

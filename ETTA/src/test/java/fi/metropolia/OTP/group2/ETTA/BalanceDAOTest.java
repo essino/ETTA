@@ -33,7 +33,9 @@ public class BalanceDAOTest {
 	@Order(2)
 	public void testReadBalance() {
 		assertEquals(100, balanceDAO.readBalance(id).getBalance(), "Reading failed");
-		assertEquals(true, controller.enoughBalance(50), "Reading failed (controller)");
+		assertEquals(true, controller.enoughBalance(-50), "Reading failed (controller)");
+		assertEquals(false, controller.enoughBalance(-150), "Reading failed (controller)");
+		assertEquals(100, controller.getBalanceAmount(), "Reading balance failed");
 	}
 	
 	@Test
@@ -43,6 +45,8 @@ public class BalanceDAOTest {
 		balance.setBalance(0);
 		balanceDAO.updateBalance(balance);
 		assertEquals(0, balanceDAO.readBalance(id).getBalance(), "balance amount updating failed");
+		assertEquals(true, controller.updateBalanceAmount(20), "balance amount updating failed");
+		assertEquals(20, balanceDAO.readBalance(id).getBalance(), "balance amount updating failed");
 	}
 	
 }
