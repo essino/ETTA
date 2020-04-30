@@ -60,16 +60,22 @@ public class WishlistDateEditingCell extends TableCell<Item, java.sql.Date> {
                 setText(null);
                 setGraphic(datePicker);
             } else {
-            	setText(df.format(getDate()));
+            	if (getDate()==null) {
+            		setText(null);
+            	} else {
+            		setText(df.format(getDate()));
+            	}
                 setGraphic(null);
             }
         }
     }
 
     private void createDatePicker() {
-        datePicker = new DatePicker(getDate().toLocalDate());
-        //changes the datepicker's language into English
-        //datePicker.setOnShowing(e-> Locale.setDefault(Locale.Category.FORMAT,Locale.ENGLISH));
+    	if (getDate()==null) {
+    		datePicker = new DatePicker(java.time.LocalDate.now());
+    	} else {
+    		datePicker = new DatePicker(getDate().toLocalDate());
+    	}
         datePicker.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
         datePicker.setOnAction((e) -> {
             System.out.println("Committed: " + datePicker.getValue().toString());

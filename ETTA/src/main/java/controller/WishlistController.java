@@ -10,16 +10,17 @@ import model.Item;
 import model.ItemDAO;
 import model.Person;
 import model.PersonDAO;
+import res.MyBundle;
 import view.wishlist.AbstractWishlistGUI;
 import view.wishlist.WishlistAddGUI;
-import view.wishlist.WishlistBoughtGUI;
-import view.wishlist.WishlistGiftGUI;
-import view.wishlist.WishlistOwnGUI;
-import view.wishlist.WishlistTableGUI;
-
 
 public class WishlistController {
 
+	/**
+	 * MyBundle object for setting the right resource bundle to localize the application
+	 */
+	MyBundle myBundle = new MyBundle();
+	
 	/**
 	 * ItemDAO used for accessing the database
 	 */
@@ -107,6 +108,7 @@ public class WishlistController {
 	public ObservableList<String> personsList() {
 		Person[] people = personDAO.readPeople();
 		ArrayList<String> peopleNames = new ArrayList<String>();
+		peopleNames.add(myBundle.getBundle().getString("Me"));
 		for (Person person : people){
 			peopleNames.add(person.getName());
 		}
@@ -141,7 +143,11 @@ public class WishlistController {
 		wishlistEvent.setStartDate(item.getDateNeeded());
 		wishlistEvent.setEndDate(item.getDateNeeded());
 		wishlistEvent.setFullday(true);
-		wishlistEvent.setTitle("Buy " + item.getDescription() + " for " + item.getPerson().getName());
+		if (item.getPerson() != null) {
+			wishlistEvent.setTitle("Buy " + item.getDescription() + " for " + item.getPerson().getName());
+		} else {
+			wishlistEvent.setTitle("Buy " + item.getDescription() + " for myself");
+		}
 		wishlistEvent.setLocation(null);
 		wishlistEvent.setRecurring(false);
 		wishlistEvent.setCalendar("wishlist");

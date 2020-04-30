@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Locale;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarEvent;
@@ -26,6 +27,7 @@ import model.Item;
  * @author Lena
  */
 public class CalendarController {
+	
 	/**
 	 * EventDAO used for accessing the database
 	 */
@@ -299,9 +301,14 @@ public class CalendarController {
 		//update wishlist event if date changes
 		public boolean updateWishlistDate(Date oldDate, Item editedItem) {
 			boolean updated = false;
-			String event = "Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName();
+			String event = null;
+			if (editedItem.getPerson() != null) {
+				event = "Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName();
+			} else {
+				event = "Buy " + editedItem.getDescription() + " for myself";
+			}
 			Event wishlistEvent = eventDAO.readWishlistEvent(event);
-			if(wishlistEvent != null) {
+			if (wishlistEvent != null) {
 				wishlistEvent.setStartDate(editedItem.getDateNeeded());
 				wishlistEvent.setEndDate(editedItem.getDateNeeded());
 				updated = eventDAO.updateEvent(wishlistEvent);
