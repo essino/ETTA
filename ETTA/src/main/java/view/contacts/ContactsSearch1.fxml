@@ -16,6 +16,6 @@
             <TableColumn fx:id="birthday" prefWidth="150.0" text="%contactsBirthday" />
         </columns>
       </TableView>
-      <Button layoutX="504.0" layoutY="375.0" mnemonicParsing="false" onAction="#searchContact" text="Button" AnchorPane.bottomAnchor="312.0" AnchorPane.leftAnchor="498.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="436.0" />
+      <Button layoutX="504.0" layoutY="375.0" mnemonicParsing="false" onAction="#searchContact" text="%buttonSearch" AnchorPane.bottomAnchor="312.0" AnchorPane.leftAnchor="498.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="436.0" />
    </children>
 </AnchorPane>
