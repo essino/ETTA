@@ -92,7 +92,7 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
                         setText(null);
                     } else {
                         if (item.isEmpty()) {
-                            setText("Add category...");
+                            setText(myBundle.getBundle().getString("categoryAddNewNewCategory"));
                         } else {
                             setText(item);
                         }
@@ -103,9 +103,9 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
             cell.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
                 if (cell.getItem().isEmpty() && ! cell.isEmpty()) {
                     TextInputDialog dialog = new TextInputDialog();
-                    dialog.setTitle("New category");
-                    dialog.setHeaderText("Add new category");
-                    dialog.setContentText("Enter name");
+                    dialog.setTitle(myBundle.getBundle().getString("categoryNew"));
+                    dialog.setHeaderText(myBundle.getBundle().getString("categoryAddNew"));
+                    dialog.setContentText(myBundle.getBundle().getString("categoryAddNewName"));
                     dialog.showAndWait().ifPresent(text -> {
                         int index = incomeCategoryList.getItems().size()-1;
                         incomeCategoryList.getItems().add(index, text);

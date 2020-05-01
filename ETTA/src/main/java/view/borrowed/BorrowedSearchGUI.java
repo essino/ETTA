@@ -1,8 +1,6 @@
 package view.borrowed;
 
 import java.sql.Date;
-import java.text.DateFormat;
-import java.util.Locale;
 
 import org.controlsfx.control.textfield.TextFields;
 
@@ -14,22 +12,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import model.BorrowedThing;
-import model.Person;
 import res.MyBundle;
 
 public class BorrowedSearchGUI {
@@ -92,14 +85,6 @@ public class BorrowedSearchGUI {
 	 */
 	@FXML
 	private TextField input;
-		
-	
-	/**
-	 * A constructor for BorrowedTableGUI in which the controller object is created
-	 */
-	public BorrowedSearchGUI() {
-		controller = new BorrowedController(this);
-	}
 
 	/**
 	 * The reference of InputCheck class used for checking user's input
@@ -154,7 +139,6 @@ public class BorrowedSearchGUI {
 	
 	public void searchBorrowedThing(ActionEvent event) {
 		String value = input.getText();
-		System.out.println("Input " + value);
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
 		FilteredList<BorrowedThing> filteredData = new FilteredList<>(data,
 	            s -> ((s.getDescription())).equals(value));

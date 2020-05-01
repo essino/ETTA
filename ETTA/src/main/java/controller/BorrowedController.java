@@ -12,11 +12,8 @@ import model.BorrowedThingDAO;
 import model.Event;
 import model.EventDAO;
 import view.borrowed.BorrowedAddGUI;
-import view.borrowed.BorrowedGUI;
 import view.borrowed.BorrowedReturnedTableGUI;
-import view.borrowed.BorrowedSearchGUI;
 import view.borrowed.BorrowedTableGUI;
-
 
 /** 
  * Controller class for the Borrowed things part.  
@@ -40,11 +37,6 @@ public class BorrowedController {
 	private BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO();
 	
 	/** 
-	 * Reference to BorrowedGUI to introduce the overall GUI to the controller
-	 */ 
-	private BorrowedGUI gui;
-	
-	/** 
 	 * Reference to BorrowedTableGUI to introduce the GUI in charge of the list of borrowed things to the controller
 	 */ 
 	private BorrowedTableGUI tableGUI;
@@ -59,19 +51,7 @@ public class BorrowedController {
 	 */ 
 	private BorrowedReturnedTableGUI returnedGUI;
 	
-	/** 
-	 * Reference to BorrowedSearchGUI to introduce the GUI for searching borrowed things
-	 */ 
-	private BorrowedSearchGUI searchGUI;
-	
 	private CalendarController calendarController = new CalendarController();
-	/**
-	 * Constructor to create controller for BorrowedThings
-	 *@param gui the general gui for BorrowedThing
-	 */
-	public BorrowedController(BorrowedGUI gui) {
-		this.gui = gui;
-	}
 	
 	/**
 	 * Constructor to create controller for BorrowedThings
@@ -101,14 +81,6 @@ public class BorrowedController {
 	 */
 	public BorrowedController(BorrowedReturnedTableGUI returnedGUI) {
 		this.returnedGUI = returnedGUI;
-	}
-	
-	/**
-	 * Constructor to create controller for BorrowedThings
-	 *@param searchGUI the gui for showing the search view for borrowed items
-	 */
-	public BorrowedController(BorrowedSearchGUI searchGUI) {
-		this.searchGUI = searchGUI;
 	}
 	
 	//constructor used for tests
@@ -153,11 +125,8 @@ public class BorrowedController {
 		BorrowedThing borrowedThing= new BorrowedThing();
 		borrowedThing.setDescription(addGUI.getBorrowedDescription());
 		Person person = personDAO.readPerson(addGUI.getBorrowedPerson());
-		System.out.println("person name " + person.getName());
-		System.out.println("person id " + person.getPerson_id());
 		borrowedThing.setPerson(person);
 		borrowedThing.setDateBorrowed(addGUI.getBorrowedLoanDate());
-		System.out.println("Lainauspäivä: " + addGUI.getBorrowedLoanDate());
 		borrowedThing.setReturnDate(addGUI.getBorrowedReturnDate());
 		borrowedThing.setReturned(false);
 		borrowedThingDAO.createBorrowedThing(borrowedThing);

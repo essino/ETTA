@@ -23,7 +23,7 @@ import model.EventDAO;
 import model.Item;
 
 /** 
- * Controller class for the calendar.  
+ * Controller class for the calendar. This class is in charge of connecting EventDAO with other controllers and GUIs.  
  * @author Lena
  */
 public class CalendarController {
@@ -246,7 +246,7 @@ public class CalendarController {
 				return createBirthday(name, birthday);
 			}
 		}
-
+		
 		/** 
 		 * Boolean method that gets a String containing old Item description and an Item that was updated as parameters and updates a database  wishlist Event.
 		 * Method first checks if there was a wishlist event already.

@@ -67,7 +67,6 @@ public class BorrowedGUI {
 		FXMLLoader loaderBorrowedSearch  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedSearch.fxml"));
 		loaderBorrowedSearch.setResources(myBundle.getBundle());
 		try {
-			System.out.println("Ra-ra-rasputin!");
 			borrowedSearch = loaderBorrowedSearch.load();
 			} catch (IOException e) {
 			e.printStackTrace();

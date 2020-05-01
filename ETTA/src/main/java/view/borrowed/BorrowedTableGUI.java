@@ -140,7 +140,6 @@ public class BorrowedTableGUI {
 				public void handle(CellEditEvent<BorrowedThing, String> t) {
 					BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 					String oldDescription = t.getOldValue();
-					//System.out.println("Old description " + oldDescription);
 					editedBorrowedThing.setDescription(t.getNewValue());
 					controller.updateBorrowedThing(editedBorrowedThing);
 					controller.updateBorrowedEventTitle(oldDescription, editedBorrowedThing);
@@ -188,7 +187,6 @@ public class BorrowedTableGUI {
 						.get(t.getTablePosition().getRow()));
 				java.sql.Date tempReturnDate = t.getNewValue();
 				java.sql.Date tempLDate = editedBorrowedThing.getDateBorrowed();
-				//System.out.println("This is the rhythm of the loan date " + tempLDate);
 				if(inputCheck.dateCheck(tempLDate, tempReturnDate)) {
 					editedBorrowedThing.setReturnDate(tempReturnDate);
 					controller.updateBorrowedThing(editedBorrowedThing);
@@ -206,10 +204,8 @@ public class BorrowedTableGUI {
 			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 				if (borrowedThingDescr.getValue().isReturned() == true) {
 					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("yesYes"));
-					//return new ReadOnlyObjectWrapper<>("Yes");
 				} else {
 					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
-					//return new ReadOnlyObjectWrapper<>("No");
 				}
 			}});
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());

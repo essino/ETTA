@@ -78,11 +78,6 @@ public class BorrowedAddGUI {
 	
 	InputCheck inputCheck = new InputCheck();
 	
-	/*@FXML
-	public void addBorrowed(ActionEvent event) {
-		System.out.println("found");  
-	}*/
-	
 	/**
 	 * Initialize-method called when the class is created
 	 * Fetches the list of people in the database to whom items can be given
@@ -100,7 +95,7 @@ public class BorrowedAddGUI {
 	                        setText(null);
 	                    } else {
 	                        if (item.isEmpty()) {
-	                            setText("Add person...");
+	                            setText(myBundle.getBundle().getString("personAdd"));
 	                        } else {
 	                            setText(item);
 	                        }
@@ -111,7 +106,7 @@ public class BorrowedAddGUI {
 	            cell.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
 	                if (cell.getItem().isEmpty() && ! cell.isEmpty()) {
 	                    TextInputDialog dialog = new TextInputDialog();
-	                    dialog.setContentText("Enter name");
+	                    dialog.setContentText(myBundle.getBundle().getString("personAddName"));
 	                    dialog.showAndWait().ifPresent(text -> {
 	                    	personDAO.createPerson(new Person(text));
 	                        int index = bbc.getItems().size()-1;
@@ -121,7 +116,6 @@ public class BorrowedAddGUI {
 	                    evt.consume();
 	                }
 	            });
-
 	            return cell ;
 	        });
 	}
