@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import model.Person;
 import res.MyBundle;
@@ -61,12 +62,6 @@ public class ContactsTableGUI {
     private TableColumn<Person, Date> contactsBirthday;
     
     /**
-  	 * The reference of TableColumn (person's address) will be injected by the FXML loader
-  	 */
-    @FXML
-    private TableColumn<Person, String> contactsAddress;
-    
-    /**
 	 * Reference to the used ContactsController
 	 */
     private ContactsController controller = new ContactsController(this); 
@@ -94,6 +89,7 @@ public class ContactsTableGUI {
   	@FXML 
   	public void initialize() { 
   		
+  		contactsTable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
   		contactsName.setCellValueFactory(
                   new PropertyValueFactory<Person, String>("name"));
   		contactsEmail.setCellValueFactory(

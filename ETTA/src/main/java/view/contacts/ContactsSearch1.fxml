@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="contactsearchanchorpane" prefHeight="750.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.contacts.ContactsSearchGUI">
+   <children>
+      <TextField fx:id="input" layoutX="337.0" layoutY="375.0" AnchorPane.bottomAnchor="313.0" AnchorPane.leftAnchor="319.0" AnchorPane.rightAnchor="332.0" AnchorPane.topAnchor="435.0" />
+      <TableView fx:id="contactsSearchTable" layoutX="27.0" layoutY="35.0" prefHeight="259.0" prefWidth="744.0" AnchorPane.bottomAnchor="501.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="35.0">
+        <columns>
+          <TableColumn fx:id="personName" prefWidth="150.0" text="%contactsPerson" />
+          <TableColumn fx:id="email" prefWidth="150.0" text="%contactsEmail" />
+            <TableColumn fx:id="birthday" prefWidth="150.0" text="%contactsBirthday" />
+        </columns>
+      </TableView>
+      <Button layoutX="504.0" layoutY="375.0" mnemonicParsing="false" onAction="#searchContact" text="%buttonSearch" AnchorPane.bottomAnchor="312.0" AnchorPane.leftAnchor="498.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="436.0" />
+   </children>
+</AnchorPane>

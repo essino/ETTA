@@ -143,7 +143,7 @@ public class BorrowedTableGUI {
 					//System.out.println("Old description " + oldDescription);
 					editedBorrowedThing.setDescription(t.getNewValue());
 					controller.updateBorrowedThing(editedBorrowedThing);
-					controller.updateBorrowedEventTitle(oldDescription);
+					controller.updateBorrowedEventTitle(oldDescription, editedBorrowedThing);
 					borrowedTable.refresh();
 				}});
 		borrowedBy.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("person"));

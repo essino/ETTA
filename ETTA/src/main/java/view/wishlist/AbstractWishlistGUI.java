@@ -28,108 +28,118 @@ import res.MyBundle;
 
 /**
  * Abstract super class for all the different wishlist table GUIs
+ * 
  * @author Tiina
  *
  */
 public abstract class AbstractWishlistGUI {
-	
+
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
 	MyBundle myBundle = new MyBundle();
+	
 	/**
 	 * Reference to the used WishlistController
 	 */
 	WishlistController controller = new WishlistController();
-	
+
 	/**
 	 * Reference to the used CalendarController
 	 */
 	CalendarController calendarController = new CalendarController();
-	
+
 	/**
 	 * Table view for showing the wishlist items
 	 */
 	@FXML
 	TableView<Item> wishlisttable;
-	
+
 	/**
 	 * Table view column for item name
 	 */
 	@FXML
 	TableColumn<Item, String> item;
-	
+
 	/**
 	 * Table view column for person name
 	 */
 	@FXML
 	TableColumn<Item, String> person;
-	
+
 	/**
 	 * Table view column for item price
 	 */
 	@FXML
 	TableColumn<Item, Double> price;
-	
+
 	/**
 	 * Table view column for item date
 	 */
 	@FXML
 	TableColumn<Item, Date> date;
-	
+
 	/**
 	 * Table view column for item additional information
 	 */
 	@FXML
 	TableColumn<Item, String> addinfo;
-	
+
 	/**
 	 * Table view column for bought boolean
 	 */
 	@FXML
 	TableColumn<Item, String> bought;
-	
+
 	/**
 	 * The dateCellFactory for editing dates in the table
 	 */
-	Callback<TableColumn<Item, Date>, TableCell<Item, Date>> dateCellFactory = (TableColumn<Item, Date> param) -> new WishlistDateEditingCell();
-	
+	Callback<TableColumn<Item, Date>, TableCell<Item, Date>> dateCellFactory = (
+			TableColumn<Item, Date> param) -> new WishlistDateEditingCell();
+
 	/**
-	 * Builds the wishlist table and makes it editable
+	 * Method for building the wishlist table and making it editable
 	 */
 	public void initializeTable() {
 		wishlisttable.setEditable(true);
 		wishlisttable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
 		item.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
 		item.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
-		item.setOnEditCommit(
-				new EventHandler<CellEditEvent<Item, String>>() {
-					@Override
-					public void handle(CellEditEvent<Item, String> t) {
-						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-						String oldDescription = editedItem.getDescription();
-						editedItem.setDescription(t.getNewValue());
-						controller.updateItem(editedItem);
-						calendarController.updateWishlistDescription(oldDescription, editedItem);
-						wishlisttable.refresh();
-					}});
+		item.setOnEditCommit(new EventHandler<CellEditEvent<Item, String>>() {
+			@Override
+			public void handle(CellEditEvent<Item, String> t) {
+				Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+				String oldDescription = editedItem.getDescription();
+				editedItem.setDescription(t.getNewValue());
+				controller.updateItem(editedItem);
+				calendarController.updateWishlistDescription(oldDescription, editedItem);
+				wishlisttable.refresh();
+			}
+		});
 
 		person.setCellValueFactory(new PropertyValueFactory<Item, String>("person"));
 		person.setCellFactory(ComboBoxTableCell.<Item, String>forTableColumn(controller.personsList()));
-		person.setOnEditCommit(
-				new EventHandler<CellEditEvent<Item, String>>() {
-					@Override
-					public void handle(CellEditEvent<Item, String> t) {
-						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-						String oldName = editedItem.getPerson().getName();
-						String newName = t.getNewValue();
-						Person newPerson = controller.findPerson(newName);
-						editedItem.setPerson(newPerson);
-						controller.updateItem(editedItem);
-						calendarController.updateWishlistPerson(oldName, editedItem);
-						wishlisttable.refresh();
-					}});
-					
+		person.setOnEditCommit(new EventHandler<CellEditEvent<Item, String>>() {
+			@Override
+			public void handle(CellEditEvent<Item, String> t) {
+				Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+				String newName = t.getNewValue();
+				if (newName == "Me" || newName == "Minä") {
+					newName = null;
+				}
+				Person oldPerson = editedItem.getPerson();
+				String oldName = null;
+				if (oldPerson != null) {
+					oldName = oldPerson.getName();
+				}
+				Person newPerson = controller.findPerson(newName);
+				editedItem.setPerson(newPerson);
+				controller.updateItem(editedItem);
+				calendarController.updateWishlistPerson(oldName, editedItem);
+				wishlisttable.refresh();
+			}
+		});
+
 		bought.setCellValueFactory(new Callback<CellDataFeatures<Item, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Item, String> item) {
 				if (item.getValue().isBought() == true) {
@@ -137,56 +147,54 @@ public abstract class AbstractWishlistGUI {
 				} else {
 					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
 				}
-					
+
 			}
 		});
-		
+
 		price.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
 		price.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-		price.setOnEditCommit(
-				new EventHandler<CellEditEvent<Item, Double>>() {
-					@Override
-					public void handle(CellEditEvent<Item, Double> t) {
-						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-						editedItem.setPrice(t.getNewValue());
-						controller.updateItem(editedItem);
-						wishlisttable.refresh();
-					}});
-		
+		price.setOnEditCommit(new EventHandler<CellEditEvent<Item, Double>>() {
+			@Override
+			public void handle(CellEditEvent<Item, Double> t) {
+				Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+				editedItem.setPrice(t.getNewValue());
+				controller.updateItem(editedItem);
+				wishlisttable.refresh();
+			}
+		});
+
 		date.setCellValueFactory(new PropertyValueFactory<Item, Date>("dateNeeded"));
 		date.setCellFactory(dateCellFactory);
-		date.setOnEditCommit(
-				(TableColumn.CellEditEvent<Item, Date> t) -> {
-				Item editedItem = ((Item) t.getTableView().getItems()
-	            .get(t.getTablePosition().getRow()));
-				Date oldDate = editedItem.getDateNeeded();
-				editedItem.setDateNeeded(t.getNewValue());
-				controller.updateItem(editedItem);
-				calendarController.updateWishlistDate(oldDate, editedItem);
-				wishlisttable.refresh();
-				}	
-			);	
-		
+		date.setOnEditCommit((TableColumn.CellEditEvent<Item, Date> t) -> {
+			Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+			Date oldDate = editedItem.getDateNeeded();
+			editedItem.setDateNeeded(t.getNewValue());
+			controller.updateItem(editedItem);
+			calendarController.updateWishlistDate(oldDate, editedItem);
+			wishlisttable.refresh();
+		});
+
 		addinfo.setCellValueFactory(new PropertyValueFactory<Item, String>("additionalInfo"));
 		addinfo.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
-		addinfo.setOnEditCommit(
-				new EventHandler<CellEditEvent<Item, String>>() {
-					@Override
-					public void handle(CellEditEvent<Item, String> t) {
-						Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-						editedItem.setAdditionalInfo(t.getNewValue());
-						controller.updateItem(editedItem);
-						wishlisttable.refresh();
-					}});
+		addinfo.setOnEditCommit(new EventHandler<CellEditEvent<Item, String>>() {
+			@Override
+			public void handle(CellEditEvent<Item, String> t) {
+				Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+				editedItem.setAdditionalInfo(t.getNewValue());
+				controller.updateItem(editedItem);
+				wishlisttable.refresh();
+			}
+		});
 	}
-	
+
 	/**
 	 * Method for loading the view of add to wishlist
+	 * 
 	 * @param event ActionEvent that is handled
 	 */
 	public AnchorPane loadAddWish() {
-		AnchorPane showAddWishView = null; 
-		FXMLLoader loaderAddWishView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistAdd.fxml")); 
+		AnchorPane showAddWishView = null;
+		FXMLLoader loaderAddWishView = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistAdd.fxml"));
 		loaderAddWishView.setResources(myBundle.getBundle());
 		try {
 			showAddWishView = loaderAddWishView.load();
@@ -195,15 +203,16 @@ public abstract class AbstractWishlistGUI {
 		}
 		return showAddWishView;
 	}
-	
+
 	/**
 	 * Method for getting the selected item from the table
+	 * 
 	 * @return the selected item
 	 */
 	public Item getSelectedItem() {
 		return wishlisttable.getSelectionModel().getSelectedItem();
 	}
-	
+
 	/**
 	 * Method for checking that an item is currently selected in the table
 	 */
@@ -211,7 +220,7 @@ public abstract class AbstractWishlistGUI {
 		Item item = getSelectedItem();
 		return item != null;
 	}
-	
+
 	/**
 	 * Abstract method for deleting an item from the table
 	 */

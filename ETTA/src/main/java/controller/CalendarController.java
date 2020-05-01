@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Locale;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarEvent;
@@ -16,15 +17,17 @@ import javafx.event.EventHandler;
 
 import com.calendarfx.model.Calendar.Style;
 
+import model.BorrowedThing;
 import model.Event;
 import model.EventDAO;
 import model.Item;
 
 /** 
  * Controller class for the calendar.  
- * 
+ * @author Lena
  */
 public class CalendarController {
+	
 	/**
 	 * EventDAO used for accessing the database
 	 */
@@ -298,9 +301,14 @@ public class CalendarController {
 		//update wishlist event if date changes
 		public boolean updateWishlistDate(Date oldDate, Item editedItem) {
 			boolean updated = false;
-			String event = "Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName();
+			String event = null;
+			if (editedItem.getPerson() != null) {
+				event = "Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName();
+			} else {
+				event = "Buy " + editedItem.getDescription() + " for myself";
+			}
 			Event wishlistEvent = eventDAO.readWishlistEvent(event);
-			if(wishlistEvent != null) {
+			if (wishlistEvent != null) {
 				wishlistEvent.setStartDate(editedItem.getDateNeeded());
 				wishlistEvent.setEndDate(editedItem.getDateNeeded());
 				updated = eventDAO.updateEvent(wishlistEvent);
@@ -334,5 +342,49 @@ public class CalendarController {
 			birthdayEvent.setRecurring(true);
 			birthdayEvent.setRrule("RRULE:FREQ=YEARLY;");
 			return eventDAO.createEvent(birthdayEvent);
+		}
+
+		/** 
+		 * Boolean method that gets a Date containing old date when a borrowed thing should be returned
+		 * and the borrowed thing that was updated as parameters and updates a database borrowed Event.
+		 * Method first checks if there was a borrowed event already.
+		 * @param Date oldDate - the old date when when a borrowed thing should be returned
+		 * @param BorrowedThing the borrowed thing that was updated
+		 * @return true - if borrowed event was successfully updated
+		 * @return false - if updating borrowed event didn't succeed 
+		 */
+		//update borrowed event if date changes
+		public boolean updateBorrowedDate(BorrowedThing thing) {
+			boolean updated = false;
+			String eventTitle = thing.getPerson().getName() + " should return " + thing.getDescription();
+			Event borrowedEvent = eventDAO.readBorrowed(eventTitle);
+			if(borrowedEvent != null) {
+				borrowedEvent.setStartDate(thing.getReturnDate());
+				borrowedEvent.setEndDate(thing.getReturnDate());
+				updated = eventDAO.updateEvent(borrowedEvent);
+			}
+			return updated;
+		}
+		
+		/** 
+		 * Boolean method that gets a String containing old borrowed thing's description 
+		 * and the borrowed thing that was updated as parameters and updates a database borrowed Event.
+		 * Method first checks if there was a borrowed event already.
+		 * @param String  - the old description of the updated borrowed thing 
+		 * @param BorrowedThing the borrowed thing that was updated
+		 * @return true - if borrowed event was successfully updated
+		 * @return false - if updating borrowed event didn't succeed 
+		 */
+		//update borrowed event if borrowed thing's description changes
+		public boolean updateBorrowedTitle(String oldTitle, BorrowedThing thing) {
+			boolean updated = false;
+			String eventTitle = thing.getPerson().getName() + " should return " + oldTitle;
+			Event borrowedEvent = eventDAO.readBorrowed(eventTitle);
+			if(borrowedEvent != null) {
+				String newEvent = thing.getPerson().getName() + " should return " + thing.getDescription();
+				borrowedEvent.setTitle(newEvent);
+				updated = eventDAO.updateEvent(borrowedEvent);
+			}
+			return updated;
 		}
 }
