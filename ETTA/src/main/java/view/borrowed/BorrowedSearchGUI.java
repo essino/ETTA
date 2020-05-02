@@ -91,8 +91,7 @@ public class BorrowedSearchGUI {
 
 	/**
 	 * Initialize-method called when the class is created
-	 * Fetches the list of returned items in the database 
-	 * Also allows for inline editing of the borrowed items on the list
+	 * Fetches the list of loaned items in the database
 	 */
 	@FXML
 	public void initialize() {

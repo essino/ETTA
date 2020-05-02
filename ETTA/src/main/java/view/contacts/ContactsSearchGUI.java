@@ -82,8 +82,7 @@ public class ContactsSearchGUI {
 	
 	/**
 	 * Initialize-method called when the class is created
-	 * Fetches the list of returned items in the database 
-	 * Also allows for inline editing of the borrowed items on the list
+	 * Fetches the list of people in the database
 	 */
 	@FXML
 	public void initialize() {
