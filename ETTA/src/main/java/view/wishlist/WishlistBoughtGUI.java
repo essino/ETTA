@@ -77,18 +77,5 @@ public class WishlistBoughtGUI extends AbstractWishlistGUI {
 			inputCheck.alertNothingSelected();
 		}
 	}
-	
-	/** 
-	 * Method for marking an item as bought
-	 */
-	@FXML
-	public void markAsBought() {
-		if (super.checkItemIsSelected()) {
-			controller.setBought(this);
-			initialize();
-		} else {
-			inputCheck.alertNothingSelected();
-		}
-	}
 
 }

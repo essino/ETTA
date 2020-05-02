@@ -94,8 +94,10 @@ public class WishlistTableGUI extends AbstractWishlistGUI {
 	@FXML
 	public void markAsBought() {
 		if (super.checkItemIsSelected()) {
-			controller.setBought(this);
-			initialize();
+			if (inputCheck.confrimMarkBought()) {
+				controller.setBought(this);
+				initialize();
+			}
 		} else {
 			inputCheck.alertNothingSelected();
 		}

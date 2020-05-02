@@ -212,6 +212,24 @@ public class InputCheck {
 		alert.setContentText(myBundle.getBundle().getString("checkNothingSelectedContent"));
 		alert.showAndWait();
 	}
+	
+	public boolean confrimMarkBought() {
+		boolean confirmed = false;
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle(myBundle.getBundle().getString("checkConfirmationTitle"));
+		alert.setHeaderText(myBundle.getBundle().getString("checkMarkBoughtHeader"));
+		alert.setContentText(myBundle.getBundle().getString("checkMarkBoughtContent"));
+		
+		ButtonType buttonOK = new ButtonType("OK", ButtonData.YES);
+		ButtonType buttonTypeCancel = new ButtonType(myBundle.getBundle().getString("buttonCancel"), ButtonData.CANCEL_CLOSE);
+		alert.getButtonTypes().setAll(buttonOK, buttonTypeCancel);
+		
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.isPresent() && result.get() == buttonOK) {
+			confirmed = true;
+		 }
+		return confirmed;
+	}
 }
 
 
