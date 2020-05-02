@@ -93,10 +93,15 @@ public class EconomySavingsGUI {
     @FXML
     private ComboBox<String> savingGoalList;
     
-    
+    /**
+	 * The reference to Label where the goal amount is shown when starting to add money to that goal
+	 */
     @FXML
     private Label savingGoalAmount;
     
+    /**
+	 * The reference to Label where the saved amount is shown when starting to add money to said amount
+	 */
     @FXML
     private Label savingSavedAmount;
 
@@ -197,6 +202,8 @@ public class EconomySavingsGUI {
 				savingsTable.refresh();
 			}
 		);
+		//clears the savingGoalList so that the list items aren't duplicated
+		savingGoalList.getItems().clear();
 		savingGoalList.getItems().addAll(controller.getSavingsList());
 		savingGoalList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
         {
@@ -235,16 +242,28 @@ public class EconomySavingsGUI {
 	 */
 	@FXML
 	public void deleteSaving() {
-		if(inputCheck.confirmDeleting()) {
-			controller.removeSaving();
-		}
+		if (savingToDelete() != null) {
+			if(inputCheck.confirmDeleting()) {
+				controller.removeSaving();
+				initialize();
+			}
+		} else {
+			inputCheck.alertNothingSelected();
+		}	
 	}
 	
+	/** 
+	 * Method that tells economy controller to transfer the saving into income and expenses
+	 */
 	@FXML
 	public void moveSavingToExspence() {
-		if(inputCheck.confirmSavingAchieved()) {
-			Saving achievedSaving = savingToDelete();
-			controller.moveSavingToExpense(achievedSaving);
+		if (savingToDelete() != null) {
+			if(inputCheck.confirmSavingAchieved()) {
+				Saving achievedSaving = savingToDelete();
+				controller.moveSavingToExpense(achievedSaving);
+			}
+		} else {
+			inputCheck.alertNothingSelected();
 		}
 	}
 	
@@ -262,36 +281,42 @@ public class EconomySavingsGUI {
 	 */
 	public void removeFromTable(Saving savingToDelete) {
 		savingsTable.getItems().remove(savingToDelete);
-		
 	}
 	
+	/** 
+	 * Method telling the controller to add money to a saving goal
+	 */
 	@FXML
 	public void updateSavingAmount() {
-		if(inputCheck.isInputFloat(savingAddedAmount.getText())){
+		if (savingGoalList.getSelectionModel().getSelectedItem() != null) {
 			if(!inputCheck.isInputEmpty(savingAddedAmount.getText())) {
-				Saving editedSaving = controller.getSaving(savingGoalList.getValue());
-				Float oldAmount = editedSaving.getAmount();
-				Float difference = Float.parseFloat(savingAddedAmount.getText());
-				if(controller.updateBalanceAmount(0-difference)) {
-					editedSaving.setAmount(oldAmount+difference);
-					controller.updateSaving(editedSaving);
+				if(inputCheck.isInputFloat(savingAddedAmount.getText())){
+					Saving editedSaving = controller.getSaving(savingGoalList.getValue());
+					Float oldAmount = editedSaving.getAmount();
+					Float difference = Float.parseFloat(savingAddedAmount.getText());
+					if(controller.updateBalanceAmount(0-difference)) {
+						editedSaving.setAmount(oldAmount+difference);
+						controller.updateSaving(editedSaving);
+					}
+					else {
+						inputCheck.alertNotEnoughBalance();
+					}
+					savingGoalList.getSelectionModel().clearSelection();
+					savingGoalAmount.setText("");
+					savingSavedAmount.setText("");
+					savingAddedAmount.clear();
+					initialize();
 				}
 				else {
-					inputCheck.alertNotEnoughBalance();
+					inputCheck.alertInputNotFloat();
 				}
-				savingGoalList.getSelectionModel().clearSelection();
-				savingGoalAmount.setText("");
-				savingSavedAmount.setText("");
-				savingAddedAmount.clear();
-				initialize();
 			}
 			else {
 				inputCheck.alertInputEmpty();
 			}
-		}
-		else {
-			inputCheck.alertInputNotFloat();
-			
+		} else {
+			inputCheck.alertNothingComboBox();
 		}
 	}
+	
 }

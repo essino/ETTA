@@ -17,8 +17,8 @@
    <children>
 		<ButtonBar layoutX="478.0" layoutY="591.0" prefHeight="40.0" prefWidth="50.0" AnchorPane.bottomAnchor="68.0" AnchorPane.rightAnchor="54.0">
   		<buttons>
-      		<Button mnemonicParsing="false" text="%buttonCancel" />
     			<Button mnemonicParsing="false" onAction="#updateSavingAmount" text="%buttonSave" />
+      		<Button mnemonicParsing="false" text="%buttonCancel" />
   		</buttons>
 		</ButtonBar>
       <TableView fx:id="savingsTable" layoutX="141.0" layoutY="92.0" prefHeight="420.0" AnchorPane.bottomAnchor="400.0" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="21.0">
