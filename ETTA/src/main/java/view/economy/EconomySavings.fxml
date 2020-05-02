@@ -38,7 +38,7 @@
         </buttons>
       </ButtonBar>
 
-      <GridPane layoutX="21.0" layoutY="438.0" maxHeight="236.0" maxWidth="437.0" prefHeight="236.0" prefWidth="437.0" AnchorPane.bottomAnchor="62.0" AnchorPane.topAnchor="438.0">
+      <GridPane layoutX="21.0" layoutY="438.0" maxHeight="250.0" maxWidth="492.0" prefHeight="250.0" prefWidth="492.0" AnchorPane.bottomAnchor="62.0" AnchorPane.topAnchor="438.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="376.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="471.0" />
