@@ -117,6 +117,14 @@ public class WishlistController {
 	}
 	
 	/** 
+	 * Method for reading all people in the database
+	 * @return Person[] the people in the database
+	 */ 
+	public Person[] getPeople() {
+		return personDAO.readPeople();
+	}
+	
+	/** 
 	 * Method for creating a new item and saving it to the database
 	 */ 
 	public void saveItem() {

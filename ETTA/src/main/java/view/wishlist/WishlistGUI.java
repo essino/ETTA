@@ -19,12 +19,16 @@ public class WishlistGUI {
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
 	MyBundle myBundle = new MyBundle();
+	
 	/**
 	 * The menu view to which the alternative views in the Wish section are added
 	 */
 	@FXML
 	BorderPane wishmainpane;
 	
+	/**
+	 * The used WishlistController
+	 */
 	WishlistController controller = new WishlistController();
 	
 	/**
@@ -45,6 +49,10 @@ public class WishlistGUI {
 		wishmainpane.setCenter(allView);
 	}
 	
+	/**
+	 * Method showing the Wishlist bought view in the Wish section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showBought(ActionEvent event) {
 		AnchorPane boughtView = null;
@@ -59,6 +67,10 @@ public class WishlistGUI {
 		wishmainpane.setCenter(boughtView);
 	}
 	
+	/**
+	 * Method showing the Wishlist gift view in the Wish section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showGifts(ActionEvent event) {
 		AnchorPane giftView = null;
@@ -73,6 +85,10 @@ public class WishlistGUI {
 		wishmainpane.setCenter(giftView);
 	}
 	
+	/**
+	 * Method showing the Wishlist own view in the Wish section
+	 * @param event ActionEvent that is handled
+	 */
 	@FXML
 	public void showOwn(ActionEvent event) {
 		AnchorPane ownView = null;
@@ -85,6 +101,24 @@ public class WishlistGUI {
 			e.printStackTrace();
 			}
 		wishmainpane.setCenter(ownView);
+	}
+	
+	/**
+	 * Method showing the Wishlist search view in the Wish section
+	 * @param event ActionEvent that is handled
+	 */
+	@FXML
+	public void showSearch(ActionEvent event) {
+		AnchorPane searchView = null;
+		FXMLLoader loaderWishlistSearch = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistSearch.fxml"));
+		loaderWishlistSearch.setResources(myBundle.getBundle());
+		try {
+			searchView = loaderWishlistSearch.load();
+			} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		wishmainpane.setCenter(searchView);
 	}
 	
 }
