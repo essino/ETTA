@@ -52,7 +52,7 @@ public class BorrowedGUI {
 	BorrowedController controller;
 	
 	/**
-	 * an empty construtor for BorrowedGUI
+	 * an empty constructor for BorrowedGUI
 	 */
 	public BorrowedGUI() {
 	}

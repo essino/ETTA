@@ -95,8 +95,6 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
      */
     private void createDatePicker() {
         datePicker = new DatePicker(getDate().toLocalDate());
-        //changes the datepicker's language into English
-        //datePicker.setOnShowing(e-> Locale.setDefault(Locale.Category.FORMAT,Locale.ENGLISH));
         datePicker.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
         datePicker.setOnAction((e) -> {
             System.out.println("Committed: " + datePicker.getValue().toString());

@@ -95,7 +95,6 @@ public class BorrowedSearchGUI {
 	 */
 	@FXML
 	public void initialize() {
-		System.out.println("We don't need no education!");
 		borrowedSearchTable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
 		borrowedBy.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("person"));
@@ -105,10 +104,8 @@ public class BorrowedSearchGUI {
 			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 				if (borrowedThingDescr.getValue().isReturned() == true) {
 					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("yesYes"));
-					//return new ReadOnlyObjectWrapper<>("Yes");
 				} else {
 					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
-					//return new ReadOnlyObjectWrapper<>("No");
 				}
 			}});
 		

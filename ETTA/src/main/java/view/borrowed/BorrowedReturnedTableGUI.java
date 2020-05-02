@@ -94,9 +94,6 @@ public class BorrowedReturnedTableGUI {
 		 */
 		InputCheck inputCheck = new InputCheck(); 
 		
-		//not needed because returned items are not editable
-		//Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
-
 		/**
 		 * Initialize-method called when the class is created
 		 * Fetches the list of returned items in the database 
@@ -104,10 +101,8 @@ public class BorrowedReturnedTableGUI {
 		 */
 		@FXML
 		public void initialize() {
-			
 			System.out.println("Aputulostus");
 			MyBundle myBundle = new MyBundle();
-			
 			//for setting the right formatting for dates in table cells
 			Locale locale = Locale.getDefault();
     	    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
@@ -159,10 +154,8 @@ public class BorrowedReturnedTableGUI {
 				public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 					if (borrowedThingDescr.getValue().isReturned() == true) {
 						return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("yesYes")); 
-						//return new ReadOnlyObjectWrapper<>("Yes");
 					} else {
 						return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
-						//return new ReadOnlyObjectWrapper<>("No");
 					}
 				}});
 			ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
@@ -209,15 +202,6 @@ public class BorrowedReturnedTableGUI {
 		}
 		
 		/** 
-		 * Method that marks an event as returned
-		 */
-		/*@FXML
-		public void markAsReturned() {
-			controller.markReturned();
-			initialize();
-		}*/
-		
-		/** 
 		 * Method that changes an item's status from returned to borrowed again
 		 */
 		@FXML
@@ -229,7 +213,6 @@ public class BorrowedReturnedTableGUI {
 			} else {
 				inputCheck.alertNothingSelected();
 			}
-			
 		}
 	
 }
