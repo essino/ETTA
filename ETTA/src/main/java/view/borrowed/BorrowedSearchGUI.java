@@ -31,19 +31,20 @@ public class BorrowedSearchGUI {
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
 	MyBundle myBundle = new MyBundle();
+	
 	/**
 	 * the controller for Borrowed things
 	 */
 	BorrowedController controller = new BorrowedController();
 	
 	/**
-	 * The anchorpane for the overall view of returned things
+	 * The anchorpane for the search view of returned things
 	 */
 	@FXML
 	AnchorPane borrowedsearchanchorpane;
 	
 	/**
-	 * The TableView for viewing all returned items
+	 * The TableView for viewing all loaned items
 	 */
 	@FXML
 	private TableView<BorrowedThing> borrowedSearchTable;
@@ -85,11 +86,6 @@ public class BorrowedSearchGUI {
 	 */
 	@FXML
 	private TextField input;
-
-	/**
-	 * The reference of InputCheck class used for checking user's input
-	 */
-	InputCheck inputCheck = new InputCheck(); 
 	
 	Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
 
@@ -137,6 +133,10 @@ public class BorrowedSearchGUI {
 		return borrowedSearchTable.getSelectionModel().getSelectedItem();
 	}
 	
+	/**
+	 * Filters the list of borrowed things by the description inputted by the user
+	 * @param event the ActionEvent that is handled
+	 */
 	public void searchBorrowedThing(ActionEvent event) {
 		String value = input.getText();
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());

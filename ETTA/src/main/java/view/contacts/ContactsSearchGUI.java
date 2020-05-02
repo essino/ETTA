@@ -6,21 +6,17 @@ import org.controlsfx.control.textfield.TextFields;
 
 import controller.ContactsController;
 import controller.InputCheck;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 import res.MyBundle;
 import model.Person;
 
@@ -71,7 +67,6 @@ public class ContactsSearchGUI {
 	 */
 	@FXML
 	private TextField input;
-		
 	
 	/**
 	 * A constructor for BorrowedTableGUI in which the controller object is created
@@ -112,10 +107,14 @@ public class ContactsSearchGUI {
 	 * @return the selected item
 	 */
 	@FXML
-	public Person getSelectedBorrowedThing() {
+	public Person getSelectedPerson() {
 		return contactsSearchTable.getSelectionModel().getSelectedItem();
 	}
 	
+	/**
+	 * Filters the list of people by the name inputted by the user
+	 * @param event the ActionEvent that is handled
+	 */
 	public void searchContact(ActionEvent event) {
 		String value = input.getText();
 		System.out.println("Input " + value);
