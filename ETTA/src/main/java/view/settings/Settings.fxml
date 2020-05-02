@@ -35,8 +35,8 @@
                   <Label fx:id="chosenLanguage" GridPane.columnIndex="1" />
             <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
               <buttons>
-                <Button mnemonicParsing="false" onAction="#saveLanguage" prefHeight="25.0" prefWidth="123.0" text="%buttonSave" />
-                  <Button mnemonicParsing="false" onAction="#cancel" text="%buttonCancel" />
+                <Button fx:id="buttonSaveLang" mnemonicParsing="false" onAction="#saveLanguage" prefHeight="25.0" prefWidth="123.0" text="%buttonSave" />
+                  <Button fx:id="buttonCancelLang" mnemonicParsing="false" onAction="#cancel" text="%buttonCancel" />
               </buttons>
             </ButtonBar>
          </children>

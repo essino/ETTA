@@ -205,6 +205,9 @@ public class InputCheck {
 		return delete;
 	}
 	
+	/** 
+	 * Method that alerts the user that nothing is selected in the table
+	 */
 	public void alertNothingSelected() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(myBundle.getBundle().getString("checkErrorTitle"));
@@ -213,6 +216,20 @@ public class InputCheck {
 		alert.showAndWait();
 	}
 	
+	/** 
+	 * Method that alerts the user that nothing is selected in the language combo box
+	 */
+	public void alertNothingSelectedLanguage() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle(myBundle.getBundle().getString("checkErrorTitle"));
+		alert.setHeaderText(myBundle.getBundle().getString("checkNothingSelectedHeader"));
+		alert.setContentText(myBundle.getBundle().getString("checkNothingSelectedLanguage"));
+		alert.showAndWait();
+	}
+	
+	/** 
+	 * Method that creates the pop-up in which the marking an item bought is confirmed
+	 */
 	public boolean confrimMarkBought() {
 		boolean confirmed = false;
 		Alert alert = new Alert(AlertType.CONFIRMATION);
