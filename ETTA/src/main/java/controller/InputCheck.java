@@ -217,13 +217,13 @@ public class InputCheck {
 	}
 	
 	/** 
-	 * Method that alerts the user that nothing is selected in the language combo box
+	 * Method that alerts the user that nothing is selected in a combo box
 	 */
-	public void alertNothingSelectedLanguage() {
+	public void alertNothingComboBox() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(myBundle.getBundle().getString("checkErrorTitle"));
 		alert.setHeaderText(myBundle.getBundle().getString("checkNothingSelectedHeader"));
-		alert.setContentText(myBundle.getBundle().getString("checkNothingSelectedLanguage"));
+		alert.setContentText(myBundle.getBundle().getString("checkNothingSelectedCombo"));
 		alert.showAndWait();
 	}
 	

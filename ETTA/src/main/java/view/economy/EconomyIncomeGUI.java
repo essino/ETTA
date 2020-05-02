@@ -197,12 +197,16 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI
 	 */
 	@FXML
 	public void deleteIncome() {
-		if (inputCheck.confirmDeleting()) {
-			controller.removeTransfer(this);
-			//controller.removeIncome();
-			initialize();
+		if (getSelectedItem() != null) {
+			if (inputCheck.confirmDeleting()) {
+				controller.removeTransfer(this);
+				initialize();
+			}
+		} else {
+			inputCheck.alertNothingSelected();
 		}
 	}
+	
 	
 	/** 
 	 * Method that returns the selected income

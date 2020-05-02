@@ -41,9 +41,15 @@ public class SettingsGUI {
 	@FXML
 	private Label language;
 	
+	/**
+	 * The button for saving the chosen language
+	 */
 	@FXML
 	private Button buttonSaveLang;
 	
+	/**
+	 * The button for cancelling a language choice
+	 */
 	@FXML
 	private Button buttonCancelLang;
 	
@@ -62,16 +68,22 @@ public class SettingsGUI {
 	 */
 	InputCheck check = new InputCheck();
 	
+	/**
+	 * Method for cancelling the choice of language
+	 */
 	@FXML
 	public void cancel() {
 		
 	}
 	
+	/**
+	 * Method for saving the chose language
+	 */
 	@FXML
 	public void saveLanguage() {
 		String lang = languageList.getSelectionModel().getSelectedItem();
 		if (lang == null) {
-			check.alertNothingSelectedLanguage();
+			check.alertNothingComboBox();
 		} else {
 			controller.updateChoice(lang);
 			chosenLanguage.setText(controller.getSelectedLanguage());
@@ -82,6 +94,9 @@ public class SettingsGUI {
 		}
 	}
 	
+	/**
+	 * Method for setting up the settings page
+	 */
 	@FXML 
 	public void initialize() { 
 		languageList.getItems().addAll(controller.languageList());

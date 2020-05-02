@@ -200,10 +200,13 @@ public class EconomyOutcomeGUI extends AbstractEconomyGUI implements ITransferGU
 	 */
 	@FXML
 	public void deleteOutcome() {
-		if (inputCheck.confirmDeleting()) {
-			controller.removeTransfer(this);
-			//controller.removeExpense();
-			initialize();
+		if (getSelectedItem() != null) {
+			if (inputCheck.confirmDeleting()) {
+				controller.removeTransfer(this);
+				initialize();
+			}
+		} else {
+			inputCheck.alertNothingSelected();
 		}
 	}
 	
