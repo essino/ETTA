@@ -34,7 +34,7 @@ public class BorrowedSearchGUI {
 	/**
 	 * the controller for Borrowed things
 	 */
-	BorrowedController controller;
+	BorrowedController controller = new BorrowedController();
 	
 	/**
 	 * The anchorpane for the overall view of returned things
