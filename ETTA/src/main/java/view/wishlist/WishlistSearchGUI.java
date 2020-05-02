@@ -137,7 +137,9 @@ public class WishlistSearchGUI {
 		String value = input.getText();
 		ObservableList<Item> data = FXCollections.observableArrayList(controller.getItems());
 		FilteredList<Item> filteredData = new FilteredList<>(data,
-	            s -> ((s.getPerson().getName())).equals(value));
+	           s -> (s.getPerson() != null && s.getPerson().getName().equals(value)));
 		wishlistSearchTable.setItems(filteredData);
 	}
+	
+	
 }
