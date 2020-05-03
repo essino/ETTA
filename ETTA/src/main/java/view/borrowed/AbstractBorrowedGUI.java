@@ -16,7 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import model.BorrowedThing;
-import res.MyBundle;
+import res.MyBundle; 
 
 /**
  * Abstract class for BorrowedGUIs

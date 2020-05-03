@@ -31,7 +31,7 @@ import controller.InputCheck;
 /**
  * GUI class in charge of the view showing the list of borrowed items
  */
-public class BorrowedTableGUI extends AbstractBorrowedGUI{
+public class BorrowedTableGUI extends AbstractBorrowedGUI {
 	
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application

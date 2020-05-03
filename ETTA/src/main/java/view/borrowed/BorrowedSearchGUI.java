@@ -25,7 +25,7 @@ import javafx.util.Callback;
 import model.BorrowedThing;
 import res.MyBundle;
 
-public class BorrowedSearchGUI extends AbstractBorrowedGUI{
+public class BorrowedSearchGUI extends AbstractBorrowedGUI { 
 
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application

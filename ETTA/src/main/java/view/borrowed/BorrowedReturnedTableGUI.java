@@ -10,7 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import model.BorrowedThing;
 
-public class BorrowedReturnedTableGUI extends AbstractBorrowedGUI {
+public class BorrowedReturnedTableGUI extends AbstractBorrowedGUI { 
 		
 		/**
 		 * Reference to the controller for Borrowed things
