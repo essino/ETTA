@@ -9,6 +9,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import res.MyBundle;
 
+/**
+ * GUI class relating to the Settings section. Displays the chosen language, the list of languages and updates the choice.
+ * @author Lena
+ */
 public class SettingsGUI {
 	
 	/**
@@ -48,12 +52,6 @@ public class SettingsGUI {
 	private Button buttonSaveLang;
 	
 	/**
-	 * The button for cancelling a language choice
-	 */
-	@FXML
-	private Button buttonCancelLang;
-	
-	/**
 	 * The settings controller 
 	 */
 	SettingsController controller = SettingsController.getInstance();
@@ -69,15 +67,7 @@ public class SettingsGUI {
 	InputCheck check = new InputCheck();
 	
 	/**
-	 * Method for cancelling the choice of language
-	 */
-	@FXML
-	public void cancel() {
-		
-	}
-	
-	/**
-	 * Method for saving the chose language
+	 * Method for saving the chosen language and updating the view.
 	 */
 	@FXML
 	public void saveLanguage() {
@@ -90,12 +80,12 @@ public class SettingsGUI {
 			chosenLanguageLabel.setText(myBundle.getBundle().getString("settingsChosenLanguageLabel"));
 			language.setText(myBundle.getBundle().getString("settingsLanguageLabel"));
 			buttonSaveLang.setText(myBundle.getBundle().getString("buttonSave"));
-			buttonCancelLang.setText(myBundle.getBundle().getString("buttonCancel"));
 		}
 	}
 	
 	/**
-	 * Method for setting up the settings page
+	 * Method for setting up the settings page. 
+	 * Gets the language list from the controller and displays the current chosen language.
 	 */
 	@FXML 
 	public void initialize() { 
