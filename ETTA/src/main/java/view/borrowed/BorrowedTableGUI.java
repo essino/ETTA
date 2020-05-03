@@ -40,6 +40,7 @@ public class BorrowedTableGUI {
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
 	MyBundle myBundle = new MyBundle();
+	
 	/**
 	 * the controller for Borrowed things
 	 */
@@ -81,7 +82,6 @@ public class BorrowedTableGUI {
 	@FXML
 	private TableColumn<BorrowedThing, String> borrowedBy;
 	
-	//returned changed from boolean to String
 	/**
 	 * The TableColumn that shows if the item has been returned
 	 */
@@ -101,7 +101,7 @@ public class BorrowedTableGUI {
 	InputCheck inputCheck = new InputCheck(); 
 	
 	/**
-	 * Default cell factory for inline editing of cells containing dates
+	 * Default cell factory for in-table editing of cells containing dates
 	 */
 	Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
 	
@@ -126,11 +126,13 @@ public class BorrowedTableGUI {
 	/**
 	 * Initialize-method called when the class is created
 	 * Fetches the list of borrowed items in the database 
-	 * Also allows for inline editing of the borrowed items on the list
+	 * Also allows for in-table editing of the borrowed items on the list
 	 */
 	@FXML
 	public void initialize() {
+		//makes in-table editing possible
 		borrowedTable.setEditable(true);
+		//sets the placeholder in case table is empty
 		borrowedTable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
 		borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
@@ -208,15 +210,18 @@ public class BorrowedTableGUI {
 					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
 				}
 			}});
+		//gets the data
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
+		//filters the data
 		FilteredList<BorrowedThing> filteredData = new FilteredList<>(data,
 	            s -> !s.isReturned());
+		//sets the data
 		borrowedTable.setItems(filteredData);
 	}
 	
 	/**
 	 * Method for getting the selected item from the table
-	 * @return the selected item
+	 * @return borrowedTable.getSelectionModel().getSelectedItem() the selected item
 	 */
 	@FXML
 	public BorrowedThing getSelectedBorrowedThing() {
@@ -225,6 +230,7 @@ public class BorrowedTableGUI {
 	
 	/**
 	 * Method for checking that an item is currently selected in the table
+	 * @return thing != null boolean indicating that the item is not null, and thus something is selected
 	 */
 	public boolean checkItemIsSelected() {
 		BorrowedThing thing = getSelectedBorrowedThing();

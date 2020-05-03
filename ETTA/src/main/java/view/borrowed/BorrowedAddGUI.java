@@ -4,19 +4,13 @@ package view.borrowed;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
-
 import controller.InputCheck;
 import controller.BorrowedController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Person;
@@ -72,18 +66,22 @@ public class BorrowedAddGUI {
 	AnchorPane borrowedaddanchorpane;
 	
 	/**
-	 * Reference to the used BorrowedController
+	 * Borrowed Controller created
 	 */
 	BorrowedController controller = new BorrowedController(this);
 	
+	/**
+	 * InputCheck object created to check the user's input
+	 */
 	InputCheck inputCheck = new InputCheck();
 	
 	/**
 	 * Initialize-method called when the class is created
-	 * Fetches the list of people in the database to whom items can be given
+	 * Fetches the list of people in the database to whom items can be loaned 
 	 */
 	@FXML
 	public void initialize() {
+			//setting up the combobox including all contacts
 			bbc.getItems().addAll(controller.personsList());
 			bbc.getItems().add("");
 			bbc.setCellFactory(lv -> {
@@ -121,7 +119,7 @@ public class BorrowedAddGUI {
 
 	/**
 	 * Method for getting the value of the borrowedThing description text field
-	 * @return the description of the borrowedThing
+	 * @return this.borrowedThing.getText() the description of the borrowedThing
 	 */
 	@FXML
 	public String getBorrowedDescription() {
@@ -130,7 +128,7 @@ public class BorrowedAddGUI {
 	
 	/**
 	 * Method for getting the borrower from the combo box
-	 * @return the borrower
+	 * @return this.bbc.getValue() the borrower
 	 */
 	@FXML
 	public String getBorrowedPerson() {
@@ -139,7 +137,7 @@ public class BorrowedAddGUI {
 	
 	/**
 	 * Method for getting the date when the item has been borrowed
-	 * @return the date when the item has been borrowed
+	 * @return Date.valueOf(this.loanDate.getValue()) the date when the item has been borrowed
 	 */
 	@FXML
 	public Date getBorrowedLoanDate() {
@@ -152,7 +150,7 @@ public class BorrowedAddGUI {
 	
 	/**
 	 * Method for getting the date when the item will be returned
-	 * @return the date when the item will be returned
+	 * @return Date.valueOf(this.returnDate.getValue()) the date when the item will be returned
 	 */
 	@FXML
 	public Date getBorrowedReturnDate() {

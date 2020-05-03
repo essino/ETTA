@@ -2,18 +2,14 @@ package view.borrowed;
 
 import java.sql.Date;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Locale;
-import java.util.ResourceBundle;
-
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import model.BorrowedThing;
-import res.MyBundle;
 
 /**
- * Class used for inline editing of dates
+ * Class used for in-table editing of dates
  * Extends JavaFX class TableCell
  */
 public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
@@ -70,7 +66,6 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
     @Override
     public void updateItem(java.sql.Date item, boolean empty) {
         super.updateItem(item, empty);
-
         if (empty) {
             setText(null);
             setGraphic(null);
@@ -85,7 +80,6 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
             	//formats the date
             	setText(df.format(getDate()));
             	setGraphic(null);
-                
             }
         }
     }
@@ -104,7 +98,7 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
 
     /**
      * Method for beginning date editing
-     * @return Date the value of the date picker. If there is no value, the current date is added
+     * @return getItem() Date the value of the date picker. If there is no value, the current date is added
      */
     private Date getDate() {
     	if (getItem() == null) {

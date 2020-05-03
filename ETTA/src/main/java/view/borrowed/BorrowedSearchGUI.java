@@ -73,28 +73,25 @@ public class BorrowedSearchGUI {
 	@FXML
 	private TableColumn<BorrowedThing, String> borrowedBy;
 	
-	//returned changed from boolean to String
 	/**
 	 * The TableColumn that shows if the item has been returned
 	 */
 	@FXML
 	private TableColumn<BorrowedThing, String> returned;
 	
-	//returned changed from boolean to String
 	/**
 	 * The TableColumn that shows if the item has been returned
 	 */
 	@FXML
 	private TextField input;
-	
-	Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
 
 	/**
-	 * Initialize-method called when the class is created
+	 * Initialize method called when the class is created
 	 * Fetches the list of loaned items in the database
 	 */
 	@FXML
 	public void initialize() {
+		//sets the placceholder in case table is empty
 		borrowedSearchTable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
 		borrowedBy.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("person"));
@@ -108,21 +105,21 @@ public class BorrowedSearchGUI {
 					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
 				}
 			}});
-		
+		//creates the autocomplete list for the search text field
 		BorrowedThing[] borrowedThings = controller.getBorrowedThings();
 		String[] possibleWords = new String[borrowedThings.length];
 		for (int i = 0; i < borrowedThings.length; i++) {
 			possibleWords[i] = borrowedThings[i].getDescription();
 		}
 		TextFields.bindAutoCompletion(input, possibleWords);
-		
+		//sets the items in the table
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(borrowedThings);
 		borrowedSearchTable.setItems(data);
 	}
 	
 	/**
 	 * Method for getting the selected item from the table
-	 * @return the selected item
+	 * @return borrowedSearchTable.getSelectionModel().getSelectedItem() the selected item
 	 */
 	@FXML
 	public BorrowedThing getSelectedBorrowedThing() {
