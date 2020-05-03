@@ -25,7 +25,7 @@ import javafx.util.Callback;
 import model.BorrowedThing;
 import res.MyBundle;
 
-public class BorrowedSearchGUI {
+public class BorrowedSearchGUI extends AbstractBorrowedGUI { 
 
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
@@ -47,7 +47,7 @@ public class BorrowedSearchGUI {
 	 * The TableView for viewing all loaned items
 	 */
 	@FXML
-	private TableView<BorrowedThing> borrowedSearchTable;
+	private TableView<BorrowedThing> borrowedTable;
 	
 	/**
 	 * The TableColumn that shows the items' names
@@ -91,20 +91,7 @@ public class BorrowedSearchGUI {
 	 */
 	@FXML
 	public void initialize() {
-		//sets the placceholder in case table is empty
-		borrowedSearchTable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
-		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
-		borrowedBy.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("person"));
-		loanDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("dateBorrowed"));
-		returnDate.setCellValueFactory(new PropertyValueFactory<BorrowedThing, Date>("returnDate"));
-		returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
-			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
-				if (borrowedThingDescr.getValue().isReturned() == true) {
-					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("yesYes"));
-				} else {
-					return new ReadOnlyObjectWrapper<>(myBundle.getBundle().getString("noNo"));
-				}
-			}});
+		super.initializeTable();
 		//creates the autocomplete list for the search text field
 		BorrowedThing[] borrowedThings = controller.getBorrowedThings();
 		String[] possibleWords = new String[borrowedThings.length];
@@ -114,7 +101,7 @@ public class BorrowedSearchGUI {
 		TextFields.bindAutoCompletion(input, possibleWords);
 		//sets the items in the table
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(borrowedThings);
-		borrowedSearchTable.setItems(data);
+		borrowedTable.setItems(data);
 	}
 	
 	/**
@@ -123,7 +110,7 @@ public class BorrowedSearchGUI {
 	 */
 	@FXML
 	public BorrowedThing getSelectedBorrowedThing() {
-		return borrowedSearchTable.getSelectionModel().getSelectedItem();
+		return super.getSelectedBorrowedThing();
 	}
 	
 	/**
@@ -135,7 +122,7 @@ public class BorrowedSearchGUI {
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
 		FilteredList<BorrowedThing> filteredData = new FilteredList<>(data,
 	            s -> ((s.getDescription())).equals(value));
-		borrowedSearchTable.setItems(filteredData);
+		borrowedTable.setItems(filteredData);
 	}
 	
 }
