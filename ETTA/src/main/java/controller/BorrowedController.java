@@ -1,12 +1,10 @@
 package controller;
 
 import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Person;
 import model.PersonDAO;
-
 import model.BorrowedThing;
 import model.BorrowedThingDAO;
 import model.Event;
@@ -51,6 +49,9 @@ public class BorrowedController {
 	 */ 
 	private BorrowedReturnedTableGUI returnedGUI;
 	
+	/** 
+	 * Calendar controller object
+	 */ 
 	private CalendarController calendarController = new CalendarController();
 	
 	/**
@@ -98,7 +99,7 @@ public class BorrowedController {
 
 	/** 
 	 * Method that gets Persons from PersonDAO and makes a list containing names only 
-	 * @return ObservableList<String> names - list of persons' names
+	 * @return names - list of persons' names
 	 */ 
 	public ObservableList<String> personsList() {
 		Person[] people = personDAO.readPeople();
@@ -112,7 +113,7 @@ public class BorrowedController {
 	
 	/** 
 	 * Method for creating a new borrowed thing and saving it to the database
-	 * return BorrowedThing[] array contains all borrowed things
+	 * return borrowedThingDAO.readBorrowedThings() BorrowedThing[] array contains all borrowed things
 	 */ 
 	public BorrowedThing[] getBorrowedThings() {
 		return borrowedThingDAO.readBorrowedThings();
@@ -158,7 +159,6 @@ public class BorrowedController {
 		String description = tableGUI.getSelectedBorrowedThing().getDescription();
 		deleteBorrowedEvent(thing); //deletes the borrowed event 
 		borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
-		//tableGUI.removeFromBorrowedTable(thing); //tätä ei kyllä taideta tarvita, aiheuttaa exceptionin
 	}
 	
 	/** 
@@ -167,9 +167,7 @@ public class BorrowedController {
 	public void removeReturnedThing() {
 		try {
 			String description = returnedGUI.getSelectedBorrowedThing().getDescription();
-			//deleteBorrowedEvent(description); //deletes the borrowed event; this won't be necessary as the event is already deleted; if deletion of event changed may be necessary
 			borrowedThingDAO.deleteBorrowedThing(returnedGUI.getSelectedBorrowedThing().getThing_id());
-			//returnedGUI.removeFromBorrowedTable(returnedGUI.getSelectedBorrowedThing());
 		} catch(NullPointerException e) {
 			System.out.println("No returned item selected.");
 		}
@@ -251,6 +249,7 @@ public class BorrowedController {
 	/** 
 	 * Method for finding the borrowed event based on the description of the borrowed item
 	 * @param BorrowedThing  borrowed item, the event of which is being searched for
+	 * @return event the right event is returned
 	 */
 	public Event findRightEvent(BorrowedThing thing) {
 		//the person who has borrowed the item
@@ -279,7 +278,7 @@ public class BorrowedController {
 	 * Method for updating the event is the person relating to it is changed
 	 * @param oldPerson the person who is changed
 	 * @param editedBorrowedThing the borrowed thing the event and borrower of which are being changed
-	 * @return update whether or not the event has been successfully updated
+	 * @return updated whether or not the event has been successfully updated
 	 */
 	public boolean updateBorrowedEventPerson(Person oldPerson, BorrowedThing editedBorrowedThing) {
 		boolean updated = false;

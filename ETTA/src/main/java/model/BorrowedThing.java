@@ -32,7 +32,7 @@ public class BorrowedThing {
 	private Date dateBorrowed;
 	
 	/**
-	 * a Date variable for wen the item is to be returned
+	 * a Date variable for when the item is to be returned
 	 */
 	@Column(name="returnDate", nullable=true)
 	private Date returnDate;
