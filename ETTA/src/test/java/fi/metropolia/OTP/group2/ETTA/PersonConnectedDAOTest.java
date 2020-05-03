@@ -51,7 +51,7 @@ class PersonConnectedDAOTest {
 	
 	private static Person tiina = new Person(name, bday1, email);
 	private static Person risto = new Person("Risto", bday2, "risto@gmail.com");
-	private Person lena = new Person("Lena", bday3, "lena@lena.com");
+	private Person lena = new Person("Lena", bday3, "lena@lena.com"); 
 	
 	private String itemDesc = "Ystävänpäiväkortti";
 	private double price = 3.5;
@@ -142,7 +142,7 @@ class PersonConnectedDAOTest {
 	@Test
 	@Order(7)
 	public void testCreateWishlistEvent() {
-		assertEquals(true, wishlistController.createWishlistEvent(item), "Creation of wishlist event failed");
+		assertEquals(true, calendarController.createWishlistEvent(item), "Creation of wishlist event failed");
 	}
 	
 	@Test
@@ -150,7 +150,7 @@ class PersonConnectedDAOTest {
 	public void testReadWishlistEvent() {
 		String wishlistEvent = "Buy " + item.getDescription() + " for " + item.getPerson().getName();
 		assertEquals(wishlistEvent, eventDAO.readWishlistEvent(wishlistEvent).getTitle(), "Reading of wishlist event failed");
-		assertEquals(wishlistEvent, wishlistController.findEvent(item).getTitle(), "Reading of wishlist event failed");
+		assertEquals(wishlistEvent, calendarController.findWishlistEvent(item).getTitle(), "Reading of wishlist event failed");
 		assertEquals("wishlist", eventDAO.readWishlistEvent(wishlistEvent).getCalendar(), "Reading of wishlist event failed");
 	}
 	
@@ -266,7 +266,7 @@ class PersonConnectedDAOTest {
 	@Test
 	@Order(21)
 	public void testCreateBorrowedEvent() {
-		assertEquals(true, borrowedController.createBorrowedEvent(borrowedThing), "Creation of borrowed event failed");
+		assertEquals(true, calendarController.createBorrowedEvent(borrowedThing), "Creation of borrowed event failed");
 	}
 	
 	@Test
@@ -274,7 +274,7 @@ class PersonConnectedDAOTest {
 	public void testReadBorrowedEvent() {
 		String eventDesc = borrowedThing.getPerson().getName() + " should return " + borrowedThing.getDescription();
 		assertEquals(eventDesc, eventDAO.readBorrowed(eventDesc).getTitle(), "Reading of borrowed event failed");
-		assertEquals(eventDesc, borrowedController.findBorrowedEvent(eventDesc).getTitle(), "Reading of borrowed event failed (controller)");
+		assertEquals(eventDesc, calendarController.findBorrowedEvent(eventDesc).getTitle(), "Reading of borrowed event failed (controller)");
 	}
 	/*
 	@Test
@@ -288,7 +288,7 @@ class PersonConnectedDAOTest {
 	@Test
 	@Order(24)
 	public void testDeleteBorrowedEvent() {
-		assertEquals(true, borrowedController.deleteBorrowedEvent(borrowedThing), "Deleting of borrowed event failed");
+		assertEquals(true, calendarController.deleteBorrowedEvent(borrowedThing), "Deleting of borrowed event failed");
 	}
 	
 	@Test

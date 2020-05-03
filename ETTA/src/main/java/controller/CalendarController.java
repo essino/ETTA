@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Locale;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarEvent;
@@ -21,6 +20,7 @@ import model.BorrowedThing;
 import model.Event;
 import model.EventDAO;
 import model.Item;
+import model.Person;
 
 /** 
  * Controller class for the calendar. This class is in charge of connecting EventDAO with other controllers and GUIs.  
@@ -209,6 +209,30 @@ public class CalendarController {
 		 return calendarSource;
 	 }
 
+	 //birthdays part
+		/** 
+		 * Boolean method that gets a String containing Person's name and a Date containing Person's birthday as parameters 
+		 * and creates a database  birthday Event.
+		 * Method first checks if there was a birthday event already. If there was none, a new birthday event is created. 
+		 * @param String name - the name of the Person/the future title of the birthday event
+		 * @param Date birthday - the date of the Person's birthday
+		 * @return true - if birthday event was successfully created
+		 * @return false - if creating birthday event didn't succeed 
+		 */ 
+		public boolean createBirthday(String name, Date birthday) {
+			Event birthdayEvent = new Event();
+			birthdayEvent = new Event();
+			birthdayEvent.setTitle(name);
+			birthdayEvent.setEvent_id(getNextId());
+			birthdayEvent.setCalendar("birthdays");
+			birthdayEvent.setStartDate(birthday);
+			birthdayEvent.setEndDate(birthday);
+			birthdayEvent.setFullday(true);
+			birthdayEvent.setRecurring(true);
+			birthdayEvent.setRrule("RRULE:FREQ=YEARLY;");
+			return eventDAO.createEvent(birthdayEvent);
+		}
+		
 		/** 
 		 * Boolean method that gets two Strings as parameters and updates a database  birthday Event 
 		 * @param String oldname - the old name of the Person/the old title of the birthday event
@@ -247,6 +271,30 @@ public class CalendarController {
 			}
 		}
 		
+		//wishlist part
+		/** 
+		 * Boolean method that creates a new wishlist event
+		 * @param Item  - the new item from the wishlist the event will be created for
+		 * @return true - if wishlist event was successfully created
+		 * @return false - if creating of the wishlist event didn't succeed 
+		 */ 
+		public boolean createWishlistEvent(Item item) {
+			Event wishlistEvent = new Event();
+			wishlistEvent.setEvent_id(getNextId());
+			wishlistEvent.setStartDate(item.getDateNeeded());
+			wishlistEvent.setEndDate(item.getDateNeeded());
+			wishlistEvent.setFullday(true);
+			if (item.getPerson() != null) {
+				wishlistEvent.setTitle("Buy " + item.getDescription() + " for " + item.getPerson().getName());
+			} else {
+				wishlistEvent.setTitle("Buy " + item.getDescription() + " for myself");
+			}
+			wishlistEvent.setLocation(null);
+			wishlistEvent.setRecurring(false);
+			wishlistEvent.setCalendar("wishlist");
+			return eventDAO.createEvent(wishlistEvent); 
+		}
+		
 		/** 
 		 * Boolean method that gets a String containing old Item description and an Item that was updated as parameters and updates a database  wishlist Event.
 		 * Method first checks if there was a wishlist event already.
@@ -264,6 +312,9 @@ public class CalendarController {
 			if(wishlistEvent != null) {
 				wishlistEvent.setTitle("Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName());
 				updated = eventDAO.updateEvent(wishlistEvent);
+			}
+			else {
+				updated = createWishlistEvent(editedItem);
 			}
 			return updated;
 		}
@@ -285,6 +336,9 @@ public class CalendarController {
 			if(wishlistEvent != null) {
 				wishlistEvent.setTitle("Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName());
 				updated = eventDAO.updateEvent(wishlistEvent);
+			}
+			else {
+				updated = createWishlistEvent(editedItem);
 			}
 			return updated;
 		}
@@ -313,37 +367,50 @@ public class CalendarController {
 				wishlistEvent.setEndDate(editedItem.getDateNeeded());
 				updated = eventDAO.updateEvent(wishlistEvent);
 			}
+			else {
+				updated = createWishlistEvent(editedItem);
+			}
 			return updated;
 		}
 		
 		/** 
-		 * Boolean method that gets a String containing Person's name and a Date containing Person's birthday as parameters 
-		 * and creates a database  birthday Event.
-		 * Method first checks if there was a birthday event already. If there was none, a new birthday event is created. 
-		 * @param String name - the name of the Person/the future title of the birthday event
-		 * @param Date birthday - the date of the Person's birthday
-		 * @return true - if birthday event was successfully created
-		 * @return false - if creating birthday event didn't succeed 
+		 * Method for finding the event connected to the selected item from the database
+		 * @param item the Item the event is connected to
 		 */ 
-		public boolean createBirthday(String name, Date birthday) {
-			Event birthdayEvent = new Event();
-			int lastEvent = eventDAO.readEvents().length; 
-			int lastEventId =1;
-			if(lastEvent != 0 ) {
-				lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();
+		public Event findWishlistEvent(Item item) {
+			String description = item.getDescription();
+			//the person who has borrowed the item
+			Person person = item.getPerson();
+			String eventTitle = "Buy " + description + " for " + person;
+			Event[] events = eventDAO.readEvents();
+			for (int i = 0; events.length > i; i++) {
+				if (events[i].getTitle().equals(eventTitle)) {
+					Event event = events[i];
+					return event;
+				} 
 			}
-			birthdayEvent = new Event();
-			birthdayEvent.setTitle(name);
-			birthdayEvent.setEvent_id(lastEventId+1);
-			birthdayEvent.setCalendar("birthdays");
-			birthdayEvent.setStartDate(birthday);
-			birthdayEvent.setEndDate(birthday);
-			birthdayEvent.setFullday(true);
-			birthdayEvent.setRecurring(true);
-			birthdayEvent.setRrule("RRULE:FREQ=YEARLY;");
-			return eventDAO.createEvent(birthdayEvent);
+			return null;
 		}
+		
+//borrowed events
 
+		/** 
+		 * Method for creating a event relating to a borrowed item
+		 * @param borrowedThing the item that the event concerns
+		 * @return eventDAO.createEvent(borrowed) boolean indicating whether or not the event has been successfully created
+		 */ 
+		public boolean createBorrowedEvent(BorrowedThing borrowedThing) {
+			Event borrowed = new Event();
+			borrowed.setEvent_id(getNextId());
+			borrowed.setTitle(borrowedThing.getPerson().getName() + " should return " +  borrowedThing.getDescription());
+			borrowed.setLocation(null);
+			borrowed.setStartDate(borrowedThing.getReturnDate());
+			borrowed.setEndDate(borrowedThing.getReturnDate());
+			borrowed.setFullday(true);
+			borrowed.setRecurring(false);
+			borrowed.setCalendar("borrowed");
+			return eventDAO.createEvent(borrowed);
+		}
 		/** 
 		 * Boolean method that gets a Date containing old date when a borrowed thing should be returned
 		 * and the borrowed thing that was updated as parameters and updates a database borrowed Event.
@@ -362,6 +429,9 @@ public class CalendarController {
 				borrowedEvent.setStartDate(thing.getReturnDate());
 				borrowedEvent.setEndDate(thing.getReturnDate());
 				updated = eventDAO.updateEvent(borrowedEvent);
+			}
+			else {
+				updated = createBorrowedEvent(thing);
 			}
 			return updated;
 		}
@@ -385,6 +455,93 @@ public class CalendarController {
 				borrowedEvent.setTitle(newEvent);
 				updated = eventDAO.updateEvent(borrowedEvent);
 			}
+			else {
+				updated = createBorrowedEvent(thing);
+			}
 			return updated;
+		}
+		
+		//updating borrowed event if person changes
+		/** 
+		 * Method for updating the event is the person relating to it is changed
+		 * @param oldPerson the person who is changed
+		 * @param editedBorrowedThing the borrowed thing the event and borrower of which are being changed
+		 * @return updated whether or not the event has been successfully updated
+		 */
+		public boolean updateBorrowedEventPerson(Person oldPerson, BorrowedThing editedBorrowedThing) {
+			boolean updated = false;
+			String oldEvent = oldPerson.getName() + " should return " + editedBorrowedThing.getDescription();
+			Event event = findBorrowedEvent(oldEvent);
+			if (event!=null) {
+				event.setTitle(editedBorrowedThing.getPerson().getName() + " should return " + editedBorrowedThing.getDescription());
+				updated = eventDAO.updateEvent(event);
+			}
+			else {
+				updated = createBorrowedEvent(editedBorrowedThing);
+			}
+			return updated;
+		}
+		
+		/** 
+		 * Method for finding the borrowed event based on the name of the event
+		 * @param description the name of the event, the event of which is being searched for
+		 * @return loanEvent the event that has to do with the borrowing event
+		 */
+		public Event findBorrowedEvent(String description) {
+			Event loanEvent = eventDAO.readBorrowed(description);
+			return loanEvent;
+		}
+		//deletes borrowed event
+		/** 
+		 * Method for deleting the "should return" event from events
+		 * @return deleted whether or not the event has been successfully deleted
+		 */
+		public boolean deleteBorrowedEvent(BorrowedThing borrowedThing) {
+			boolean deleted = false;
+			Event event = findBorrowedEvent(borrowedThing);
+			try {
+				int eventID = event.getEvent_id();
+				deleted = eventDAO.deleteEvent(eventID);
+			//if the borrowed thing has been returned, the event relating to it has already been deleted
+			} catch(NullPointerException e) {
+				System.out.println("No borrowing event to delete");
+			}
+			return deleted;
+		}
+		
+		//used for updating or deleting the right borrowed event - HARD CODED!
+		/** 
+		 * Method for finding the borrowed event based on the description of the borrowed item
+		 * @param BorrowedThing  borrowed item, the event of which is being searched for
+		 * @return event the right event is returned
+		 */
+		public Event findBorrowedEvent(BorrowedThing thing) {
+			//the person who has borrowed the item
+			Person loanPerson = thing.getPerson();
+			String eventTitle = loanPerson + " should return " + thing.getDescription();
+			Event[] loanEvent = eventDAO.readEvents();
+			for (int i = 0; loanEvent.length > i; i++) {
+				if (loanEvent[i].getTitle().equals(eventTitle)) {
+					Event event = loanEvent[i];
+					return event;
+				} 
+			}
+			return null;
+		}
+		
+		/** 
+		 * Method that gets the next possible ID for the events. First there is a check if there are some vents already. 
+		 * If there are no events yet, 0 will be returned as the possible ID.
+		 * If there are events already, the ID of the last event is increased by 1.
+		 * This is because events added from the calendar get a random ID number from the CalendarFX.
+		 * @return int the next possible id number
+		 */ 
+		private int getNextId() {
+			int lastEvent = eventDAO.readEvents().length; 
+			int lastEventId =1;
+			if(lastEvent != 0 ) {
+				lastEventId = eventDAO.readEvents()[lastEvent-1].getEvent_id();
+			}
+			return lastEventId+1;
 		}
 }

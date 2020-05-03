@@ -60,12 +60,12 @@ public class BorrowedController {
 	public BorrowedController() {
 	}
 	
-	/**
+	/** 
 	 * Constructor to create controller for BorrowedThings
 	 *@param tableGUI the gui for the BorrowedThing view
 	 */
 	public BorrowedController(BorrowedTableGUI tableGUI) {
-		this.tableGUI = tableGUI;
+		this.tableGUI = tableGUI; 
 	}
 	
 	/**
@@ -99,7 +99,7 @@ public class BorrowedController {
 
 	/** 
 	 * Method that gets Persons from PersonDAO and makes a list containing names only 
-	 * @return names - list of persons' names
+	 * @return names - ObervableList of persons' names
 	 */ 
 	public ObservableList<String> personsList() {
 		Person[] people = personDAO.readPeople();
@@ -113,7 +113,7 @@ public class BorrowedController {
 	
 	/** 
 	 * Method for creating a new borrowed thing and saving it to the database
-	 * return borrowedThingDAO.readBorrowedThings() BorrowedThing[] array contains all borrowed things
+	 * return BorrowedThing[] array containing all borrowed things
 	 */ 
 	public BorrowedThing[] getBorrowedThings() {
 		return borrowedThingDAO.readBorrowedThings();
@@ -140,15 +140,7 @@ public class BorrowedController {
 	 * @return eventDAO.createEvent(borrowed) boolean indicating whether or not the event has been successfully created
 	 */ 
 	public boolean createBorrowedEvent(BorrowedThing borrowedThing) {
-		Event borrowed = new Event();
-		borrowed.setTitle(borrowedThing.getPerson().getName() + " should return " +  borrowedThing.getDescription());
-		borrowed.setLocation(null);
-		borrowed.setStartDate(borrowedThing.getReturnDate());
-		borrowed.setEndDate(borrowedThing.getReturnDate());
-		borrowed.setFullday(true);
-		borrowed.setRecurring(false);
-		borrowed.setCalendar("borrowed");
-		return eventDAO.createEvent(borrowed);
+		return calendarController.createBorrowedEvent(borrowedThing);
 	}
 	
 	/** 
@@ -156,7 +148,6 @@ public class BorrowedController {
 	 */ 
 	public void removeBorrowedThing() {
 		BorrowedThing thing = tableGUI.getSelectedBorrowedThing();
-		String description = tableGUI.getSelectedBorrowedThing().getDescription();
 		deleteBorrowedEvent(thing); //deletes the borrowed event 
 		borrowedThingDAO.deleteBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
 	}
@@ -166,7 +157,6 @@ public class BorrowedController {
 	 */ 
 	public void removeReturnedThing() {
 		try {
-			String description = returnedGUI.getSelectedBorrowedThing().getDescription();
 			borrowedThingDAO.deleteBorrowedThing(returnedGUI.getSelectedBorrowedThing().getThing_id());
 		} catch(NullPointerException e) {
 			System.out.println("No returned item selected.");
@@ -178,7 +168,6 @@ public class BorrowedController {
 	 */ 
 	public void markReturned() {
 		try {
-			String description = tableGUI.getSelectedBorrowedThing().getDescription();
 			deleteBorrowedEvent(tableGUI.getSelectedBorrowedThing()); //deletes the borrowed event
 			BorrowedThing borrowedThing = borrowedThingDAO.readBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
 			borrowedThing.setReturned(true);
@@ -206,19 +195,11 @@ public class BorrowedController {
 	//deletes borrowed event
 	/** 
 	 * Method for deleting the "should return" event from events
-	 * @return deleted whether or not the event has been successfully deleted
+	 * @return true if the event has been successfully deleted
+	 * @return false if the event hasn't been deleted
 	 */
 	public boolean deleteBorrowedEvent(BorrowedThing borrowedThing) {
-		boolean deleted = false;
-		Event event = findRightEvent(borrowedThing);
-		try {
-			int eventID = event.getEvent_id();
-			deleted = eventDAO.deleteEvent(eventID);
-		//if the borrowed thing has been returned, the event relating to it has already been deleted
-		} catch(NullPointerException e) {
-			System.out.println("No borrowing event to delete");
-		}
-		return deleted;
+		return calendarController.deleteBorrowedEvent(borrowedThing);
 	}
 	
 	//updates the return date in the borrowed event
@@ -252,25 +233,16 @@ public class BorrowedController {
 	/** 
 	 * Method for finding the borrowed event based on the description of the borrowed item
 	 * @param BorrowedThing  borrowed item, the event of which is being searched for
-	 * @return event the right event is returned
+	 * @return the event that calendarController found
 	 */
 	public Event findRightEvent(BorrowedThing thing) {
-		//the person who has borrowed the item
-		Person loanPerson = thing.getPerson();
-		String eventTitle = loanPerson + " should return " + thing.getDescription();
-		Event[] loanEvent = eventDAO.readEvents();
-		for (int i = 0; loanEvent.length > i; i++) {
-			if (loanEvent[i].getTitle().equals(eventTitle)) {
-				Event event = loanEvent[i];
-				return event;
-			} 
-		}
-		return null;
+		return calendarController.findBorrowedEvent(thing);
 	}
 	
 	/** 
 	 * Method for finding the right person
 	 * @param name the name matching the person that is being searched for
+	 * @return Person the found person
 	 */
 	public Person findPerson(String name) {
 		return personDAO.readPerson(name);
@@ -281,27 +253,11 @@ public class BorrowedController {
 	 * Method for updating the event is the person relating to it is changed
 	 * @param oldPerson the person who is changed
 	 * @param editedBorrowedThing the borrowed thing the event and borrower of which are being changed
-	 * @return updated whether or not the event has been successfully updated
+	 * @return true if the event has been successfully updated
+	 * @return false if the event hasn't been successfully updated
 	 */
 	public boolean updateBorrowedEventPerson(Person oldPerson, BorrowedThing editedBorrowedThing) {
-		boolean updated = false;
-		String oldEvent = oldPerson.getName() + " should return " + editedBorrowedThing.getDescription();
-		Event event = findBorrowedEvent(oldEvent);
-		if (event!=null) {
-			event.setTitle(editedBorrowedThing.getPerson().getName() + " should return " + editedBorrowedThing.getDescription());
-			updated = eventDAO.updateEvent(event);
-		}
-		return updated;
-	}
-	
-	/** 
-	 * Method for finding the borrowed event based on the name of the event
-	 * @param description the name of the event, the event of which is being searched for
-	 * @return loanEvent the event that has to do with the borrowing event
-	 */
-	public Event findBorrowedEvent(String description) {
-		Event loanEvent = eventDAO.readBorrowed(description);
-		return loanEvent;
+		return calendarController.updateBorrowedEventPerson(oldPerson, editedBorrowedThing);
 	}
 	
 }
