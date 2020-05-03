@@ -189,6 +189,9 @@ public class BorrowedController {
 		}
 	}
 	
+	/** 
+	 * Method for making the returned item borrowed
+	 */ 
 	public void changeReturnedToBorrowed() {
 		try {
 			BorrowedThing returnedThing = borrowedThingDAO.readBorrowedThing(returnedGUI.getSelectedBorrowedThing().getThing_id());
