@@ -46,6 +46,11 @@ public class WishlistController {
 	 */
 	InputCheck inputCheck = new InputCheck();
 
+	/** 
+	 * Calendar controller object
+	 */ 
+	private CalendarController calendarController = new CalendarController();
+	
 	/**
 	 * Constructor
 	 * @param gui WishlistAddGUI
@@ -147,19 +152,7 @@ public class WishlistController {
 	}
 	
 	public boolean createWishlistEvent(Item item) {
-		Event wishlistEvent = new Event();
-		wishlistEvent.setStartDate(item.getDateNeeded());
-		wishlistEvent.setEndDate(item.getDateNeeded());
-		wishlistEvent.setFullday(true);
-		if (item.getPerson() != null) {
-			wishlistEvent.setTitle("Buy " + item.getDescription() + " for " + item.getPerson().getName());
-		} else {
-			wishlistEvent.setTitle("Buy " + item.getDescription() + " for myself");
-		}
-		wishlistEvent.setLocation(null);
-		wishlistEvent.setRecurring(false);
-		wishlistEvent.setCalendar("wishlist");
-		return eventDAO.createEvent(wishlistEvent); 
+		return calendarController.createWishlistEvent(item); 
 	}
 	
 	/** 
@@ -176,7 +169,7 @@ public class WishlistController {
 	 * @param gui AbstractWishlistGUI the gui calling this method
 	 */ 
 	public void removeItem(AbstractWishlistGUI gui) {
-		Event event = findEvent(getSelectedItem(gui));
+		Event event = calendarController.findWishlistEvent(getSelectedItem(gui));
 		if (event != null) {
 			eventDAO.deleteEvent(event.getEvent_id());
 		}
@@ -198,7 +191,7 @@ public class WishlistController {
 	 * @param editedItem the item with the updated information
 	 */ 
 	public void updateItem(Item editedItem) {
-		Event event = findEvent(editedItem);
+		Event event = calendarController.findWishlistEvent(editedItem);
 		System.out.println(event);
 		if (event != null) {
 			event.setStartDate(editedItem.getDateNeeded());
@@ -214,24 +207,5 @@ public class WishlistController {
 	 */ 
 	public Person findPerson(String name) {
 		return personDAO.readPerson(name);
-	}
-	
-	/** 
-	 * Method for finding the event connected to the selected item from the database
-	 * @param item the Item the event is connected to
-	 */ 
-	public Event findEvent(Item item) {
-		String description = item.getDescription();
-		//the person who has borrowed the item
-		Person person = item.getPerson();
-		String eventTitle = "Buy " + description + " for " + person;
-		Event[] events = eventDAO.readEvents();
-		for (int i = 0; events.length > i; i++) {
-			if (events[i].getTitle().equals(eventTitle)) {
-				Event event = events[i];
-				return event;
-			} 
-		}
-		return null;
 	}
 }
