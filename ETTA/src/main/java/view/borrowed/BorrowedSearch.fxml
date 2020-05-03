@@ -10,7 +10,7 @@
 <AnchorPane fx:id="borrowedsearchanchorpane" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.borrowed.BorrowedSearchGUI">
    <children>
       <ButtonBar layoutY="643.0" prefHeight="40.0" prefWidth="600.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="643.0" />
-      <TableView fx:id="borrowedSearchTable" prefHeight="259.0" prefWidth="744.0" AnchorPane.bottomAnchor="508.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="50.0">
+      <TableView fx:id="borrowedTable" prefHeight="259.0" prefWidth="744.0" AnchorPane.bottomAnchor="508.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="50.0">
         <columns>
           <TableColumn fx:id="borrowedThingDescr" minWidth="-Infinity" prefWidth="150.0" text="%item" />
           <TableColumn fx:id="loanDate" minWidth="-Infinity" prefWidth="150.0" text="%borrowLoanDate" />

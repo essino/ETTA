@@ -2,8 +2,6 @@ package view.borrowed;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ResourceBundle;
 import controller.BorrowedController;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
@@ -26,7 +24,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import model.BorrowedThing;
-import model.Item;
 import model.Person;
 import res.MyBundle;
 import controller.InputCheck;
@@ -34,7 +31,7 @@ import controller.InputCheck;
 /**
  * GUI class in charge of the view showing the list of borrowed items
  */
-public class BorrowedTableGUI {
+public class BorrowedTableGUI extends AbstractBorrowedGUI{
 	
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
@@ -225,16 +222,7 @@ public class BorrowedTableGUI {
 	 */
 	@FXML
 	public BorrowedThing getSelectedBorrowedThing() {
-		return borrowedTable.getSelectionModel().getSelectedItem();
-	}
-	
-	/**
-	 * Method for checking that an item is currently selected in the table
-	 * @return thing != null boolean indicating that the item is not null, and thus something is selected
-	 */
-	public boolean checkItemIsSelected() {
-		BorrowedThing thing = getSelectedBorrowedThing();
-		return thing != null;
+		return super.getSelectedBorrowedThing();
 	}
 	
 	/**
@@ -242,7 +230,7 @@ public class BorrowedTableGUI {
 	 */
 	@FXML
 	public void deleteSelectedBorrowedThing() {
-		if (checkItemIsSelected()) {
+		if (super.checkItemIsSelected()) {
 			if (inputCheck.confirmDeleting()) {
 				controller.removeBorrowedThing();
 				initialize();
@@ -251,25 +239,13 @@ public class BorrowedTableGUI {
 			inputCheck.alertNothingSelected();
 		}
 	}
-
-	/** 
-	 * Method that removes an item from the table
-	 * @param borrowedThing the borrowed item to be removed
-	 */
-	public void removeFromBorrowedTable(BorrowedThing borrowedThing) {
-		try {
-			borrowedTable.getItems().remove(borrowedThing);
-		} catch (Exception e) {
-			System.out.println("Nothing to remove");
-		}
-	}
 	
-	/** 
+	/**
 	 * Method that marks an event as returned
 	 */
 	@FXML
 	public void markAsReturned() {
-		if (checkItemIsSelected()) {
+		if (super.checkItemIsSelected()) {
 			if (inputCheck.confirmReturn()) {
 				controller.markReturned();
 				initialize();
