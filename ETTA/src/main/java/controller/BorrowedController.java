@@ -14,7 +14,7 @@ import view.borrowed.BorrowedReturnedTableGUI;
 import view.borrowed.BorrowedTableGUI;
 
 /** 
- * Controller class for the Borrowed things part.  
+ * Controller class for the Borrowed things part.   
  * 
  */
 public class BorrowedController {

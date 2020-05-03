@@ -5,7 +5,7 @@ import java.sql.Date;
 import javax.persistence.*;
 
 /**
- * Model class for Borrowed things. Used in the creation of the database table for Borrowed items through Hibernate.
+ * Model class for Borrowed things. Used in the creation of the database table for Borrowed items through Hibernate. 
  */
 @Entity
 @Table(name="BorrowedThing")
