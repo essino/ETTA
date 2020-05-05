@@ -45,7 +45,6 @@ public class DateEditingCell extends TableCell<Transfer, java.sql.Date> {
     @Override
     public void cancelEdit() {
         super.cancelEdit();
-        //onko tässä jotain
         setText(getDate().toString());
         setGraphic(null);
     }

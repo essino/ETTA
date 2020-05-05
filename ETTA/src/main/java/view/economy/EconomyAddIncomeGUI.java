@@ -99,7 +99,7 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
                     }
                 }
             };
-
+            //updating new category
             cell.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
                 if (cell.getItem().isEmpty() && ! cell.isEmpty()) {
                     TextInputDialog dialog = new TextInputDialog();
@@ -165,6 +165,7 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
 	/**
 	 * Method that tells controller to save the added income if the input can be transfered into float
 	 * and displays the view of the list of incomes in the Economy section after adding new income 
+	 * If amount is not number or that is null give method alert to user
 	 */
 	@FXML
 	public void AddNewIncome() {
@@ -181,7 +182,6 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
 				try {
 					incomeView = loaderIncomeView.load();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				economyincomeaddanchorpane.getChildren().setAll(incomeView);
@@ -207,7 +207,6 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
 			incomeView = loaderIncomeView.load();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		economyincomeaddanchorpane.getChildren().setAll(incomeView);

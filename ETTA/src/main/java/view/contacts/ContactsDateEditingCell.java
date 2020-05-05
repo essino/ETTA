@@ -38,7 +38,6 @@ private DatePicker datePicker;
     @Override
     public void cancelEdit() {
         super.cancelEdit();
-        //onko tässä jotain
         setText(getDate().toString());
         setGraphic(null);
     }

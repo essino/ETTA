@@ -99,7 +99,7 @@ public class EconomyAddOutcomeGUI implements ITransferAddGUI{
                     }
                 }
             };
-
+          //updating new category
             cell.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
                 if (cell.getItem().isEmpty() && ! cell.isEmpty()) {
                     TextInputDialog dialog = new TextInputDialog();
@@ -141,7 +141,7 @@ public class EconomyAddOutcomeGUI implements ITransferAddGUI{
 	/** 
 	 * Method that gets the chosen date from outcomeDate DatePicker and returns it
 	 * @return Date date of the expense
-	 * @return null if date is not selected ---??? onko edes mahdollista?
+	 * @return null if date is not selected 
 	 */
 	@FXML
 	public Date getTransferDate() {
@@ -159,6 +159,7 @@ public class EconomyAddOutcomeGUI implements ITransferAddGUI{
 	 */
 	@FXML
 	public float getTransferAmount() {
+		// program turn expense later minus float, if user give expence with "-"mark it would not be problem
 		return Math.abs(Float.parseFloat(outcomeAmount.getText()));
 	}
 	
@@ -179,7 +180,6 @@ public class EconomyAddOutcomeGUI implements ITransferAddGUI{
 			try {
 				outcomeView = loaderOutcomeView.load();
 				} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				}
 			addOutcomePane.getChildren().setAll(outcomeView);
@@ -204,7 +204,6 @@ public class EconomyAddOutcomeGUI implements ITransferAddGUI{
 		try {
 			outcomeView = loaderOutcomeView.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 			addOutcomePane.getChildren().setAll(outcomeView);
