@@ -148,7 +148,7 @@ public class EconomySavingsGUI {
 					if(!inputCheck.isInputEmpty(t.getNewValue())) {
 						editedSavingDesc.setDescription(t.getNewValue());
 						controller.updateSaving(editedSavingDesc);
-						savingsTable.refresh();
+						initialize();
 					} else {
 						inputCheck.alertInputEmpty();
 					}
@@ -210,9 +210,12 @@ public class EconomySavingsGUI {
             public void changed(ObservableValue<? extends String> ov,
                     final String oldvalue, final String newvalue)
             {
+            	//something is selected
+            	if(newvalue!=null) {
             	Saving saving = controller.getSaving(savingGoalList.getValue());
             	savingGoalAmount.setText(String.valueOf(saving.getGoalAmount()));
         		savingSavedAmount.setText(String.valueOf(saving.getAmount()));
+            	}
         }});
 		
 	}
