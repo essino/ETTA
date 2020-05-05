@@ -75,9 +75,17 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI
       @FXML
       private TableColumn<Category, String> incomeCategory;
       
+      
+      /**
+    	 * The reference of DatePicker for starting day to search incomes
+    	 */
       @FXML
       private DatePicker incomeStartDate;
       
+      
+      /**
+  	 * The reference of DatePicker for ending day to search incomes
+  	 */
       @FXML
       private DatePicker incomeEndDate;
       
@@ -101,7 +109,6 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI
 		try {
 			showAddIncomeView = loaderAddIncomeView.load();
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		
@@ -118,7 +125,6 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI
 		LocalDate startDate = incomeStartDate.getValue();
 		LocalDate endDate = incomeEndDate.getValue();
 		controller.getSelectedTransfers(this, java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
-		//controller.getSeletedIncomes(java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
 		
 	}
 	
@@ -151,7 +157,7 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI
 		incomeAmount.setCellValueFactory(new PropertyValueFactory<Transfer, Float>("amount"));
 		incomeDate.setCellValueFactory(new PropertyValueFactory<Transfer, Date>("date"));
 		
-		
+		//enable editing of the description and updating the data
 		incomeDescription.setCellFactory(TextFieldTableCell.<Transfer>forTableColumn());
 		incomeDescription.setOnEditCommit(
 			new EventHandler<CellEditEvent<Transfer, String>>(){
@@ -163,7 +169,7 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI
 					incomeTable.refresh();
 					}});
 		
-		
+		//enable editing of the amount and updating the data
 		incomeAmount.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
 		incomeAmount.setOnEditCommit(
 			new EventHandler<CellEditEvent<Transfer, Float>>(){
@@ -175,6 +181,7 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI
 					incomeTable.refresh();
 					}});
 		
+		//enable editing of the date of income and updating the data
 		incomeDate.setCellFactory(dateCellFactory);
 		incomeDate.setOnEditCommit(
 			new EventHandler<CellEditEvent<Transfer, Date>>(){
@@ -236,7 +243,6 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI
 	 */
 	@FXML
 	public void setData(Transfer[] readSeletedTransfers) {
-		//chooses only incomes from the list
 		ArrayList<Transfer> incomes = new ArrayList<Transfer>();
 		for (Transfer t: readSeletedTransfers) {
 			if (t.isIncome() == true) {

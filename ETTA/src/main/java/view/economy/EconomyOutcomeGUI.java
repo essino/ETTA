@@ -160,6 +160,7 @@ public class EconomyOutcomeGUI extends AbstractEconomyGUI implements ITransferGU
 		
 		expenseDate.setCellValueFactory(new PropertyValueFactory<Transfer, Date>("date"));
 		
+		//enable editing of the description and updating the data
 		expenseDescription.setCellFactory(TextFieldTableCell.<Transfer>forTableColumn());
 		expenseDescription.setOnEditCommit(
 			new EventHandler<CellEditEvent<Transfer, String>>(){
@@ -171,6 +172,7 @@ public class EconomyOutcomeGUI extends AbstractEconomyGUI implements ITransferGU
 					expenseTable.refresh();
 					}});
 		
+		//enable editing of the amount and updating the data
 		expenseAmount.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
 		expenseAmount.setOnEditCommit(
 			new EventHandler<CellEditEvent<Transfer, Float>>(){
@@ -182,6 +184,7 @@ public class EconomyOutcomeGUI extends AbstractEconomyGUI implements ITransferGU
 					expenseTable.refresh();
 					}});
 		
+		//enable editing of the expences date and updating the data
 		expenseDate.setCellFactory(dateCellFactory);
 		expenseDate.setOnEditCommit(
 			new EventHandler<CellEditEvent<Transfer, Date>>(){

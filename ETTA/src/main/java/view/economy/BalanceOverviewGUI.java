@@ -155,7 +155,6 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 	                    setText(null);
 	                }
 	                else {
-	                    //this.setText(format.format(item));
 	                	setText(df.format(item));
 	                }
 	            }
@@ -178,7 +177,6 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 	                    setText(null);
 	                }
 	                else {
-	                    //this.setText(format.format(item));
 	                	setText(df.format(item));
 	                }
 	            }

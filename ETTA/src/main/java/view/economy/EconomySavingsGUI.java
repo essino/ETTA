@@ -229,7 +229,6 @@ public class EconomySavingsGUI {
 		try {
 			showAddSavingsView = loaderAddSavingsView.load();
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		
