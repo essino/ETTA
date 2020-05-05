@@ -1,6 +1,8 @@
 package view.contacts;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.util.Locale;
 
 import org.controlsfx.control.textfield.TextFields;
 
@@ -11,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -26,6 +29,7 @@ public class ContactsSearchGUI {
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
 	MyBundle myBundle = new MyBundle();
+	
 	/**
 	 * the controller for Borrowed things
 	 */
@@ -90,6 +94,23 @@ public class ContactsSearchGUI {
 		personName.setCellValueFactory(new PropertyValueFactory<Person, String>("name")); 
 		email.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
 		birthday.setCellValueFactory(new PropertyValueFactory<Person, Date>("birthday"));
+		birthday.setCellFactory(column -> {
+	        TableCell<Person, Date> cell = new TableCell<Person, Date>() {
+	            @Override
+	            protected void updateItem(Date item, boolean empty) {
+	            	Locale locale = Locale.getDefault();
+		    	    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+	                super.updateItem(item, empty);
+	                if(item == null) {
+	                    setText(null);
+	                }
+	                else {
+	                	this.setText(df.format(item));
+	                }
+	            }
+	        };
+	        return cell;
+	    });
 		Person[] people = controller.getPeople();
 		String[] possibleWords = new String[people.length];
 		for (int i = 0; i < people.length; i++) {

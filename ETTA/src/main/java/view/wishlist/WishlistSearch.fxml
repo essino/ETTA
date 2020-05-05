@@ -8,8 +8,8 @@
 
 <AnchorPane fx:id="wishlistsearchanchorpane" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.wishlist.WishlistSearchGUI">
    <children>
-      <TextField fx:id="input" layoutX="319.0" layoutY="435.0" AnchorPane.bottomAnchor="174.4" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="500.0" />
-      <Button layoutX="498.0" layoutY="436.0" mnemonicParsing="false" onAction="#searchItemByPerson" text="%buttonSearch" AnchorPane.bottomAnchor="174.4" AnchorPane.leftAnchor="498.0" AnchorPane.rightAnchor="204.4" AnchorPane.topAnchor="500.0" />
+      <TextField fx:id="input" layoutX="313.0" layoutY="500.0" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" AnchorPane.leftAnchor="313.0" AnchorPane.rightAnchor="338.0" />
+      <Button layoutX="493.0" layoutY="500.0" maxHeight="25.0" minHeight="25.0" mnemonicParsing="false" onAction="#searchItemByPerson" prefHeight="25.0" text="%buttonSearch" AnchorPane.leftAnchor="493.0" AnchorPane.rightAnchor="210.0" />
       <TableView fx:id="wishlistSearchTable" layoutX="32.0" layoutY="26.0" prefHeight="366.0" prefWidth="713.0" AnchorPane.bottomAnchor="305.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="28.0">
          <columns>
             <TableColumn fx:id="item" prefWidth="88.80001831054688" text="%wishlistItem" />
