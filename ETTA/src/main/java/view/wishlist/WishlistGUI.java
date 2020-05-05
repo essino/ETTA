@@ -11,7 +11,7 @@ import javafx.scene.layout.BorderPane;
 import res.MyBundle;
 
 /**
- * GUI class relating to the Wish section
+ * GUI class relating to the Wishlist buttons
  */
 public class WishlistGUI {
 	

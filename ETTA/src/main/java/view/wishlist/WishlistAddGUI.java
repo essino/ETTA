@@ -8,13 +8,11 @@ import controller.InputCheck;
 import controller.WishlistController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Person;
@@ -75,11 +73,15 @@ public class WishlistAddGUI {
 	 * The input check class used for validating user input
 	 */
 	InputCheck inputCheck = new InputCheck();
+	
 	/**
 	 * PersonDAO used for accessing the database
 	 */
 	PersonDAO personDAO = new PersonDAO();
 	
+	/**
+	 * Constructor without parameters
+	 */
 	public WishlistAddGUI() {
 		
 	}
@@ -109,7 +111,6 @@ public class WishlistAddGUI {
 	                    }
 	                }
 	            };
-
 	            cell.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
 	                if (cell.getItem().isEmpty() && ! cell.isEmpty()) {
 	                    TextInputDialog dialog = new TextInputDialog();
@@ -123,7 +124,6 @@ public class WishlistAddGUI {
 	                    evt.consume(); 
 	                }
 	            });
-
 	            return cell ;
 	        });
 	}

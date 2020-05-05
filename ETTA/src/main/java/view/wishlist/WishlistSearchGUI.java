@@ -28,12 +28,16 @@ import model.Item;
 import model.Person;
 import res.MyBundle;
 
+/**
+ * GUI class relating to the wishlist search section
+ */
 public class WishlistSearchGUI {
 	
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
 	MyBundle myBundle = new MyBundle();
+	
 	/**
 	 * Reference to the used WishlistController
 	 */
@@ -139,11 +143,13 @@ public class WishlistSearchGUI {
 	    });
 		addinfo.setCellValueFactory(new PropertyValueFactory<Item, String>("additionalInfo"));
 		
+		//get the list of people names from the database
 		Person[] people = controller.getPeople();
 		String[] names = new String[people.length];
 		for (int i = 0; i < people.length; i++) {
 			names[i] = people[i].getName();
 		}
+		//bind the list of people names to the text field autocomplete
 		TextFields.bindAutoCompletion(input, people);
 		ObservableList<Item> data = FXCollections.observableArrayList(controller.getItems());
 		wishlistSearchTable.setItems(data);
@@ -156,6 +162,7 @@ public class WishlistSearchGUI {
 	public void searchItemByPerson(ActionEvent event) {
 		String value = input.getText();
 		ObservableList<Item> data = FXCollections.observableArrayList(controller.getItems());
+		//populates the filtered list with only the items whose person's name matches the user input in the text field
 		FilteredList<Item> filteredData = new FilteredList<>(data,
 	           s -> (s.getPerson() != null && s.getPerson().getName().equals(value)));
 		wishlistSearchTable.setItems(filteredData);

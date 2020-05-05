@@ -11,6 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import model.Item;
 import res.MyBundle;
 
+/**
+ * GUI class relating to the wishlist gifts section
+ */
 public class WishlistGiftGUI extends AbstractWishlistGUI {
 
 	/**

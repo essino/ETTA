@@ -1,6 +1,5 @@
 package view.wishlist;
 
-import controller.CalendarController;
 import controller.InputCheck;
 import controller.WishlistController;
 import javafx.collections.FXCollections;
@@ -12,12 +11,16 @@ import javafx.scene.layout.AnchorPane;
 import model.Item;
 import res.MyBundle;
 
+/**
+ * GUI class relating to the wishlist all items section
+ */
 public class WishlistTableGUI extends AbstractWishlistGUI {
 	
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
 	MyBundle myBundle = new MyBundle();
+	
 	/**
 	 * Reference to the used WishlistController
 	 */

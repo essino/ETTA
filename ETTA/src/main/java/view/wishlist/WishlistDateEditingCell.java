@@ -2,15 +2,21 @@ package view.wishlist;
 
 import java.sql.Date;
 import java.text.DateFormat;
-import java.time.LocalDate;
 import java.util.Locale;
 
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import model.Item;
 
+/**
+ * A table cell for wishlist dates that enables in-table editing of the dates
+ * Extends JavaFX TableCell
+ */
 public class WishlistDateEditingCell extends TableCell<Item, java.sql.Date> {
 	
+	/**
+	 * Reference to the used DatePicker
+	 */
 	private DatePicker datePicker;
     
 	/**
@@ -23,10 +29,16 @@ public class WishlistDateEditingCell extends TableCell<Item, java.sql.Date> {
 	 */
 	DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
     
+	/**
+	 * Constructor without parameters
+	 */
     public WishlistDateEditingCell() {
     	
     }
 
+    /**
+     * Method for transitioning the cell to an editable state
+     */
     @Override
     public void startEdit() {
         if (!isEmpty()) {
@@ -37,18 +49,24 @@ public class WishlistDateEditingCell extends TableCell<Item, java.sql.Date> {
         }
     }
 
+    /**
+     * Method for returning to a non-editable state without saving any user input
+     */
     @Override
     public void cancelEdit() {
         super.cancelEdit();
-        //onko tässä jotain
         setText(getDate().toString());
         setGraphic(null);
     }
 
+    /**
+     * Method for updating the date in the table cell
+     * @param item the date being updated
+     * @param empty indicates if the cell is empty
+     */
     @Override
     public void updateItem(java.sql.Date item, boolean empty) {
         super.updateItem(item, empty);
-
         if (empty) {
             setText(null);
             setGraphic(null);
@@ -70,6 +88,9 @@ public class WishlistDateEditingCell extends TableCell<Item, java.sql.Date> {
         }
     }
 
+    /**
+     * Method for creating the date picker in which the user can select the date
+     */
     private void createDatePicker() {
     	if (getDate()==null) {
     		datePicker = new DatePicker(java.time.LocalDate.now());
@@ -83,6 +104,10 @@ public class WishlistDateEditingCell extends TableCell<Item, java.sql.Date> {
         });
     }
 
+    /**
+     * Method for getting the date from the data picker
+     * @return Date the selected date. If there is no date is selected, return null
+     */
     private Date getDate() {
     	if (getItem() == null) {
     		return null;
