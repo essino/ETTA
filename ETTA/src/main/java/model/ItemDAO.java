@@ -67,9 +67,8 @@ public class ItemDAO {
 	/**
 	 * Method for reading one specific Item in the database
 	 * @param item_id int the id of the Item to be read
-	 * @return success Boolean indicating the success or failure of the database transaction
+	 * @return item the Item retrieved from the database
 	 */
-	
 	public Item readItem(int item_id) {
 		Item item = new Item();
 		try {
@@ -85,6 +84,11 @@ public class ItemDAO {
 		return item;
 	}
 	
+	/**
+	 * Method for reading one specific Item in the database
+	 * @param desc String describing the Item
+	 * @return item the Item retrieved from the database
+	 */
 	public Item readItem(String desc) {
 		Item item = new Item();
 		try {

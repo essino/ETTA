@@ -81,8 +81,10 @@ public class Category {
 		this.description = description;
 		this.income = income;
 	}	
-
-	
+	/**
+	 * Function that returns the category as String
+	 *@return this.description String describing the category
+	 */
 	@Override
 	public String toString() {
 		return this.description;

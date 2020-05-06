@@ -87,6 +87,11 @@ public class PersonDAO {
 		return person;
 	}
 	
+	/**
+	 * Method for reading one specific Person in the database
+	 * @param name String the name of the Person to be read
+	 * @return person Person read from the database
+	 */
 	public Person readPerson(String name) {
 		//System.out.println("id in reading one " + id);
 		Person person = new Person();

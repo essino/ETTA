@@ -45,6 +45,10 @@ public class Person {
 		this.email = email;
 	}
 
+	/**
+	 * Constructor to create people
+	 *@param name String the person's name
+	 */
 	public Person(String name) {
 		this.name = name;
 	}
@@ -113,6 +117,10 @@ public class Person {
 		this.email = email;
 	}
 	
+	/**
+	 * Function returning person's name
+	 *@return this.name String naming the person
+	 */
 	@Override
 	public String toString() {
 		return this.name;

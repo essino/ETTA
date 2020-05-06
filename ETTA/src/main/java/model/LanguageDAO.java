@@ -102,6 +102,10 @@ public class LanguageDAO {
 	}
 	*/
 	
+	/**
+	 * Method for retrieving a language from the database
+	 * @return language Language the selected language from the database if transaction is successful
+	 */
 	public Language getSelectedLanguage() {
 		Language language = new Language();
 		try {
@@ -120,6 +124,11 @@ public class LanguageDAO {
 		
 	}
 
+	/**
+	 * Method for creating a new language in the database
+	 * @param language Language object that is to be created in the database
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
 	public boolean createLanguage(Language language) {
 		boolean success = false;
 		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
@@ -134,6 +143,11 @@ public class LanguageDAO {
 		return success;
 	}
 	
+	/**
+	 * Method for updating a language in the database
+	 * @param language Language the updated Language object
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
 	public boolean updateLanguage(Language language) {
 		boolean success = false;
 		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
@@ -148,6 +162,11 @@ public class LanguageDAO {
 		return success;
 	}
 
+	/**
+	 * Method for updating a language in the database
+	 * @param newLangName String naming the language
+	 * @return language Language that is read from the database
+	 */
 	public Language readLanguage(String newLangName) {
 		Language language = new Language();
 		try {
@@ -164,6 +183,11 @@ public class LanguageDAO {
 		return language;
 	}
 	
+	/**
+	 * Method for deleting a language in the database
+	 * @param language Language to be deleted
+	 * @return success Boolean indicating the success or failure of the database transaction
+	 */
 	public boolean deleteLanguage(Language language) {
 		boolean success = false;
 		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {

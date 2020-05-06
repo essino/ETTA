@@ -231,6 +231,11 @@ public class EventDAO {
 		return result.toArray(returnArray);
 	}
 
+	/**
+	 * method for deleting birthdays in the database
+	 * @param name the person's name whose birthday is being deleted
+	 * @return deleted boolean indicating whether or not birthday is successfully deleted in the database
+	 */
 	public boolean deleteBirthday(String name) {
 		boolean deleted = false;
 		try {
@@ -261,6 +266,11 @@ public class EventDAO {
 		return deleted;
 	}
 	
+	/**
+	 * method for getting information (the whole event) about a birthday from the database
+	 * @param name the person's name whose birthday is in question
+	 * @return event the birthday in question
+	 */
 	public Event readBirthday(String name) {
 		Event event =null;
 		try {
@@ -288,6 +298,11 @@ public class EventDAO {
 		return event;
 	}
 	
+	/**
+	 * method for getting information (the whole event) about an event concerning a borrowed item
+	 * @param description the description of the item that the event concerns
+	 * @return event the event relating to the borrowed item
+	 */
 	public Event readBorrowed(String description) {
 		Event event =null;
 		try {
@@ -315,6 +330,11 @@ public class EventDAO {
 		return event;
 	}
 
+	/**
+	 * method for getting information (the whole event) about an event concerning a wishlist item
+	 * @param oldEvent the name of the event
+	 * @return event the event relating to the wishlist item
+	 */
 	public Event readWishlistEvent(String oldEvent) {
 		Event event =null;
 		try {

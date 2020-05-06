@@ -153,6 +153,11 @@ public class SavingDAO {
 		return success;
 	}
 
+	/**
+	 * Method for getting a saving from the database
+	 * @param description String describing the saving
+	 * @return saving Saving to be retrieved
+	 */
 	public Saving getSaving(String description) {
 		Saving saving = new Saving();
 		try  {
