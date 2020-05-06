@@ -151,6 +151,11 @@ public class WishlistController {
 		}
 	}
 	
+	/** 
+	 * Method for creating a new wishlist event for an item
+	 * @return true if creation succeeded
+	 * @return false if creation failed
+	 */ 
 	public boolean createWishlistEvent(Item item) {
 		return calendarController.createWishlistEvent(item); 
 	}

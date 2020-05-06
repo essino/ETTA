@@ -8,10 +8,20 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import model.Person;
 
-
+/**
+ * Class used for in-table editing of dates
+ * Extends JavaFX class TableCell
+ */
 public class ContactsDateEditingCell extends TableCell<Person, java.sql.Date> {
-private DatePicker datePicker;
+	
+	/**
+	 * Reference to the date picker
+	 */
+	private DatePicker datePicker;
     
+	/**
+	 * Construction without parameters
+	 */
     public ContactsDateEditingCell() {
     }
     
@@ -25,6 +35,9 @@ private DatePicker datePicker;
 	 */
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
 
+    /**
+     * Method for beginning date editing
+     */
     @Override
     public void startEdit() {
         if (!isEmpty()) {
@@ -35,6 +48,9 @@ private DatePicker datePicker;
         }
     }
 
+    /**
+     * Method for canceling date editing
+     */
     @Override
     public void cancelEdit() {
         super.cancelEdit();
@@ -42,6 +58,12 @@ private DatePicker datePicker;
         setGraphic(null);
     }
 
+    /**
+     * Method for updating the date
+     * This method is called whenever the item in the cell is changed
+     * @param item the date being updated
+     * @param empty indicates if the cell is empty
+     */
     @Override
     public void updateItem(java.sql.Date item, boolean empty) {
         super.updateItem(item, empty);
@@ -68,6 +90,9 @@ private DatePicker datePicker;
         }
     }
 
+    /**
+     * Method for creating the date picker in which the date is selected by the user
+     */
     private void createDatePicker() {
     	if(getDate()==null) {
     		datePicker = new DatePicker(java.time.LocalDate.now());
@@ -75,8 +100,6 @@ private DatePicker datePicker;
     	else {
     		datePicker = new DatePicker(getDate().toLocalDate());
     	}
-        
-        
         datePicker.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
         datePicker.setOnAction((e) -> {
             System.out.println("Committed: " + datePicker.getValue().toString());
@@ -84,6 +107,10 @@ private DatePicker datePicker;
         });
     }
 
+    /**
+     * Method for getting the chosen date
+     * @return getItem() Date the value chosen in the date picker for the cell. If there is no value, the current date is returned
+     */
     private Date getDate() {
     	if (getItem() == null) {
     		return null;

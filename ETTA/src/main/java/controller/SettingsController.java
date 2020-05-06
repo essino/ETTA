@@ -92,6 +92,10 @@ public class SettingsController {
 		return names;
 	}
 
+	/**
+	 * Method for updating which language is chosen
+	 * @param newLangName String indicating the new chosen language
+	 */
 	public void updateChoice(String newLangName) {
 		Language oldLang = langDAO.getSelectedLanguage();
 		oldLang.setChosen(false);

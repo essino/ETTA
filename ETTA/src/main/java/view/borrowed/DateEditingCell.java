@@ -111,7 +111,7 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
     }
 
     /**
-     * Method for beginning date editing
+     * Method for getting the chosen date
      * @return getItem() Date the value chosen in the date picker for the cell. If there is no value, the current date is returned
      */
     private Date getDate() {

@@ -205,7 +205,12 @@ public class EconomyController {
 		updateBalanceAmount(transfer.getAmount());
 	}
 	
-	
+	/** 
+	 * Method that gets selected transfers from database
+	 * @param gui AbstractEconomyGUI implementation
+	 * @param start Date the start date of the time span from which the transfers are chosen
+	 * @param end Date the end date of the time span from which the transfers are chosen
+	 */ 
 	public void getSelectedTransfers(AbstractEconomyGUI gui, Date start, Date end) {
 		gui.setData(transDAO.readSeletedTransfers(start, end));
 	}
