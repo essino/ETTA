@@ -27,6 +27,11 @@ import model.Category;
 import model.Transfer;
 import res.MyBundle;
 
+/**
+ * GUI class that is in charge of the expense table in the economy part. Data in the table can be deleted or modified.
+ * There is also a search part where the user can search for expenses depending on the dates.
+ * Adding a new expense is called from this view.
+ */
 public class EconomyOutcomeGUI extends AbstractEconomyGUI implements ITransferGUI{
 	
 	/**
@@ -72,10 +77,15 @@ public class EconomyOutcomeGUI extends AbstractEconomyGUI implements ITransferGU
       @FXML
       private TableColumn<Category, String> expenseCategory;
       
-      
+      /**
+    	 * The reference of DatePicker for starting day to search expenses
+    	 */
       @FXML
       private DatePicker expenceStartDate;
 
+      /**
+    	 * The reference of DatePicker for ending day to search expenses
+    	 */
       @FXML
       private DatePicker expenceEndDate;
       
@@ -86,6 +96,9 @@ public class EconomyOutcomeGUI extends AbstractEconomyGUI implements ITransferGU
       
     	Callback<TableColumn<Transfer, Date>, TableCell<Transfer, Date>> dateCellFactory = (TableColumn<Transfer, Date> param) -> new DateEditingCell(); 
       
+    	/**
+    	 * Constructor with no parameters
+    	 */
       public EconomyOutcomeGUI() {
   		
   	}
@@ -126,7 +139,7 @@ public class EconomyOutcomeGUI extends AbstractEconomyGUI implements ITransferGU
 	
 	}
 	/**
-	 * Method searching information of the seleted days on Expenses items section
+	 * Method searching information of the selected days on Expenses items section
 	 * @param event ActionEvent that is handled
 	 */
 	@FXML
@@ -229,13 +242,20 @@ public class EconomyOutcomeGUI extends AbstractEconomyGUI implements ITransferGU
 		expenseTable.getItems().remove(transfer);
 	}
 	
+	/** 
+	 * Method that returns the selected income
+	 * @return Transfer that is selected
+	 */
 	@FXML
 	public Transfer getSelectedItem() {
 		return expenseTable.getSelectionModel().getSelectedItem();
 	}
 	
 	/** 
-	 * Method set to data controller
+	 * Method sets data of expenses to the table. 
+	 * Gets both incomes and expenses and displays only expenses in the table.
+	 * @param Transfer [] list of the transfers
+	 * 
 	 */
 	public void setData(Transfer[] readSeletedTransfers) {
 		ArrayList<Transfer> expences = new ArrayList<Transfer>();

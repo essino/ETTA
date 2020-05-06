@@ -27,6 +27,11 @@ import model.Category;
 import model.Transfer;
 import res.MyBundle;
 
+/**
+ * GUI class that is in charge of the income table in the economy part. Data in the table can be deleted or modified.
+ * There is also a search part where the user can search for incomes depending on the dates.
+ * Adding a new income is called from this view.
+ */
 public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI{
 
 	/**
@@ -96,6 +101,12 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI
   	
   	Callback<TableColumn<Transfer, Date>, TableCell<Transfer, Date>> dateCellFactory = (TableColumn<Transfer, Date> param) -> new DateEditingCell(); 
 	
+	/**
+	 * Constructor with no parameters
+	 */
+	public EconomyIncomeGUI() {
+		
+	}
 	
     /**
 	 * Method showing the view of the Add Income in the Incomes items section
@@ -128,11 +139,7 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI
 		
 	}
 	
-	
-	
-	public EconomyIncomeGUI() {
-		
-	}
+
 	
 	/** 
 	 * Method that initializes the view and gets the incomes  from the controller to display them on the page
@@ -195,10 +202,6 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI
 		
 	}
 	
-	
-	
-
-	
 	/** 
 	 * Method that tells controller to delete an income 
 	 */
@@ -232,19 +235,25 @@ public class EconomyIncomeGUI extends AbstractEconomyGUI implements ITransferGUI
 		incomeTable.getItems().remove(transfer);
 	}
 	
+	/**
+	 * Method for getting the selected item from the table
+	 * @return Transfer that is selected
+	 */
 	@FXML
 	public Transfer getSelectedItem() {
 		return incomeTable.getSelectionModel().getSelectedItem();
 	}
 	
-	
 	/** 
-	 * Method set to data controller
+	 * Method sets data of incomes to the table. 
+	 * Gets both incomes and expenses and displays only incomes in the table.
+	 * @param Transfer [] list of the transfers
+	 * 
 	 */
 	@FXML
-	public void setData(Transfer[] readSeletedTransfers) {
+	public void setData(Transfer[] transfers) {
 		ArrayList<Transfer> incomes = new ArrayList<Transfer>();
-		for (Transfer t: readSeletedTransfers) {
+		for (Transfer t: transfers) {
 			if (t.isIncome() == true) {
 				incomes.add(t);
 			}

@@ -3,7 +3,6 @@ package view.mainPage;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.DateFormat;
-import java.time.ZoneId;
 import java.util.Locale;
 
 import org.joda.time.LocalDate;
@@ -17,42 +16,65 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import model.BorrowedThing;
 import model.Event;
 import model.EventDAO;
 
+/**
+ * GUI class relating to the main page. Displays the balance amount, today's date and today's events.
+ * @author Lena
+ */
 public class MainPageGUI  {
 
+	/**
+	 * Reference to the used MainViewController
+	 */
 	MainViewController controller;
+	
+	/**
+	 * EventDAO used for accessing the database
+	 */
 	EventDAO eventDAO = new EventDAO();
 	
+	/**
+	 * The reference of Label for amount of the balance will be injected by the FXML loader
+	 */
 	@FXML
 	private Label amountBalance;
 	
+	/**
+	 * The reference of Label for today's date will be injected by the FXML loader
+	 */
 	@FXML
 	private Label todaysDate;
 	
+	/**
+	 * The reference of TableView with today's events will be injected by the FXML loader
+	 */
 	@FXML
     private TableView<Event> eventTable;
 	
+	/**
+	 * The reference of TableColumn event's title will be injected by the FXML loader
+	 */
     @FXML
     private TableColumn<Event, String> title;
+	/**
+	 * The reference of TableColumn event's start date will be injected by the FXML loader
+	 */
     @FXML
     private TableColumn<Event, Date> startDate;
-    /*
-    @FXML
-    private TableColumn<Event, String> eventLocation;
-    */
+    
+	/**
+	 * The reference of TableColumn event's start time will be injected by the FXML loader
+	 */
     @FXML
     private TableColumn<Event, Time> startTime;
+	/**
+	 * The reference of TableColumn event's end time will be injected by the FXML loader
+	 */
     @FXML
     private TableColumn<Event, Time> endTime;
 	
-	BorderPane borderPane;
-	AnchorPane content = null;
-
 	/** 
 	 * Constructor  
 	 */ 

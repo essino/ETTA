@@ -9,6 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import res.MyBundle;
 
+/**
+ * GUI class that is in charge of displaying the right fxml file depending on the needed part of the economy part of the app
+ */
 public class EconomyGUI {
 	
 	/**

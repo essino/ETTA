@@ -72,8 +72,19 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
 	 */
 	EconomyController controller = new EconomyController();
 	
+	/**
+	 * Constructor with no parameters
+	 */
 	public EconomyAddIncomeGUI() {
 		
+	}
+	
+	/**
+	 * Constructor
+	 * @param EconomyController
+	 */
+	public EconomyAddIncomeGUI(EconomyController controller){
+		this.controller = controller;
 	}
 	
 	/** 
@@ -99,7 +110,7 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
                     }
                 }
             };
-            //updating new category
+            //adding new category
             cell.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
                 if (cell.getItem().isEmpty() && ! cell.isEmpty()) {
                     TextInputDialog dialog = new TextInputDialog();
@@ -109,6 +120,7 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
                     dialog.showAndWait().ifPresent(text -> {
                         int index = incomeCategoryList.getItems().size()-1;
                         incomeCategoryList.getItems().add(index, text);
+                      //an income category -> boolean income is set to true
                         categoryDAO.createCategory(new Category(text, true));
                         incomeCategoryList.getSelectionModel().select(index);
                     });
@@ -158,7 +170,7 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
 	 */
 	@FXML
 	public float getTransferAmount() {
-		//if the user gave a negative amount it will be transfered into positive, becouse income can't be less then zero
+		//if the user gave a negative amount it will be transfered into positive, because income can't be less then zero
 		return Math.abs(Float.parseFloat(incomeAmount.getText()));
 	}
 
@@ -212,8 +224,6 @@ public class EconomyAddIncomeGUI implements ITransferAddGUI{
 		economyincomeaddanchorpane.getChildren().setAll(incomeView);
 		}
 	
-	public EconomyAddIncomeGUI(EconomyController controller){
-		this.controller = controller;
-	}
+
 
 }

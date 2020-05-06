@@ -4,11 +4,15 @@ import java.time.DayOfWeek;
 import java.time.temporal.WeekFields;
 
 import com.calendarfx.view.CalendarView;
-import com.calendarfx.view.DateControl;
 
 import controller.CalendarController;
 import res.MyBundle;
 
+/**
+ * MyCalendarView class extends the Calendar FX's CalendarView class. Used for getting the calendar view to the application.
+ * First day of week is set depending on the chosen language of the application.
+ * The calendar view gets the calendar sources from the CalendarController.
+ */
 public class MyCalendarView extends CalendarView{
 	
 	/**

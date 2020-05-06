@@ -113,7 +113,8 @@ public class EconomyController {
 	
 	/**
 	 * 
-	 * Method for updating a transfer's amount
+	 * Method for updating a transfer's amount, calls the updateBalanceAmount method after updating the transfer
+	 * @param Transfer with the changed amount
 	 */
 	public void updateTransferAmount(Transfer editedTransfer) {
 		float oldAmount = (transDAO.readTransfer(editedTransfer.getTransfer_id())).getAmount();
@@ -124,15 +125,18 @@ public class EconomyController {
 	}
 	
 	/**
-	 * 
-	 * Method for updating a transfer
+	 * Method for updating a transfer, gets called if the date or the description of the transfer has been modified
+	 * @param Transfer that need to be updated
+	 * @return true if the transfer was succefully updated
+	 * @return false if updating the transfer didn't succeed
 	 */
 	public boolean updateTransfer(Transfer editedTransfer) {
 		return transDAO.updateTransfer(editedTransfer);
 	}
 
 	/** 
-	 * Method that gets balance amount from BalanceDAO and gives it forward to BalanceOverviewGUI to display it on the page 
+	 * Method that gets balance amount from BalanceDAO and gives it forward to BalanceOverviewGUI to display it on the page.
+	 * If the balance is 0, meaning it was automatically set to 0 with the first usage of the app, a form for setting the rigth balance is displayed. 
 	 */ 
 	public void getBalance() { 
 		balanceOverviewGUI.setBalance(balanceDao.readBalance(1).getBalance()); 
@@ -156,7 +160,7 @@ public class EconomyController {
 	
 	/** 
 	 * Method that gets income Categories from CategoryDAO and makes a list containing categories' names only 
-	 * @return ObservableList<String> names - list of categories' names
+	 * @return ObservableList<String> names - list of income categories' names
 	 */ 
 	public ObservableList<String> incomeCategoriesList() {
 		Category[] categories = categoryDAO.readIncomeCategories();
@@ -170,7 +174,7 @@ public class EconomyController {
 	
 	/** 
 	 * Method that gets expense Categories from CategoryDAO and makes a list containing categories' names only 
-	 * @return ObservableList<String> names - list of categories' names
+	 * @return ObservableList<String> names - list of expense categories' names
 	 */ 
 	public ObservableList<String> expenseCategoriesList() {
 		Category[] categories = categoryDAO.readExpenseCategories();
@@ -189,10 +193,13 @@ public class EconomyController {
 	 */ 
 	public void saveTransfer(ITransferAddGUI gui) {
 		Transfer transfer = new Transfer();
+		//adding an income
 		if (gui.getClass()==EconomyAddIncomeGUI.class) {
 			transfer.setAmount(gui.getTransferAmount());
 			transfer.setIncome(true);
 		}
+		//adding an expense
+		//the amount is set to be negative, even if the user gave it as a positive number
 		else {
 			transfer.setAmount(0-Math.abs(gui.getTransferAmount()));
 			transfer.setIncome(false);
@@ -202,11 +209,12 @@ public class EconomyController {
 		transfer.setDescription(gui.getDescription());
 		transfer.setDate(gui.getTransferDate());
 		transDAO.createTransfer(transfer);
+		//change the balance with transfer's amount
 		updateBalanceAmount(transfer.getAmount());
 	}
 	
 	/** 
-	 * Method that gets selected transfers from database
+	 * Method that gets selected transfers from database and gives them forward to GUI to display in the table
 	 * @param gui AbstractEconomyGUI implementation
 	 * @param start Date the start date of the time span from which the transfers are chosen
 	 * @param end Date the end date of the time span from which the transfers are chosen
@@ -223,6 +231,9 @@ public class EconomyController {
 	 */ 
 	public void removeTransfer(ITransferGUI gui) {
 		transDAO.deleteTransfer(gui.transferToDelete().getTransfer_id());
+		//change the balance with transfer's amount
+		//if it was an income, the amount of it will be taken from the balance
+		//if it was an expense, the amount will be added to the balance because expense amount is negative
 		updateBalanceAmount(0-gui.transferToDelete().getAmount());
 		gui.removeFromTable(gui.transferToDelete());
 	}
@@ -251,6 +262,7 @@ public class EconomyController {
 		saving.setGoal_amount(economyAddSavingGUI.getSavingAmount());
 		saving.setDescription(economyAddSavingGUI.getDescription());
 		saving.setGoalDate(economyAddSavingGUI.getSavingDay());
+		//there is no option for adding money while adding a new saving goal, so Progress is 0 at this point by default
 		saving.setProgress(0);
 		savingDAO.createSaving(saving);
 	}
@@ -270,6 +282,7 @@ public class EconomyController {
 	 */ 
 	public void removeSaving() {
 		savingDAO.deleteSaving(economySavingGUI.savingToDelete().getSaving_id());
+		//the saved amount will be added to the balance
 		updateBalanceAmount(economySavingGUI.savingToDelete().getAmount());
 		economySavingGUI.removeFromTable(economySavingGUI.savingToDelete());
 	}
@@ -277,7 +290,7 @@ public class EconomyController {
 
 	/** 
 	 * Boolean method that updates the saving in the database 
-	 * @param Saving to update the database 
+	 * @param Saving to update in the database 
 	 * @return true if the saving was updates successfully
 	 * @return false if the updating of the saving didn't succeed
 	 */
@@ -287,6 +300,7 @@ public class EconomyController {
 	
 	/** 
 	 * Method that gets balance amount from BalanceDAO and gives it forward to BalanceOverviewGUI to display it on the page 
+	 * @return float the balance amount from the database read by BalanceDAO
 	 */ 
 	public float getBalanceAmount() { 
 		return balanceDao.readBalance(1).getBalance(); 
@@ -301,10 +315,12 @@ public class EconomyController {
 	public boolean updateBalanceAmount(float amount) {
 		if(enoughBalance(amount)) {
 			Balance balance = balanceDao.readBalance(1);
+			//change the balance with the amount
+			//if it was a positive amount (for example a new income), the amount of it will be added the balance
+			//if it was a negative amount (for example a new expense), the amount will be taken from the balance
 			float newAmount = balance.getBalance() + amount;
 			balance.setBalance(newAmount);
-			balanceDao.updateBalance(balance);
-			return true;
+			return balanceDao.updateBalance(balance);
 		}
 		else {
 			return false;
@@ -344,6 +360,7 @@ public class EconomyController {
 	/** 
 	 * Method that gets a saving description as the parameter 
 	 * and gives it forward to SavingsDAO to search for a saving with this description in the database
+	 * @param String the description of a saving goal 
 	 * @return Saving the found Saving from the database
 	 */ 
 	public Saving getSaving(String description) {
@@ -358,9 +375,9 @@ public class EconomyController {
 	 */
 	public void moveSavingToExpense(Saving achievedSaving) {
 		savingDAO.deleteSaving(achievedSaving.getSaving_id());
-
+		//make an income with saving goal's data
 		fromSavingToIncome(achievedSaving);
-
+		//make an expense with saving goal's data
 		fromSavingToExpense(achievedSaving); 
 
 		economySavingGUI.removeFromTable(achievedSaving);
@@ -391,6 +408,7 @@ public class EconomyController {
 		incomeFromSaved.setAmount(achievedSaving.getAmount());
 		incomeFromSaved.setCategory(fromSaved);
 		incomeFromSaved.setIncome(true);
+		//today's date by default, can be changed afterwards in the table
 		incomeFromSaved.setDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
 		
 		return transDAO.createTransfer(incomeFromSaved);
@@ -421,6 +439,7 @@ public class EconomyController {
 		expenceFromSaved.setAmount(0-achievedSaving.getAmount());
 		expenceFromSaved.setCategory(paidFromSaved);
 		expenceFromSaved.setIncome(false);
+		//today's date by default, can be changed afterwards in the table
 		expenceFromSaved.setDate(java.sql.Date.valueOf(java.time.LocalDate.now()));
 		
 		return transDAO.createTransfer(expenceFromSaved);

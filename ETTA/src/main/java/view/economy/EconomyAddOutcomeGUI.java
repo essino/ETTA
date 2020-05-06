@@ -72,6 +72,9 @@ public class EconomyAddOutcomeGUI implements ITransferAddGUI{
 	 */
 	EconomyController controller = new EconomyController();
 	
+	/**
+	 * Constructor with no parameters
+	 */
 	public EconomyAddOutcomeGUI() {
 		
 	}
@@ -99,7 +102,7 @@ public class EconomyAddOutcomeGUI implements ITransferAddGUI{
                     }
                 }
             };
-          //updating new category
+          //adding a new category
             cell.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
                 if (cell.getItem().isEmpty() && ! cell.isEmpty()) {
                     TextInputDialog dialog = new TextInputDialog();
@@ -109,6 +112,7 @@ public class EconomyAddOutcomeGUI implements ITransferAddGUI{
                     dialog.showAndWait().ifPresent(text -> {
                         int index = outcomeCategoryList.getItems().size()-1;
                         outcomeCategoryList.getItems().add(index, text);
+                        //an expense category -> boolean income is set to false
                         categoryDAO.createCategory(new Category(text, false));
                         outcomeCategoryList.getSelectionModel().select(index);
                     });
@@ -159,8 +163,8 @@ public class EconomyAddOutcomeGUI implements ITransferAddGUI{
 	 */
 	@FXML
 	public float getTransferAmount() {
-		// program turn expense later minus float, if user give expence with "-"mark it would not be problem
-		return Math.abs(Float.parseFloat(outcomeAmount.getText()));
+		//making sure the expense will be a negative amount even if the user gave a positive number
+		return 0-Math.abs(Float.parseFloat(outcomeAmount.getText()));
 	}
 	
 	/**
@@ -171,7 +175,6 @@ public class EconomyAddOutcomeGUI implements ITransferAddGUI{
 	public void saveExpense() {
 		if(inputCheck.isInputFloat(outcomeAmount.getText())) {
 			
-		
 			if(!inputCheck.isInputEmpty(outcomeDescription.getText())) {
 			controller.saveTransfer(this);
 			AnchorPane outcomeView = null; 

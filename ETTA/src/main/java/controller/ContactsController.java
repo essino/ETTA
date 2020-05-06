@@ -150,6 +150,7 @@ public class ContactsController {
 	public void deletePersonAndEvents() {
 		Person personToDelete = conTableGUI.personToDelete();
 		for(BorrowedThing bt : borrowedDAO.readBorrowedThingsByPerson(personToDelete.getPerson_id())) {
+			//hardcoded name of the borrowed event, must be changed if the database is localized
 			Event event = eventDAO.readBorrowed(bt.getPerson().getName() + " should return " + bt.getDescription());
 			if (event!=null) {
 				eventDAO.deleteEvent(event.getEvent_id());
@@ -157,6 +158,7 @@ public class ContactsController {
 			borrowedDAO.deleteBorrowedThing(bt.getThing_id());
 		}
 		for(Item i : wishlistDAO.readItemsByPerson(personToDelete.getPerson_id())) {
+			//hardcoded name of the wishlist event, must be changed if the database is localized
 			Event event2 = eventDAO.readWishlistEvent("Buy " + i.getDescription() + " for " + i.getPerson().getName());
 			if(event2!=null) {
 				eventDAO.deleteEvent(event2.getEvent_id());
@@ -179,6 +181,7 @@ public class ContactsController {
 	
 	/** 
 	 * Boolean method that gets a Person's name as a parameter and tells PersonDAO to read the Person with this name from the database.
+	 * Same names for different people is not supported.
 	 * @param String name - the name of the Person that needs to be found
 	 * @return true - if person was successfully found
 	 * @return false - if finding a person didn't succeed 

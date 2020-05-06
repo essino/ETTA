@@ -1,17 +1,11 @@
 package view.mainPage;
 
 import java.io.IOException;
-import java.time.DayOfWeek;
-import java.time.temporal.WeekFields;
-import java.util.Locale;
-
-import com.calendarfx.view.CalendarView;
 
 import controller.CalendarController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import model.LanguageDAO;
 import res.MyBundle;
 import view.calendar.MyCalendarView;
 /**
@@ -19,13 +13,18 @@ import view.calendar.MyCalendarView;
  */
 public class MainViewGUI {
 	
+	/**
+	 * Reference to the used CalendarController 
+	 */
 	CalendarController calendarController = new CalendarController();
-	LanguageDAO langDao = new LanguageDAO();
-	Locale locale;
+	
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
 	MyBundle myBundle = new MyBundle();
+	/**
+	 * Reference to the used FXMLLoader 
+	 */
 	FXMLLoader loader;
 	
 	public BorderPane mainPageView() {
@@ -53,17 +52,14 @@ public class MainViewGUI {
 		try {
 			borderPaneEconomy = loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		loader  = new FXMLLoader(getClass().getResource("/view/economy/EconomyBalanceOverview.fxml"));
 		AnchorPane balanceOverview = null;
 		loader.setResources(myBundle.getBundle());
-		//loaderBalance.setResources(bundle);
 		try {
 			balanceOverview = loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -90,7 +86,6 @@ public class MainViewGUI {
 		try {
 			wishlistView = loader.load();
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		borderPaneWishlist.setCenter(wishlistView);
@@ -108,7 +103,6 @@ public class MainViewGUI {
 		try {
 			borderPaneBorrowed = loader.load();
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		AnchorPane borrowedView = null;
@@ -134,7 +128,6 @@ public class MainViewGUI {
 		try {
 			borderPaneContacts = loader.load();
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		AnchorPane contactsView = null;
@@ -143,7 +136,6 @@ public class MainViewGUI {
 		try {
 			contactsView = loader.load();
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		borderPaneContacts.setCenter(contactsView);
@@ -160,26 +152,12 @@ public class MainViewGUI {
 		try {
 			borderPaneCalendar = loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*
-		CalendarView calendarView  = new CalendarView();
-		calendarView.setShowAddCalendarButton(false);
-		if(myBundle.getBundle().getString("language").equals("fi")) {
-			calendarView.setWeekFields(WeekFields.of(DayOfWeek.MONDAY,1));
-		}
-		else {
-			calendarView.setWeekFields(WeekFields.of(DayOfWeek.SUNDAY,1));
-		}
-
-		calendarView.getCalendarSources().addAll(calendarController.getCalendarSource());
-		calendarController.getDefaultCalendarSource(calendarView);
-		*/
-		//CalendarView calendarView  = (new MyCalendarView()).getMyCalendarView();
 		borderPaneCalendar.setCenter(new MyCalendarView().getMyCalendarView());
 		return borderPaneCalendar;
 	}
+	
 	/**
 	 * Method loading the settings page view - root with the button menu and the content
 	 * @return BorderPane settings page view
@@ -191,7 +169,6 @@ public class MainViewGUI {
 		try {
 			borderPaneSettings = loaderSettings.load();
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		return borderPaneSettings;

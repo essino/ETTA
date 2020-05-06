@@ -17,7 +17,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import model.BorrowedThing;
 import model.Transfer;
 import res.MyBundle;
 
@@ -50,6 +49,9 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 	@FXML 
 	private Label amountBalance; 
 	
+	/**
+	 * InputCheck object created to check the user's input
+	 */
 	InputCheck inputCheck = new InputCheck();
 	
 	/**
@@ -188,16 +190,6 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 	
 		searchWeeksTransfers();	
 
-		incomeTable.setEditable(true);
-		incomeDescription.setCellValueFactory(new PropertyValueFactory<Transfer, String>("description")); 
-		incomeAmount.setCellValueFactory(new PropertyValueFactory<Transfer, Float>("amount"));
-		
-		expenseTable.setEditable(true);
-		expenseDescription.setCellValueFactory(new PropertyValueFactory<Transfer, String>("description")); 
-		
-		expenseAmount.setCellValueFactory(new PropertyValueFactory<Transfer, Float>("amount"));
-		
-		expenseDate.setCellValueFactory(new PropertyValueFactory<Transfer, Date>("date"));
 	}
 	
 	/** 
@@ -232,18 +224,22 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 
 	/** 
 	 * Method sets data of incomes and expenses to own tables. 
-	 * 
+	 * Gets both incomes and expenses and divides them into separate lists to display in separate tables
+	 * @param Transfer [] list of the transfers
 	 * 
 	 */ 
 	@FXML
-	public void setData(Transfer[] readSeletedTransfers) {
-		//chooses only incomes from the list
+	public void setData(Transfer[] transfers) {
+		
 		ArrayList<Transfer> incomes = new ArrayList<Transfer>();
 		ArrayList<Transfer> expences = new ArrayList<Transfer>();
-		for (Transfer t: readSeletedTransfers) {
+		for (Transfer t: transfers) {
+			//chooses only incomes from the list
 			if (t.isIncome() == true) {
 				incomes.add(t);
-			} else {
+			} 
+			//chooses only expenses from the list
+			else {
 				expences.add(t);
 			}
 		}

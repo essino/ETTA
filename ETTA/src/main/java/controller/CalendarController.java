@@ -23,8 +23,8 @@ import model.Item;
 import model.Person;
 
 /** 
- * Controller class for the calendar. This class is in charge of connecting EventDAO with other controllers and GUIs.  
- * @author Lena
+ * Controller class for the calendar. This class is in charge of connecting EventDAO with CalendarFX, other controllers and GUIs.  
+ * @author Lena, Essi, Tiina
  */
 public class CalendarController {
 	
@@ -138,7 +138,7 @@ public class CalendarController {
 		}
 	
 	/** 
-	 * Method that creates a CalendarFX Entry from Event from the database
+	 * Method that creates a CalendarFX Entry used in the app from Event class from the database
 	 * @param Event - event to be converted into Entry
 	 * @return Entry - entry converted  from  Event
 	 */ 
@@ -154,14 +154,12 @@ public class CalendarController {
 		entry.setId(String.valueOf(event.getEvent_id()));
 		entry.setRecurrenceRule(event.getRrule());
 		Calendar calendar = new Calendar(event.getCalendar());
-		System.out.println(" calendar rivi 135 " + event.getCalendar());
 		entry.setCalendar(calendar);
-		System.out.println(" calendar rivi 137 " + entry.getCalendar().getName());
 		return entry;
 	 }
 	  
 	/** 
-	 * Method that creates a database Event from a CalendarFX Entry
+	 * Method that creates a database class Event from a CalendarFX Entry used in the app
 	 * @param Entry - entry to be converted into Event
 	 * @return Event - event converted  from Entry
 	 */ 
@@ -227,7 +225,9 @@ public class CalendarController {
 			birthdayEvent.setCalendar("birthdays");
 			birthdayEvent.setStartDate(birthday);
 			birthdayEvent.setEndDate(birthday);
+			//birthday events are always fullday
 			birthdayEvent.setFullday(true);
+			//birthday events are always recurring, same day each year
 			birthdayEvent.setRecurring(true);
 			birthdayEvent.setRrule("RRULE:FREQ=YEARLY;");
 			return eventDAO.createEvent(birthdayEvent);
@@ -283,6 +283,7 @@ public class CalendarController {
 			wishlistEvent.setEvent_id(getNextId());
 			wishlistEvent.setStartDate(item.getDateNeeded());
 			wishlistEvent.setEndDate(item.getDateNeeded());
+			//wishlist events are always full day events
 			wishlistEvent.setFullday(true);
 			if (item.getPerson() != null) {
 				wishlistEvent.setTitle("Buy " + item.getDescription() + " for " + item.getPerson().getName());
@@ -290,6 +291,7 @@ public class CalendarController {
 				wishlistEvent.setTitle("Buy " + item.getDescription() + " for myself");
 			}
 			wishlistEvent.setLocation(null);
+			//birthday events are not recurring by default, can be changed in the app in the calendar view
 			wishlistEvent.setRecurring(false);
 			wishlistEvent.setCalendar("wishlist");
 			return eventDAO.createEvent(wishlistEvent); 
@@ -306,13 +308,16 @@ public class CalendarController {
 		//update wishlist event if item description changes
 		public boolean updateWishlistDescription(String oldDescription, Item editedItem) {
 			boolean updated = false;
+			//hardcoded name of the wishlist event, must be changed if the database is localized
 			String oldEvent = "Buy " + oldDescription + " for " + editedItem.getPerson().getName();
 			System.out.println("old wishlist event" + oldEvent);
 			Event wishlistEvent = eventDAO.readWishlistEvent(oldEvent);
+			//update ecent if it existed already
 			if(wishlistEvent != null) {
 				wishlistEvent.setTitle("Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName());
 				updated = eventDAO.updateEvent(wishlistEvent);
 			}
+			//create event if there was none
 			else {
 				updated = createWishlistEvent(editedItem);
 			}
@@ -331,6 +336,7 @@ public class CalendarController {
 		//update wishlist event if person changes
 		public boolean updateWishlistPerson(String oldName, Item editedItem) {
 			boolean updated = false;
+			//hardcoded name of the wishlist event, must be changed if the database is localized
 			String oldEvent = "Buy " + editedItem.getDescription() + " for " + oldName;
 			Event wishlistEvent = eventDAO.readWishlistEvent(oldEvent);
 			if(wishlistEvent != null) {
@@ -357,6 +363,7 @@ public class CalendarController {
 			boolean updated = false;
 			String event = null;
 			if (editedItem.getPerson() != null) {
+				//hardcoded name of the wishlist event, must be changed if the database is localized
 				event = "Buy " + editedItem.getDescription() + " for " + editedItem.getPerson().getName();
 			} else {
 				event = "Buy " + editedItem.getDescription() + " for myself";
@@ -381,6 +388,7 @@ public class CalendarController {
 			String description = item.getDescription();
 			//the person who has borrowed the item
 			Person person = item.getPerson();
+			//hardcoded name of the wishlist event, must be changed if the database is localized
 			String eventTitle = "Buy " + description + " for " + person;
 			Event[] events = eventDAO.readEvents();
 			for (int i = 0; events.length > i; i++) {
@@ -402,6 +410,7 @@ public class CalendarController {
 		public boolean createBorrowedEvent(BorrowedThing borrowedThing) {
 			Event borrowed = new Event();
 			borrowed.setEvent_id(getNextId());
+			//hardcoded name of the borrowed event, must be changed if the database is localized
 			borrowed.setTitle(borrowedThing.getPerson().getName() + " should return " +  borrowedThing.getDescription());
 			borrowed.setLocation(null);
 			borrowed.setStartDate(borrowedThing.getReturnDate());
@@ -423,6 +432,7 @@ public class CalendarController {
 		//update borrowed event if date changes
 		public boolean updateBorrowedDate(BorrowedThing thing) {
 			boolean updated = false;
+			//hardcoded name of the borrowed event, must be changed if the database is localized
 			String eventTitle = thing.getPerson().getName() + " should return " + thing.getDescription();
 			Event borrowedEvent = eventDAO.readBorrowed(eventTitle);
 			if(borrowedEvent != null) {
@@ -448,9 +458,11 @@ public class CalendarController {
 		//update borrowed event if borrowed thing's description changes
 		public boolean updateBorrowedTitle(String oldTitle, BorrowedThing thing) {
 			boolean updated = false;
+			//hardcoded name of the borrowed event, must be changed if the database is localized
 			String eventTitle = thing.getPerson().getName() + " should return " + oldTitle;
 			Event borrowedEvent = eventDAO.readBorrowed(eventTitle);
 			if(borrowedEvent != null) {
+				//hardcoded name of the borrowed event, must be changed if the database is localized
 				String newEvent = thing.getPerson().getName() + " should return " + thing.getDescription();
 				borrowedEvent.setTitle(newEvent);
 				updated = eventDAO.updateEvent(borrowedEvent);
@@ -470,9 +482,11 @@ public class CalendarController {
 		 */
 		public boolean updateBorrowedEventPerson(Person oldPerson, BorrowedThing editedBorrowedThing) {
 			boolean updated = false;
+			//hardcoded name of the borrowed event, must be changed if the database is localized
 			String oldEvent = oldPerson.getName() + " should return " + editedBorrowedThing.getDescription();
 			Event event = findBorrowedEvent(oldEvent);
 			if (event!=null) {
+				//hardcoded name of the borrowed event, must be changed if the database is localized
 				event.setTitle(editedBorrowedThing.getPerson().getName() + " should return " + editedBorrowedThing.getDescription());
 				updated = eventDAO.updateEvent(event);
 			}
@@ -518,6 +532,7 @@ public class CalendarController {
 		public Event findBorrowedEvent(BorrowedThing thing) {
 			//the person who has borrowed the item
 			Person loanPerson = thing.getPerson();
+			//hardcoded name of the borrowed event, must be changed if the database is localized
 			String eventTitle = loanPerson + " should return " + thing.getDescription();
 			Event[] loanEvent = eventDAO.readEvents();
 			for (int i = 0; loanEvent.length > i; i++) {

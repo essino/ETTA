@@ -29,6 +29,12 @@ import javafx.util.converter.FloatStringConverter;
 import model.Saving;
 import res.MyBundle;
 
+/**
+ * GUI class that is in charge of the savings table in the economy part. Data in the table can be deleted or modified.
+ * Adding a new saving goal is called from this view.
+ * There is also a form for adding money to a savings goal in this view.
+ * @author Lena
+ */
 public class EconomySavingsGUI {
 	
 	/**
@@ -290,12 +296,17 @@ public class EconomySavingsGUI {
 	 */
 	@FXML
 	public void updateSavingAmount() {
+		//a saving goal is selected
 		if (savingGoalList.getSelectionModel().getSelectedItem() != null) {
+			//user input is not empty
 			if(!inputCheck.isInputEmpty(savingAddedAmount.getText())) {
+				//user input is a number
 				if(inputCheck.isInputFloat(savingAddedAmount.getText())){
 					Saving editedSaving = controller.getSaving(savingGoalList.getValue());
 					Float oldAmount = editedSaving.getAmount();
-					Float difference = Float.parseFloat(savingAddedAmount.getText());
+					//only positive amount can be added
+					Float difference = Math.abs(Float.parseFloat(savingAddedAmount.getText()));
+					//there is enough money on the balance
 					if(controller.updateBalanceAmount(0-difference)) {
 						editedSaving.setAmount(oldAmount+difference);
 						controller.updateSaving(editedSaving);
@@ -303,6 +314,7 @@ public class EconomySavingsGUI {
 					else {
 						inputCheck.alertNotEnoughBalance();
 					}
+					//clear the form
 					savingGoalList.getSelectionModel().clearSelection();
 					savingGoalAmount.setText("");
 					savingSavedAmount.setText("");
