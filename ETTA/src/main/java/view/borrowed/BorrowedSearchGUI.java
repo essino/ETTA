@@ -5,23 +5,15 @@ import java.sql.Date;
 import org.controlsfx.control.textfield.TextFields;
 
 import controller.BorrowedController;
-import controller.InputCheck;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
-import javafx.util.Callback;
 import model.BorrowedThing;
 import res.MyBundle;
 
@@ -38,7 +30,7 @@ public class BorrowedSearchGUI extends AbstractBorrowedGUI {
 	BorrowedController controller = new BorrowedController();
 	
 	/**
-	 * The anchorpane for the search view of returned things
+	 * The anchor pane for the search view of returned things
 	 */
 	@FXML
 	AnchorPane borrowedsearchanchorpane;
@@ -91,6 +83,7 @@ public class BorrowedSearchGUI extends AbstractBorrowedGUI {
 	 */
 	@FXML
 	public void initialize() {
+		//uses abstract class's method in initializing
 		super.initializeTable();
 		//creates the autocomplete list for the search text field
 		BorrowedThing[] borrowedThings = controller.getBorrowedThings();
@@ -98,6 +91,7 @@ public class BorrowedSearchGUI extends AbstractBorrowedGUI {
 		for (int i = 0; i < borrowedThings.length; i++) {
 			possibleWords[i] = borrowedThings[i].getDescription();
 		}
+		//creates the auto complete functionality in the input text field
 		TextFields.bindAutoCompletion(input, possibleWords);
 		//sets the items in the table
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(borrowedThings);
@@ -106,7 +100,7 @@ public class BorrowedSearchGUI extends AbstractBorrowedGUI {
 	
 	/**
 	 * Method for getting the selected item from the table
-	 * @return borrowedSearchTable.getSelectionModel().getSelectedItem() the selected item
+	 * @return super.borrowedSearchTable.getSelectionModel().getSelectedItem() the selected item
 	 */
 	@FXML
 	public BorrowedThing getSelectedBorrowedThing() {
@@ -114,14 +108,17 @@ public class BorrowedSearchGUI extends AbstractBorrowedGUI {
 	}
 	
 	/**
-	 * Filters the list of borrowed things by the description inputted by the user
+	 * Filters the list of borrowed things by the description input by the user
 	 * @param event the ActionEvent that is handled
 	 */
 	public void searchBorrowedThing(ActionEvent event) {
+		//getting the text from the textfield
 		String value = input.getText();
+		//finding the items that match that text
 		ObservableList<BorrowedThing> data = FXCollections.observableArrayList(controller.getBorrowedThings());
 		FilteredList<BorrowedThing> filteredData = new FilteredList<>(data,
 	            s -> ((s.getDescription())).equals(value));
+		//setting the items in the table
 		borrowedTable.setItems(filteredData);
 	}
 	

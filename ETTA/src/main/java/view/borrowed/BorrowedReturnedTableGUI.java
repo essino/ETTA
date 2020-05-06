@@ -44,6 +44,7 @@ public class BorrowedReturnedTableGUI extends AbstractBorrowedGUI {
 		/**
 		 * Initialize method called when the class is created
 		 * Fetches the list of returned items in the database 
+		 * Uses the Abstract class's initializeTable() method
 		 * Also allows for in-table editing of the borrowed items on the list
 		 */
 		@FXML
@@ -60,7 +61,8 @@ public class BorrowedReturnedTableGUI extends AbstractBorrowedGUI {
 		
 		/**
 		 * Method for getting the selected item from the table
-		 * @return borrowedReturnedTable.getSelectionModel().getSelectedItem() the selected item
+		 * uses the abstract class's method
+		 * @return super.borrowedReturnedTable.getSelectionModel().getSelectedItem() the selected item
 		 */
 		@FXML
 		public BorrowedThing getSelectedBorrowedThing() {
@@ -72,12 +74,16 @@ public class BorrowedReturnedTableGUI extends AbstractBorrowedGUI {
 		 */
 		@FXML
 		public void deleteSelectedReturnedThing() {
+			//checking that item is selected is done in the abstract class
 			if (super.checkItemIsSelected()) {
+				//checking that the user want to delete item
 				if (inputCheck.confirmDeleting()) {
+					//item removed
 					controller.removeReturnedThing();
 					initialize();
 				}
 			} else {
+				//if nothing selected from the table, the user is alerted
 				inputCheck.alertNothingSelected();
 			}
 		}
@@ -87,10 +93,13 @@ public class BorrowedReturnedTableGUI extends AbstractBorrowedGUI {
 		 */
 		@FXML
 		public void makeReturnedBorrowed() {
+			//checking that an item is selected from the table in the abstract class
 			if (super.checkItemIsSelected()) {
+				//making a returned item borrowed
 				controller.changeReturnedToBorrowed();
 				initialize();
 			} else {
+				//if nothing selected from the table, the user is alerted
 				inputCheck.alertNothingSelected();
 			}
 		}

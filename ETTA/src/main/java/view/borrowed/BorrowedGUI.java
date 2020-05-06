@@ -57,6 +57,7 @@ public class BorrowedGUI {
 			} catch (IOException e) {
 			e.printStackTrace();
 			}
+		//shows the loaded fxml file
 		borrowedRootBorderPane.setCenter(borrowedSearch);
 	}
 	
@@ -74,6 +75,7 @@ public class BorrowedGUI {
 			} catch (IOException e) {
 			e.printStackTrace();
 			}
+		//shows the loaded fxml file
 		borrowedRootBorderPane.setCenter(borrowedView);
 	}
 	
@@ -109,6 +111,7 @@ public class BorrowedGUI {
 			} catch (IOException e) {
 			e.printStackTrace();
 			}
+		//shows the loaded fxml file
 		borrowedRootBorderPane.setCenter(borrowedReturned);
 	}
 }

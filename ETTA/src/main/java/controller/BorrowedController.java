@@ -103,7 +103,7 @@ public class BorrowedController {
 	 */ 
 	public ObservableList<String> personsList() {
 		Person[] people = personDAO.readPeople();
-		ArrayList peopleNames = new ArrayList();
+		ArrayList<String> peopleNames = new ArrayList<String>();
 		for (Person person : people){
 			peopleNames.add(person.getName());
 		}
@@ -123,14 +123,18 @@ public class BorrowedController {
 	 * Method for creating a new borrowed thing and saving it to the database
 	 */ 
 	public void saveBorrowedThing() {
+		//creating a new borrowed thing
 		BorrowedThing borrowedThing= new BorrowedThing();
+		//getting the user's input and setting it in the new borrowed thing
 		borrowedThing.setDescription(addGUI.getBorrowedDescription());
 		Person person = personDAO.readPerson(addGUI.getBorrowedPerson());
 		borrowedThing.setPerson(person);
 		borrowedThing.setDateBorrowed(addGUI.getBorrowedLoanDate());
 		borrowedThing.setReturnDate(addGUI.getBorrowedReturnDate());
 		borrowedThing.setReturned(false);
+		//Borrowed thing created in the database with DAO
 		borrowedThingDAO.createBorrowedThing(borrowedThing);
+		//the related event created
 		createBorrowedEvent(borrowedThing);
 	}
 	
@@ -172,7 +176,6 @@ public class BorrowedController {
 			BorrowedThing borrowedThing = borrowedThingDAO.readBorrowedThing(tableGUI.getSelectedBorrowedThing().getThing_id());
 			borrowedThing.setReturned(true);
 			borrowedThingDAO.updateBorrowedThing(borrowedThing);
-			
 		} catch (NullPointerException e) {
 			System.out.println("No item selected.");
 		}
@@ -229,7 +232,7 @@ public class BorrowedController {
 		borrowedThingDAO.updateBorrowedThing(borrowedThing);
 	}
 	
-	//used for updating or deleting the right borrowed event - HARD CODED!
+	//used for updating or deleting the right borrowed event
 	/** 
 	 * Method for finding the borrowed event based on the description of the borrowed item
 	 * @param BorrowedThing  borrowed item, the event of which is being searched for

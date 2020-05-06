@@ -15,7 +15,7 @@ import model.BorrowedThing;
 public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
 	
 	/**
-	 * Reference to the datepicker
+	 * Reference to the date picker
 	 */
     private DatePicker datePicker;
     
@@ -41,9 +41,12 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
     @Override
     public void startEdit() {
         if (!isEmpty()) {
+        	//transition from a non-editing state into an editing state, if the cell is editable
             super.startEdit();
+            //date picker created for selecting the new date
             createDatePicker();
             setText(null);
+            //date picker shown
             setGraphic(datePicker);
         }
     }
@@ -53,13 +56,17 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
      */
     @Override
     public void cancelEdit() {
+    	//transition from an editing state into a non-editing state, without saving any user input
         super.cancelEdit();
-        setText(getDate().toString());
+        //setting the old value in the right format
+        setText(df.format(getDate()));
+        //date picker vanishes
         setGraphic(null);
     }
 
     /**
      * Method for updating the date
+     * This method is called whenever the item in the cell is changed
      * @param item the date being updated
      * @param empty indicates if the cell is empty
      */
@@ -75,10 +82,12 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
                     datePicker.setValue(getDate().toLocalDate());
                 }
                 setText(null);
+                //date picker shown
                 setGraphic(datePicker);
             } else {
-            	//formats the date
+            	//formats and sets the new date as a String when the editing of the cell is finished
             	setText(df.format(getDate()));
+            	//date picker vanishes :)
             	setGraphic(null);
             }
         }
@@ -88,19 +97,25 @@ public class DateEditingCell extends TableCell<BorrowedThing, java.sql.Date> {
      * Method for creating the date picker in which the date is selected by the user
      */
     private void createDatePicker() {
+    	//date picker created
         datePicker = new DatePicker(getDate().toLocalDate());
         datePicker.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
+        //ComboBox action invoked when the value is changed
         datePicker.setOnAction((e) -> {
             System.out.println("Committed: " + datePicker.getValue().toString());
+            //Fires the appropriate events back to the backing UI control
+            //begins the process of pushing this edit back to the relevant data source
+            //Also begins the transition from an editing state into a non-editing state.
             commitEdit((Date) Date.valueOf(datePicker.getValue()));
         });
     }
 
     /**
      * Method for beginning date editing
-     * @return getItem() Date the value of the date picker. If there is no value, the current date is added
+     * @return getItem() Date the value chosen in the date picker for the cell. If there is no value, the current date is returned
      */
     private Date getDate() {
+    	//gets the item in the cell
     	if (getItem() == null) {
     		return Date.valueOf(LocalDate.now());
     	} else {

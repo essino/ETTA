@@ -85,6 +85,7 @@ public class BorrowedAddGUI {
 			bbc.getItems().addAll(controller.personsList());
 			bbc.getItems().add("");
 			bbc.setCellFactory(lv -> {
+				//custom list cell for choosing a contact
 	            ListCell<String> cell = new ListCell<String>() {
 	                @Override
 	                protected void updateItem(String item, boolean empty) {
@@ -100,6 +101,7 @@ public class BorrowedAddGUI {
 	                    }
 	                }
 	            };
+	            //creating a new contact if the right one isn't on the list
 	            cell.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
 	                if (cell.getItem().isEmpty() && ! cell.isEmpty()) {
 	                    TextInputDialog dialog = new TextInputDialog();
@@ -142,6 +144,7 @@ public class BorrowedAddGUI {
 	@FXML
 	public Date getBorrowedLoanDate() {
 		if (this.loanDate.getValue() == null) {
+			//if no loan date chosen, the current date is the loan date
 			return Date.valueOf(LocalDate.now());
 		} else {
 			return Date.valueOf(this.loanDate.getValue());
@@ -172,7 +175,9 @@ public class BorrowedAddGUI {
 		//also checking if loan date is before return date
 		if (!inputCheck.isInputEmpty(borrowedThing.getText()) && (!inputCheck.isInputEmpty(this.bbc.getValue())) && (!inputCheck.isDateEmpty(this.returnDate.getValue()))) {
 			if(inputCheck.dateCheck(getBorrowedLoanDate(), getBorrowedReturnDate())) {
+				//saving the new borrowed thing
 				controller.saveBorrowedThing();
+				//going back to the view of all borrowed items as adding is completed
 				AnchorPane borrowedviewanchorpane = null; 
 				FXMLLoader loaderBorrowedView  = new FXMLLoader(getClass().getResource("/view/borrowed/BorrowedView.fxml")); 
 				loaderBorrowedView.setResources(myBundle.getBundle());

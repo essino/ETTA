@@ -98,12 +98,12 @@ public class BorrowedTableGUI extends AbstractBorrowedGUI {
 	InputCheck inputCheck = new InputCheck(); 
 	
 	/**
-	 * Default cell factory for in-table editing of cells containing dates
+	 * Cell factory for in-table editing of cells containing dates
 	 */
 	Callback<TableColumn<BorrowedThing, Date>, TableCell<BorrowedThing, Date>> dateCellFactory = (TableColumn<BorrowedThing, Date> param) -> new DateEditingCell();
 	
 	/**
-	 * Method that shows all the borrowed items
+	 * Method that shows the view of all the borrowed items
 	 * @param event either Borrowed Things tab or Borrowed Items button is pushed
 	 */
 	@FXML
@@ -131,31 +131,49 @@ public class BorrowedTableGUI extends AbstractBorrowedGUI {
 		borrowedTable.setEditable(true);
 		//sets the placeholder in case table is empty
 		borrowedTable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
+		//descriptions set in the cells
 		borrowedThingDescr.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("description")); 
+		//description cells turn to textfield cells when in-table editing starts in them
 		borrowedThingDescr.setCellFactory(TextFieldTableCell.<BorrowedThing>forTableColumn());
+		//edited content saved
 		borrowedThingDescr.setOnEditCommit(
 			new EventHandler<CellEditEvent<BorrowedThing, String>>(){
 				@Override
 				public void handle(CellEditEvent<BorrowedThing, String> t) {
+					//edited borrowed thing
 					BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+					//getting the old description
 					String oldDescription = t.getOldValue();
+					//getting and setting the new description
 					editedBorrowedThing.setDescription(t.getNewValue());
+					//controller updates the borrowed thing
 					controller.updateBorrowedThing(editedBorrowedThing);
+					//controller updates the borrowed event
 					controller.updateBorrowedEventTitle(oldDescription, editedBorrowedThing);
+					//refreshes the table so the new edited data can be seen
 					borrowedTable.refresh();
 				}});
+		//sets the contacts in the table
 		borrowedBy.setCellValueFactory(new PropertyValueFactory<BorrowedThing, String>("person"));
+		//makes the cell a combo box cell when editing starts
 		borrowedBy.setCellFactory(ComboBoxTableCell.<BorrowedThing, String>forTableColumn(controller.personsList()));
+		//edited content saved
 		borrowedBy.setOnEditCommit(
 				new EventHandler<CellEditEvent<BorrowedThing, String>>() {
 					@Override
 					public void handle(CellEditEvent<BorrowedThing, String> t) {
 						BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+						//getting the old contact
 						Person oldPerson = editedBorrowedThing.getPerson();
+						//getting the new name of contact
 						String newName = t.getNewValue();
+						//finding the person matching that name
 						Person newPerson = controller.findPerson(newName);
+						//a new person is the borrower
 						editedBorrowedThing.setPerson(newPerson);
+						//updating the borrowed thing
 						controller.updateBorrowedThing(editedBorrowedThing);
+						//updating the borrowed event
 						controller.updateBorrowedEventPerson(oldPerson, editedBorrowedThing);
 						borrowedTable.refresh();
 					}});
@@ -165,6 +183,7 @@ public class BorrowedTableGUI extends AbstractBorrowedGUI {
                 (TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
                     BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
                     .get(t.getTablePosition().getRow()));
+                    //getting date values for making sure the return date is not before loan date even when loan date is edited
                     java.sql.Date tempLoanDate = t.getNewValue();
                     java.sql.Date tempRDate = editedBorrowedThing.getReturnDate();
                     if(inputCheck.dateCheck(tempLoanDate, tempRDate)) {
@@ -184,6 +203,7 @@ public class BorrowedTableGUI extends AbstractBorrowedGUI {
 			(TableColumn.CellEditEvent<BorrowedThing, Date> t) -> {
 				BorrowedThing editedBorrowedThing = ((BorrowedThing) t.getTableView().getItems()
 						.get(t.getTablePosition().getRow()));
+				//getting date values for making sure the return date is not before loan date even when return date is edited
 				java.sql.Date tempReturnDate = t.getNewValue();
 				java.sql.Date tempLDate = editedBorrowedThing.getDateBorrowed();
 				if(inputCheck.dateCheck(tempLDate, tempReturnDate)) {
@@ -199,6 +219,7 @@ public class BorrowedTableGUI extends AbstractBorrowedGUI {
 				}
 				borrowedTable.refresh();
 			});
+		//showing whether the item is borrowed or returned; this cell not editable, but there is a different button for changing this
 		returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
 			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 				if (borrowedThingDescr.getValue().isReturned() == true) {
@@ -218,7 +239,7 @@ public class BorrowedTableGUI extends AbstractBorrowedGUI {
 	
 	/**
 	 * Method for getting the selected item from the table
-	 * @return borrowedTable.getSelectionModel().getSelectedItem() the selected item
+	 * @return super.borrowedTable.getSelectionModel().getSelectedItem() the selected item
 	 */
 	@FXML
 	public BorrowedThing getSelectedBorrowedThing() {
@@ -230,12 +251,15 @@ public class BorrowedTableGUI extends AbstractBorrowedGUI {
 	 */
 	@FXML
 	public void deleteSelectedBorrowedThing() {
+		//checks that an item is selected from the table and that the user is sure about deleting it
 		if (super.checkItemIsSelected()) {
 			if (inputCheck.confirmDeleting()) {
+				//controller passes on the deletion of the item
 				controller.removeBorrowedThing();
 				initialize();
 			}
 		} else {
+			//alerts that nothing is selected from the table
 			inputCheck.alertNothingSelected();
 		}
 	}
@@ -245,12 +269,15 @@ public class BorrowedTableGUI extends AbstractBorrowedGUI {
 	 */
 	@FXML
 	public void markAsReturned() {
+		//checks that an item is selected from the table and that the user is sure about making the item returned
 		if (super.checkItemIsSelected()) {
 			if (inputCheck.confirmReturn()) {
+				//controller passes on the returned status
 				controller.markReturned();
 				initialize();
 			}
 		} else {
+			//alerts that nothing is selected from the table
 			inputCheck.alertNothingSelected();
 		}
 	}
