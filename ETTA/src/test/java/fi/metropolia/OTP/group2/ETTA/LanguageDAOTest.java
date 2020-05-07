@@ -10,12 +10,16 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import model.Language;
 import model.LanguageDAO;
 
+//Tests for Language DAO class
 @TestMethodOrder(OrderAnnotation.class)
 public class LanguageDAOTest {
+	
+	//used test variables
 	private LanguageDAO langDAO = new LanguageDAO(true);
 	private Language english = new Language();
 	private Language finnish = new Language(2, "Finnish", false);
 	
+	//Test for creating and choosing languages
 	@Test
 	@Order(1)
 	public void testCreateLanguage() {
@@ -27,30 +31,36 @@ public class LanguageDAOTest {
 		assertEquals(true, langDAO.createLanguage(finnish), "Creating language failed");
 	}
 	
+	//Test for reading languages
 	@Test
 	@Order(2)
 	public void testReadLanguages() {
 		assertEquals(2, langDAO.readLanguages().length, "Reading all languages failed");
 	}
 	
+	//Test for finding a language with its id
 	@Test
 	@Order(3)
 	public void testReadLanguageById() {
 		assertEquals("English", langDAO.readLanguage(1).getDescription(), "Readiang language by id failed");
 	}
 	
+	//Test for finding a language with its name
 	@Test
 	@Order(4)
 	public void testReadLanguageByName() {
 		assertEquals(true, langDAO.readLanguage("English").isChosen(), "Reading language by name failed");
 	}
 	
+	//Test for getting the currently selected language
 	@Test
 	@Order(5)
 	public void testGetSelectedLanguage() {
 		assertEquals("English", langDAO.getSelectedLanguage().getDescription(), "Reading selected language failed");
 	}
 	
+	//Test for updating the language selection
+	//Unselect English and the chosen language and choose Finnish
 	@Test
 	@Order(6)
 	public void testUpdateLanguage() {
@@ -65,6 +75,7 @@ public class LanguageDAOTest {
 		assertEquals(true, langDAO.getSelectedLanguage().isChosen(), "Updating language failed");
 	}
 	
+	//Test for deleting a language
 	@Test
 	@Order(7)
 	public void testDeleteLanguage() {

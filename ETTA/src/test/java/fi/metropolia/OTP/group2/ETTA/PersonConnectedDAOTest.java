@@ -29,30 +29,36 @@ import model.ItemDAO;
 import model.Person;
 import model.PersonDAO;
 
+//Tests for all model and controller classes connected to the Person model class:
+//Person, Item, BorrowedThing, Event, ContactsController, WishlistController, BorrowedController, EventController
 @TestMethodOrder(OrderAnnotation.class)
 class PersonConnectedDAOTest {
 
+	//used DAO classes
 	private static PersonDAO personDAO = new PersonDAO(true);
 	private ItemDAO itemDAO = new ItemDAO(true);
 	private BorrowedThingDAO borrowedThingDAO = new BorrowedThingDAO(true);
 	private static EventDAO eventDAO = new EventDAO(true);
 	
+	//used controllers
 	private ContactsController contactsController = new ContactsController(personDAO);
 	private WishlistController wishlistController = new WishlistController(itemDAO, personDAO, eventDAO);
 	private BorrowedController borrowedController = new BorrowedController(personDAO, borrowedThingDAO, eventDAO);
 	private CalendarController calendarController = new CalendarController(eventDAO);
 	
+	//test dates
 	private static Date bday1 = Date.valueOf("1997-06-17");
 	private static Date bday2 = Date.valueOf("1980-11-04");
 	private Date bday3 = Date.valueOf("1980-07-23");
 	
+	//test persons
 	private static String name = "Tiina";
 	private static String email = "tiina.vanhanen@metropolia.fi";
-	
 	private static Person tiina = new Person(name, bday1, email);
 	private static Person risto = new Person("Risto", bday2, "risto@gmail.com");
 	private Person lena = new Person("Lena", bday3, "lena@lena.com"); 
 	
+	//test items
 	private String itemDesc = "Ystävänpäiväkortti";
 	private double price = 3.5;
 	private Date dateNeeded = Date.valueOf("2020-02-14");
@@ -61,13 +67,16 @@ class PersonConnectedDAOTest {
 	private Item item2 = new Item("Kirja", tiina, 10.0, dateNeeded, additionalInfo);
 	private Item item3 = new Item("Paita", null, 49.99, dateNeeded, "Zalando");
 	private Item item4 = new Item("Lippu", tiina, 5.0, dateNeeded, additionalInfo, true);
+	private Item updatedItem;
 	
+	//test borrowed things
 	private String borrowedDesc = "Red hammer";
 	private Date loanDate = Date.valueOf("2020-02-10");
 	private Date returnDate = Date.valueOf("2020-03-10");
 	private BorrowedThing borrowedThing = new BorrowedThing(borrowedDesc, loanDate, returnDate, tiina);
 	private BorrowedThing borrowedThing2 = new BorrowedThing("Cat", loanDate, returnDate, risto);
 	
+	//test events
 	private Date eventDate = Date.valueOf("2020-03-05");
 	private Time startTime = Time.valueOf("19:00:00");
 	private Time endTime = Time.valueOf("21:00:00");
@@ -77,34 +86,36 @@ class PersonConnectedDAOTest {
 	private Event event2 = new Event(2, "lounas", false, eventDate, eventDate, startTime, endTime, false, "", "default");
 	private Event event3 = new Event(3, "bileet", false, today, today, startTime, endTime, false, "", "default");
 	
-	private Item updatedItem;
-	
+	//Creates people to be used in tests
 	@BeforeAll
 	public static void createPerson() {
 		personDAO.createPerson(tiina);
 		personDAO.createPerson(risto);
-		
 	}
 	
+	//Test for creating a person
 	@Test
 	@Order(1)
 	public void testCreatePerson() {
 		assertEquals(true, personDAO.createPerson(lena), "Creation of person failed");
 	}
 	
-	
+	//Test for reading one person, DAO and controller
 	@Test
 	@Order(2)
 	public void testReadPerson() {
 		assertEquals(name, personDAO.readPerson(1).getName(), "Reading one failed (name)");
+		//Test works in eclipse, Jenkins does not agree with the date
 		//assertEquals(bday1, personDAO.readPerson(1).getBirthday(), "Reading one failed (bday)");
 		assertEquals(email, personDAO.readPerson(1).getEmail(), "Reading one failed (email)");
 		assertEquals(true, contactsController.checkIfPersonexists(name), "Reading one failed (controller)");
 	} 
 	
+	//Test for finding a person with their name, DAOs and controllers
 	@Test
 	@Order(3)
 	public void testReadPersonWithName() {
+		//Test works in eclipse, Jenkins does not agree with the date
 		//assertEquals(bday1, personDAO.readPerson(name).getBirthday(), "Reading one with name failed (bday)");
 		assertEquals(email, personDAO.readPerson(name).getEmail(), "Reading one with name failed (email)");
 		assertEquals(null, personDAO.readPerson("Elena"), "Reading with a name that doesn't exitst failed");
@@ -112,17 +123,18 @@ class PersonConnectedDAOTest {
 		assertEquals(email, borrowedController.findPerson(name).getEmail(), "Reading one with name failed (borrowed controller)");
 	}
 	
+	//Test for reading all persons from the database, DAOs and controllers
 	@Test
 	@Order(4)
 	public void testReadPeople() {
-		assertEquals(3, personDAO.readPeople().length, "Reading all failed (1)");
-		//assertEquals(2, personDAO.readPeople().length, "Reading all failed (2)");
+		assertEquals(3, personDAO.readPeople().length, "Reading all failed");
 		assertEquals(3, contactsController.getPeople().length, "Reading allfailed (contacts controller)");
 		//4 persons in wishlist controller, because person "me" is added there, test works in eclipse, not working in jenkins 
-		//assertEquals(4, wishlistController.personsList().size(), "Reading allfailed (wishlist controller)");
+		//assertEquals(4, wishlistController.personsList().size(), "Reading all failed (wishlist controller)");
 		assertEquals(3, borrowedController.personsList().size(), "Reading allfailed (borrowed controller)");
 	}
 	
+	//Test for updating a person's birthday
 	@Test
 	@Order(5)
 	public void testUpdatePerson() {
@@ -130,21 +142,25 @@ class PersonConnectedDAOTest {
 		Person updatedPerson = personDAO.readPerson(2);
 		updatedPerson.setBirthday(newDate);
 		assertEquals(true, personDAO.updatePerson(updatedPerson), "Updating failed");
+		//Test works in eclipse, Jenkins does not agree with the date
 		//assertEquals(newDate, personDAO.readPerson(2).getBirthday(), "Bday updating failed");
 	}
 	
+	//Test for creating an item
 	@Test
 	@Order(6)
 	public void testCreateItem() {
 		assertEquals(true, itemDAO.createItem(item), "Creation of item failed");
 	}
 
+	//Test for creating a wishlist event
 	@Test
 	@Order(7)
 	public void testCreateWishlistEvent() {
 		assertEquals(true, calendarController.createWishlistEvent(item), "Creation of wishlist event failed");
 	}
 	
+	//Test for reading a wishlist event, DAO and controller
 	@Test
 	@Order(8)
 	public void testReadWishlistEvent() {
@@ -154,6 +170,7 @@ class PersonConnectedDAOTest {
 		assertEquals("wishlist", eventDAO.readWishlistEvent(wishlistEvent).getCalendar(), "Reading of wishlist event failed");
 	}
 	
+	//Test for converting model class Events to calendar entries and vice versa
 	@Test
 	@Order(9)
 	public void testFromEventToEntryAndFromEntryToEvent() {
@@ -164,6 +181,7 @@ class PersonConnectedDAOTest {
 		assertEquals(false, calendarController.fromEntryToEvent(entry).isRecurring(), "Event from entry failed");
 	}
 	
+	//Test for updating a wishlist event
 	@Test
 	@Order(10)
 	public void testUpdateWishlistEvent() {
@@ -178,6 +196,7 @@ class PersonConnectedDAOTest {
 		assertEquals(wishlistEvent, eventDAO.readWishlistEvent(wishlistEvent).getTitle(), "Reading of wishlist event failed");
 	}
 	
+	//Test for deleting a wishlist event
 	@Test
 	@Order(11)
 	public void testDeleteWishlListEvent() {
@@ -186,24 +205,29 @@ class PersonConnectedDAOTest {
 		assertEquals(true, eventDAO.deleteEvent(wlEvent.getEvent_id()), "Deleting of wishlist event failed");
 	}
 	
+	//Test for reading one item
 	@Test
 	@Order(12)
 	public void testReadItem() {
 		assertEquals(itemDesc, itemDAO.readItem(1).getDescription(), "Reading one failed (description)");
 		assertEquals(price, itemDAO.readItem(1).getPrice(), "Reading one failed (price)");
+		//Test works in eclipse, Jenkins does not agree with the date
 		//assertEquals(dateNeeded, itemDAO.readItem(1).getDateNeeded(), "Reading one failed (date)");
 		assertEquals(name, itemDAO.readItem(1).getPerson().getName(), "Reading one failed (person)");
 	}
 
+	//Test for finding an item with its description
 	@Test
 	@Order(13)
 	public void testReadItemWithDesc() {
 		assertEquals(price, itemDAO.readItem("Ystävänpäiväkortti").getPrice(), "Reading one with desc failed (price)");
+		//Test works in eclipse, Jenkins does not agree with the date
 		//assertEquals(dateNeeded, itemDAO.readItem("Ystävänpäiväkortti").getDateNeeded(),"Reading one with desc failed (date)");
 		assertEquals(name, itemDAO.readItem("Ystävänpäiväkortti").getPerson().getName(),"Reading one with desc failed (person)");
 		assertEquals(null, itemDAO.readItem("Mekko"), "Reading with a desc that doesn't exitst failed");
 	}
 
+	//Test for reading all items from the database
 	@Test
 	@Order(14)
 	public void testReadItems() {
@@ -214,12 +238,14 @@ class PersonConnectedDAOTest {
 		assertEquals(2, wishlistController.getItemsForOthers().length, "Reading all for others failed(controller)");
 	}
 
+	//Test for finding items by their person
 	@Test
 	@Order(15)
 	public void testReadItemsByPerson() {
 		assertEquals(2, itemDAO.readItemsByPerson(1).length, "Reading all Tiina's items failed");
 	}
 
+	//Test for finding own items aka items with a null person
 	@Test
 	@Order(16)
 	public void testReadOwnItems() {
@@ -229,6 +255,7 @@ class PersonConnectedDAOTest {
 		assertEquals(1, wishlistController.getOwnItems().length, "Reading all own items failed(controller)");
 	}
 
+	//Test for finding all bought items
 	@Test
 	@Order(17)
 	public void testReadItemsByBought() {
@@ -238,6 +265,7 @@ class PersonConnectedDAOTest {
 		assertEquals(1, wishlistController.getBoughtItems(true).length, "Reading all bought items failed(controller)");
 	}
 
+	//Test for updating an item's price
 	@Test
 	@Order(18)
 	public void testUpdateItem() {
@@ -247,6 +275,7 @@ class PersonConnectedDAOTest {
 		assertEquals(2.3, itemDAO.readItem(1).getPrice(), "Price updating failed");
 	}
 
+	//Test for deleting items, deletes all items used in testing
 	@Test
 	@Order(19)
 	public void testDeleteItem() {
@@ -257,18 +286,21 @@ class PersonConnectedDAOTest {
 		assertEquals(0, itemDAO.readItems().length, "Deleting all failed");
 	}
 	
+	//Test for creating a borrowed thing
 	@Test
 	@Order(20)
 	public void testCreateBorrowedThing() {
 		assertEquals(true, borrowedThingDAO.createBorrowedThing(borrowedThing), "Creation of borrowed thing failed");
 	}
 	
+	//Test for creating a borrowed thing event
 	@Test
 	@Order(21)
 	public void testCreateBorrowedEvent() {
 		assertEquals(true, calendarController.createBorrowedEvent(borrowedThing), "Creation of borrowed event failed");
 	}
 	
+	//Test for reading a borrowed thing event
 	@Test
 	@Order(22)
 	public void testReadBorrowedEvent() {
@@ -277,10 +309,10 @@ class PersonConnectedDAOTest {
 		assertEquals(eventDesc, calendarController.findBorrowedEvent(eventDesc).getTitle(), "Reading of borrowed event failed (controller)");
 	}
 	
+	//Test for updating a borrowed thing event
 	@Test
 	@Order(23)
 	public void testUpdateBorrowedEvent() {
-		//BorrowedThing bt = borrowedThingDAO.readBorrowedThing(borrowedThing.getThing_id());
 		borrowedThing.setReturnDate(eventDate);
 		assertEquals(true, calendarController.updateBorrowedDate(borrowedThing), "Updating borrowed event date failed");
 		borrowedThing.setPerson(risto);
@@ -290,6 +322,7 @@ class PersonConnectedDAOTest {
 		
 	}
 	
+	//Test for deleting a borrowed thing event
 	@Test
 	@Order(24)
 	public void testDeleteBorrowedEvent() {
@@ -299,15 +332,18 @@ class PersonConnectedDAOTest {
 		assertEquals(true, calendarController.deleteBorrowedEvent(borrowedThing), "Deleting of borrowed event failed");
 	}
 	
+	//Test for reading one borrowed thing
 	@Test
 	@Order(25)
 	public void testReadBorrowedThing() {
 		assertEquals(borrowedDesc, borrowedThingDAO.readBorrowedThing(1).getDescription(), "Reading one failed (description)");
+		//Tests works in eclipse, Jenkins does not agree with the dates
 		//assertEquals(loanDate, borrowedThingDAO.readBorrowedThing(1).getDateBorrowed(), "Reading one failed (loan date)");
 		//assertEquals(returnDate, borrowedThingDAO.readBorrowedThing(1).getReturnDate(), "Reading one failed (return date)");
 		assertEquals(name, borrowedThingDAO.readBorrowedThing(1).getPerson().getName(), "Reading one failed (person)");
 	}
 	
+	//Test for reading all borrowed things from the database
 	@Test
 	@Order(26)
 	public void testReadBorrowedThings() {
@@ -317,6 +353,7 @@ class PersonConnectedDAOTest {
 		assertEquals(2, borrowedController.getBorrowedThings().length, "Reading all failed");
 	}
 	
+	//Test for finding borrowed things by their person
 	@Test
 	@Order(27)
 	public void testReadBorrowedThingsByPerson() {
@@ -325,6 +362,7 @@ class PersonConnectedDAOTest {
 		
 	}
 	
+	//Test for updating a borrowed things' description
 	@Test
 	@Order(28)
 	public void testUpdateBorrowedThing() {
@@ -334,6 +372,7 @@ class PersonConnectedDAOTest {
 		assertEquals("Black cat", borrowedThingDAO.readBorrowedThing(2).getDescription(), "Description updating failed");
 	}
 	
+	//Test for deleting a borrowed thing, deletes all borrowed things used in testing
 	@Test
 	@Order(29)
 	public void testDeleteBorrowedThing() {
@@ -342,20 +381,24 @@ class PersonConnectedDAOTest {
 		assertEquals(0, borrowedThingDAO.readBorrowedThings().length, "Deleting all failed");
 	}
 	
+	//Test for creating an event
 	@Test
 	@Order(30)
 	public void testCreateEvent() {
 		assertEquals(true, eventDAO.createEvent(event), "Creation of event failed");
 	}
 	
+	//Test reading one event
 	@Test
 	@Order(31)
 	public void testReadEvent() {
 		assertEquals("teatteri", eventDAO.readEvent(1).getTitle(), "Reading one failed (title)");
+		//Test works in eclipse, Jenkins does not agree with the date
 		//assertEquals(eventDate, eventDAO.readEvent(1).getEndDate(), "Reading one failed (date)");
 		assertEquals(startTime, eventDAO.readEvent(1).getStartTime(), "Reading one failed (time)");
 	}
 	
+	//Test for reading all events from the database
 	@Test
 	@Order(32)
 	public void testReadEvents() {
@@ -364,20 +407,24 @@ class PersonConnectedDAOTest {
 		assertEquals(2, eventDAO.readEvents().length, "Reading all failed (2)");
 	}
 	
+	//Test for reading events from a select calendar
 	@Test
 	@Order(33)
 	public void testReadEventsFromOneCalendar() {
 		assertEquals(2, eventDAO.readEventsFromOneCalendar("default", true).length, "Reading from calendar failed");
 	}
 	
+	//Test for reading today's events
 	@Test
 	@Order(34)
 	public void testReadTodaysEvents() {
 		assertEquals(0, eventDAO.readTodaysEvents().length, "Reading today's events failed (0)");
+		//Test works in eclipse, Jenkins does not agree with the date
 		//assertEquals(true, eventDAO.createEvent(event3), "Creation of event failed");
 		//assertEquals(1, eventDAO.readTodaysEvents().length, "Reading today's events failed (1)");
 	}
 	
+	//Test for updating an event's date
 	@Test
 	@Order(35)
 	public void testUpdate() {
@@ -386,27 +433,32 @@ class PersonConnectedDAOTest {
 		updatedEvent.setStartDate(newDate);
 		updatedEvent.setEndDate(newDate);
 		assertEquals(true, eventDAO.updateEvent(updatedEvent), "Updating failed");
+		//Test works in eclipse, Jenkins does not agree with the date
 		//assertEquals(newDate, eventDAO.readEvent(1).getEndDate(), "Date updating failed");
 	}
 	
+	//Test for creating a birthday event
 	@Test
 	@Order(36)
 	public void testCreateBirthday() {
 		assertEquals(true, calendarController.createBirthday(name, bday1), "Creation of birthday failed");
 	}
 	
+	//Test for updating the name of a birthday event
 	@Test
 	@Order(37)
 	public void testUpdateBirthdayName() {
 		assertEquals(true, calendarController.updateBirthday(name, risto.getName()), "Updating of birthday event name failed");
 	}
 	
+	//Test for updating the birthday
 	@Test
 	@Order(38)
 	public void testUpdateBirthdayDate() {
 		assertEquals(true, calendarController.updateBirthday(risto.getName(), risto.getBirthday(), bday1), "Updating of birthday event name failed");
 	}
 	
+	//Test for deleting a birthday
 	@Test
 	@Order(39)
 	public void testDeleteBirthday() {
@@ -416,6 +468,7 @@ class PersonConnectedDAOTest {
 		
 	}
 	
+	//Test for deleting an event, deletes all events used in testing
 	@Test
 	@Order(40)
 	public void testDeleteEvent() {
@@ -425,6 +478,7 @@ class PersonConnectedDAOTest {
 		assertEquals(0, eventDAO.readEvents().length, "Deleting all failed");
 	}
 	
+	//Test for deleting a person, deletes all people used in testing
 	@Test
 	@Order(41)
 	public void testDeletePerson() {
