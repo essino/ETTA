@@ -108,7 +108,7 @@ public class WishlistController {
 	
 	/** 
 	 * Method that gets Persons from PersonDAO and makes a list containing names only 
-	 * @return ObservableList<String> names - list of persons' names
+	 * @return names -ObservableList<String> list of persons' names
 	 */ 
 	public ObservableList<String> personsList() {
 		Person[] people = personDAO.readPeople();
@@ -153,8 +153,7 @@ public class WishlistController {
 	
 	/** 
 	 * Method for creating a new wishlist event for an item
-	 * @return true if creation succeeded
-	 * @return false if creation failed
+	 * @return true if creation succeeded, false if creation failed
 	 */ 
 	public boolean createWishlistEvent(Item item) {
 		return calendarController.createWishlistEvent(item); 
@@ -211,6 +210,7 @@ public class WishlistController {
 	
 	/** 
 	 * Method for finding a specific person from the database
+	 * @param name - the name of the Person to look for 
 	 * @return Person the person being searched for
 	 */ 
 	public Person findPerson(String name) {

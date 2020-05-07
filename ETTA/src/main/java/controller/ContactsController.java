@@ -134,8 +134,7 @@ public class ContactsController {
 
 	/** 
 	 * Method that checks if a Person is used in Borrowed Things or in Wishlist
-	 * @return true if contact is used somewhere
-	 * @return false if contact is not used anywhere
+	 * @return true if contact is used somewhere, false if contact is not used anywhere
 	 */ 
 	public boolean checkIfContactUsed(){
 		if(borrowedDAO.readBorrowedThingsByPerson(conTableGUI.personToDelete().getPerson_id()).length!=0 ||
@@ -175,9 +174,8 @@ public class ContactsController {
 	/** 
 	 * Boolean method that gets a Person that was updated in the application as a parameter and tells PersonDAO to update it.
 	 * and creates a database  birthday Event. 
-	 * @param Person editedPerson - the Person that needs to be updated
-	 * @return true - if person was successfully updated
-	 * @return false - if updating a person didn't succeed 
+	 * @param editedPerson - the Person that needs to be updated
+	 * @return true - if person was successfully updated, false - if updating a person didn't succeed 
 	 */ 
 	public boolean updatePerson(Person editedPerson) {
 		return perDAO.updatePerson(editedPerson);	
@@ -186,9 +184,8 @@ public class ContactsController {
 	/** 
 	 * Boolean method that gets a Person's name as a parameter and tells PersonDAO to read the Person with this name from the database.
 	 * Same names for different people is not supported.
-	 * @param String name - the name of the Person that needs to be found
-	 * @return true - if person was successfully found
-	 * @return false - if finding a person didn't succeed 
+	 * @param name - the name of the Person that needs to be found
+	 * @return true - if person was successfully found, false - if finding a person didn't succeed 
 	 */ 
 	public boolean checkIfPersonexists(String name) {
 		if(perDAO.readPerson(name)==null) {

@@ -80,7 +80,7 @@ public class SettingsController {
 
 	/**
 	 * Method for fetching all languages from the database
-	 * @return ObservableList<String> list containing the names of the languages from the database
+	 * @return names -  ObservableList<String> list containing the names of the languages from the database
 	 */
 	public ObservableList<String> languageList() {
 		Language[] langs = langDAO.readLanguages();

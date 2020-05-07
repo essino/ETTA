@@ -36,7 +36,7 @@ public class CalendarController {
 	//used for tests
 	/**
 	 * Constructor to create controller for Calendar, used in tests
-	 * @param eventDAO EventDAO
+	 * @param eventDAO EventDAO 
 	 */
 	public CalendarController(EventDAO eventDAO2) {
 		this.eventDAO = eventDAO2;
@@ -52,8 +52,7 @@ public class CalendarController {
 	/** 
 	 * Method that checks if the event already exists in the database.
 	 * @param id - entry/event id
-	 * @return false if the event doesn't exist in the database already
-	 * @return true if the event is in the database already
+	 * @return false if the event doesn't exist in the database already, true if the event is in the database already
 	 */
 	public boolean checkIfEventExist(int id) {
 		if(eventDAO.readEvent(id)==null) {
@@ -196,7 +195,8 @@ public class CalendarController {
 	 
 		/** 
 		 * Method that returns default CalendarsSource with the default calendar
-		 * @return calendarSource 
+		 * @param calendarView - the calendarView for which the default calendarSource is for
+		 * @return calendarSource - calendaresSource with the events from the default calendar 
 		 */
 	 public CalendarSource getDefaultCalendarSource(CalendarView calendarView) {
 		 CalendarSource calendarSource = calendarView.getCalendarSources().get(0);
@@ -219,9 +219,8 @@ public class CalendarController {
 		 * and creates a database  birthday Event.
 		 * Method first checks if there was a birthday event already. If there was none, a new birthday event is created. 
 		 * @param name - String giving the name of the Person/the future title of the birthday event
-		 * @param Date birthday - the date of the Person's birthday
-		 * @return true - if birthday event was successfully created
-		 * @return false - if creating birthday event didn't succeed 
+		 * @param birthday - the date of the Person's birthday
+		 * @return true - if birthday event was successfully created, false - if creating birthday event didn't succeed
 		 */ 
 		public boolean createBirthday(String name, Date birthday) {
 			Event birthdayEvent = new Event();
@@ -241,10 +240,9 @@ public class CalendarController {
 		
 		/** 
 		 * Boolean method that gets two Strings as parameters and updates a database  birthday Event 
-		 * @param String oldname - the old name of the Person/the old title of the birthday event
-		 * @param String newname - the new name of the Person/the newtitle of the birthday event
-		 * @return true - if birthday event was successfully updated
-		 * @return false - if updating birthday event didn't succeed 
+		 * @param oldname - the old name of the Person/the old title of the birthday event
+		 * @param newname - the new name of the Person/the newtitle of the birthday event
+		 * @return true - if birthday event was successfully updated, false - if updating birthday event didn't succeed  
 		 */ 
 	 //update birthday event if name changes
 		public boolean updateBirthday(String oldName, String newName) {
@@ -256,11 +254,10 @@ public class CalendarController {
 		/** 
 		 * Boolean method that gets two Strings as parameters and updates a database  birthday Event.
 		 * Method first checks if there was a birthday event already. If there was none, a new birthday event is created. 
-		 * @param String name - the name of the Person/the title of the birthday event
-		 * @param Date oldDate - the old date of the Person's birthday
-		 * @param Date newDate - the new date of the Person's birthday
-		 * @return true - if birthday event was successfully updated
-		 * @return false - if updating birthday event didn't succeed 
+		 * @param name - the name of the Person/the title of the birthday event
+		 * @param oldDate - the old date of the Person's birthday
+		 * @param newDate - the new date of the Person's birthday
+		 * @return true - if birthday event was successfully updated, false - if updating birthday event didn't succeed 
 		 */ 
 		//update birthday event if date changes
 		public boolean updateBirthday(String name, Date oldDate, Date birthday) {
@@ -280,9 +277,8 @@ public class CalendarController {
 		//wishlist part
 		/** 
 		 * Boolean method that creates a new wishlist event
-		 * @param Item  - the new item from the wishlist the event will be created for
-		 * @return true - if wishlist event was successfully created
-		 * @return false - if creating of the wishlist event didn't succeed 
+		 * @param item  - the new item from the wishlist the event will be created for
+		 * @return true - if wishlist event was successfully created, false - if creating of the wishlist event didn't succeed 
 		 */ 
 		public boolean createWishlistEvent(Item item) {
 			Event wishlistEvent = new Event();
@@ -306,10 +302,9 @@ public class CalendarController {
 		/** 
 		 * Boolean method that gets a String containing old Item description and an Item that was updated as parameters and updates a database  wishlist Event.
 		 * Method first checks if there was a wishlist event already.
-		 * @param String oldDescription - the name of the Person/the title of the birthday event
-		 * @param Item editedItem - the Item that was edited
-		 * @return true - if wishlist event was successfully updated
-		 * @return false - if updating wishlist event didn't succeed 
+		 * @param oldDescription - the name of the Person/the title of the birthday event
+		 * @param editedItem - the Item that was edited
+		 * @return true - if wishlist event was successfully updated, false - if updating wishlist event didn't succeed 
 		 */
 		//update wishlist event if item description changes
 		public boolean updateWishlistDescription(String oldDescription, Item editedItem) {
@@ -334,10 +329,9 @@ public class CalendarController {
 		 * Boolean method that gets a String containing old name of a person whom an Item was for 
 		 * and an Item that was updated as parameters and updates a database  wishlist Event.
 		 * Method first checks if there was a wishlist event already.
-		 * @param String oldName - the old name of the Person that the Item was for
-		 * @param Item editedItem - the Item that was edited
-		 * @return true - if wishlist event was successfully updated
-		 * @return false - if updating wishlist event didn't succeed 
+		 * @param oldName - the old name of the Person that the Item was for
+		 * @param editedItem - the Item that was edited
+		 * @return true - if wishlist event was successfully updated, false - if updating wishlist event didn't succeed 
 		 */
 		//update wishlist event if person changes
 		public boolean updateWishlistPerson(String oldName, Item editedItem) {
@@ -359,10 +353,9 @@ public class CalendarController {
 		 * Boolean method that gets a Date containing old date when an Item was needed to be bought
 		 * and an Item that was updated as parameters and updates a database  wishlist Event.
 		 * Method first checks if there was a wishlist event already.
-		 * @param Date oldDate - the old date when the Item was needed to be bought
-		 * @param Item editedItem - the Item that was edited
-		 * @return true - if wishlist event was successfully updated
-		 * @return false - if updating wishlist event didn't succeed 
+		 * @param oldDate - the old date when the Item was needed to be bought
+		 * @param editedItem - the Item that was edited
+		 * @return true - if wishlist event was successfully updated, false - if updating wishlist event didn't succeed 
 		 */
 		//update wishlist event if date changes
 		public boolean updateWishlistDate(Date oldDate, Item editedItem) {
@@ -389,6 +382,7 @@ public class CalendarController {
 		/** 
 		 * Method for finding the event connected to the selected item from the database
 		 * @param item the Item the event is connected to
+		 * @return event - the found event from the database, null if the event wasn't found
 		 */ 
 		public Event findWishlistEvent(Item item) {
 			String description = item.getDescription();
@@ -430,10 +424,8 @@ public class CalendarController {
 		 * Boolean method that gets a Date containing old date when a borrowed thing should be returned
 		 * and the borrowed thing that was updated as parameters and updates a database borrowed Event.
 		 * Method first checks if there was a borrowed event already.
-		 * @param Date oldDate - the old date when when a borrowed thing should be returned
-		 * @param BorrowedThing the borrowed thing that was updated
-		 * @return true - if borrowed event was successfully updated
-		 * @return false - if updating borrowed event didn't succeed 
+		 * @param thing the borrowed thing that was updated
+		 * @return true - if borrowed event was successfully updated, false - if updating borrowed event didn't succeed 
 		 */
 		//update borrowed event if date changes
 		public boolean updateBorrowedDate(BorrowedThing thing) {
@@ -456,10 +448,9 @@ public class CalendarController {
 		 * Boolean method that gets a String containing old borrowed thing's description 
 		 * and the borrowed thing that was updated as parameters and updates a database borrowed Event.
 		 * Method first checks if there was a borrowed event already.
-		 * @param String  - the old description of the updated borrowed thing 
-		 * @param BorrowedThing the borrowed thing that was updated
-		 * @return true - if borrowed event was successfully updated
-		 * @return false - if updating borrowed event didn't succeed 
+		 * @param oldTitle  - the old description of the updated borrowed thing 
+		 * @param thing the borrowed thing that was updated
+		 * @return true - if borrowed event was successfully updated, false - if updating borrowed event didn't succeed
 		 */
 		//update borrowed event if borrowed thing's description changes
 		public boolean updateBorrowedTitle(String oldTitle, BorrowedThing thing) {
@@ -514,6 +505,7 @@ public class CalendarController {
 		//deletes borrowed event
 		/** 
 		 * Method for deleting the "should return" event from events
+		 * @param borrowedThing -  BorrowedThing, the event of which is being searched for
 		 * @return deleted boolean indicating whether or not the event has been successfully deleted
 		 */
 		public boolean deleteBorrowedEvent(BorrowedThing borrowedThing) {
@@ -532,8 +524,8 @@ public class CalendarController {
 		//used for updating or deleting the right borrowed event - HARD CODED!
 		/** 
 		 * Method for finding the borrowed event based on the description of the borrowed item
-		 * @param thing  BorrowedThing, the event of which is being searched for
-		 * @return event the right event is returned
+		 * @param thing  -BorrowedThing, the event of which is being searched for
+		 * @return event - the right event is returned or null if there was no event
 		 */
 		public Event findBorrowedEvent(BorrowedThing thing) {
 			//the person who has borrowed the item

@@ -62,7 +62,7 @@ public class BorrowedController {
 	
 	/** 
 	 * Constructor to create controller for BorrowedThings
-	 *@param tableGUI BorrowedTableGUI for the BorrowedThing view
+	 *@param tableGUI BorrowedTableGUI for the BorrowedThing view 
 	 */
 	public BorrowedController(BorrowedTableGUI tableGUI) {
 		this.tableGUI = tableGUI; 
@@ -113,7 +113,7 @@ public class BorrowedController {
 	
 	/** 
 	 * Method for creating a new borrowed thing and saving it to the database
-	 * return BorrowedThing[] array containing all borrowed things
+	 * @return BorrowedThing[] array containing all borrowed things
 	 */ 
 	public BorrowedThing[] getBorrowedThings() {
 		return borrowedThingDAO.readBorrowedThings();
@@ -198,8 +198,8 @@ public class BorrowedController {
 	//deletes borrowed event
 	/** 
 	 * Method for deleting the "should return" event from events
-	 * @return true if the event has been successfully deleted
-	 * @return false if the event hasn't been deleted
+	 * @param borrowedThing  BorrowedThing that the event concerns
+	 * @return true if the event has been successfully deleted, false if the event hasn't been deleted
 	 */
 	public boolean deleteBorrowedEvent(BorrowedThing borrowedThing) {
 		return calendarController.deleteBorrowedEvent(borrowedThing);
@@ -256,8 +256,7 @@ public class BorrowedController {
 	 * Method for updating the event is the person relating to it is changed
 	 * @param oldPerson Person who is changed
 	 * @param editedBorrowedThing BorrowedThing the event and borrower of which are being changed
-	 * @return true if the event has been successfully updated
-	 * @return false if the event hasn't been successfully updated
+	 * @return true if the event has been successfully updated, false if the event hasn't been successfully updated
 	 */
 	public boolean updateBorrowedEventPerson(Person oldPerson, BorrowedThing editedBorrowedThing) {
 		return calendarController.updateBorrowedEventPerson(oldPerson, editedBorrowedThing);

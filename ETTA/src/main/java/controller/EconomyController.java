@@ -138,9 +138,8 @@ public class EconomyController {
 	
 	/**
 	 * Method for updating a transfer, gets called if the date or the description of the transfer has been modified
-	 * @param Transfer that need to be updated
-	 * @return true if the transfer was successfully updated
-	 * @return false if updating the transfer didn't succeed
+	 * @param editedTransfer that need to be updated
+	 * @return true if the transfer was successfully updated, false if updating the transfer didn't succeed
 	 */
 	public boolean updateTransfer(Transfer editedTransfer) {
 		return transDAO.updateTransfer(editedTransfer);
@@ -172,7 +171,7 @@ public class EconomyController {
 	
 	/** 
 	 * Method that gets income Categories from CategoryDAO and makes a list containing categories' names only 
-	 * @return ObservableList<String> names - list of income categories' names
+	 * @return names - ObservableList<String> list of income categories' names
 	 */ 
 	public ObservableList<String> incomeCategoriesList() {
 		Category[] categories = categoryDAO.readIncomeCategories();
@@ -186,7 +185,7 @@ public class EconomyController {
 	
 	/** 
 	 * Method that gets expense Categories from CategoryDAO and makes a list containing categories' names only 
-	 * @return ObservableList<String> names - list of expense categories' names
+	 * @return names - ObservableList<String> list of expense categories' names
 	 */ 
 	public ObservableList<String> expenseCategoriesList() {
 		Category[] categories = categoryDAO.readExpenseCategories();
@@ -201,7 +200,7 @@ public class EconomyController {
 
 	/** 
 	 * Method that gets new transfer's detail from  an addTransferGUI and gives the transfer to TransferDAO
-	 * @param ITransferAddGUI class implementation
+	 * @param gui - ITransferAddGUI class implementation
 	 */ 
 	public void saveTransfer(ITransferAddGUI gui) {
 		Transfer transfer = new Transfer();
@@ -239,7 +238,7 @@ public class EconomyController {
 	 * Method that gets the selected transfer from ITransferAddGUI, 
 	 * tells TransferDAO to delete the transfer from the database 
 	 * and ITransferAddGUI to delete it from the tableView.
-	 * @param ITransferAddGUI class implementation
+	 * @param gui - ITransferAddGUI class implementation
 	 */ 
 	public void removeTransfer(ITransferGUI gui) {
 		transDAO.deleteTransfer(gui.transferToDelete().getTransfer_id());
@@ -303,8 +302,7 @@ public class EconomyController {
 	/** 
 	 * Boolean method that updates the saving in the database 
 	 * @param Saving to update in the database 
-	 * @return true if the saving was updates successfully
-	 * @return false if the updating of the saving didn't succeed
+	 * @return true if the saving was updates successfully, false if the updating of the saving didn't succeed
 	 */
 	public boolean updateSaving(Saving editedSavingDesc) {
 		return savingDAO.updateSaving(editedSavingDesc);
@@ -320,9 +318,8 @@ public class EconomyController {
 
 	/** 
 	 * Boolean method that updates the balance amount 
-	 * @param float amount that will be taken from or added to the balance
-	 * @return true if the balance was updates successfully
-	 * @return false if the updating of the balance didn't succeed
+	 * @param amount that will be taken from or added to the balance
+	 * @return true if the balance was updates successfully, false if the updating of the balance didn't succeed
 	 */
 	public boolean updateBalanceAmount(float amount) {
 		if(enoughBalance(amount)) {
@@ -341,9 +338,8 @@ public class EconomyController {
 	
 	/** 
 	 * Boolean method that there is enough money on the balance to create or update a Transfer or a Saving 
-	 * @param float amount that will be taken from the balance
-	 * @return true if the balance is enough 
-	 * @return false if there is not enough money on the balance for the change
+	 * @param amount - amount that will be taken from the balance
+	 * @return true if the balance is enough, false if there is not enough money on the balance for the change  
 	 */
 	public boolean enoughBalance(float amount) {
 		Balance balance = balanceDao.readBalance(1);
@@ -357,7 +353,7 @@ public class EconomyController {
 
 	/** 
 	 * Method that gets Savings from SavingDAO and makes a list containing savings' descriptions only 
-	 * @return ObservableList<String> names - list of savings' descriptions
+	 * @return names - ObservableList<String>  list of savings' descriptions
 	 */ 
 	public ObservableList<String> getSavingsList() {
 		Saving[] savings = savingDAO.readSavings();
@@ -372,8 +368,8 @@ public class EconomyController {
 	/** 
 	 * Method that gets a saving description as the parameter 
 	 * and gives it forward to SavingsDAO to search for a saving with this description in the database
-	 * @param String the description of a saving goal 
-	 * @return Saving the found Saving from the database
+	 * @param description -  the description of a saving goal 
+	 * @return saving  - the found Saving from the database
 	 */ 
 	public Saving getSaving(String description) {
 		Saving saving = savingDAO.getSaving(description);
@@ -383,7 +379,7 @@ public class EconomyController {
 	/** 
 	 * Boolean method that makes an income and an expence from a saving. The saving is also removed from the database. 
 	 * This method gets called if a saving goal is achieved and user wants to mark that he's spent this money for this goal
-	 * @param Saving the achieved Saving that should be deleted from the database
+	 * @param achievedSaving - the achieved Saving that should be deleted from the database
 	 */
 	public void moveSavingToExpense(Saving achievedSaving) {
 		savingDAO.deleteSaving(achievedSaving.getSaving_id());
@@ -400,9 +396,8 @@ public class EconomyController {
 	 * This method gets called if a saving goal is achieved and user wants to mark that he has spent this money for this goal
 	 * If there is no needed Category yet (Category with name "savings"), CategoryDAO will create a Category with this name.
 	 * TransferDAO creates a new income Transfer.
-	 * @param Saving the achieved Saving which data will be used for creating the expense transfer
-	 * @return true if the transfer creating succeeded
-	 * @return false if the creation of transfer didn't succeed
+	 * @param achievedSaving the achieved Saving which data will be used for creating the expense transfer
+	 * @return true if the transfer creating succeeded, false if the creation of transfer didn't succeed
 	 */
 	public boolean fromSavingToIncome(Saving achievedSaving) {
 		Category fromSaved = categoryDAO.readCategory("savings");
@@ -431,9 +426,8 @@ public class EconomyController {
 	 * This method gets called if a saving goal is achieved and user wants to mark that he has spent this money for this goal
 	 * If there is no needed Category yet (Category with name "achieved saving goal"), CategoryDAO will create a Category with this name.
 	 * TransferDAO creates a new expense Transfer.
-	 * @param Saving the achieved Saving which data will be used for creating the expense transfer
-	 * @return true if the transfer creating succeeded
-	 * @return false if the creation of transfer didn't succeed
+	 * @param achievedSaving the achieved Saving which data will be used for creating the expense transfer
+	 * @return true if the transfer creating succeeded, false if the creation of transfer didn't succeed
 	 */
 	public boolean fromSavingToExpense(Saving achievedSaving) {
 		Category paidFromSaved = categoryDAO.readCategory("achieved saving goal");
