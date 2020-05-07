@@ -31,15 +31,19 @@ public class CalendarController {
 	/**
 	 * EventDAO used for accessing the database
 	 */
-	EventDAO eventDAO = new EventDAO();
+	private EventDAO eventDAO = new EventDAO();
 	
 	//used for tests
+	/**
+	 * Constructor to create controller for Calendar, used in tests
+	 * @param eventDAO EventDAO
+	 */
 	public CalendarController(EventDAO eventDAO2) {
 		this.eventDAO = eventDAO2;
 	}
 
 	/**
-	 * Constructor to create controller for Calendar
+	 * Constructor to create controller for Calendar without parameters
 	 */
 	public CalendarController() {
 		
@@ -48,8 +52,8 @@ public class CalendarController {
 	/** 
 	 * Method that checks if the event already exists in the database.
 	 * @param id - entry/event id
-	 * @return false if the event already exists in the database
-	 * @return true if the event is in database already
+	 * @return false if the event doesn't exist in the database already
+	 * @return true if the event is in the database already
 	 */
 	public boolean checkIfEventExist(int id) {
 		if(eventDAO.readEvent(id)==null) {
@@ -60,12 +64,13 @@ public class CalendarController {
 	
 	/** 
 	 * Method that creates CalendarsSource with calendars. There are 6 calendars created: birthdays, kids, work, borrowed,
-	 * wishlist and freetime. Each calendar gets it 's own style, so that they are shown with a different color in the calendar.
+	 * wishlist and freetime. Each calendar gets its own style, so that they are shown with a different color in the calendar.
 	 * After the calendars are created, the program reads events from the database for each of the Calendars,
 	 * converts them into CalendarFX Entries and adds to the calendars in the CalendarSource. 
-	 * @return CalendarSource calendarSource consisting of 6 calendars
+	 * @return calendarSource CalendarSource consisting of 6 calendars
 	 */
 	public CalendarSource getCalendarSource() {
+		//Calendars created and styles set
 		Calendar calendar2 = new Calendar("birthdays");
 		calendar2.setStyle(Style.STYLE2);
 		Calendar calendar3 = new Calendar("kids");
@@ -79,6 +84,7 @@ public class CalendarController {
 		Calendar calendar7 = new Calendar("free time");
 		calendar7.setStyle(Style.STYLE7);
 		
+		//calendarsource created and calendars added
 		CalendarSource myCalendarSource = new CalendarSource("My Calendars"); 
 		myCalendarSource.getCalendars().addAll(calendar2, calendar3, calendar4, calendar5, calendar6, calendar7);
 		ObservableList<Calendar> calendars = myCalendarSource.getCalendars();
@@ -96,7 +102,7 @@ public class CalendarController {
 	
 	/** 
 	 * Method that handles CalendarEvents
-	 * @param CalendarEvent event - creation, editing or deleting of the event
+	 * @param evt CalendarEvent - creation, editing or deleting of the event
 	 */
 	public void handleCalendarEvent(CalendarEvent evt) {
 		//calendar entry is removed from the calendar, event needs to me removed from the database
@@ -121,7 +127,7 @@ public class CalendarController {
 	
 	/** 
 	 * Method that converts LocalDate to sql Date
-	 * @param LocalDate that will be converted
+	 * @param dateToConvert LocalDate that will be converted
 	 * @return Date converted from LocalDate
 	 */
 	public Date convertToDateViaSqlDate(LocalDate dateToConvert) {
@@ -130,7 +136,7 @@ public class CalendarController {
 	
 	/** 
 	 * Method that converts LocalTime to sql Time
-	 * @param LocalTime that will be converted
+	 * @param localTime LocalTime that will be converted
 	 * @return Time converted from LocalTime
 	 */
 	public static java.sql.Time toSqlTime(LocalTime localTime) {
@@ -139,8 +145,8 @@ public class CalendarController {
 	
 	/** 
 	 * Method that creates a CalendarFX Entry used in the app from Event class from the database
-	 * @param Event - event to be converted into Entry
-	 * @return Entry - entry converted  from  Event
+	 * @param event - Event to be converted into Entry
+	 * @return entry - Entry converted  from  Event
 	 */ 
 	public Entry fromEventToEntry(Event event) {
 		Entry entry = new Entry();
@@ -160,8 +166,8 @@ public class CalendarController {
 	  
 	/** 
 	 * Method that creates a database class Event from a CalendarFX Entry used in the app
-	 * @param Entry - entry to be converted into Event
-	 * @return Event - event converted  from Entry
+	 * @param entry - Entry to be converted into Event
+	 * @return event - Event converted  from Entry
 	 */ 
 	 public Event fromEntryToEvent(Entry entry) {
 		Event event = new Event();
@@ -190,7 +196,7 @@ public class CalendarController {
 	 
 		/** 
 		 * Method that returns default CalendarsSource with the default calendar
-		 * @return CalendarSource 
+		 * @return calendarSource 
 		 */
 	 public CalendarSource getDefaultCalendarSource(CalendarView calendarView) {
 		 CalendarSource calendarSource = calendarView.getCalendarSources().get(0);
@@ -212,7 +218,7 @@ public class CalendarController {
 		 * Boolean method that gets a String containing Person's name and a Date containing Person's birthday as parameters 
 		 * and creates a database  birthday Event.
 		 * Method first checks if there was a birthday event already. If there was none, a new birthday event is created. 
-		 * @param String name - the name of the Person/the future title of the birthday event
+		 * @param name - String giving the name of the Person/the future title of the birthday event
 		 * @param Date birthday - the date of the Person's birthday
 		 * @return true - if birthday event was successfully created
 		 * @return false - if creating birthday event didn't succeed 
@@ -405,7 +411,7 @@ public class CalendarController {
 		/** 
 		 * Method for creating a event relating to a borrowed item
 		 * @param borrowedThing the item that the event concerns
-		 * @return eventDAO.createEvent(borrowed) boolean indicating whether or not the event has been successfully created
+		 * @return boolean indicating whether or not the event has been successfully created
 		 */ 
 		public boolean createBorrowedEvent(BorrowedThing borrowedThing) {
 			Event borrowed = new Event();
@@ -508,7 +514,7 @@ public class CalendarController {
 		//deletes borrowed event
 		/** 
 		 * Method for deleting the "should return" event from events
-		 * @return deleted whether or not the event has been successfully deleted
+		 * @return deleted boolean indicating whether or not the event has been successfully deleted
 		 */
 		public boolean deleteBorrowedEvent(BorrowedThing borrowedThing) {
 			boolean deleted = false;
@@ -526,7 +532,7 @@ public class CalendarController {
 		//used for updating or deleting the right borrowed event - HARD CODED!
 		/** 
 		 * Method for finding the borrowed event based on the description of the borrowed item
-		 * @param BorrowedThing  borrowed item, the event of which is being searched for
+		 * @param thing  BorrowedThing, the event of which is being searched for
 		 * @return event the right event is returned
 		 */
 		public Event findBorrowedEvent(BorrowedThing thing) {

@@ -6,17 +6,20 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+/**
+ * Data access object class for Languages. Used in accessing the table in the database.
+ */
 public class LanguageDAO {
 	
 	/**
 	 * Transaction object to carry out database transactions
 	 */
-	Transaction transaction = null;
+	private Transaction transaction = null;
 	/**
 	 * Boolean indicating whether the DAO should connect to the test database or not
 	 * Default value false
 	 */
-	boolean test = false;
+	private boolean test = false;
 	
 	/**
 	 * Construction without parameters
@@ -40,7 +43,6 @@ public class LanguageDAO {
 	 * @param language_id int the id of the Language to be read
 	 * @return language read from the database
 	 */
-	
 	public Language readLanguage(int language_id) {
 		Language language = new Language();
 		try {
@@ -81,30 +83,8 @@ public class LanguageDAO {
 	}
 	
 	/**
-	 * Method for updating a language in the database
-	 * @param language Language the updated Language object
-	 * @return success Boolean indicating the success or failure of the database transaction
-	 */
-	/*
-	public boolean selectLanguage(Language language) {
-		boolean success = false;
-		try (Session session = HibernateUtil.getSessionFactory(test).openSession()) {
-			transaction = session.beginTransaction();
-			session.update(language);
-			transaction.commit();
-			success = true;
-		} catch (Exception e) {
-			if (transaction != null) transaction.rollback();
-			throw e;
-		}
-		System.out.println("selected" + language.getDescription());
-		return success;
-	}
-	*/
-	
-	/**
 	 * Method for retrieving a language from the database
-	 * @return language Language the selected language from the database if transaction is successful
+	 * @return language Language from the database if transaction is successful
 	 */
 	public Language getSelectedLanguage() {
 		Language language = new Language();
@@ -121,12 +101,11 @@ public class LanguageDAO {
 			return null;
 		}
 		return language;
-		
 	}
 
 	/**
 	 * Method for creating a new language in the database
-	 * @param language Language object that is to be created in the database
+	 * @param language Language that is to be created in the database
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean createLanguage(Language language) {
@@ -145,7 +124,7 @@ public class LanguageDAO {
 	
 	/**
 	 * Method for updating a language in the database
-	 * @param language Language the updated Language object
+	 * @param language Language to be updated
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean updateLanguage(Language language) {

@@ -95,35 +95,39 @@ public class ContactsController {
 	}
 
 	/** 
-	 * Constructor 
-	 * @param ContactsGUI 
+	 * Constructor for contacts controller
+	 * @param conGUI ContactsGUI 
 	 */
 	public ContactsController(ContactsGUI conGUI) {
 		this.conGUI = conGUI;
 	}
 
 	/** 
-	 * Constructor 
+	 * Constructor for contacts controller without parameters
 	 */
 	public ContactsController() {
 	}
 
 	/** 
-	 * Constructor 
-	 * @param ContactsTableGUI 
+	 * Constructor for contacts controller
+	 * @param contactsTableGUI ContactsTableGUI 
 	 */
 	public ContactsController(ContactsTableGUI contactsTableGUI) {
 		this.conTableGUI = contactsTableGUI;
 	}
 	
 	/** 
-	 * Constructor 
-	 * @param PersonDAO 
+	 * Constructor for contacts controller
+	 * @param personDAO PersonDAO 
 	 */
 	public ContactsController(PersonDAO personDAO) {
 		this.perDAO= personDAO;
 	}
 
+	/** 
+	 * Constructor for contacts controller
+	 * @param contactsSearchGUI ContactsSearchGUI 
+	 */
 	public ContactsController(ContactsSearchGUI contactsSearchGUI) {
 		this.conSearchGUI = contactsSearchGUI;
 	}
@@ -171,7 +175,7 @@ public class ContactsController {
 	/** 
 	 * Boolean method that gets a Person that was updated in the application as a parameter and tells PersonDAO to update it.
 	 * and creates a database  birthday Event. 
-	 * @param Person editedPrreson - the Person that needs to be updated
+	 * @param Person editedPerson - the Person that needs to be updated
 	 * @return true - if person was successfully updated
 	 * @return false - if updating a person didn't succeed 
 	 */ 

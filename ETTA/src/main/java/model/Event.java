@@ -13,39 +13,71 @@ import javax.persistence.*;
 @Table(name="Event")
 public class Event {
 
-	
+	/**
+	 * a unique integer for identifying the event
+	 */
 	@Id
 	//@GeneratedValue
 	@Column(name="event_id")
 	private int event_id;
 
+	/**
+	 * String containing the title of the event
+	 */
 	@Column(name="title")
 	private String title;
 	
+	/**
+	 * location of the event in String
+	 */
 	@Column(name="location")
 	private String location;
 
+	/**
+	 * boolean indicating whether or not the event lasts a whole day
+	 */
 	@Column(name="fullday")
 	private boolean fullday;
 
+	/**
+	 * start Date of the event
+	 */
 	@Column(name="startDate")
 	private Date startDate;
 
+	/**
+	 * end Date of the event
+	 */
 	@Column(name="endDate")
 	private Date endDate;
 
+	/**
+	 * Time of day when the event starts
+	 */
 	@Column(name="startTime")
 	private Time startTime;
 
+	/**
+	 * Time of day when the event ends
+	 */
 	@Column(name="endTime")
 	private Time endTime;
 
+	/**
+	 * Boolean indicating whether or not the event is recurring
+	 */
 	@Column(name="recurring")
 	private boolean recurring;
 
+	/**
+	 * String describing how often the events recurs
+	 */
 	@Column(name="rrule")
 	private String rrule;
 	
+	/**
+	 * String describing how often the events recurs
+	 */
 	@Column(name="calendar")
 	private String calendar;
 	
@@ -198,7 +230,7 @@ public class Event {
 
 	/**
 	 * Function to fetch the start time of the event from the database.
-	 * @return startTime Time on which the event starts
+	 * @return startTime Time at which the event starts
 	 */
 	public Time getStartTime() {
 		return startTime;
@@ -206,7 +238,7 @@ public class Event {
 	
 	/**
 	 * Function to register the end time of the event in the database.
-	 * @param startTime Time on which the event starts
+	 * @param startTime Time at which the event starts
 	 */
 	public void setStartTime(Time startTime) {
 		this.startTime = startTime;
@@ -214,14 +246,14 @@ public class Event {
 	
 	/**
 	 * Function to fetch the end time of the event from the database.
-	 * @return endTime Time on which the event ends
+	 * @return endTime Time at which the event ends
 	 */
 	public Time getEndTime() {
 		return endTime;
 	}
 	/**
 	 * Function to register the end time of the event in the database.
-	 * @param endTime Time on which the event ends
+	 * @param endTime Time at which the event ends
 	 */
 	public void setEndTime(Time endTime) {
 		this.endTime = endTime;

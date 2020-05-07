@@ -14,13 +14,13 @@ public class BorrowedThingDAO {
 	/**
 	 * Transaction object to carry out database transaction
 	 */
-	Transaction transaction = null;
+	private Transaction transaction = null;
 	
 	/**
 	 * Boolean indicating whether the DAO should connect to the test database or not
 	 * Default value false
 	 */
-	boolean test = false;
+	private boolean test = false;
 	
 	/**
 	 * Construction without parameters
@@ -83,7 +83,7 @@ public class BorrowedThingDAO {
 	
 	/**
 	 * Method for reading all Borrowed Things in the database
-	 * @return borrowedThings Array containing all Borrowed items in the database
+	 * @return borrowedThings array containing all Borrowed items in the database
 	 */
 	public BorrowedThing[] readBorrowedThings() {
 		ArrayList<BorrowedThing> list = new ArrayList<>();
@@ -145,7 +145,6 @@ public class BorrowedThingDAO {
 		}
 		return success;
 	}
-	
 	
 	/**
 	 * Method for reading Borrowed Things in the database that use a concrete Person

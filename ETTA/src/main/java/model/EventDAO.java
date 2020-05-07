@@ -98,7 +98,6 @@ public class EventDAO {
 	 * @return created Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean createEvent(Event event) {
-		//System.out.println("Event creating " + event.getTitle() + " calendar " + event.getCalendar());
 		
 		boolean created = false;
 		Transaction transaction = null;
@@ -146,7 +145,7 @@ public class EventDAO {
 	
 	/**
 	 * method for deleting one Event from the database
-	 * @param id the id of the event
+	 * @param event_id the id of the event
 	 * @return deleted Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean deleteEvent(int event_id) {
@@ -178,7 +177,7 @@ public class EventDAO {
 	}
 	
 	/**
-	 * method for reading events only belonging to the calendar recieved as parameter from the database
+	 * method for reading events only belonging to the calendar received as parameter from the database
 	 * @return Event[]  list of  event objects read from the database
 	 */
 	public Event[] readEventsFromOneCalendar(String calendar, boolean test) {

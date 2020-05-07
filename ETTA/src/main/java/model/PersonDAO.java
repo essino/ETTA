@@ -18,13 +18,13 @@ public class PersonDAO {
 	/**
 	 * Transaction object to carry out database transactions
 	 */
-	Transaction transaction = null;
+	private Transaction transaction = null;
 	
 	/**
 	 * Boolean indicating whether the DAO should connect to the test database or not
 	 * Default value false
 	 */
-	boolean test = false;
+	private boolean test = false;
 	
 	/**
 	 * Construction without parameters
@@ -45,7 +45,7 @@ public class PersonDAO {
 	
 	 /**
 	 * Method for creating a new Person in the database
-	 * @param person Person the person object to be added to the database
+	 * @param person Person to be added to the database
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean createPerson(Person person) {
@@ -67,9 +67,9 @@ public class PersonDAO {
 	}
 	
 	/**
-	 * Method for reading one specific Person in the database
-	 * @param person_id int the id of the Person to be read
-	 * @return success Boolean indicating the success or failure of the database transaction
+	 * Method for reading one specific Person in the database with id number
+	 * @param person_id the id of the Person to be read
+	 * @return person the read Person
 	 */
 	public Person readPerson(int person_id) {
 		Person person = new Person();
@@ -88,12 +88,11 @@ public class PersonDAO {
 	}
 	
 	/**
-	 * Method for reading one specific Person in the database
+	 * Method for reading one specific Person in the database with name
 	 * @param name String the name of the Person to be read
 	 * @return person Person read from the database
 	 */
 	public Person readPerson(String name) {
-		//System.out.println("id in reading one " + id);
 		Person person = new Person();
 		try {
 			Session session = HibernateUtil.getSessionFactory(test).openSession();
@@ -140,7 +139,7 @@ public class PersonDAO {
 
 	/**
 	 * Method for updating a Person in the database
-	 * @param person Person the updated person object
+	 * @param person the updated Person
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean updatePerson(Person person) {
@@ -159,7 +158,7 @@ public class PersonDAO {
 
 	/**
 	 * Method for deleting a Person from the database
-	 * @param person_id int the id of the Person to be deleted
+	 * @param person_id (int) the id of the Person to be deleted
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean deletePerson(int person_id) {

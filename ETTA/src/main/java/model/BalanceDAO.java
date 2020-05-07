@@ -1,11 +1,7 @@
 package model;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 /**
  *  Data access object class for Balance. Used in the creation of the database table for Balance through Hibernate.
@@ -16,13 +12,13 @@ public class BalanceDAO {
 	/**
 	 * Transaction object to carry out database transaction
 	 */
-	Transaction transaction = null;
+	private Transaction transaction = null;
 	
 	/**
 	 * Boolean indicating whether the DAO should connect to the test database or not
 	 * Default value false
 	 */
-	boolean test = false;
+	private boolean test = false;
 	
 	/**
 	 * Construction without parameters
@@ -44,7 +40,7 @@ public class BalanceDAO {
 	/** 
 	 * Method that creates a balance row in the Balance table. Is is used only once, there should be only one row on the Balance table. 
 	 * @param balance Balance object 
-	 * @return true if balance row was created successfully  
+	 * @return success true if balance row was created successfully  
 	 */
 	public boolean createBalance(Balance balance) {
 		boolean success = false;
@@ -65,8 +61,7 @@ public class BalanceDAO {
 	/** 
 	 * Method that updates a balance row in the Balance table. 
 	 * @param balance object 
-
-	 * @return true if balance row was updated successfully  
+	 * @return success true if balance row was updated successfully  
 	 */
 	public boolean updateBalance(Balance balance) {
 		boolean success = false;

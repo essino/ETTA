@@ -22,7 +22,7 @@ public class BorrowedController {
 	/**
 	 * PersonDAO used for accessing the database
 	 */
-	PersonDAO personDAO = new PersonDAO();
+	private PersonDAO personDAO = new PersonDAO();
 	
 	/**
 	 * EventDAO used for accessing the database
@@ -55,14 +55,14 @@ public class BorrowedController {
 	private CalendarController calendarController = new CalendarController();
 	
 	/**
-	 * Constructor to create controller for BorrowedThings
+	 * Constructor to create controller for BorrowedThings without parameters
 	 */
 	public BorrowedController() {
 	}
 	
 	/** 
 	 * Constructor to create controller for BorrowedThings
-	 *@param tableGUI the gui for the BorrowedThing view
+	 *@param tableGUI BorrowedTableGUI for the BorrowedThing view
 	 */
 	public BorrowedController(BorrowedTableGUI tableGUI) {
 		this.tableGUI = tableGUI; 
@@ -70,7 +70,7 @@ public class BorrowedController {
 	
 	/**
 	 * Constructor to create controller for BorrowedThings
-	 *@param addGUI the gui for adding borrowed things
+	 *@param addGUI BorrowedAddGUI for adding borrowed things
 	 */
 	public BorrowedController(BorrowedAddGUI addGUI) {
 		this.addGUI = addGUI;
@@ -78,7 +78,7 @@ public class BorrowedController {
 	
 	/**
 	 * Constructor to create controller for BorrowedThings
-	 *@param returnedGUI the gui for showing returned items
+	 *@param returnedGUI BorrowedReturnedGUI for showing returned items
 	 */
 	public BorrowedController(BorrowedReturnedTableGUI returnedGUI) {
 		this.returnedGUI = returnedGUI;
@@ -139,9 +139,9 @@ public class BorrowedController {
 	}
 	
 	/** 
-	 * Method for creating a event relating to a borrowed item
-	 * @param borrowedThing the item that the event concerns
-	 * @return eventDAO.createEvent(borrowed) boolean indicating whether or not the event has been successfully created
+	 * Method for creating an event relating to a borrowed item
+	 * @param borrowedThing BorrowedThing that the event concerns
+	 * @return boolean indicating whether or not the event has been successfully created
 	 */ 
 	public boolean createBorrowedEvent(BorrowedThing borrowedThing) {
 		return calendarController.createBorrowedEvent(borrowedThing);
@@ -208,7 +208,7 @@ public class BorrowedController {
 	//updates the return date in the borrowed event
 	/** 
 	 * Method for updating the return date in an event concerning the borrowed item
-	 * @param borrowedThing the borrowed thing, the event of which is changed
+	 * @param borrowedThing BorrowedThing, the event of which is changed
 	 */
 	public void updateReturnDate(BorrowedThing borrowedThing) {
 		calendarController.updateBorrowedDate(borrowedThing);
@@ -217,8 +217,8 @@ public class BorrowedController {
 	//updates the title of the borrowed event 
 	/** 
 	 * Method for updating the title of the borrowed event 
-	 * @param String oldDescription the description of the borrowed item that is being changed
-	 * @param BorrowedThing editedBorrowedThing  the borrowed thing that is being updated
+	 * @param oldDescription String describing the borrowed item that is being changed
+	 * @param editedBorrowedThing BorrowedThing the borrowed thing that is being updated
 	 */
 	public void updateBorrowedEventTitle(String oldDescription, BorrowedThing editedBorrowedThing) {
 		calendarController.updateBorrowedTitle(oldDescription, editedBorrowedThing);
@@ -226,7 +226,7 @@ public class BorrowedController {
 	
 	/** 
 	 * Method for updating the borrowed item
-	 * @param borrowedThing the borrowed thing that is being updated
+	 * @param borrowedThing BorrowedThing that is being updated
 	 */
 	public void updateBorrowedThing(BorrowedThing borrowedThing) {
 		borrowedThingDAO.updateBorrowedThing(borrowedThing);
@@ -235,8 +235,8 @@ public class BorrowedController {
 	//used for updating or deleting the right borrowed event
 	/** 
 	 * Method for finding the borrowed event based on the description of the borrowed item
-	 * @param BorrowedThing  borrowed item, the event of which is being searched for
-	 * @return the event that calendarController found
+	 * @param thing  BorrowedThing, the event of which is being searched for
+	 * @return event that calendarController found
 	 */
 	public Event findRightEvent(BorrowedThing thing) {
 		return calendarController.findBorrowedEvent(thing);
@@ -244,8 +244,8 @@ public class BorrowedController {
 	
 	/** 
 	 * Method for finding the right person
-	 * @param name the name matching the person that is being searched for
-	 * @return Person the found person
+	 * @param name String matching the person that is being searched for
+	 * @return the found person
 	 */
 	public Person findPerson(String name) {
 		return personDAO.readPerson(name);
@@ -254,8 +254,8 @@ public class BorrowedController {
 	//updating borrowed event if person changes
 	/** 
 	 * Method for updating the event is the person relating to it is changed
-	 * @param oldPerson the person who is changed
-	 * @param editedBorrowedThing the borrowed thing the event and borrower of which are being changed
+	 * @param oldPerson Person who is changed
+	 * @param editedBorrowedThing BorrowedThing the event and borrower of which are being changed
 	 * @return true if the event has been successfully updated
 	 * @return false if the event hasn't been successfully updated
 	 */

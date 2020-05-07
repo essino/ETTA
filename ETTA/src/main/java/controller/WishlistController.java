@@ -19,7 +19,7 @@ public class WishlistController {
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	MyBundle myBundle = new MyBundle();
+	private MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * ItemDAO used for accessing the database
@@ -34,7 +34,7 @@ public class WishlistController {
 	/**
 	 * PersonDAO used for accessing the database
 	 */
-	PersonDAO personDAO = new PersonDAO();
+	private PersonDAO personDAO = new PersonDAO();
 	
 	/**
 	 * EventDAO used for accessing the database
@@ -44,7 +44,7 @@ public class WishlistController {
 	/**
 	 * The input check class used for validating user input
 	 */
-	InputCheck inputCheck = new InputCheck();
+	private InputCheck inputCheck = new InputCheck();
 
 	/** 
 	 * Calendar controller object
@@ -60,7 +60,7 @@ public class WishlistController {
 	}
 	
 	/**
-	 * Constructor
+	 * Constructor without parameters
 	 */
 	public WishlistController() {
 		
@@ -163,6 +163,7 @@ public class WishlistController {
 	/** 
 	 * Method for getting the item currently selected in a gui
 	 * @param gui AbstractWishlistGUI the gui whose selected item is wanted
+	 * @return Item selected item
 	 */ 
 	public Item getSelectedItem(AbstractWishlistGUI gui) {
 		return gui.getSelectedItem();
@@ -183,6 +184,7 @@ public class WishlistController {
 	
 	/** 
 	 * Method for marking an item as bought
+	 * @param gui AbstractWishlistGUI abstract gui implementation
 	 */ 
 	public void setBought(AbstractWishlistGUI gui) {
 		Item item = itemDAO.readItem(getSelectedItem(gui).getDescription());
@@ -209,6 +211,7 @@ public class WishlistController {
 	
 	/** 
 	 * Method for finding a specific person from the database
+	 * @return Person the person being searched for
 	 */ 
 	public Person findPerson(String name) {
 		return personDAO.readPerson(name);

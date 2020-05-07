@@ -9,10 +9,18 @@ import javax.persistence.*;
 @Entity
 @Table(name="Balance")
 public class Balance {
+	
+	/**
+	 * a unique integer for identifying the balance
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private int id;
+	
+	/**
+	 * amount of balance
+	 */
 	@Column
 	private float balance = 0;
 	
@@ -57,7 +65,6 @@ public class Balance {
 	 *@param balance float amount of the balance
 	 */
 	public Balance(float balance) {
-
 		this.balance = balance;
 	}
 	
