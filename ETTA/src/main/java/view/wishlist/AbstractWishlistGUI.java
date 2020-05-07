@@ -37,59 +37,59 @@ public abstract class AbstractWishlistGUI {
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	MyBundle myBundle = new MyBundle();
+	private MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * Reference to the used WishlistController
 	 */
-	WishlistController controller = new WishlistController();
+	private WishlistController controller = new WishlistController();
 
 	/**
 	 * Reference to the used CalendarController
 	 */
-	CalendarController calendarController = new CalendarController();
+	private CalendarController calendarController = new CalendarController();
 
 	/**
 	 * Table view for showing the wishlist items
 	 */
 	@FXML
-	TableView<Item> wishlisttable;
+	private TableView<Item> wishlisttable;
 
 	/**
 	 * Table view column for item name
 	 */
 	@FXML
-	TableColumn<Item, String> item;
+	private TableColumn<Item, String> item;
 
 	/**
 	 * Table view column for person name
 	 */
 	@FXML
-	TableColumn<Item, String> person;
+	private TableColumn<Item, String> person;
 
 	/**
 	 * Table view column for item price
 	 */
 	@FXML
-	TableColumn<Item, Double> price;
+	private TableColumn<Item, Double> price;
 
 	/**
 	 * Table view column for item date
 	 */
 	@FXML
-	TableColumn<Item, Date> date;
+	private TableColumn<Item, Date> date;
 
 	/**
 	 * Table view column for item additional information
 	 */
 	@FXML
-	TableColumn<Item, String> addinfo;
+	private TableColumn<Item, String> addinfo;
 
 	/**
 	 * Table view column for bought boolean
 	 */
 	@FXML
-	TableColumn<Item, String> bought;
+	private TableColumn<Item, String> bought;
 
 	/**
 	 * The dateCellFactory for editing dates in the table
@@ -102,7 +102,10 @@ public abstract class AbstractWishlistGUI {
 	 */
 	public void initializeTable() {
 		wishlisttable.setEditable(true);
+		//nothing in the table
 		wishlisttable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
+		
+		//displaying and editing the description of the items
 		item.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
 		item.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
 		item.setOnEditCommit(new EventHandler<CellEditEvent<Item, String>>() {
@@ -112,11 +115,13 @@ public abstract class AbstractWishlistGUI {
 				String oldDescription = editedItem.getDescription();
 				editedItem.setDescription(t.getNewValue());
 				controller.updateItem(editedItem);
+				//updating the event connected to the item
 				calendarController.updateWishlistDescription(oldDescription, editedItem);
 				wishlisttable.refresh();
 			}
 		});
 
+		//displaying and editing the person name of the items
 		person.setCellValueFactory(new PropertyValueFactory<Item, String>("person"));
 		person.setCellFactory(ComboBoxTableCell.<Item, String>forTableColumn(controller.personsList()));
 		person.setOnEditCommit(new EventHandler<CellEditEvent<Item, String>>() {
@@ -124,6 +129,7 @@ public abstract class AbstractWishlistGUI {
 			public void handle(CellEditEvent<Item, String> t) {
 				Item editedItem = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
 				String newName = t.getNewValue();
+				//if the item is for the person himself, person is null in the database
 				if (newName == "Me" || newName == "Minä") {
 					newName = null;
 				}
@@ -135,11 +141,13 @@ public abstract class AbstractWishlistGUI {
 				Person newPerson = controller.findPerson(newName);
 				editedItem.setPerson(newPerson);
 				controller.updateItem(editedItem);
+				//updating the event connected to the item
 				calendarController.updateWishlistPerson(oldName, editedItem);
 				wishlisttable.refresh();
 			}
 		});
 
+		//displaying and editing the state of  the items - are they bought or not
 		bought.setCellValueFactory(new Callback<CellDataFeatures<Item, String>, ObservableValue<String>>() {
 			public ObservableValue<String> call(CellDataFeatures<Item, String> item) {
 				if (item.getValue().isBought() == true) {
@@ -151,6 +159,7 @@ public abstract class AbstractWishlistGUI {
 			}
 		});
 
+		//displaying and editing the price of the items
 		price.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
 		price.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
 		price.setOnEditCommit(new EventHandler<CellEditEvent<Item, Double>>() {
@@ -163,6 +172,7 @@ public abstract class AbstractWishlistGUI {
 			}
 		});
 
+		//displaying and editing the date when the items are needed
 		date.setCellValueFactory(new PropertyValueFactory<Item, Date>("dateNeeded"));
 		date.setCellFactory(dateCellFactory);
 		date.setOnEditCommit((TableColumn.CellEditEvent<Item, Date> t) -> {
@@ -170,10 +180,12 @@ public abstract class AbstractWishlistGUI {
 			Date oldDate = editedItem.getDateNeeded();
 			editedItem.setDateNeeded(t.getNewValue());
 			controller.updateItem(editedItem);
+			//updating the event connected to the item
 			calendarController.updateWishlistDate(oldDate, editedItem);
 			wishlisttable.refresh();
 		});
 
+		//displaying and editing the additional info about the items
 		addinfo.setCellValueFactory(new PropertyValueFactory<Item, String>("additionalInfo"));
 		addinfo.setCellFactory(TextFieldTableCell.<Item>forTableColumn());
 		addinfo.setOnEditCommit(new EventHandler<CellEditEvent<Item, String>>() {
@@ -189,12 +201,11 @@ public abstract class AbstractWishlistGUI {
 
 	/**
 	 * Method for loading the view of add to wishlist
-	 * 
-	 * @param event ActionEvent that is handled
 	 */
 	public AnchorPane loadAddWish() {
 		AnchorPane showAddWishView = null;
 		FXMLLoader loaderAddWishView = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistAdd.fxml"));
+		//setting the text resources
 		loaderAddWishView.setResources(myBundle.getBundle());
 		try {
 			showAddWishView = loaderAddWishView.load();
@@ -215,6 +226,8 @@ public abstract class AbstractWishlistGUI {
 
 	/**
 	 * Method for checking that an item is currently selected in the table
+	 * @return true if some item is selected
+	 * @return false if nothing is selected
 	 */
 	public boolean checkItemIsSelected() {
 		Item item = getSelectedItem();

@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import model.Item;
-import res.MyBundle;
 
 /**
  * GUI class relating to the wishlist bought items section
@@ -17,30 +16,26 @@ import res.MyBundle;
 public class WishlistBoughtGUI extends AbstractWishlistGUI {
 	
 	/**
-	 * MyBundle object for setting the right resource bundle to localize the application
-	 */
-	MyBundle myBundle = new MyBundle();
-	/**
 	 * Reference to the used WishlistController
 	 */
-	WishlistController controller = new WishlistController();
+	private WishlistController controller = new WishlistController();
 	
 	/**
 	 * The anchor pane view from where adding, editing and deleting can be started
 	 */
 	@FXML
-	AnchorPane wishlistBoughtAnchorpane;
+	private AnchorPane wishlistBoughtAnchorpane;
 	
 	/**
 	 * Table view for showing the wishlist items
 	 */
 	@FXML
-	TableView<Item> wishlisttable;
+	private TableView<Item> wishlisttable;
 	
 	/**
 	 * The input check class used for validating user input and handling alerts
 	 */
-	InputCheck inputCheck = new InputCheck();
+	private InputCheck inputCheck = new InputCheck();
 
 	/**
 	 * Initialize-method called when the class is created

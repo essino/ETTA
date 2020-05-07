@@ -1,6 +1,5 @@
 package view.wishlist;
 
-
 import java.io.IOException;
 import java.sql.Date;
 
@@ -27,57 +26,57 @@ public class WishlistAddGUI {
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	MyBundle myBundle = new MyBundle();
+	private MyBundle myBundle = new MyBundle();
 	/**
 	 * Text field for the name of the item to be added
 	 */
 	@FXML
-	TextField item;
+	private TextField item;
 	
 	/**
 	 * ComboBox for selecting the person who the item to be added is for
 	 */
 	@FXML
-	ComboBox<String> toWhom;
+	private ComboBox<String> toWhom;
 	
 	/**
 	 * Text field for the price of the item to be added
 	 */
 	@FXML
-	TextField price;
+	private TextField price;
 	
 	/**
 	 * Date picker for the date the item to be added is needed
 	 */
 	@FXML
-	DatePicker date;
+	private DatePicker date;
 	
 	/**
 	 * Text field for additional information about the item to be added
 	 */
 	@FXML
-	TextField additional;
+	private TextField additional;
 	
 	/**
 	 * The anchor pane for the add view
 	 */
 	@FXML
-	AnchorPane wishlistaddpane;
+	private AnchorPane wishlistaddpane;
 	
 	/**
 	 * Reference to the used WishlistController
 	 */
-	WishlistController controller = new WishlistController(this);
+	private WishlistController controller = new WishlistController(this);
 	
 	/**
 	 * The input check class used for validating user input
 	 */
-	InputCheck inputCheck = new InputCheck();
+	private InputCheck inputCheck = new InputCheck();
 	
 	/**
 	 * PersonDAO used for accessing the database
 	 */
-	PersonDAO personDAO = new PersonDAO();
+	private PersonDAO personDAO = new PersonDAO();
 	
 	/**
 	 * Constructor without parameters
@@ -96,6 +95,7 @@ public class WishlistAddGUI {
 			toWhom.getItems().addAll(controller.personsList());
 			toWhom.getItems().add("");
 			toWhom.setCellFactory(lv -> {
+				//adding a new person when adding a new item
 	            ListCell<String> cell = new ListCell<String>() {
 	                @Override
 	                protected void updateItem(String item, boolean empty) {
@@ -157,7 +157,8 @@ public class WishlistAddGUI {
 	
 	/**
 	 * Method for getting the date when the item is needed from the date picker
-	 * @return the date when the item is needed
+	 * @return the date when the item is needed if a date is chosen
+	 * @return null if no date is chosen
 	 */
 	@FXML
 	public Date getItemDate() {
@@ -185,10 +186,13 @@ public class WishlistAddGUI {
 	 */
 	@FXML
 	public void addNewItem() {
+		//price should be a number
 		if (inputCheck.isInputFloat(price.getText()) || inputCheck.isInputEmpty(price.getText())) {
+			//no items without description allowed
 			if (!inputCheck.isInputEmpty(item.getText())) {
-				System.out.println("Desc " + item.getText());
+				//save the new item
 				controller.saveItem();
+				//displaying the table view after adding an item 
 				AnchorPane wishlistView = null; 
 				FXMLLoader loaderWishlistView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistView.fxml")); 
 				loaderWishlistView.setResources(myBundle.getBundle());
@@ -214,6 +218,7 @@ public class WishlistAddGUI {
 	public void cancelAdd() {
 		AnchorPane wishlistView = null; 
 		FXMLLoader loaderWishlistView  = new FXMLLoader(getClass().getResource("/view/wishlist/WishlistView.fxml")); 
+		//setting the text resources
 		loaderWishlistView.setResources(myBundle.getBundle());
 		try {
 			wishlistView = loaderWishlistView.load();
