@@ -79,7 +79,6 @@ public class ContactsGUI {
 		try {
 			contactsSearchView = loaderContactsSearchView.load();
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		contactsrootborderpane.setCenter(contactsSearchView);
@@ -97,7 +96,6 @@ public class ContactsGUI {
 		try {
 			contactsView = loaderContactsView.load();
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		contactsrootborderpane.setCenter(contactsView);
@@ -124,7 +122,6 @@ public class ContactsGUI {
 				try {
 					contactsView = loaderContactsView.load();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				contactsaddanchorpane.getChildren().setAll(contactsView);
@@ -180,7 +177,6 @@ public class ContactsGUI {
 		try {
 			contactsView = loaderContactsView.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		contactsaddanchorpane.getChildren().setAll(contactsView);

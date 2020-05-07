@@ -143,9 +143,10 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 		
 		Locale locale = Locale.getDefault();
 	    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-		
+	    //descriptions set in the cells
 		incomeDescription.setCellValueFactory(
                 new PropertyValueFactory<Transfer, String>("description"));
+		//income dates set in the cells
 		incomeDate.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Date>("date"));
 		incomeDate.setCellFactory(column -> {
@@ -163,11 +164,13 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 	        };
 	        return cell;
 	    });
+		//amount set in the cells
 		incomeAmount.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Float>("amount"));
-		
+		//descriptions set in the cells
 		expenseDescription.setCellValueFactory(
                 new PropertyValueFactory<Transfer, String>("description"));
+		//expenses dates set in the cells
 		expenseDate.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Date>("date"));
 		expenseDate.setCellFactory(column -> {
@@ -187,7 +190,8 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 	    });
 		expenseAmount.setCellValueFactory(
                 new PropertyValueFactory<Transfer, Float>("amount"));
-	
+		
+		//search transfers from last seven days from database
 		searchWeeksTransfers();	
 
 	}
@@ -216,8 +220,6 @@ public class BalanceOverviewGUI extends AbstractEconomyGUI{
 	public void searchWeeksTransfers() {
 		LocalDate endDate = LocalDate.now();
 		LocalDate startDate = endDate.minusDays(6);
-		System.out.println(startDate);
-		System.out.println(endDate);
 		//This gets all transfers from this period
 		controller.getSelectedTransfers(this, java.sql.Date.valueOf(startDate), java.sql.Date.valueOf(endDate));
 	}

@@ -120,6 +120,7 @@ public abstract class AbstractBorrowedGUI {
 	        };
 	        return cell;
 	    });
+		//for setting the right value for returned or not
 		returned.setCellValueFactory(new Callback<CellDataFeatures<BorrowedThing, String>, ObservableValue<String>>(){
 			public ObservableValue<String> call(CellDataFeatures<BorrowedThing, String> borrowedThingDescr) {
 				if (borrowedThingDescr.getValue().isReturned() == true) {
