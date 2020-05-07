@@ -76,7 +76,8 @@ public class MainPageGUI  {
     private TableColumn<Event, Time> endTime;
 	
 	/** 
-	 * Constructor  
+	 * Constructor
+	 * Creates the MainViewController, passes itself as a parameter to the controller
 	 */ 
 	public MainPageGUI() {
 		controller = new MainViewController(this);
@@ -84,7 +85,7 @@ public class MainPageGUI  {
 	}
 	
 	/** 
-	 * Method that displays balance amount on the page 
+	 * Method that sets and displays the balance amount on the page 
 	 * @param amount the balance amount
 	 */
 	public void setBalance(double amount) {
@@ -99,14 +100,17 @@ public class MainPageGUI  {
 	@FXML
 	public void initialize() {
 		controller.getBalance();
+		//gets today's date
 		Locale locale = Locale.getDefault();
 	    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
 		LocalDate localDate = LocalDate.now();
 		String text = localDate.toString();
 		java.util.Date sqlDate = java.sql.Date.valueOf(text);
 		todaysDate.setText(df.format(sqlDate));
+		//displays the title of the events
 		title.setCellValueFactory(
                 new PropertyValueFactory<Event, String>("title"));
+		//displays the start date of the events
 		startDate.setCellValueFactory(
                 new PropertyValueFactory<Event, Date>("startDate"));
 		startDate.setCellFactory(column -> {
@@ -114,9 +118,11 @@ public class MainPageGUI  {
 	            @Override
 	            protected void updateItem(Date item, boolean empty) {
 	                super.updateItem(item, empty);
+	                //if there is no date, show empty cell
 	                if(empty) {
 	                    setText(null);
 	                }
+	                //if there is a date, format it
 	                else {
 	                	setText(df.format(item));
 	                }
@@ -124,8 +130,10 @@ public class MainPageGUI  {
 	        };
 	        return cell;
 	    });
+		//displays the start time of the events
 		startTime.setCellValueFactory(
                 new PropertyValueFactory<Event, Time>("startTime"));
+		//displays the end time of the events
 		endTime.setCellValueFactory(
                 new PropertyValueFactory<Event, Time>("endTime"));
 		
