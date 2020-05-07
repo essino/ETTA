@@ -4,14 +4,9 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
 
 /**
  * Data access object class for Transfers. Used in accessing the table in the database.
@@ -48,8 +43,8 @@ public class TransferDAO {
 	
 	/**
 	 * Method for creating a new Transfer in the database
-	 * @param transfer Transfer the transfer object to be added to the database
-	 * @return success Boolean indicating the success or failure of the database transaction
+	 * @param Transfer the transfer object to be added to the database
+	 * @return Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean createTransfer(Transfer transfer) {
 		boolean success = false;
@@ -69,8 +64,8 @@ public class TransferDAO {
 	
 	/**
 	 * Method for reading one specific Transfer in the database
-	 * @param transfer_id int the id of the Transfer to be read
-	 * @return success Boolean indicating the success or failure of the database transaction
+	 * @param transfer_id - int the id of the Transfer to be read
+	 * @return transfer - the found Transfer from the database
 	 */
 	public Transfer readTransfer(int transfer_id) {
 		Transfer transfer = new Transfer();
@@ -89,7 +84,9 @@ public class TransferDAO {
 	}
 	
 	/**
-	 * Method for reading seleted Transfers in the database
+	 * Method for reading selected Transfers in the database, transfers are filtered by the dates
+	 * @param dateStart - the earliest date of the transfers
+	 * @param dateEnd - the latest date of the transfers
 	 * @return Transfer[] array with all the transfers in the database
 	 */
 	public Transfer[] readSeletedTransfers(Date dateStart, Date dateEnd) {
@@ -99,7 +96,6 @@ public class TransferDAO {
 			transaction = session.beginTransaction();
 			@SuppressWarnings("unchecked")
 			List<Transfer> result = session.createQuery("from Transfer where date between '" +dateStart+ "' and '"+dateEnd + "'").getResultList();
-			System.out.println("Olenko täällä?");
 			for(Transfer transfer : result) {
 				list.add(transfer);
 				System.out.println("reading selected: " + transfer.getDescription());

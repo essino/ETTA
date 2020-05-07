@@ -1,6 +1,5 @@
 package model;
 
-
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -10,32 +9,53 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Model class for Savings. Used in the creation of the database table for Savings through Hibernate.
+ */
 @Entity
 @Table(name="Saving")
 
 public class Saving {
+	/**
+	 * a unique integer for the ID of the specificsaving
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="saving_id")
 	private int saving_id;
 	
+	/**
+	 * the description of the savings goal
+	 */
 	@Column(name="description", length=50)
 	private String description;
 	
+	/**
+	 * the saved amount of the savings goal
+	 */
 	@Column(name="amount")
 	private float amount = 0;
 	
+	/**
+	 * the goal amount of the savings goal
+	 */
 	@Column(name="goalAmount")
 	private float goalAmount;
 	
+	/**
+	 * the goal date of the savings goal
+	 */
 	@Column(name="goalDate", nullable=true)
 	private Date goalDate;
 	
+	/**
+	 * the progress of the savings goal (depends on the amount ang goal amount)
+	 */
 	@Column(name="progress")
 	private double progress = 0;
 
 	/**
-	 * Constructor
+	 * Constructor for creating a saving with parameters
 	 * @param desc String describing the saving
 	 * @param amountGoal float indicating how much money should be saved in total
 	 * @param reachedGoal float indicating how much money has been saved until now
@@ -88,7 +108,7 @@ public class Saving {
 	}
 
 	/**
-	 * Method for fetching the saving's amount
+	 * Method for fetching the saving's saved amount
 	 * @return amount float indicating how much money has already been saved
 	 */
 	public float getAmount() {
@@ -96,7 +116,7 @@ public class Saving {
 	}
 
 	/**
-	 * Method for setting the saving's amount
+	 * Method for setting the saving's saved amount
 	 * @param amount float indicating how much money has already been saved
 	 */
 	public void setAmount(float amount) {
