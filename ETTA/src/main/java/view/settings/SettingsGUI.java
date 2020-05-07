@@ -28,7 +28,7 @@ public class SettingsGUI {
 	private ComboBox<String> languageList;
 	
 	/**
-	 * The language that is in use
+	 * The language that is currently in use
 	 */
 	@FXML
 	private Label chosenLanguage;
@@ -72,6 +72,7 @@ public class SettingsGUI {
 	@FXML
 	public void saveLanguage() {
 		String lang = languageList.getSelectionModel().getSelectedItem();
+		//if nothing is selected
 		if (lang == null) {
 			check.alertNothingComboBox();
 		} else {

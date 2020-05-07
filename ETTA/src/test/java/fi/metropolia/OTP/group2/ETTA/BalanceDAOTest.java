@@ -10,9 +10,9 @@ import controller.EconomyController;
 import model.Balance;
 import model.BalanceDAO;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
+//tests for BalanceDAO and EconomyController classes
 @TestMethodOrder(OrderAnnotation.class)
 public class BalanceDAOTest {
 
@@ -22,13 +22,15 @@ public class BalanceDAOTest {
 	private Balance balance = new Balance(100);
 	private int id = 1; 
 	
-	
+	//testing creating new balance
 	@Test
 	@Order(1)
 	public void testCreate() {
 		assertEquals(true, balanceDAO.createBalance(balance), "Creation of balance failed");
 	}
 	
+	//testing reading Balance in BalanceDAO and EconomyController methods, 
+	//just reading and checking if there is enough money on the balance for a balance change
 	@Test
 	@Order(2)
 	public void testReadBalance() {
@@ -38,6 +40,7 @@ public class BalanceDAOTest {
 		assertEquals(100, controller.getBalanceAmount(), "Reading balance failed");
 	}
 	
+	//testing updating balance from the controller, whick uses updating method in BalanaceDAO
 	@Test
 	@Order(3)
 	public void testUpdate() {

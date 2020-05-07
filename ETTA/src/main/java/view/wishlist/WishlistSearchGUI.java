@@ -6,7 +6,6 @@ import java.util.Locale;
 
 import org.controlsfx.control.textfield.TextFields;
 
-import controller.InputCheck;
 import controller.WishlistController;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
@@ -36,71 +35,66 @@ public class WishlistSearchGUI {
 	/**
 	 * MyBundle object for setting the right resource bundle to localize the application
 	 */
-	MyBundle myBundle = new MyBundle();
+	private MyBundle myBundle = new MyBundle();
 	
 	/**
 	 * Reference to the used WishlistController
 	 */
-	WishlistController controller = new WishlistController();
+	private WishlistController controller = new WishlistController();
 	
 	/**
 	 * The anchor pane view for wishlist search view
 	 */
 	@FXML
-	AnchorPane wishlistsearchanchorpane;
+	private AnchorPane wishlistsearchanchorpane;
 	
 	/**
 	 * Table view for showing the wishlist items
 	 */
 	@FXML
-	TableView<Item> wishlistSearchTable;
+	private TableView<Item> wishlistSearchTable;
 	
 	/**
 	 * Table view column for item name
 	 */
 	@FXML
-	TableColumn<Item, String> item;
+	private TableColumn<Item, String> item;
 
 	/**
 	 * Table view column for person name
 	 */
 	@FXML
-	TableColumn<Item, String> person;
+	private TableColumn<Item, String> person;
 
 	/**
 	 * Table view column for item price
 	 */
 	@FXML
-	TableColumn<Item, Double> price;
+	private TableColumn<Item, Double> price;
 
 	/**
 	 * Table view column for item date
 	 */
 	@FXML
-	TableColumn<Item, Date> date;
+	private TableColumn<Item, Date> date;
 
 	/**
 	 * Table view column for item additional information
 	 */
 	@FXML
-	TableColumn<Item, String> addinfo;
+	private TableColumn<Item, String> addinfo;
 
 	/**
 	 * Table view column for bought boolean
 	 */
 	@FXML
-	TableColumn<Item, String> bought;
+	private TableColumn<Item, String> bought;
 	
 	/**
 	 * TextField for searching
 	 */
 	@FXML
 	private TextField input;
-	
-	/**
-	 * The input check class used for validating user input and handling alerts
-	 */
-	InputCheck inputCheck = new InputCheck();
 
 	/**
 	 * Initialize-method called when the class is created

@@ -22,17 +22,17 @@ public class WishlistDateEditingCell extends TableCell<Item, java.sql.Date> {
 	/**
 	 * Default locale
 	 */
-	Locale locale = Locale.getDefault();
+	private Locale locale = Locale.getDefault();
 
 	/**
 	 * DateFormat for localizing the dates
 	 */
-	DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+	private DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
     
 	/**
 	 * Constructor without parameters
 	 */
-    public WishlistDateEditingCell() {
+	public WishlistDateEditingCell() {
     	
     }
 
@@ -99,14 +99,14 @@ public class WishlistDateEditingCell extends TableCell<Item, java.sql.Date> {
     	}
         datePicker.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
         datePicker.setOnAction((e) -> {
-            System.out.println("Committed: " + datePicker.getValue().toString());
             commitEdit((Date) Date.valueOf(datePicker.getValue()));
         });
     }
 
     /**
      * Method for getting the date from the data picker
-     * @return Date the selected date. If there is no date is selected, return null
+     * @return Date the selected date.  
+     * @return null if there is no date is selected
      */
     private Date getDate() {
     	if (getItem() == null) {
