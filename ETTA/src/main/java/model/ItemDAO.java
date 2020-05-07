@@ -18,13 +18,13 @@ public class ItemDAO {
 	/**
 	 * Transaction object to carry out database transactions
 	 */
-	Transaction transaction = null;
+	private Transaction transaction = null;
 	
 	/**
 	 * Boolean indicating whether the DAO should connect to the test database or not
 	 * Default value false
 	 */
-	boolean test = false;
+	private boolean test = false;
 	
 	/**
 	 * Construction without parameters
@@ -45,7 +45,7 @@ public class ItemDAO {
 	
 	/**
 	 * Method for creating a new Item in the database
-	 * @param item Item the item object to be added to the database
+	 * @param item Item to be added to the database
 	 * @return success Boolean indicating the success or failure of the database transaction
 	 */
 	public boolean createItem(Item item) {

@@ -8,18 +8,29 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Model class for category of income/expence. Used in the creating, reading and updating of the database table for Category through Hibernate.
+ * Model class for category of income/expense. Used in the creating, reading and updating of the database table for Category through Hibernate.
  */
 @Entity
 @Table(name="Category")
 public class Category {
 	
+	/**
+	 * a unique integer for identifying the category
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="Category_id")
 	private int Category_id;
+	
+	/**
+	 * the description of the category
+	 */
 	@Column(name="description", length=50)
 	private String description;
+	
+	/**
+	 * boolean indicating if the category relates to income
+	 */
 	@Column(name="income")
 	private boolean income;
 	
@@ -34,7 +45,7 @@ public class Category {
 	
 	/**
 	 * Function to register the type of the category (income/expense) into the database
-	 * @param income the type of the category in the database
+	 * @param income boolean for indicating if the category has to do with income or not
 	 */
 	public void setCategory_type(boolean income) {
 		this.income = income;
@@ -75,7 +86,8 @@ public class Category {
 	}	
 	/**
 	 * Constructor to create borrowed items.
-	 *@param description String describing the category of income/expence
+	 *@param description String describing the category of income/expense
+	 *@param income boolean for indicating if the category has to do with income or not
 	 */
 	public Category(String description, boolean income) {
 		this.description = description;
@@ -83,7 +95,7 @@ public class Category {
 	}	
 	/**
 	 * Function that returns the category as String
-	 *@return this.description String describing the category
+	 *@return description String describing the category
 	 */
 	@Override
 	public String toString() {

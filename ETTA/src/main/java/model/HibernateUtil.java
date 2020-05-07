@@ -18,6 +18,8 @@ public class HibernateUtil {
 	
 	/**
 	 * Method for creating (if it doesn't already exist) and getting the SessionFactory object
+	 * @param test boolean indicating whether a session factory is used for tests or not
+	 * @return SessionFactory 
 	 */
 	public static SessionFactory getSessionFactory(boolean test) {
 		if (test) {

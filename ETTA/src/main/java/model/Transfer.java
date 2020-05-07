@@ -17,24 +17,42 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Transfer")
 public class Transfer {
+	/**
+	 * a unique integer for the ID of the specific transfer
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="transfer_id")
 	private int transfer_id;
 	
+	/**
+	 * the description of the transfer
+	 */
 	@Column(name="description", length=50)
 	private String description;
 	
+	/**
+	 * the category of the transfer
+	 */
 	@ManyToOne
 	@JoinColumn(name="category", nullable=true)
 	private Category category;
 	
+	/**
+	 * boolean showing if the transfer is income (true) or expense (false)
+	 */
 	@Column(name="income")
 	private boolean income;
 	
+	/**
+	 * the date of the transfer
+	 */
 	@Column (name="date")
 	private Date date;
 	
+	/**
+	 * the amount of the transfer
+	 */
 	@Column(name="amount")
 	private float amount;
 	
@@ -111,7 +129,8 @@ public class Transfer {
 
 	/**
 	 * Function to check if the transfer is income or not.
-	 * @return income whether the transfer is income or not
+	 * @return true if the transfer is income
+	 * @return false if the transfer is an expense
 	 */
 	public boolean isIncome() {
 		return income;

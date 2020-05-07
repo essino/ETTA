@@ -9,13 +9,23 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Language")
 public class Language {
+	
+	/**
+	 * unique id number
+	 */
 	@Id
 	@Column
 	private int language_id;
 	
+	/**
+	 * String naming the language
+	 */
 	@Column(length=50)
 	private String description;
 	
+	/**
+	 * Boolean indicating if the language has been chosen by the user to be used
+	 */
 	@Column(name="Chosen")
 	private boolean chosen;
 	
@@ -28,7 +38,7 @@ public class Language {
 
 	/**
 	 * Function to fetch the language's unique id number
-	 * @return language_id id number (int) referring to a certain language
+	 * @return language_id id number referring to a certain language
 	 */
 	public int getLanguage_id() {
 		return language_id;
@@ -36,7 +46,7 @@ public class Language {
 
 	/**
 	 * Function to set a language id number
-	 * @param language_id id number (int) referring to a certain language
+	 * @param language_id id number referring to a certain language
 	 */
 	public void setLanguage_id(int language_id) {
 		this.language_id = language_id;
@@ -44,7 +54,7 @@ public class Language {
 
 	/**
 	 * Function to fetch the language's unique id number
-	 * @return description String name of language
+	 * @return description String naming the language
 	 */
 	public String getDescription() {
 		return description;
@@ -53,7 +63,7 @@ public class Language {
 	/**
 	 * Construction with parameters
 	 * @param id unique id number (int)
-	 * @param description String name of language
+	 * @param description String naming the language
 	 * @param chosen boolean indicating whether or not the language is in use
 	 */
 	public Language(int id, String description, boolean chosen) {

@@ -11,11 +11,11 @@ public class MainViewController {
 	/**
 	 * BalanceDAO used for accessing the database
 	 */
-	BalanceDAO balanceDao = new BalanceDAO();
+	private BalanceDAO balanceDao = new BalanceDAO();
 	/**
 	 * Reference to MainPageGUI
 	 */
-	MainPageGUI mainPageGUI;
+	private MainPageGUI mainPageGUI;
 	
 	/** 
 	 * Constructor 
@@ -40,13 +40,13 @@ public class MainViewController {
 	public boolean checkIfBalanceExist() { 
 		if(balanceDao.readBalance(1) == null) { 
 			createBalance(); 
-			//return true;
 		} 
 		return true;
 	} 
 	
 	/** 
 	 * Method that tells BalanceDAO to create the balance to the database.  
+	 * @return boolean indicating if the creation of balance has succeeded or not
 	 */
 	public boolean createBalance() { 
 		System.out.println("creating balance");

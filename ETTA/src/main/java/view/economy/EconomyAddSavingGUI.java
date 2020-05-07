@@ -131,7 +131,6 @@ public class EconomyAddSavingGUI {
 		try {
 			savingView = loaderSavingsView.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 			addSavingPane.getChildren().setAll(savingView);

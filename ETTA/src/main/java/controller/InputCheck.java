@@ -74,7 +74,6 @@ public class InputCheck {
 		alert.setContentText(myBundle.getBundle().getString("checkInputEmptyContent"));
 		alert.showAndWait();
 	}
-	//TODO: add checking for Min and MAx values for integers and Floats
 	
 	/** 
 	 * Method that checks if loan date is before return data
@@ -229,6 +228,7 @@ public class InputCheck {
 	
 	/** 
 	 * Method that creates the pop-up in which the marking an item bought is confirmed
+	 * @return confirmed boolean indicating if the user confirms the action or not
 	 */
 	public boolean confrimMarkBought() {
 		boolean confirmed = false;

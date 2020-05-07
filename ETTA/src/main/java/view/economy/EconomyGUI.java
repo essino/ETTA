@@ -35,12 +35,11 @@ public class EconomyGUI {
 	@FXML
 	public void showBalance(ActionEvent event) {
 		AnchorPane showBalanceView = null; 
-		FXMLLoader loaderBalanceView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyBalanceOverview.fxml")); //haen tiedot anchorpaniin
+		FXMLLoader loaderBalanceView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyBalanceOverview.fxml")); 
 		loaderBalanceView .setResources(myBundle.getBundle());
 		try {
 			showBalanceView = loaderBalanceView.load();
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		economyrootborderpane.setCenter(showBalanceView);
@@ -59,7 +58,6 @@ public class EconomyGUI {
 		try {
 			showIncomeView = loaderIncomeView.load();
 			} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			}
 		economyrootborderpane.setCenter(showIncomeView);

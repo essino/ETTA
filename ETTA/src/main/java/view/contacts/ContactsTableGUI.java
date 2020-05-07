@@ -88,8 +88,9 @@ public class ContactsTableGUI {
   	 */
   	@FXML 
   	public void initialize() { 
-  		
+  		//sets the placeholder in case table is empty
   		contactsTable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
+  		
   		contactsName.setCellValueFactory(
                   new PropertyValueFactory<Person, String>("name"));
   		contactsEmail.setCellValueFactory(
@@ -98,6 +99,7 @@ public class ContactsTableGUI {
                   new PropertyValueFactory<Person, Date>("birthday"));
   		ObservableList<Person> contacts =  FXCollections.observableArrayList(controller.getPeople());
   		contactsTable.setItems(contacts);
+  		//makes in-table editing possible
   		contactsTable.setEditable(true);
   		
   		contactsName.setCellFactory(TextFieldTableCell.<Person>forTableColumn());
@@ -138,6 +140,7 @@ public class ContactsTableGUI {
 					public void handle(CellEditEvent<Person, String> t) {
 						//person's email edited in the table
 						Person editedPerson = ((Person) t.getTableView().getItems().get(t.getTablePosition().getRow()));
+						//updating person's email
 						editedPerson.setEmail(t.getNewValue());
 						controller.updatePerson(editedPerson);
 						contactsTable.refresh();

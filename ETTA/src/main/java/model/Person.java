@@ -12,17 +12,29 @@ import javax.persistence.*;
 @Table(name="Person")
 public class Person {
 
+	/**
+	 * Unique identifying id number for each person
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private int person_id;
 	
+	/**
+	 * Person's name
+	 */
 	@Column(length=50)
 	private String name;
 	
+	/**
+	 * Person's birthday
+	 */
 	@Column(nullable=true)
 	private Date birthday;
 	
+	/**
+	 * Person's email
+	 */
 	@Column(length=50, nullable=true)
 	private String email;
 	
@@ -47,71 +59,71 @@ public class Person {
 
 	/**
 	 * Constructor to create people
-	 *@param name String the person's name
+	 *@param name the person's name
 	 */
 	public Person(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * Function to fetch the id number of the person from the database.
-	 * @return person_id the id number of the person in the database
+	 * Function to fetch the id number of the person
+	 * @return person_id the id number of the person
 	 */
 	public int getPerson_id() {
 		return person_id;
 	}
 
 	/**
-	 * Function to register the id number of the person into the database
-	 * @param person_id int the id number of the person in the database
+	 * Function to register the id number of the person
+	 * @param person_id the id number of the person
 	 */
 	public void setPerson_id(int person_id) {
 		this.person_id = person_id;
 	}
 
 	/**
-	 * Function to fetch the name of the person from the database.
-	 * @return name the name of the person in the database
+	 * Function to fetch the name of the person
+	 * @return name the name of the person
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * Function to register the name of the person into the database
-	 * @param name String the id number of the person in the database
+	 * Function to register the name of the person
+	 * @param name the name of the person
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * Function to fetch the birthday of the person from the database.
-	 * @return birthday the birthday of the person in the database
+	 * Function to fetch the birthday of the person
+	 * @return birthday the birthday of the person
 	 */
 	public Date getBirthday() {
 		return birthday;
 	}
 
 	/**
-	 * Function to register the birthday of the person into the database
-	 * @param birthday Date the id number of the person in the database
+	 * Function to register the birthday of the person
+	 * @param birthday the birthday of the person
 	 */
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
 	/**
-	 * Function to fetch the e-mail of the person from the database.
-	 * @return email the e-mail address of the person in the database
+	 * Function to fetch the e-mail of the person
+	 * @return email the e-mail address of the person
 	 */
 	public String getEmail() {
 		return email;
 	}
 
 	/**
-	 * Function to register the e-mail of the person into the database
-	 * @param email String the e-mail address of the person in the database
+	 * Function to register the e-mail of the person
+	 * @param email the e-mail address of the person
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -119,7 +131,7 @@ public class Person {
 	
 	/**
 	 * Function returning person's name
-	 *@return this.name String naming the person
+	 *@return String naming the person
 	 */
 	@Override
 	public String toString() {

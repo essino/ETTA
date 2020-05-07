@@ -173,10 +173,13 @@ public class EconomyAddOutcomeGUI implements ITransferAddGUI{
 	 */
 	@FXML
 	public void saveExpense() {
+		//check if user has given a number as the amount
 		if(inputCheck.isInputFloat(outcomeAmount.getText())) {
-			
+			//check if there is a name of the expences given
 			if(!inputCheck.isInputEmpty(outcomeDescription.getText())) {
+				//save expense
 			controller.saveTransfer(this);
+			//show tableview with the expences
 			AnchorPane outcomeView = null; 
 			FXMLLoader loaderOutcomeView  = new FXMLLoader(getClass().getResource("/view/economy/EconomyOutcome.fxml")); 
 			loaderOutcomeView .setResources(myBundle.getBundle());

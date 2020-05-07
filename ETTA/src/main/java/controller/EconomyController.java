@@ -95,18 +95,30 @@ public class EconomyController {
 	}
 
 	//constructor used for tests
+	/** 
+	 * Constructor 
+	 * @param categoryDAO2
+	 * @param transferDAO 
+	 */ 
 	public EconomyController(CategoryDAO categoryDAO2, TransferDAO transferDAO) {
 		this.categoryDAO = categoryDAO2;
 		this.transDAO = transferDAO; 
 	}
 
 	//constructor used for tests
+	/** 
+	 * Constructor 
+	 * @param balanceDAO2 
+	 */ 
 	public EconomyController(BalanceDAO balanceDAO2) {
 		this.balanceDao = balanceDAO2;
 	}
 
-
 	//constructor used for tests
+	/** 
+	 * Constructor 
+	 * @param savingDAO2
+	 */ 
 	public EconomyController(SavingDAO savingDAO2) {
 		this.savingDAO = savingDAO2;
 	}
@@ -127,7 +139,7 @@ public class EconomyController {
 	/**
 	 * Method for updating a transfer, gets called if the date or the description of the transfer has been modified
 	 * @param Transfer that need to be updated
-	 * @return true if the transfer was succefully updated
+	 * @return true if the transfer was successfully updated
 	 * @return false if updating the transfer didn't succeed
 	 */
 	public boolean updateTransfer(Transfer editedTransfer) {
@@ -136,7 +148,7 @@ public class EconomyController {
 
 	/** 
 	 * Method that gets balance amount from BalanceDAO and gives it forward to BalanceOverviewGUI to display it on the page.
-	 * If the balance is 0, meaning it was automatically set to 0 with the first usage of the app, a form for setting the rigth balance is displayed. 
+	 * If the balance is 0, meaning it was automatically set to 0 with the first usage of the app, a form for setting the right balance is displayed. 
 	 */ 
 	public void getBalance() { 
 		balanceOverviewGUI.setBalance(balanceDao.readBalance(1).getBalance()); 

@@ -121,23 +121,19 @@ public class SettingsController {
 			try {
 				FileUtils.copyFile(fiFile, messages);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
 			}
 		}
 		else {
 			try {
 				FileUtils.copyFile(enFile, messages);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
 			}
 		}
 	}
 
 	/**
 	 * Method for fetching the selected language from the database. 
-	 * If there are no languages in the database yet, a method adding languages to the databased is called.
+	 * If there are no languages in the database yet, a method adding languages to the database is called.
 	 * @return String the name of the chosen language
 	 */
 	public String getSelectedLanguage() {

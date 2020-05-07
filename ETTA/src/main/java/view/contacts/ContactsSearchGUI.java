@@ -31,49 +31,50 @@ public class ContactsSearchGUI {
 	MyBundle myBundle = new MyBundle();
 	
 	/**
-	 * the controller for Borrowed things
+	 * the controller for Contacts
 	 */
 	ContactsController controller;
 	
 	/**
-	 * The anchorpane for the overall view of returned things
+	 * The anchorpane for the overall view of contacts list
 	 */
 	@FXML
 	AnchorPane contactsearchanchorpane;
 	
 	/**
-	 * The TableView for viewing all returned items
+	 * The TableView for viewing all search contacts
 	 */
 	@FXML
 	private TableView<Person> contactsSearchTable;
 	
 	/**
-	 * The TableColumn that shows the items' names
+	 * The TableColumn that shows the person names
 	 */
 	@FXML
 	private TableColumn<Person, String> personName;
 	
 	/**
-	 * The TableColumn that shows when the items have been loaned
+	 * The TableColumn that shows e-mail addresses
 	 */
 	@FXML
 	private TableColumn<Person, String> email;
 	
 	/**
-	 * The TableColumn that shows when the items are supposed to be returned
+	 * The TableColumn that shows persons birthday
 	 */
 	@FXML
 	private TableColumn<Person, Date> birthday;
 	
-	//returned changed from boolean to String
+	
 	/**
-	 * The TableColumn that shows if the item has been returned
+	 * The TextField where user can write searched contacts
 	 */
 	@FXML
 	private TextField input;
 	
+	
 	/**
-	 * A constructor for BorrowedTableGUI in which the controller object is created
+	 * A constructor for ContactsSearchGUI in which the controller object is created
 	 */
 	public ContactsSearchGUI() {
 		controller = new ContactsController(this);
@@ -90,9 +91,13 @@ public class ContactsSearchGUI {
 	 */
 	@FXML
 	public void initialize() {
+		//sets the placeholder in case table is empty
 		contactsSearchTable.setPlaceholder(new Text(myBundle.getBundle().getString("wishlistEmpty")));
+		//names set in the cells
 		personName.setCellValueFactory(new PropertyValueFactory<Person, String>("name")); 
+		//e-mail address set in the cells
 		email.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
+		//birthdays set in the cells
 		birthday.setCellValueFactory(new PropertyValueFactory<Person, Date>("birthday"));
 		birthday.setCellFactory(column -> {
 	        TableCell<Person, Date> cell = new TableCell<Person, Date>() {
@@ -123,8 +128,8 @@ public class ContactsSearchGUI {
 	}
 	
 	/**
-	 * Method for getting the selected item from the table
-	 * @return the selected item
+	 * Method for getting the people item from the table
+	 * @return the selected person/people
 	 */
 	@FXML
 	public Person getSelectedPerson() {
@@ -137,7 +142,6 @@ public class ContactsSearchGUI {
 	 */
 	public void searchContact(ActionEvent event) {
 		String value = input.getText();
-		System.out.println("Input " + value);
 		ObservableList<Person> data = FXCollections.observableArrayList(controller.getPeople());
 		FilteredList<Person> filteredData = new FilteredList<>(data,
 	            s -> ((s.getName())).equals(value));

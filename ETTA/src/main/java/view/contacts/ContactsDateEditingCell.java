@@ -100,9 +100,10 @@ public class ContactsDateEditingCell extends TableCell<Person, java.sql.Date> {
     	else {
     		datePicker = new DatePicker(getDate().toLocalDate());
     	}
+    	//sets DatePicker to view
         datePicker.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
         datePicker.setOnAction((e) -> {
-            System.out.println("Committed: " + datePicker.getValue().toString());
+            
             commitEdit((Date) Date.valueOf(datePicker.getValue()));
         });
     }
